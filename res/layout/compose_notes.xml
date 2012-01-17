@@ -1,0 +1,34 @@
+
+<LinearLayout android:layout_height="fill_parent" android:layout_gravity="center" 
+			android:layout_width="fill_parent" android:orientation="vertical" android:background="#ffffff"
+		    xmlns:android="http://schemas.android.com/apk/res/android"
+			 >
+  <RelativeLayout android:id="@+id/title" android:layout_height="wrap_content" android:layout_gravity="center"
+			android:layout_width="fill_parent" android:layout_weight="0.0" android:background="#ffffff"
+			>
+
+  <include layout="@layout/title_bar" />
+      
+  <Button android:id="@+id/btnClose" android:text="Close" 
+  			android:layout_alignParentLeft="true"
+  			android:layout_centerVertical="true"  			
+  			android:textColor="#ffffff"
+	    	android:background="@drawable/filter_button_state" 
+	    	android:layout_marginLeft="6sp"
+			android:layout_width="50sp" android:layout_height="33sp" />
+
+  <Button android:id="@+id/btnSend" android:text="Send" 
+  			android:textColor="#ffffff"
+  			android:layout_alignParentRight="true"
+  			android:layout_centerVertical="true"  			
+	    	android:background="@drawable/filter_button_state" 
+	    	android:layout_marginRight="6sp"
+			android:layout_width="50sp" android:layout_height="33sp" />
+
+  </RelativeLayout>	
+			 
+ <EditText android:id="@+id/note_editor" android:layout_height="fill_parent" android:layout_gravity="top" android:gravity="top"
+			android:layout_width="fill_parent"
+			android:text="" />
+			
+</LinearLayout>

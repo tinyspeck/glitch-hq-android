@@ -1,0 +1,12 @@
+﻿<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/compose">
+    </item>
+    <item>
+        <shape>
+		  <corners
+      		android:radius="8px" />   
+		  <gradient android:startColor="#70202070" android:centerColor="#70505080"
+			android:endColor="#70202070" android:angle="-90" />
+        </shape>
+    </item>
+</layer-list>

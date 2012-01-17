@@ -1,0 +1,69 @@
+<LinearLayout android:id="@+id/user_data" android:layout_height="wrap_content" 
+		    xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:layout_width="160sp"    android:orientation="vertical" android:visibility="invisible"
+			>
+
+	  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" 
+				android:layout_width="fill_parent" >
+
+	  <ImageView android:layout_gravity="center"
+	    	android:src="@drawable/xp"
+	    	android:layout_margin="3sp" 
+			android:layout_width="20sp" android:layout_height="20sp" />
+			
+	  <TextView android:text="" 
+		    	style = "@style/SmallTextStyle" 
+				android:id="@+id/tv_level"		    	
+		    	android:layout_margin="3sp" 
+		    	android:layout_gravity="center"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+				
+	  </LinearLayout>	
+
+	  <RelativeLayout android:id="@+id/profile_currant" android:layout_height="wrap_content" android:layout_gravity="center" 
+				android:layout_width="fill_parent" >
+
+	  <ImageView android:layout_gravity="center"
+	    	android:src="@drawable/curranticon"
+	    	android:id="@+id/curranticon"
+	    	android:layout_alignParentLeft="true"
+	    	android:layout_alignParentTop="true"
+	    	android:layout_margin="3sp" 
+			android:layout_width="20sp" android:layout_height="20sp" />
+
+	  <TextView android:text="" 
+		    	style = "@style/SmallTextStyle"  
+				android:id="@+id/tv_currants"
+		    	android:layout_alignParentTop="true"
+		    	android:layout_toRightOf="@id/curranticon"
+		    	android:layout_margin="3sp" 
+		    	android:paddingRight="5sp" 
+		    	android:layout_gravity="center"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+	  </RelativeLayout>	
+
+	  <RelativeLayout android:layout_height="wrap_content" android:layout_gravity="center" 
+	  			android:id="@+id/player_address_view"
+				android:layout_width="fill_parent" >
+
+	  <ImageView android:layout_gravity="center"
+	    	android:src="@drawable/house"
+	    	android:id="@+id/house"
+	    	android:layout_alignParentLeft="true"
+	    	android:layout_alignParentTop="true"
+	    	android:layout_margin="3sp" 
+			android:layout_width="20sp" android:layout_height="20sp" />
+
+	  <TextView android:text="" 
+		    	style = "@style/SmallTextStyle"  
+				android:id="@+id/player_address"		    	
+		    	android:layout_alignParentTop="true"
+		    	android:layout_toRightOf="@id/house"
+		    	android:layout_margin="3sp" 
+		    	android:layout_gravity="center"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+	  
+	  </RelativeLayout>	
+	  
+  </LinearLayout>		

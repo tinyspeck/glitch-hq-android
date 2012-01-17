@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  android:layout_width="fill_parent" android:background="#ffffff"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent"
+  android:orientation="vertical">
+  
+<include layout="@layout/top_pane"/> 
+
+<ScrollView android:id="@+id/activity_detail_scrollview" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" android:layout_weight="1.0" >
+
+<LinearLayout
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" 
+  android:orientation="vertical"   android:paddingTop="10sp">
+
+<LinearLayout
+  android:id="@+id/section_activity"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" 
+  android:paddingLeft="10sp"
+  android:paddingRight="10sp"
+  android:orientation="vertical">
+  
+  <LinearLayout
+	  android:layout_width="fill_parent"
+	  android:layout_height="wrap_content" 
+	  android:layout_gravity="left" >
+
+  <ImageView android:id="@+id/activity_detail_icon" android:layout_gravity="left"
+  			android:paddingLeft="8sp"  android:paddingRight="8sp"  android:layout_weight="0.0"
+			android:layout_width="60sp" android:layout_height="60sp" />
+
+  <TextView android:text="" 
+  			android:id = "@+id/itemName"
+  			android:layout_weight="1.0"
+  			android:textSize="22sp"
+	    	style = "@style/PlayNameStyle"  
+	    	android:layout_gravity="center_vertical"
+	    	android:gravity="center_vertical"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+  <ImageView android:id="@+id/activity_go_arrow" android:layout_gravity="center" android:layout_weight="0.0"
+  			android:visibility="gone"
+  			android:src="@drawable/go_arrow"
+  			android:paddingLeft="8sp"  android:paddingRight="8sp" 
+			android:layout_width="30sp" android:layout_height="30sp" />
+			
+  </LinearLayout> 
+
+  <TextView android:text="" 
+  			android:id = "@+id/itemDetail"
+  			android:autoLink="all"
+	    	style = "@style/NormalTextStyle"  
+	    	android:layout_gravity="center"
+	    	android:gravity="left"
+			android:paddingTop="20sp"
+			android:paddingLeft="10sp"
+			android:paddingBottom="5sp"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+
+  <TextView android:text="" 
+  			android:id = "@+id/itemTime"
+	    	style = "@style/TimeStyle"  
+	    	android:textSize="14sp"
+	    	android:layout_gravity="center"
+	    	android:gravity="left"
+			android:paddingLeft="10sp"
+			android:paddingRight="10sp"
+			android:paddingTop="5sp"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+
+</LinearLayout>
+
+<include layout="@layout/notes_detail_view" android:layout_width="fill_parent"  android:layout_height="fill_parent"/> 
+  
+</LinearLayout>
+</ScrollView>
+
+<LinearLayout
+	  android:id="@+id/reply_pane"
+  	  android:orientation="vertical"
+  	  android:layout_weight="0.0"
+	  android:layout_width="fill_parent"
+	  android:layout_height="wrap_content" 
+	  android:background="#f0f4f6"
+	  android:layout_marginTop="10sp"
+	  android:visibility="gone"
+	  android:layout_gravity="center" >
+
+ <View android:id="@+id/list_diveider" android:layout_height="1sp" android:layout_gravity="center" android:background="#e0e0e0"
+			android:layout_width="fill_parent" />
+
+ <EditText android:id="@+id/replyEditor" android:layout_height="wrap_content" android:layout_gravity="center"
+	    	android:imeOptions="actionDone"
+	    	android:inputType="text"
+			android:layout_width="fill_parent" android:singleLine="true"  android:hint="Reply to "
+			android:layout_marginBottom="5sp"
+			android:layout_marginTop="5sp"
+			android:layout_marginLeft="10sp"
+			android:layout_marginRight="10sp"
+			android:text="" />
+
+</LinearLayout> 
+
+</LinearLayout>

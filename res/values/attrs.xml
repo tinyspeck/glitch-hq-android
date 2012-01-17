@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<declare-styleable name="JImageButton">
+<attr name="src2" format="string"/>
+</declare-styleable>
+
+<declare-styleable name="JProgressIndicator">
+<attr name="downSrc" format="string"/>
+</declare-styleable>
+
+</resources>

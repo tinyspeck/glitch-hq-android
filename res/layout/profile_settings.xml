@@ -1,0 +1,32 @@
+
+<LinearLayout android:id="@+id/filter_menu" android:layout_height="wrap_content" android:layout_gravity="center" 
+			android:layout_width="fill_parent" android:orientation="vertical"
+			android:background="@drawable/popover_background_right"
+		    xmlns:android="http://schemas.android.com/apk/res/android"
+			 >
+  <Button android:id="@+id/btn_add_remove_friend" android:text="Remove from friends" android:layout_gravity="center" android:gravity="center"
+	    	android:textColor="#ffffff"
+	    	android:textSize="14sp"
+	    	android:background="@drawable/filter_button_state" 
+	    	android:layout_marginTop="15sp"
+	    	android:layout_marginLeft="10sp" android:layout_marginRight="10sp"
+			android:layout_width="wrap_content" android:layout_height="40sp" />
+
+  <Button android:id="@+id/btn_filter_all" android:text="All" android:layout_gravity="center" android:gravity="center"
+	    	android:background="@drawable/filter_button_state" 
+	    	android:textColor="#ffffff"
+	    	android:textSize="14sp"
+	    	android:paddingLeft="10sp" android:paddingRight="10sp"
+	    	android:layout_marginTop="5sp" android:layout_marginLeft="10sp" android:layout_marginRight="10sp"
+			android:layout_width="fill_parent" android:layout_height="40sp" />
+
+  <Button android:id="@+id/btn_filter_updates" android:text="Updates" android:layout_gravity="center" android:gravity="center"
+	    	android:textColor="#ffffff"
+	    	android:textSize="14sp"
+	    	android:paddingLeft="10sp" android:paddingRight="10sp"
+	    	android:layout_marginTop="5sp" android:layout_marginLeft="10sp" android:layout_marginRight="10sp"
+	    	android:layout_marginBottom="12sp"
+	    	android:background="@drawable/filter_button_state" 
+			android:layout_width="fill_parent" android:layout_height="40sp" />
+			
+</LinearLayout>

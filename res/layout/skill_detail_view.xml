@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  android:layout_width="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent" android:background="#ffffff"
+  android:orientation="vertical">
+  
+<include layout="@layout/top_pane"/> 
+
+<ScrollView android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" >
+
+<LinearLayout
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:paddingTop="10sp"
+  android:orientation="vertical">
+
+<LinearLayout 
+			android:id="@+id/skill_detail_item" android:layout_height="wrap_content" android:layout_gravity="center"
+			android:clickable="true"
+			android:background="@drawable/list_item_bg_selector"
+			android:layout_width="fill_parent"  android:padding="3sp"
+			>
+  <ImageView android:id="@+id/skill_detail_icon" android:layout_gravity="center" android:layout_weight="0.0"
+  			android:padding="8sp"
+			android:layout_width="60sp" android:layout_height="60sp" />
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:layout_weight="1.0"
+			android:layout_width="wrap_content" android:orientation="vertical">
+
+  <TextView android:text="" android:id="@+id/skill_detail_name" 
+	    	style = "@style/PlayNameStyle"  
+	    	android:layout_gravity="left" android:layout_weight="1.0"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+
+  <TextView android:text="" android:id="@+id/skill_detail_time" 
+	    	style = "@style/ProgressTimeStyle"  
+	    	android:textSize="20sp"
+	    	android:textColor="#505050"
+	    	android:layout_gravity="left" 
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+  
+  </LinearLayout>
+  
+</LinearLayout>	
+
+  <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center"
+	    	android:layout_marginTop="5sp"
+	    	android:layout_marginBottom="5sp"
+	    	android:layout_marginLeft="15sp"
+	    	android:layout_marginRight="15sp" >
+	    	
+  <Button android:id="@+id/btn_learn_this_skill" android:text="@string/btn_learn_this_skill" android:layout_gravity="center"
+	    	android:layout_weight="0.0"
+	    	android:background="@drawable/button_state"
+	    	android:textSize="20sp"
+	    	android:paddingTop="5sp"
+	    	android:paddingBottom="5sp"
+	    	android:textColor="#055c73"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+
+   <FrameLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/learning_process_bar"
+			android:layout_width="fill_parent" android:visibility="gone"
+	    	android:background="@drawable/learning_progress_contour"
+			>
+   <include layout="@layout/learning_process"/>
+
+   <TextView android:text="" 
+			android:id="@+id/learning_process_text"
+	    	style = "@style/TimeStyle"  
+	    	android:layout_gravity="center"
+	    	android:gravity="center"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+   </FrameLayout>
+   	
+  </FrameLayout>
+
+  <View android:id="@+id/area_border" android:layout_height="1sp" android:layout_gravity="center" android:background="#d0d0d0"
+			android:layout_width="fill_parent" />
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:background="#f0f0f0"
+			android:layout_width="fill_parent" android:orientation="vertical">
+
+  <TextView android:text="" 
+  			android:id = "@+id/skill_detail_description"
+	    	style = "@style/NormalTextStyle"  
+	    	android:layout_gravity="center"
+	    	android:gravity="bottom"
+			android:padding="10sp"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+
+  <LinearLayout
+  	  android:id="@+id/requirement_layout"
+	  android:layout_width="fill_parent"
+	  android:layout_height="wrap_content" 
+	  android:paddingTop="10sp"
+	  android:paddingLeft="10sp"
+	  android:paddingRight="10sp" >
+
+  <TextView android:text="Requirements" 
+	    	style = "@style/NormalTextStyle"  
+	    	android:id="@+id/caption_reqs"	    	
+	    	android:paddingTop="3sp"
+	    	android:paddingBottom="3sp"
+	    	android:layout_gravity="left"
+	    	android:gravity="left"
+			android:layout_width="130sp" android:layout_height="wrap_content"/>
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/requirements"
+  		    	android:layout_weight="1.0"
+				android:layout_width="wrap_content" android:orientation="vertical">
+  </LinearLayout>	
+			
+  </LinearLayout> 
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top"  android:id="@+id/need_for_layout"
+				android:padding="10sp"
+				android:layout_width="fill_parent" >
+
+  <TextView android:text="Needed for" 
+	    	style = "@style/NormalTextStyle"  
+	    	android:paddingTop="3sp"
+	    	android:paddingBottom="3sp"
+	    	android:id="@+id/caption_needed"	    	
+	    	android:layout_gravity="left"
+	    	android:gravity="left"
+	    	android:lines="1"
+			android:layout_width="130sp" android:layout_height="wrap_content"/>
+			
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/post_request_panel"
+		    	android:layout_weight="1.0"
+				android:layout_width="wrap_content" android:orientation="vertical">
+  </LinearLayout>	
+
+  </LinearLayout>	
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top"   android:id="@+id/giant_layout"
+				android:padding="10sp"
+				android:layout_width="fill_parent" >
+
+  <TextView android:text="Giant affiliation" 
+	    	style = "@style/NormalTextStyle"  
+	    	android:id="@+id/caption_giant"
+	    	android:layout_gravity="left"
+	    	android:gravity="left"
+	    	android:paddingTop="3sp"
+	    	android:paddingBottom="3sp"
+	    	android:lines="1"
+			android:layout_width="130sp" android:layout_height="wrap_content"/>
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/giant_panel"
+		    	android:layout_weight="1.0"
+				android:layout_width="wrap_content" android:orientation="vertical">
+  </LinearLayout>	
+  </LinearLayout>	
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top"  
+				android:padding="10sp"
+				android:layout_width="fill_parent" >
+
+  <TextView android:text="Status" 
+	    	style = "@style/NormalTextStyle"  
+	    	android:id="@+id/caption_status"
+	    	android:layout_gravity="left"
+	    	android:gravity="left"
+	    	android:paddingTop="3sp"
+	    	android:paddingBottom="3sp"
+	    	android:lines="1"
+			android:layout_width="130sp" android:layout_height="wrap_content"/>
+
+  <TextView android:text="" 
+	    	style = "@style/NormalTextStyle"  
+	    	android:id ="@+id/skill_status"
+	    	android:layout_weight="1.0"
+	    	android:layout_gravity="left"
+	    	android:gravity="left"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+  </LinearLayout>	
+  </LinearLayout>
+</LinearLayout>
+</ScrollView>
+</LinearLayout>
+

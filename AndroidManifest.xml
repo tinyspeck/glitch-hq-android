@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      android:versionName="1.0.2" package="com.twotalltotems.glitch" android:versionCode="1">
+	<uses-sdk android:minSdkVersion="4" 
+          android:targetSdkVersion="8" />
+	<supports-screens  android:anyDensity="true" />      
+    <application android:name=".MyApplication" android:theme="@style/TwoTallTheme" android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+        <activity android:name=".HomeScreen" android:screenOrientation="portrait"
+                  android:label="@string/app_name">
+        </activity>
+        <activity android:name=".ActivityScreen" />
+        <activity android:name=".LoginScreen" android:screenOrientation="portrait"
+	              android:windowSoftInputMode="stateUnspecified|adjustResize" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+			</activity>
+        <activity android:name=".SkillsScreen" />
+    </application>
+	<supports-screens android:largeScreens="true" android:anyDensity="false"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+</manifest>

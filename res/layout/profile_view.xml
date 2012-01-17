@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  android:layout_width="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent" android:background="#ffffff"
+  android:orientation="vertical">
+  
+<include layout="@layout/top_pane"/> 
+
+<ScrollView android:id="@+id/scr_profile" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" >
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top" 
+ 				android:layout_width="fill_parent" android:orientation="vertical">
+
+   <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:paddingBottom="15dip"
+    android:visibility="gone"
+    android:gravity="center"
+        android:id="@+id/pull_to_refresh_header"
+    android:background="#005471"
+    >
+    <ProgressBar 
+        android:id="@+id/pull_to_refresh_progress"
+        android:indeterminate="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="10dip"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        style="?android:attr/progressBarStyleSmall"
+        />
+    <ImageView
+        android:id="@+id/pull_to_refresh_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="20dip"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/ic_pulltorefresh_arrow"
+        />
+    <TextView
+        android:id="@+id/pull_to_refresh_text"
+        android:text="@string/pull_to_refresh_tap_label"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+        android:paddingTop="5dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+    <TextView
+        android:id="@+id/pull_to_refresh_updated_at"
+        android:layout_below="@+id/pull_to_refresh_text"
+        android:visibility="gone"
+        android:textColor="#ffffff"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+  </RelativeLayout>
+
+  <FrameLayout android:layout_height="fill_parent" android:layout_gravity="top"
+			android:layout_width="fill_parent" >
+
+  <ImageView android:layout_gravity="top"
+	    	android:src="@drawable/clouds"
+	    	android:layout_marginTop="50sp"
+			android:id="@+id/clouds"
+			android:layout_width="350sp" android:layout_height="150sp" />
+
+  <ImageView android:layout_gravity="top"
+  		    android:id="@+id/profilebg"
+  		    android:paddingTop="120sp"
+	    	android:src="@drawable/profile_background"
+	    	android:adjustViewBounds="true"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top"
+				android:layout_width="fill_parent" android:orientation="vertical">
+
+  <include layout="@layout/profile_user_self"/> 
+  <include layout="@layout/profile_others"/> 
+  <include layout="@layout/margin_view"/> 
+ 
+  <com.twotalltotems.glitch.LinearListView 
+    android:id="@+id/learning_list"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="10sp"
+    android:layout_marginBottom="10sp"
+    android:layout_marginRight="5sp"
+    android:background="@drawable/user_panel"
+	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+  />
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" 
+			    android:id="@+id/homeListViewLayout"
+  			    android:visibility="gone"
+			    android:background="@drawable/wallpaper2"
+				android:layout_width="fill_parent" >
+  
+  <com.twotalltotems.glitch.LinearListView 
+    android:id="@+id/homeListView"
+    android:layout_marginTop="0sp"
+    android:layout_marginLeft="5sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginBottom="0sp"
+    android:background="@drawable/activity_feed"
+    android:padding="4sp"
+	android:cacheColorHint="@drawable/white"
+	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+  />
+
+  </LinearLayout>	
+	
+  <FrameLayout android:id="@+id/fl_logout" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="top" android:visibility="gone">	
+
+  <ImageView android:id="@+id/iv_wallpaper" android:layout_gravity="top"
+  			android:scaleType="centerCrop"
+	    	android:src="@drawable/wallpaper"
+			android:layout_width="fill_parent" android:layout_height="80sp" />
+
+  <LinearLayout android:id="@+id/logoutLayout" android:layout_height="fill_parent" android:layout_gravity="center" android:gravity="right" 
+				android:layout_width="fill_parent" >
+
+	  <TextView android:text="Logout" 
+		    	style = "@style/MiddleTextStyle"  
+		    	android:padding="20sp" 
+		    	android:id="@+id/tv_logout"
+		    	android:layout_gravity="center"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+  </LinearLayout>	
+
+  </FrameLayout>
+
+   <RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:paddingBottom="20dip"
+    android:background="#005471"
+    android:visibility="gone"
+    android:gravity="center"
+        android:id="@+id/list_footer"
+    >
+
+  <ImageView android:layout_gravity="center"
+	    	android:src="@drawable/rookfossil"
+	    	android:layout_alignParentBottom="true"
+	    	android:layout_centerHorizontal="true"
+	    	android:visibility="gone"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    
+    <ImageView
+        android:id="@+id/pull_to_refresh_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="20dip"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/ic_pulltorefresh_arrow"
+        />
+    <TextView
+        android:id="@+id/pull_to_load_more_label"
+        android:text="@string/pull_to_load_more_label"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"
+        android:background="#005471"
+        android:textStyle="bold"
+        android:paddingTop="5dip"
+        android:paddingRight="20dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        />
+    <ProgressBar 
+        android:id="@+id/pull_to_refresh_progress_bottom"
+        android:indeterminate="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dip"
+        android:layout_marginRight="20dip"
+        android:layout_marginTop="10dip"
+        android:visibility="gone"
+        android:layout_alignTop="@id/pull_to_load_more_label"
+        android:layout_alignParentLeft="@id/pull_to_load_more_label"
+        style="?android:attr/progressBarStyleSmall"
+        />
+        
+  </RelativeLayout>
+
+  </LinearLayout>  
+  </FrameLayout>
+</LinearLayout>
+</ScrollView>
+</LinearLayout>

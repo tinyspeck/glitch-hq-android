@@ -1,0 +1,41 @@
+<FrameLayout android:id="@+id/user_panel" android:layout_height="60sp" android:layout_gravity="center"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_marginLeft="10sp" android:layout_marginRight="10sp"
+			android:layout_width="fill_parent"  
+			>
+
+  <LinearLayout android:layout_height="fill_parent" android:layout_gravity="center"
+			android:layout_width="fill_parent" 	android:paddingTop="5sp" android:paddingLeft="5sp" android:paddingRight="5sp" android:paddingBottom="5sp"
+			>
+			
+  <include layout="@layout/learning_process"/>
+     	
+  </LinearLayout>  
+  
+  <LinearLayout android:id = "@+id/learning_progress_text" android:layout_height="wrap_content" android:layout_gravity="center"
+			android:layout_width="fill_parent" 	android:paddingLeft="8sp" android:paddingRight="8sp"
+			>
+			
+  <TextView android:text="" 
+			android:id="@+id/tv_skillName"
+			android:layout_weight="1.0"
+	    	style = "@style/LineTextStyle" 
+	    	android:textSize="14sp"
+	    	android:textStyle="bold"
+	    	android:shadowColor="#ffffff"
+	    	android:shadowDx="1.5"
+	    	android:shadowDy="1.5"
+	    	android:shadowRadius="1.5"
+	    	android:paddingLeft="4sp" 
+	    	android:layout_gravity="center"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+  <TextView android:text="" 
+			android:id="@+id/tv_skillTime"
+			android:layout_weight="0.0"
+	    	style = "@style/ProgressTimeStyle"  
+	    	android:layout_gravity="center"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+  </LinearLayout>	
+  	  
+</FrameLayout>

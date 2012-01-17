@@ -1,0 +1,11 @@
+﻿<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/filter_button" />
+    <item>
+        <shape>
+		  <corners
+      		android:radius="8px" />   
+		  <gradient android:startColor="#703A6378" android:centerColor="#703A6378"
+			android:endColor="#703A6378" android:angle="-90" />
+        </shape>
+    </item>
+</layer-list>

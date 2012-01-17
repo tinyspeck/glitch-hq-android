@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout 
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent" 
+>
+
+<LinearLayout android:id="@+id/title" android:layout_height="wrap_content" android:layout_gravity="top"
+			android:layout_width="fill_parent" android:background="#ffffff" android:orientation="vertical"
+			>
+			
+<include layout="@layout/title_bar" />
+
+<FrameLayout android:layout_height="fill_parent" android:layout_gravity="top"
+			android:layout_width="fill_parent" android:orientation="vertical" android:id="@+id/login_layout"
+			>
+
+<ImageView android:layout_gravity="top"
+	    	android:src="@drawable/clouds"
+	    	android:scaleType="fitStart"
+			android:id="@+id/LayoutBack"
+			android:layout_width="fill_parent" android:layout_height="fill_parent" />
+
+<com.twotalltotems.glitch.KeyboardLayout
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+
+<LinearLayout
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:layout_alignParentTop="true" 
+  android:layout_alignParentLeft="true" 
+  android:paddingLeft="10sp"
+  android:paddingRight="10sp"
+  android:orientation="vertical">
+
+  <View  android:layout_width="fill_parent" android:layout_height="0sp" android:layout_weight="1.0" />   
+    
+  <TextView android:text="Login" 
+  			android:id="@+id/tv_login"
+	    	style = "@style/LargeTextStyle"  
+	    	android:layout_gravity="center"
+	    	android:gravity="left"
+			android:layout_margin="5sp"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+	
+  <View android:layout_width="fill_parent" android:layout_height="0sp" android:layout_weight="0.1" />   
+    
+  <EditText android:id="@+id/email" android:layout_height="wrap_content" android:layout_gravity="center"
+	    	android:layout_weight="0.0"
+			android:layout_width="fill_parent" android:singleLine="true"  android:hint="Email address"
+			android:text="" />
+  
+  <View android:layout_width="fill_parent" android:layout_height="0sp" android:layout_weight="0.1" />   
+  	
+  <EditText android:id="@+id/password" android:layout_height="wrap_content" android:layout_gravity="center"
+	    	android:layout_weight="0.0"
+			android:layout_width="fill_parent" android:password="true" android:singleLine="true"  android:hint="Password"
+			android:text=""/>
+  
+  <View android:layout_width="fill_parent" android:layout_height="0sp" android:layout_weight="0.1" />   
+  
+  <TextView android:text="Uh oh! You forgot to provide your email address.  We can't log you in without it." 
+	    	android:layout_weight="0.0"
+	    	android:textColor="#ff0000"
+	    	android:id="@+id/tv_login_error"
+			android:padding="5sp"
+			android:visibility="gone"
+	    	android:layout_gravity="center"
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+  
+  <View android:layout_width="fill_parent" android:layout_height="0sp" android:layout_weight="0.1" />   
+  	
+  <Button android:id="@+id/btnLogin" android:text="Log In" android:layout_gravity="center"
+	    	android:layout_weight="0.0"
+	    	android:background="@drawable/button_state"
+	    	android:textSize="20sp"
+	    	android:textColor="#055c73"
+	    	android:paddingTop="5sp"
+	    	android:paddingBottom="5sp"
+			android:layout_marginTop="5sp"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+
+  <TextView android:id="@+id/tv_forgot_password" 
+    	android:text="Forgot your password?" 
+    	android:paddingTop="15sp"
+    	android:paddingBottom="10sp"
+    	android:paddingLeft="5sp"
+    	android:layout_weight="0.7"
+    	android:layout_height="wrap_content" 
+    	android:layout_width="wrap_content" 
+    	android:layout_gravity="left"
+    	android:gravity="left" 
+    	style = "@style/LineTextStyle"
+    	/>
+  
+  <View android:layout_width="fill_parent" android:layout_height="0sp" android:layout_weight="1.0" />   
+  
+</LinearLayout>
+
+  <TextView android:id="@+id/copyright" 
+    	android:text="" 
+    	android:textColorLink="#055c73"
+    	android:layout_height="wrap_content" 
+    	android:layout_width="fill_parent" 
+    	android:layout_alignParentBottom="true"
+    	android:layout_alignParentRight="true"
+    	android:paddingBottom="10sp"
+    	android:paddingTop="10sp"
+    	android:paddingRight="10sp"
+    	android:background="#e9f0f0"
+    	android:gravity="right" 
+    	style = "@style/CopyrightTextStyle"
+    	/>
+</com.twotalltotems.glitch.KeyboardLayout>
+
+</FrameLayout>
+</LinearLayout>	
+
+<ProgressBar android:id="@+id/loginSpinner"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content" 
+		android:layout_gravity="center"
+		android:visibility="invisible" />
+		
+</FrameLayout>

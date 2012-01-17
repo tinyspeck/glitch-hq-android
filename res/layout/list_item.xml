@@ -1,0 +1,80 @@
+<LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" 
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent" android:orientation="vertical">
+			
+<LinearLayout 
+			android:id="@+id/actfeed_item" android:layout_height="wrap_content" android:layout_gravity="center"
+			android:layout_width="fill_parent"  android:padding="3sp"
+			android:clickable="true"
+			android:background="@drawable/list_item_bg_selector"
+			>
+  <ImageView android:id="@+id/icon_skill" android:layout_gravity="center"
+	    	android:src="@drawable/skill_learned"
+	    	android:layout_marginRight="2sp"
+			android:layout_width="40sp" android:layout_height="40sp" />
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center"
+			android:layout_width="fill_parent" android:orientation="vertical">
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center"
+			android:layout_width="fill_parent">
+			
+  <TextView android:text="Name" android:id="@+id/activity_who" 
+	    	style = "@style/PlayNameStyle"  
+	    	android:layout_gravity="center" android:layout_weight="0.0"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+  <ImageView android:id="@+id/reply_icon" android:layout_gravity="center"
+	    	android:src="@drawable/replyicon"
+	    	android:layout_margin="2sp"
+			android:layout_width="16sp" android:layout_height="16sp" />
+
+  <TextView android:text="Name" android:id="@+id/activity_reply_to_who" 
+	    	style = "@style/PlayNameStyle"
+	    	android:textColor="#707070"  
+	    	android:layout_gravity="center" android:layout_weight="0.0"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+  <View 	android:layout_weight="1.0"
+			android:layout_width="0sp" android:layout_height="fill_parent"/>
+
+  <TextView android:text="" android:id="@+id/activity_when" 
+	    	style = "@style/TimeStyle"  
+	    	android:layout_gravity="center" android:layout_weight="0.0"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+  </LinearLayout>
+  
+  <TextView android:text="" android:id="@+id/activity_what" 
+	    	style = "@style/SmallTextStyle"  
+	    	android:layout_gravity="center" 
+			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+  
+  </LinearLayout>
+  			
+</LinearLayout>	
+
+<LinearLayout android:id="@+id/request_buttons" android:layout_height="wrap_content" android:layout_gravity="right" android:layout_marginBottom="4sp" android:visibility="gone"
+			android:layout_width="fill_parent">
+
+<View android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_weight="1.0"/>
+			
+<Button android:id="@+id/btnAddBack" android:text="Add back" android:layout_gravity="right"
+	    	android:layout_weight="0.0"
+	    	style = "@style/SmallButtonStyle"
+	    	android:textSize="12sp"
+	    	android:textColor="#055c73" android:layout_marginRight="3sp"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+<Button android:id="@+id/btnNotNow" android:text="Not Now" android:layout_gravity="right"
+	    	android:layout_weight="0.0"
+	    	style = "@style/SmallButtonStyle"
+	    	android:textSize="12sp" android:layout_marginRight="3sp"
+	    	android:textColor="#055c73"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+			
+</LinearLayout> 
+  
+<View android:id="@+id/list_diveider" android:layout_height="1sp" android:layout_gravity="center" android:background="#e0e0e0"
+			android:layout_width="fill_parent" />
+    	
+</LinearLayout>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">Glitch HQ</string>
+  <string name="str_main_title">Glitch HQ</string>
+  <string name="str_ok">OK</string>
+  <string name="str_cancel">Cancel</string>
+  <string name="str_menu_home">Player</string>
+  <string name="str_menu_activity">Activity</string>
+  <string name="str_menu_skill">Skills</string>
+  <string name="str_menu_refresh">Refresh</string>
+  <string name="str_menu_more">More</string>
+  <string name="str_you_are_learning">You\'re learning this!</string>
+  <string name="str_you_have_skill">You have this skill!</string>
+  <string name="str_you_can_not_learn">You don\'t meet all the requirements for learning this skill.</string>
+  <string name="str_progress_done">Done!</string>
+  <string name="error_login_username">Uh oh! You forgot to provide your email address.  We can\'t log you in without it.</string>
+  <string name="error_login_password">Uh oh! You forgot to provide your password.  We can\'t log you in without it.</string>
+  <string name="error_login_credential">Oh No! The suplied username/password combination was not valid </string>
+  <string name="error_connection">Oh No! A connection failure occured #1"</string>
+  <string name="error_connection_message">Cound not establish a connection with Glitch.  Please check your Internet connection!</string>
+  <string name="error_connection_title">Connection Failed</string>
+  <string name="pull_to_refresh_pull_label">Pull to refresh...</string>
+  <string name="pull_to_refresh_release_label">Release to refresh...</string>
+  <string name="pull_to_refresh_refreshing_label">Loading...</string>
+  <string name="pull_to_refresh_tap_label">Tap to refresh...</string>
+  <string name="pull_to_load_more_label">Pull up to load more...</string>
+  <string name="btn_learn_this_skill">Learn this skill!</string>
+  <string name="str_skill_status_started">You have started learning this skill already!</string>
+  <string name="str_skill_status_can_learn">You can learn this skill!</string>
+  <string name="btn_add_back">Add back</string>
+  <string name="btn_not_now">Now now</string>
+  <string name="btn_decline">Decline</string>
+  <string name="btn_join">Join</string>
+</resources>

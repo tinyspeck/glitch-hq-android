@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="-20sp" android:left="37sp" android:drawable="@drawable/bluefocus">
+		<shape android:shape="rectangle">
+			<corners android:radius="1sp" android:bottomRightRadius="5sp" android:bottomLeftRadius="5sp" android:topLeftRadius="0sp" android:topRightRadius="0sp"/>
+            <size android:width="32sp" android:height="22sp" />
+			<gradient android:startColor="#8032A9F6" 
+				android:endColor="#8032A9F6" android:angle="-90" />
+		</shape>
+    </item>
+    <item android:top="-20sp" android:left="37sp">
+		<shape android:shape="rectangle">
+			<corners android:radius="1sp" android:bottomRightRadius="5sp" android:bottomLeftRadius="5sp" android:topLeftRadius="0sp" android:topRightRadius="0sp"/>
+            <size android:width="32sp" android:height="22sp" />
+			<gradient android:startColor="#8032A9F6" 
+				android:endColor="#8032A9F6" android:angle="-90" />
+		</shape>
+    </item>
+</layer-list>

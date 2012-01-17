@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+		<bitmap android:src="@drawable/triangle2" android:tileMode="clamp"/>	
+    </item>
+    <item android:top="10sp">
+		<shape android:shape="rectangle">
+			<corners android:radius="6sp"/>
+			<gradient android:startColor="#F0F4F6" 
+				android:endColor="#F0F4F6" android:angle="-90" />
+		</shape>
+    </item>
+</layer-list>

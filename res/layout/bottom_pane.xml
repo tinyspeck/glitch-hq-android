@@ -1,0 +1,30 @@
+<LinearLayout android:id="@+id/BottomPane" android:layout_height="wrap_content" android:layout_gravity="center" android:background="@drawable/tab_bg_unselected"
+			android:layout_width="fill_parent" 	android:layout_weight="0.0"
+		    xmlns:android="http://schemas.android.com/apk/res/android"
+			 >
+  <RadioGroup android:id="@+id/BottomBtnGroup" 
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		style="@style/RadioGroupSmallStyle">
+
+  <RadioButton android:id="@+id/btn_home" android:text="" android:layout_gravity="center" android:gravity="center"
+	    	android:drawableTop="@drawable/profile_icon" android:maxLines="1" android:layout_weight="0.3"
+			style="@style/RadioButtonStyle"
+			android:drawablePadding="3sp"
+			android:layout_width="120sp" android:layout_height="wrap_content" />
+
+  <RadioButton android:id="@+id/btn_activity" android:text="@string/str_menu_activity" android:layout_gravity="center" android:gravity="center"
+			style="@style/RadioButtonStyle"  android:maxLines="1" android:layout_weight="0.3"
+			android:drawablePadding="3sp"
+	    	android:drawableTop="@drawable/activity_icon"
+			android:layout_width="120sp" android:layout_height="wrap_content" />
+
+  <RadioButton android:id="@+id/btn_skill" android:text="@string/str_menu_skill" android:layout_gravity="center" android:gravity="center"
+			style="@style/RadioButtonStyle"  android:maxLines="1" android:layout_weight="0.3"
+			android:drawablePadding="3sp"
+	    	android:drawableTop="@drawable/skills_icon"
+			android:layout_width="120sp" android:layout_height="wrap_content" />
+			
+  </RadioGroup>
+  
+</LinearLayout>

@@ -1,0 +1,50 @@
+<RelativeLayout android:id="@+id/title" android:layout_height="wrap_content" android:layout_gravity="center"
+ 		   xmlns:android="http://schemas.android.com/apk/res/android"
+			android:layout_width="fill_parent" android:layout_weight="0.0" android:background="#ffffff"
+			>
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center"
+  		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+  		android:layout_width="fill_parent" >
+  		
+  <include layout="@layout/title_bar" />
+    		
+  </LinearLayout>			
+	 
+  <Button android:id="@+id/btnFilter" android:text="Filter" 
+  			android:textColor="#ffffff"
+  			android:visibility="gone"
+  			android:layout_marginLeft="6sp"
+  			android:layout_alignParentLeft="true"
+  			android:background="@drawable/filter_button_state"
+  			android:layout_centerVertical="true"
+			android:layout_width="54sp" android:layout_height="33sp" />
+
+  <Button android:id="@+id/btnEdit" android:text="" 
+  			android:layout_alignParentRight="true"
+  			android:visibility="gone"
+  			android:layout_marginRight="6sp"
+  			android:background="@drawable/compose_button_state"
+  			android:layout_centerVertical="true"
+			android:layout_width="41sp" android:layout_height="33sp" />
+
+  <Button android:id="@+id/btnSettings" android:text="" 
+  			android:layout_alignParentRight="true"
+  			android:visibility="gone"
+  			android:layout_marginRight="6sp"
+  			android:background="@drawable/settings_button_state"
+  			android:layout_centerVertical="true"
+			android:layout_width="54sp" android:layout_height="33sp" />
+
+  <Button android:id="@+id/btnLike" android:text="Like" 
+  			android:layout_alignParentRight="true"
+  			android:textColor="#ffffff"
+  			android:visibility="gone"
+  			android:layout_marginRight="6sp"
+  			android:background="@drawable/filter_button_state"
+  			android:layout_centerVertical="true"
+			android:layout_width="50sp" android:layout_height="33sp" />
+
+</RelativeLayout>	
+  

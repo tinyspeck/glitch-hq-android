@@ -1,0 +1,41 @@
+<RelativeLayout android:layout_height="wrap_content" android:layout_gravity="center" 
+		        xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/profile_others"
+				android:layout_width="fill_parent"
+		    	android:layout_marginBottom="28sp" >
+
+  <TextView android:text="" 
+	    	style = "@style/LargeTextStyle"  
+	    	android:textColor="#444444"	    	
+	    	android:layout_gravity="center"
+	    	android:id="@+id/playername"
+	    	android:layout_alignParentLeft="true"
+	    	android:layout_alignParentTop="true"
+			android:paddingLeft="10sp"
+			android:paddingTop="10sp"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" 
+		    	android:id="@+id/profile_user_energy"
+		    	android:layout_alignParentTop="true"
+		    	android:layout_alignParentRight="true"
+				android:layout_width="wrap_content" android:orientation="vertical">
+  <include layout="@layout/profile_user_energy"/> 
+  </LinearLayout>
+
+  <ImageView android:layout_gravity="center"
+	    	android:layout_alignParentRight="true"
+	    	android:layout_alignParentTop="true"
+	    	android:layout_marginTop="15sp"
+	    	android:layout_marginBottom="10sp"
+	    	android:id="@+id/avatar"
+			android:layout_width="140sp" android:layout_height="178sp" />
+
+  <LinearLayout android:layout_height="wrap_content" android:layout_below="@id/playername"
+ 	 		android:layout_width="fill_parent"    android:orientation="vertical" 
+ 	 		android:layout_marginLeft="20sp" android:layout_marginTop="10sp"
+			android:layout_alignParentLeft="true"
+   			>
+  <include layout="@layout/profile_user_data"/> 
+  </LinearLayout>		
+
+</RelativeLayout>	
