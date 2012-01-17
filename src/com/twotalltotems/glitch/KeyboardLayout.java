@@ -1,4 +1,3 @@
-
 package com.twotalltotems.glitch;
 
 import android.content.Context;

@@ -99,7 +99,7 @@
   
 </LinearLayout>
 
-  <TextView android:id="@+id/copyright" 
+<TextView android:id="@+id/copyright" 
     	android:text="" 
     	android:textColorLink="#055c73"
     	android:layout_height="wrap_content" 
@@ -116,6 +116,7 @@
 </com.twotalltotems.glitch.KeyboardLayout>
 
 </FrameLayout>
+
 </LinearLayout>	
 
 <ProgressBar android:id="@+id/loginSpinner"
