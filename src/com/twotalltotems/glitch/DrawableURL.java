@@ -5,11 +5,7 @@ import java.net.URL;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.widget.Button;
 import android.widget.ImageView;
 
 public class DrawableURL extends AsyncTask<String,Void,Bitmap>

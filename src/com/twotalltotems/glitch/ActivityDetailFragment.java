@@ -3,18 +3,12 @@ package com.twotalltotems.glitch;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.tinyspeck.android.GlitchRequest;
-import com.twotalltotems.glitch.BaseFragment.glitchActivity;
-import com.twotalltotems.glitch.BaseFragment.skillGiant;
-
 import android.content.Context;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;

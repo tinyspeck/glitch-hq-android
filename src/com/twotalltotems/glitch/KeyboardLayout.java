@@ -3,7 +3,6 @@ package com.twotalltotems.glitch;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 
@@ -19,12 +18,11 @@ public class KeyboardLayout extends RelativeLayout
     
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-    	int errorState = this.findViewById( R.id.tv_login_error).getVisibility();
+    	int errorState = this.findViewById( R.id.tv_login_error ).getVisibility();
     	if( errorState != m_lastErrorState )
     	{
     		m_lastErrorState = errorState;
-    	}else
-    	{
+    	} else {
             final int proposedheight = MeasureSpec.getSize(heightMeasureSpec);
             final int actualHeight = getHeight();
 

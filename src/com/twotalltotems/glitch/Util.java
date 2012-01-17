@@ -10,10 +10,8 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +77,7 @@ public class Util
 			  for( j=0; j<i; j++ )
 				  if( myNumbs[j] == cur )
 					  break;
-		  }while( j < i || cur == nExclude );	  
+		  } while( j < i || cur == nExclude );	  
 		  myNumbs[i] = cur;
 	  }
 	  return myNumbs;
