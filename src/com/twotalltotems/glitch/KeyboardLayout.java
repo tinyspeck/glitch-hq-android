@@ -1,6 +1,8 @@
 package com.twotalltotems.glitch;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -22,10 +24,17 @@ public class KeyboardLayout extends RelativeLayout
     	{
     		m_lastErrorState = errorState;
     	} else {
-            final int proposedheight = MeasureSpec.getSize(heightMeasureSpec);
-            final int actualHeight = getHeight();
+    		
+    		final int height = MeasureSpec.getSize(heightMeasureSpec);
+    		Activity activity = (Activity)getContext();
+    		Rect rect = new Rect();
+    		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+    		final int statusBarHeight = rect.top;
+    		final int screenHeight = activity.getWindowManager().getDefaultDisplay().getHeight();
+    		final int diff = (screenHeight - statusBarHeight) - height;            
 
-            if (actualHeight > proposedheight){
+    		// Assume all soft keyboards are at least 128 pixels high
+            if (diff > 128) {
 	            // Keyboard is shown
 	        	this.findViewById( R.id.copyright).setVisibility(View.GONE);
 	        } else {

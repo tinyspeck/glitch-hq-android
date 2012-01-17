@@ -64,7 +64,7 @@ public class LoginScreen extends Activity implements GlitchSessionDelegate
 	 TextView tv = (TextView) findViewById(R.id.copyright );
 	 tv.setText( Html.fromHtml("Glitch is built by <a href='http://tinyspeck.com'>Tiny Speck</a> <br>Copyright @ 2011 Tiny Speck<br>All rights reserved") );
 	 tv.setMovementMethod(LinkMovementMethod.getInstance());
-	 tv.setTypeface( m_application.m_vagLightFont );  
+	 tv.setTypeface( m_application.m_vagLightFont );
 	 
 	 m_background = findViewById( R.id.LayoutBack );
 
