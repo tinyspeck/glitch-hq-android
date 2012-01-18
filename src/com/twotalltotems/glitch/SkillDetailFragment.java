@@ -90,35 +90,44 @@ public class SkillDetailFragment extends BaseFragment{
        		
        		try{
            		JSONArray jReqs = response.optJSONArray("reqs");
-
-       			for(int i=0; i < jReqs.length(); i++ )
-           		{
-        			skillAvailable skill = new skillAvailable();
-        			skill.item = jReqs.getJSONObject(i).optString("name");
-        			skill.id = jReqs.getJSONObject(i).optString("class_tsid");
-        			skill.level = jReqs.getJSONObject(i).optInt("level");
-        			skill.type = jReqs.getJSONObject(i).optString("type");
-           			m_currentSkill.requirements.add( skill );
+           		if ( jReqs != null ) {
+	       			for(int i=0; i < jReqs.length(); i++ )
+	           		{
+	        			skillAvailable skill = new skillAvailable();
+	        			skill.item = jReqs.getJSONObject(i).optString("name");
+	        			skill.id = jReqs.getJSONObject(i).optString("class_tsid");
+	        			skill.level = jReqs.getJSONObject(i).optInt("level");
+	        			skill.type = jReqs.getJSONObject(i).optString("type");
+	           			m_currentSkill.requirements.add( skill );
+	           		}
            		}
-       			jReqs = response.optJSONArray("post_reqs");
-           		for(int i=0; jReqs!=null && i < jReqs.length(); i++ )
-           		{
-        			skillAvailable skill = new skillAvailable();
-        			skill.item = jReqs.getJSONObject(i).optString("name");
-        			skill.id = jReqs.getJSONObject(i).optString("class_tsid");
-        			m_currentSkill.postRequests.add( skill );
-           		}
+           		
+       			jReqs = response.optJSONArray("post_reqs");           		
+       			if ( jReqs != null ) {
+	       			for(int i=0; jReqs!=null && i < jReqs.length(); i++ )
+	           		{
+	        			skillAvailable skill = new skillAvailable();
+	        			skill.item = jReqs.getJSONObject(i).optString("name");
+	        			skill.id = jReqs.getJSONObject(i).optString("class_tsid");
+	        			m_currentSkill.postRequests.add( skill );
+	           		}
+       			}
+       			
            		jReqs = response.optJSONArray("giants");
-           		for(int i=0; jReqs!=null && i < jReqs.length(); i++ )
-           		{
-           			skillGiant skill = new skillGiant();
-        			skill.id = jReqs.getJSONObject(i).optString("id");
-        			skill.isPrimary = ( jReqs.getJSONObject(i).optInt("is_primary") == 0 )? false: true;
-        			if( skill.isPrimary )
-        				m_currentSkill.giants.insertElementAt(skill, 0);
-        			else
-        				m_currentSkill.giants.add( skill );
+           		
+           		if ( jReqs != null ) {
+	           		for(int i=0; jReqs!=null && i < jReqs.length(); i++ )
+	           		{
+	           			skillGiant skill = new skillGiant();
+	        			skill.id = jReqs.getJSONObject(i).optString("id");
+	        			skill.isPrimary = ( jReqs.getJSONObject(i).optInt("is_primary") == 0 )? false: true;
+	        			if( skill.isPrimary )
+	        				m_currentSkill.giants.insertElementAt(skill, 0);
+	        			else
+	        				m_currentSkill.giants.add( skill );
+	           		}
            		}
+           		
            		setSkillDetailView();	
     			onRequestComplete();
        		}catch( Exception e )
