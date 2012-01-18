@@ -3,7 +3,7 @@
 			android:layout_width="fill_parent" android:layout_weight="0.0" android:background="#ffffff"
 			>
 
-  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center"
+  <LinearLayout android:id="@+id/title_bar_layout" android:layout_height="wrap_content" android:layout_gravity="center"
   		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
   		android:layout_width="fill_parent" >

@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class BaseFragment extends Fragment implements GlitchRequestDelegate
 {
@@ -98,6 +99,12 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			int [] nRes = { R.drawable.navbar_l, R.drawable.navbar_l, R.drawable.navbar_xl };
 			int nType = Util.GetScreenSizeAttribute( getActivity() );
 			v.setImageResource( nRes[nType] );
+			LinearLayout titleBarLayout = (LinearLayout)root.findViewById( R.id.title_bar_layout);
+			titleBarLayout.setOnClickListener( new OnClickListener(){
+				public void onClick(View arg0) {
+					scrollToTop();
+				}
+			 });
 		}
 	}
 	
@@ -338,5 +345,9 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 
 	protected void onMore()
 	{
+	}
+	
+	protected void scrollToTop()
+	{		
 	}
 }

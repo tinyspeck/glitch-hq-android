@@ -13,6 +13,7 @@ import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -283,5 +284,11 @@ public class ActivityFragment extends BaseFragment{
 	protected void onMore()
 	{
 		getActivity(true);
+	}
+	
+	protected void scrollToTop() 
+	{
+		ScrollView sv = (ScrollView) m_root.findViewById(R.id.ActivityScrolLView);
+		sv.smoothScrollTo(0, 0);
 	}
 }

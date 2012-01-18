@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.RadioButton;
 
@@ -57,6 +58,7 @@ public class HomeScreen extends FragmentActivity{
 
 	     setTitle( getResources().getString( R.string.str_main_title ) );
 	     initLayout();
+
 	}
 
 	private void initBottomPane()

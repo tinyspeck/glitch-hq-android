@@ -501,4 +501,9 @@ public class ProfileFragment extends BaseFragment{
 	{		
 		getProfileInfo(true);
 	}
+	
+	protected void scrollToTop() {
+		ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );
+		sv.smoothScrollTo(0, 0);
+	}
 }
