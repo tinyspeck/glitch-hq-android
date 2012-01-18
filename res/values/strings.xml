@@ -31,4 +31,5 @@
   <string name="btn_not_now">Now now</string>
   <string name="btn_decline">Decline</string>
   <string name="btn_join">Join</string>
+  <string name="activity_no_items">No items to see right now...</string>
 </resources>

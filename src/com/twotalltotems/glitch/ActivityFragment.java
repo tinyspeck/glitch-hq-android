@@ -200,6 +200,9 @@ public class ActivityFragment extends BaseFragment{
     		
     		addActivityList( m_actList, response, true );
     		updateActivityFeeds();
+    		if ( m_actList.size() == 0 ) {
+    			((TextView)m_root.findViewById( R.id.list_message )).setText( R.string.activity_no_items );
+    		}
 			onRequestComplete();
 		}else if ( method == "activity.setStatus" || method == "activity.joinGroup" || method == "activity.declineGroup" || method == "activity.addBuddy" || method == "activity.declineBuddy" )
 		{

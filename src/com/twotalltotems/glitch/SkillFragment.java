@@ -245,6 +245,10 @@ public class SkillFragment extends BaseFragment{
 	        		}
        		}
        		updateSkillList();
+       		if ( m_skillList.size() == 0 ) {
+       			// no skills to learn. change text
+       			((TextView)m_root.findViewById( R.id.list_message )).setText("");
+       		}
        		onRequestComplete();
     	}
 	}

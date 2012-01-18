@@ -247,7 +247,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	public void addActivityList( Vector<glitchActivity> actList, JSONObject response, boolean bOwner )
 	{
 		JSONObject jItems = response.optJSONObject("items");
-		if( jItems != null )
+		if( jItems != null && jItems.length() > 0)
 		{
     		Iterator<String> it = jItems.keys(); 
 

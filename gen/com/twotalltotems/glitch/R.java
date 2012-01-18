@@ -357,6 +357,7 @@ containing a value of this type.
         public static final int top_pane=0x7f03001b;
     }
     public static final class string {
+        public static final int activity_no_items=0x7f04001f;
         public static final int app_name=0x7f040000;
         public static final int btn_add_back=0x7f04001b;
         public static final int btn_decline=0x7f04001d;

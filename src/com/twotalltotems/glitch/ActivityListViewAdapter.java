@@ -95,7 +95,7 @@ public class ActivityListViewAdapter extends BaseAdapter
             holder.notNow = (Button)convertView.findViewById(R.id.btnNotNow);
             holder.request_buttons = convertView.findViewById(R.id.request_buttons);
             convertView.setTag(holder);
-		}
+		}		
 		holder = (ViewHolder)convertView.getTag();
 
 		if( position < getCount() )

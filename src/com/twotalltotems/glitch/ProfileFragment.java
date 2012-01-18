@@ -260,7 +260,7 @@ public class ProfileFragment extends BaseFragment{
 
 	private void updateActivityFeed()
 	{
-		View vLayout = m_root.findViewById( R.id.homeListViewLayout );
+		View vLayout = m_root.findViewById( R.id.homeListViewLayout );		
 		vLayout.setVisibility(View.VISIBLE);
 		vLayout.setBackgroundResource( m_bOtherProfile? R.drawable.wallpaper2_other: R.drawable.wallpaper2 );
 
@@ -269,7 +269,9 @@ public class ProfileFragment extends BaseFragment{
 		ImageView imgv = (ImageView)m_root.findViewById( R.id.iv_wallpaper );
 		imgv.setImageResource( m_bOtherProfile? R.drawable.wallpaper_other: R.drawable.wallpaper );
 		
-		m_root.findViewById( R.id.logoutLayout ).setVisibility( m_bOtherProfile? View.GONE: View.VISIBLE  );
+		m_root.findViewById( R.id.logoutLayout ).setVisibility( m_bOtherProfile? View.GONE : View.VISIBLE  );
+		
+		m_listView.setVisibility( m_actList.size() == 0 ? View.GONE : View.VISIBLE );
 		
 	    ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );	    
 	    sv.setOnTouchListener(null);
@@ -353,8 +355,8 @@ public class ProfileFragment extends BaseFragment{
 		    m_actItemLast = response.optString("last");
     		m_actHasMore = (response.optInt("has_more")==1)? true: false;
 
-    		addActivityList( m_actList, response, !m_bOtherProfile );    		
-    		updateActivityFeed();    		
+    		addActivityList( m_actList, response, !m_bOtherProfile );
+    		updateActivityFeed();
     		onRequestComplete();
     	}else if( method == "skills.listLearning" )
 		{
