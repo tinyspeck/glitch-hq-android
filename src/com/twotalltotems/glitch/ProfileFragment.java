@@ -274,7 +274,7 @@ public class ProfileFragment extends BaseFragment{
 	    ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );	    
 	    sv.setOnTouchListener(null);
 	    if (m_bAppendMode) {
-	    	sv.scrollBy(0, 50);
+	    	sv.fling(500);
 	    }
 		
 		m_adapter.notifyDataSetChanged();

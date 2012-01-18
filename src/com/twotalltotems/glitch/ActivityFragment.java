@@ -160,9 +160,10 @@ public class ActivityFragment extends BaseFragment{
 		boolean bHas = m_actList.size() > 0 ;
 		m_root.findViewById( R.id.list_message ).setVisibility( bHas?  View.GONE : View.VISIBLE );
 		m_listView.setVisibility( bHas? View.VISIBLE: View.GONE );
-		if (m_bAppendMode)
-			m_listView.scrollBy(0, 50);
-			
+		if (m_bAppendMode) {			
+			ScrollView sv = (ScrollView) m_root.findViewById(R.id.ActivityScrolLView);
+			sv.fling(500);
+		}
 		if (bHas)
 			m_adapter.notifyDataSetChanged();
 	}

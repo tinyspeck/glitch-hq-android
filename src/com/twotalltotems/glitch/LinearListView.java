@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 public class LinearListView extends LinearLayout
 {
