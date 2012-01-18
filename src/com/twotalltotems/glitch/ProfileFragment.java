@@ -270,8 +270,9 @@ public class ProfileFragment extends BaseFragment{
 		
 		m_root.findViewById( R.id.logoutLayout ).setVisibility( m_bOtherProfile? View.GONE: View.VISIBLE  );
 		
-	    ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );
+	    ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );	    
 	    sv.setOnTouchListener(null);
+	    sv.scrollBy(0, 50);
 		
 		m_adapter.notifyDataSetChanged();
 	}
