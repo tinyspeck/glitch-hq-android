@@ -99,7 +99,6 @@ public class SkillFragment extends BaseFragment{
    		
    		m_root.findViewById( R.id.list_message ).setVisibility( bHas? View.GONE: View.VISIBLE );
    		m_skillListView.setVisibility( bHas? View.VISIBLE: View.GONE );
-   		m_skillListView.scrollBy(0, bHas ? 50 : 0);
    		
    		if( bHas )
    			m_skillAdapter.notifyDataSetChanged();

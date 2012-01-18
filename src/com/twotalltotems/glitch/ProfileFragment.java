@@ -12,6 +12,7 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -272,7 +273,9 @@ public class ProfileFragment extends BaseFragment{
 		
 	    ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );	    
 	    sv.setOnTouchListener(null);
-	    sv.scrollBy(0, 50);
+	    if (m_bAppendMode) {
+	    	sv.scrollBy(0, 50);
+	    }
 		
 		m_adapter.notifyDataSetChanged();
 	}
@@ -350,8 +353,8 @@ public class ProfileFragment extends BaseFragment{
 		    m_actItemLast = response.optString("last");
     		m_actHasMore = (response.optInt("has_more")==1)? true: false;
 
-    		addActivityList( m_actList, response, !m_bOtherProfile );
-    		updateActivityFeed();
+    		addActivityList( m_actList, response, !m_bOtherProfile );    		
+    		updateActivityFeed();    		
     		onRequestComplete();
     	}else if( method == "skills.listLearning" )
 		{
@@ -495,7 +498,7 @@ public class ProfileFragment extends BaseFragment{
 	}
 
 	protected void onMore()
-	{
+	{		
 		getProfileInfo(true);
 	}
 }
