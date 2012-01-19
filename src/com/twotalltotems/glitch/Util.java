@@ -20,6 +20,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -177,6 +178,14 @@ public class Util
 		 animation.setRepeatCount( TranslateAnimation.INFINITE );
 		 
 		 v.startAnimation(animation);
+	}
+	
+	public static void startScaleAnimation( View v, int duration )
+	{
+		ScaleAnimation animation = new ScaleAnimation(1.0f, 1.0f, 0.0f, 1.0f);
+		animation.setDuration( duration );
+		
+		v.startAnimation(animation);
 	}
 	
 	public static void startTranslateAnimation( View v, int duration )

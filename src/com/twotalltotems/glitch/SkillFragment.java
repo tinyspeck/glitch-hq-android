@@ -16,7 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -256,17 +260,22 @@ public class SkillFragment extends BaseFragment{
 	void setLearningSkill()
 	{
 		skillLearning skill = null;
+		FrameLayout learningPanel = (FrameLayout) m_root.findViewById(R.id.skill_view_learning_panel);
+		int wasVisible = learningPanel.getVisibility();
 		
 		if( m_learningList.size() > 0 )
 			skill = m_learningList.get(0);
 		
 		if( skill != null )
-		{
-			m_root.findViewById(R.id.skill_view_learning_panel).setVisibility(View.VISIBLE);
+		{			
+			learningPanel.setVisibility(View.VISIBLE);			
 			Util.showProgress( getActivity(), m_learningSkillProgress, m_learningSkillTime, m_learningList.get(0).remainTime, m_learningList.get(0).totalTime, m_learningList.get(0).curTime ); 
 			m_learningSkillName.setText( m_learningList.get(0).item  );
+			if (wasVisible == View.GONE) {
+				Util.startScaleAnimation(learningPanel, 600);
+			}
 		}else
-			m_root.findViewById(R.id.skill_view_learning_panel).setVisibility(View.GONE);
+			learningPanel.setVisibility(View.GONE);
 	}
 
 	private void InitUpdateSkillRemainningTimer()

@@ -362,10 +362,11 @@ public class ProfileFragment extends BaseFragment{
 		{
     		m_learningList.clear();
 			addToLearningList( m_learningList, response );
-    		m_learningAdapter.notifyDataSetChanged();
-			
-	        InitUpdateSkillRemainningTimer();
+    		m_learningAdapter.notifyDataSetChanged();			
+	        InitUpdateSkillRemainningTimer();	        
 			onRequestComplete();
+			Util.startScaleAnimation(m_learningListView, 600);
+			
 		}else if ( method == "friends.remove" ||  method == "friends.add" )
 		{
 			onRequestComplete();
