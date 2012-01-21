@@ -160,13 +160,15 @@ public class ActivityFragment extends BaseFragment{
 	{
 		boolean bHas = m_actList.size() > 0 ;
 		m_root.findViewById( R.id.list_message ).setVisibility( bHas?  View.GONE : View.VISIBLE );
-		m_listView.setVisibility( bHas? View.VISIBLE: View.GONE );
-		if (m_bAppendMode) {			
-			ScrollView sv = (ScrollView) m_root.findViewById(R.id.ActivityScrolLView);
-			sv.fling(500);
-		}
+		m_listView.setVisibility( bHas? View.VISIBLE: View.GONE );		
+		
 		if (bHas)
 			m_adapter.notifyDataSetChanged();
+		
+		if (m_bAppendMode) {		
+			ScrollView sv = (ScrollView) m_root.findViewById(R.id.ActivityScrolLView);			
+			Util.delayedFlingOfScrollView(sv, 500, 500);
+		}
 	}
 	
 	private void showHeader()

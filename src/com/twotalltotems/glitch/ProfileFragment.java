@@ -274,12 +274,11 @@ public class ProfileFragment extends BaseFragment{
 		m_listView.setVisibility( m_actList.size() == 0 ? View.GONE : View.VISIBLE );
 		
 	    ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );	    
-	    sv.setOnTouchListener(null);
-	    if (m_bAppendMode) {
-	    	sv.fling(500);
-	    }
-		
+	    sv.setOnTouchListener(null);	
 		m_adapter.notifyDataSetChanged();
+		if (m_bAppendMode) {
+			Util.delayedFlingOfScrollView(sv, 500, 500);
+	    }
 	}
 	
 	private void updateProfileInfo()

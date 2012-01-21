@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.PopupWindow;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class Util
@@ -169,7 +171,18 @@ public class Util
 	  return d;
   }
   
-	public static void startAlphaAnimation(View v, int duration, float from, float to)
+  	public static void delayedFlingOfScrollView(final ScrollView sv, final int velocityY, int delay)
+  	{
+  		final Handler handler = new Handler();
+  		
+  		handler.postDelayed(new Runnable() {
+  			public void run() {
+  				sv.fling(velocityY);
+  			}
+  		}, delay);
+  	}
+  
+  	public static void startAlphaAnimation(View v, int duration, float from, float to)
 	{
 		 AlphaAnimation animation = new AlphaAnimation(from,to);
 		 
