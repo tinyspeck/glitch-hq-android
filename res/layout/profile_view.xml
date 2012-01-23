@@ -134,20 +134,27 @@
   <ImageView android:id="@+id/iv_wallpaper" android:layout_gravity="top"
   			android:scaleType="centerCrop"
 	    	android:src="@drawable/wallpaper"
-			android:layout_width="fill_parent" android:layout_height="80sp" />
+			android:layout_width="fill_parent" android:layout_height="220sp" />
 
-  <LinearLayout android:id="@+id/logoutLayout" android:layout_height="fill_parent" android:layout_gravity="center" android:gravity="right" 
+  <LinearLayout android:id="@+id/logoutLayout" android:layout_height="fill_parent" android:layout_gravity="top" android:gravity="right" 
 				android:layout_width="fill_parent" >
 
 	  <TextView android:text="Logout" 
 		    	style = "@style/MiddleTextStyle"  
 		    	android:padding="20sp" 
 		    	android:id="@+id/tv_logout"
-		    	android:layout_gravity="center"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+		    	android:layout_gravity="top"
+		    	android:gravity="right"
+				android:layout_width="fill_parent" android:layout_height="wrap_content"/>
 
   </LinearLayout>	
 
+  <ImageView android:layout_gravity="bottom|right"
+      android:src="@drawable/rookfossil"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+  />
+  
   </FrameLayout>
 
    <RelativeLayout
