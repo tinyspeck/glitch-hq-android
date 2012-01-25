@@ -127,6 +127,8 @@ public class ProfileFragment extends BaseFragment{
 	    
 	    profileSelf.setVisibility( m_bOtherProfile? View.GONE: View.VISIBLE );
 	    profileOther.setVisibility( m_bOtherProfile? View.VISIBLE: View.GONE );
+	    ((ImageView)root.findViewById( R.id.rookfossil_image )).setVisibility( m_bOtherProfile ? View.GONE: View.VISIBLE);
+	    ((ImageView)root.findViewById( R.id.treasure_image )).setVisibility( m_bOtherProfile ? View.VISIBLE: View.GONE);
 	    
 	    m_vProfile = m_bOtherProfile? profileOther: profileSelf;
 	    

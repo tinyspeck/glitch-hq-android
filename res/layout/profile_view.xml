@@ -149,10 +149,19 @@
 
   </LinearLayout>	
 
-  <ImageView android:layout_gravity="bottom|right"
+  <ImageView android:id="@+id/rookfossil_image"
+      android:layout_gravity="bottom|right"
       android:src="@drawable/rookfossil"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+  />
+
+  <ImageView android:id="@+id/treasure_image" 
+      android:layout_gravity="bottom|left"
+      android:src="@drawable/treasure"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:visibility="gone"
   />
   
   </FrameLayout>
