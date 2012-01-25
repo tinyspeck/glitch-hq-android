@@ -7,7 +7,7 @@
   
 <include layout="@layout/top_pane"/> 
 
-<ScrollView android:id="@+id/SkillScrollView" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" >
+<ScrollView android:id="@+id/SkillScrollView" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" android:fadingEdge="none">
 
 <LinearLayout android:layout_height="fill_parent" android:layout_gravity="top"
 				android:layout_width="fill_parent" android:orientation="vertical">
