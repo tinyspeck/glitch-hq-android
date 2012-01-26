@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
@@ -56,36 +57,44 @@ public class BitmapUtil
 	  
 	  public static Bitmap CreateOvalImage( Bitmap orgBmp )
 	  {
-	    	int nW = 50;
-	    	int nH = 50;
+	    	int nW = 60;
+	    	int nH = 60;
 
 	    	int nW0 = orgBmp.getWidth();
 			int nH0 = orgBmp.getHeight();
 			
-			Rect r = new Rect();
-			r.left = nW0/6;
-			r.top =  nH0/11;
-			r.right =nW0*12/13;
-			r.bottom = (int)( nH0 * 0.65 ); 
-	    	
+//			Rect r = new Rect();
+//			r.left = (int) ( nW0 * 0.18 );
+//			r.top = nH0 / 11;
+//			r.right = (int) ( nW0 * 0.94 );
+//			r.bottom = (int) ( nH0 * 0.63 );			
+	    	Rect r = new Rect();
+	    	r.left = 18;
+	    	r.top = 16;
+	    	r.right = nW0;
+	    	r.bottom = 95;
+			
 	    	Bitmap  bmNew = Bitmap.createBitmap( nW, nH, Bitmap.Config.ARGB_8888 ); 
 	        
-	    	Canvas cvs = new Canvas(bmNew);
+	    	Canvas cvs = new Canvas(bmNew);	    		    
 	    	
 	        Paint paint = new Paint();
 	        paint.setStyle( Paint.Style.STROKE );
 	        paint.setAntiAlias(true);
 	        paint.setColor(0xffc0c0c0);
-
-	        cvs.drawCircle(nW/2, nH/2, nW/2, paint);
 	        
 	        RectF rDest = new RectF();
 	        rDest.left = 1;   
-	        rDest.right = nW-2;
+	        rDest.right = nW;
 	        rDest.top = 1;
-	        rDest.bottom = nH-2;
+	        rDest.bottom = nH;
 	        
-	        cvs.drawBitmap(orgBmp, r, rDest, paint);
+	        Path clip = new Path();
+	        clip.addCircle((float) (nW/2 - 0.3), (float) (nH/2 - 0.3), (float) (nW/2 + 0.5), Path.Direction.CW);
+	        cvs.clipPath(clip);
+	        cvs.drawARGB(76, 233, 240, 240);
+	        cvs.drawCircle(nW/2, nH/2, nW/2, paint);
+	        cvs.drawBitmap(orgBmp, r, rDest, paint);	       	       
 	        
 	    	return bmNew;
 	  }

@@ -6,6 +6,7 @@ import java.net.URL;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 public class DrawableURL extends AsyncTask<String,Void,Bitmap>
@@ -76,7 +77,7 @@ public class DrawableURL extends AsyncTask<String,Void,Bitmap>
 		{
 			iv.setTag(sURL);
 			iv.setImageDrawable(null);
-			
+
 			new DrawableURL( iv ){
 				protected void onPostExecute(Bitmap bm)
 				{

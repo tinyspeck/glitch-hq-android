@@ -8,7 +8,7 @@
 			android:clickable="true"
 			android:background="@drawable/list_item_bg_selector"
 			>
-  <ImageView android:id="@+id/icon_skill" android:layout_gravity="center"
+  <ImageView android:id="@+id/icon_skill" android:layout_gravity="center|top"
 	    	android:src="@drawable/skill_learned"
 	    	android:layout_marginRight="2sp"
 			android:layout_width="40sp" android:layout_height="40sp" />

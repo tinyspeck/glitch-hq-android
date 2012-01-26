@@ -7,7 +7,7 @@
   
 <include layout="@layout/top_pane"/> 
 
-<ScrollView android:id="@+id/activity_detail_scrollview" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" android:layout_weight="1.0" >
+<ScrollView android:id="@+id/activity_detail_scrollview" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" android:layout_weight="1.0" android:fadingEdge="none">
 
 <LinearLayout
   android:layout_width="fill_parent"
