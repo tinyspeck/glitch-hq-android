@@ -1,5 +1,7 @@
 package com.twotalltotems.glitch;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
 import com.tinyspeck.android.Glitch;
 
 import android.app.Activity;
@@ -26,10 +28,13 @@ public class MyApplication extends Application
   public void Init( Activity act  )
   {
 	if( m_bInit )
-	  return;
-
+	  return;	
+	
     m_bInit = true;
 
+    GlobalExceptionHandler handler = new GlobalExceptionHandler(Thread.getDefaultUncaughtExceptionHandler());
+    Thread.setDefaultUncaughtExceptionHandler(handler);
+    
     m_downloader = new ImageDownloader(){
     	public void setImageViewBitmap( ImageView iv, Bitmap bm )
     	{
@@ -48,7 +53,7 @@ public class MyApplication extends Application
     
     m_vagFont = Typeface.createFromAsset( getAssets(), "VAG.ttf" );  
     m_vagLightFont = Typeface.createFromAsset( getAssets(), "VAGLight.ttf" );  
-	
+	    
 	glitch = new Glitch("197-764ef7f4f676f4b53819e52ea7cca4c65badf353", "twotallglitch://auth");
   }
   
@@ -76,5 +81,18 @@ public class MyApplication extends Application
 
 	  imageView.setVisibility(View.INVISIBLE);
 	  m_downloader.download(url, imageView);
+  }
+  
+  private class GlobalExceptionHandler implements UncaughtExceptionHandler
+  {
+	  private UncaughtExceptionHandler oldHandler;
+	  
+	  GlobalExceptionHandler(UncaughtExceptionHandler oldHandler) {
+		 this.oldHandler = oldHandler;
+	  }
+	  
+	  public void uncaughtException(Thread thread, Throwable throwable) {
+		  oldHandler.uncaughtException(thread, throwable);
+	  }
   }
 };

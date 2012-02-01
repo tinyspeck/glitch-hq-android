@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.app.AlertDialog;
@@ -87,7 +88,7 @@ public class HomeScreen extends FragmentActivity{
 						clearFragmentStack();
 					else
 					{
-						setCurrentFragment( m_profileFrm, false );
+						setCurrentFragment( m_profileFrm, false );						
 						m_curTab = 	TAB_PROFILE;	
 					}
 				}
@@ -161,18 +162,28 @@ public class HomeScreen extends FragmentActivity{
 			m_profileView.setVisibility(View.VISIBLE);
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
+			((ProfileFragment)f).logPageView();
+
 		}else if( nTab == TAB_ACTIVITY )
 		{
 			viewId = R.id.fragmentView_activity;
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.VISIBLE);
 			m_skillsView.setVisibility(View.GONE);
+			if (f instanceof ActivityFragment)
+				((ActivityFragment)f).logPageView();
+			else if (f instanceof ActivityDetailFragment)
+				((ActivityDetailFragment)f).logPageView();
 		}else
 		{
 			viewId = R.id.fragmentView_skills;
 			m_profileView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.VISIBLE);
 			m_activityView.setVisibility(View.GONE);
+			if (f instanceof SkillFragment)
+				((SkillFragment)f).logPageView();
+			else if (f instanceof SkillDetailFragment)
+				((SkillDetailFragment)f).logPageView();
 		}
 		if( !f.isAdded() )
 		{
@@ -241,6 +252,7 @@ public class HomeScreen extends FragmentActivity{
 	public void onBackPressed() {
 		
 		super.onBackPressed();
+		
 	}
 	
 	@Override
@@ -269,13 +281,17 @@ public class HomeScreen extends FragmentActivity{
 	     {
 	     	case MENU_COMMAND_REFRESH:
 	     		bf = getCurrentFragment();
-	     		if( bf!= null )
+	     		if( bf!= null ) {
 	     			bf.onRefresh();
+	     			FlurryAgent.logEvent(bf.getClass().toString() + " - Clicked to refresh");
+	     		}
 	     		break;
 	     	case MENU_COMMAND_MORE:
 	     		bf = getCurrentFragment();
-	     		if( bf!= null )
+	     		if( bf!= null ) {
 	     			bf.onMore();
+	     			FlurryAgent.logEvent(bf.getClass().toString() + " - Clicked to load more");
+	     		}
 	     		break;
 	     } 
 	     return super.onOptionsItemSelected(item);
@@ -296,6 +312,7 @@ public class HomeScreen extends FragmentActivity{
 		
 		m_spinner.setVisibility(View.INVISIBLE);
     	Util.Alert(this, R.string.error_connection_message, R.string.error_connection_title );
+    	FlurryAgent.logEvent("App Delegate - Tried to show connection error alert");
 	}
 	
 	//// GlitchSession interface methods ////
@@ -376,7 +393,22 @@ public class HomeScreen extends FragmentActivity{
 		Intent intent = new Intent();
 		intent.setClass(HomeScreen.this, LoginScreen.class);
 		startActivity(intent);
-
+		
+		FlurryAgent.logEvent("App Delegate - Logged out");
 		finish();
+	}
+	
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+		FlurryAgent.onStartSession(this, "WCCPI1W5AYGMARQV2QQL");
+	}
+	
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+		FlurryAgent.onEndSession(this);
 	}
 }	

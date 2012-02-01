@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 import com.twotalltotems.glitch.BaseFragment.glitchActivity;
 
@@ -153,11 +154,13 @@ public class ActivityListViewAdapter extends BaseAdapter
 				
 				holder.addBack.setOnClickListener( new OnClickListener() {
 					public void onClick(View v) {
+						FlurryAgent.logEvent("Activity - Group Request - Join button pressed");
 						sendRequest( (String)v.getTag(), "activity.joinGroup" );
 					}
 				});
 				holder.notNow.setOnClickListener( new OnClickListener() {
 					public void onClick(View v) {
+						FlurryAgent.logEvent("Activity - Group Request - Decline button pressed");
 						sendRequest( (String)v.getTag(), "activity.declineGroup" );
 					}
 				});
@@ -174,11 +177,13 @@ public class ActivityListViewAdapter extends BaseAdapter
 
 				holder.addBack.setOnClickListener( new OnClickListener() {
 					public void onClick(View v) {
+						FlurryAgent.logEvent("Activity - Friend Request - Add Back button pressed");
 						sendRequest( (String)v.getTag(), "activity.addBuddy" );
 					}
 				});
 				holder.notNow.setOnClickListener( new OnClickListener() {
 					public void onClick(View v) {
+						FlurryAgent.logEvent("Activity - Friend Request - Not Now button pressed");
 						sendRequest( (String)v.getTag(), "activity.declineBuddy" );
 					}
 				});

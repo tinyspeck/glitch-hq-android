@@ -7,6 +7,7 @@ import java.util.Vector;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.content.Context;
@@ -206,6 +207,7 @@ public class SkillDetailFragment extends BaseFragment{
 		btnLearn.setTypeface( m_application.m_vagFont );
 		btnLearn.setOnClickListener( new OnClickListener(){
 				public void onClick(View arg0) {
+					FlurryAgent.logEvent("Skill Detail - Tapped learn button");
 					learnSkill();
 				}
 			 });

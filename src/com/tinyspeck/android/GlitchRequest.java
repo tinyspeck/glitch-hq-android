@@ -1,6 +1,8 @@
 package com.tinyspeck.android;
 
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -86,7 +88,13 @@ public class GlitchRequest {
     	{    		
     		for (String key : params.keySet())
     		{
-    			parameters = parameters + "&" + key + "=" + params.get(key);
+    			String param = "";
+    			try {
+					param = URLEncoder.encode(params.get(key), "utf-8");
+				} catch (UnsupportedEncodingException e) {
+					param = URLEncoder.encode(params.get(key));
+				}
+    			parameters = parameters + "&" + key + "=" + param;
     		}
 			
 			// Remove extra ampersand from front

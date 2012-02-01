@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.os.Bundle;
@@ -510,4 +511,5 @@ public class ProfileFragment extends BaseFragment{
 		ScrollView sv = (ScrollView)m_root.findViewById( R.id.scr_profile );
 		sv.smoothScrollTo(0, 0);
 	}
+
 }

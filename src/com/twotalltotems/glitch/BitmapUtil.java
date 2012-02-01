@@ -78,9 +78,10 @@ public class BitmapUtil
 	        
 	    	Canvas cvs = new Canvas(bmNew);	    		    
 	    	
-	        Paint paint = new Paint();
+	        Paint paint = new Paint();	        
 	        paint.setStyle( Paint.Style.STROKE );
 	        paint.setAntiAlias(true);
+	        paint.setAlpha(78);	       
 	        paint.setColor(0xffc0c0c0);
 	        
 	        RectF rDest = new RectF();
@@ -90,11 +91,11 @@ public class BitmapUtil
 	        rDest.bottom = nH;
 	        
 	        Path clip = new Path();
-	        clip.addCircle((float) (nW/2 - 0.3), (float) (nH/2 - 0.3), (float) (nW/2 + 0.5), Path.Direction.CW);
+	        clip.addCircle(nW/2, nH/2, (float) (nW/2 + 0.5), Path.Direction.CW);
 	        cvs.clipPath(clip);
-	        cvs.drawARGB(76, 233, 240, 240);
-	        cvs.drawCircle(nW/2, nH/2, nW/2, paint);
-	        cvs.drawBitmap(orgBmp, r, rDest, paint);	       	       
+	        cvs.drawARGB(78, 233, 240, 240);
+	        cvs.drawBitmap(orgBmp, r, rDest, paint);
+	        cvs.drawCircle(nW/2, nH/2, nW/2, paint);	        	       	      
 	        
 	    	return bmNew;
 	  }

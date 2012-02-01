@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 import com.twotalltotems.glitch.BaseFragment.glitchActivity;
 
@@ -89,6 +90,7 @@ public class ActivityFragment extends BaseFragment{
 		 
 		 m_btnEdit.setOnClickListener( new OnClickListener(){
 				public void onClick(View arg0) {
+					FlurryAgent.logEvent("Activity - 'Compose' button pressed");
 					composeNotes();
 				}
 		 });
@@ -239,8 +241,9 @@ public class ActivityFragment extends BaseFragment{
 	    Button btnSend = (Button) v.findViewById(R.id.btnSend );
 
 	    btnSend.setOnClickListener( new OnClickListener(){
-			public void onClick(View v) {
+			public void onClick(View v) {				
 				sendActivityStatus( null, ed.getText().toString() );
+				FlurryAgent.logEvent("Activity Compose Status Message - 'Send' button pressed");
 				pw.dismiss();
 			}
 		});
@@ -248,6 +251,7 @@ public class ActivityFragment extends BaseFragment{
 	    Button btnClose = (Button) v.findViewById(R.id.btnClose );
 	    btnClose.setOnClickListener( new OnClickListener(){
 			public void onClick(View v) {
+				FlurryAgent.logEvent("Activity Compose Status Message - 'Close' button pressed");
 				pw.dismiss();
 			}
 		});
@@ -296,4 +300,5 @@ public class ActivityFragment extends BaseFragment{
 		ScrollView sv = (ScrollView) m_root.findViewById(R.id.ActivityScrolLView);
 		sv.smoothScrollTo(0, 0);
 	}
+	
 }

@@ -1,5 +1,6 @@
 package com.twotalltotems.glitch;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchSessionDelegate;
 
 import android.app.Activity;
@@ -85,12 +86,14 @@ public class LoginScreen extends Activity implements GlitchSessionDelegate
 			{
 				m_errorMsg.setVisibility(View.VISIBLE);
 				m_errorMsg.setText( LoginScreen.this.getResources().getString(R.string.error_login_username) );
+				FlurryAgent.logEvent("Login - Didn't provide email");
 				return;
 			}
 			if( m_sPassword.length() <= 0 )
 			{
 				m_errorMsg.setVisibility(View.VISIBLE);
 				m_errorMsg.setText( LoginScreen.this.getResources().getString(R.string.error_login_password) );
+				FlurryAgent.logEvent("Login - Didn't provide password");
 				return;
 			} 
 
@@ -142,9 +145,17 @@ public class LoginScreen extends Activity implements GlitchSessionDelegate
    }
 
    @Override
+   public void onStart()
+   {
+	   super.onStart();
+	   FlurryAgent.onStartSession(this, "WCCPI1W5AYGMARQV2QQL");
+   }
+   
+   @Override
    public void onStop()
    {
 	 super.onStop();
+	 FlurryAgent.onEndSession(this);
    }
    
    @Override

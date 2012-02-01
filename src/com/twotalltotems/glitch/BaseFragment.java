@@ -8,6 +8,7 @@ import java.util.Vector;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 import com.tinyspeck.android.GlitchRequestDelegate;
 
@@ -349,5 +350,10 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	
 	protected void scrollToTop()
 	{		
+	}
+	
+	public void logPageView()
+	{
+		FlurryAgent.onPageView();
 	}
 }

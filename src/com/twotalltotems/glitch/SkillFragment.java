@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.content.Context;
@@ -314,4 +315,5 @@ public class SkillFragment extends BaseFragment{
 		ScrollView sv = (ScrollView) m_root.findViewById(R.id.SkillScrollView);
 		sv.smoothScrollTo(0, 0);
 	}
+
 }
