@@ -182,13 +182,13 @@ public class Util
   		}, delay);
   	}
   
-  	public static void startAlphaAnimation(View v, int duration, float from, float to)
+  	public static void startAlphaAnimation(View v, int duration, float from, float to, int repeatCount)
 	{
 		 AlphaAnimation animation = new AlphaAnimation(from,to);
 		 
 		 animation.setDuration(duration);	 
 		 animation.setRepeatMode( TranslateAnimation.REVERSE );
-		 animation.setRepeatCount( TranslateAnimation.INFINITE );
+		 animation.setRepeatCount( repeatCount );
 		 
 		 v.startAnimation(animation);
 	}
@@ -282,7 +282,7 @@ public class Util
  	    v.setLayoutParams(params);
  	    if( v.getTag() == null )
  	    {
- 	    	Util.startAlphaAnimation( v, 1000, 1, (float)0.5 );
+ 	    	Util.startAlphaAnimation( v, 1000, 1, (float)0.5, TranslateAnimation.INFINITE );
  	    	v.setTag(true);
  	    }
  	    if( vText!=null )

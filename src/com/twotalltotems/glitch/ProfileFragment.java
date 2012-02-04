@@ -19,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.TranslateAnimation;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -367,7 +368,7 @@ public class ProfileFragment extends BaseFragment{
     		m_learningAdapter.notifyDataSetChanged();			
 	        InitUpdateSkillRemainningTimer();	        
 			onRequestComplete();
-			Util.startScaleAnimation(m_learningListView, 600);	
+			Util.startAlphaAnimation(m_learningListView, 1000, 0, 1, TranslateAnimation.ABSOLUTE);	
 			
 		}else if ( method == "friends.remove" ||  method == "friends.add" )
 		{
