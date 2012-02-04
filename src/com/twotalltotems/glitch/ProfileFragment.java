@@ -361,6 +361,7 @@ public class ProfileFragment extends BaseFragment{
     		addActivityList( m_actList, response, !m_bOtherProfile );
     		updateActivityFeed();
     		onRequestComplete();
+    		
     	}else if( method == "skills.listLearning" )
 		{
     		m_learningList.clear();
@@ -368,7 +369,8 @@ public class ProfileFragment extends BaseFragment{
     		m_learningAdapter.notifyDataSetChanged();			
 	        InitUpdateSkillRemainningTimer();	        
 			onRequestComplete();
-			Util.startAlphaAnimation(m_learningListView, 1000, 0, 1, TranslateAnimation.ABSOLUTE);	
+			if ( !m_bAppendMode )
+				Util.startAlphaAnimation(m_learningListView, 1000, 0, 1, TranslateAnimation.ABSOLUTE);	
 			
 		}else if ( method == "friends.remove" ||  method == "friends.add" )
 		{

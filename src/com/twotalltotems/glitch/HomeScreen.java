@@ -156,13 +156,15 @@ public class HomeScreen extends FragmentActivity{
 		int viewId = 0;
 		int nTab = m_btnProfile.isChecked()? TAB_PROFILE: ( m_btnActivity.isChecked()? TAB_ACTIVITY: TAB_SKILLS );
 		
+		if (f instanceof BaseFragment)
+			((BaseFragment)f).logPageView();
+		
 		if( nTab == TAB_PROFILE )
 		{
 			viewId = R.id.fragmentView_profile;
 			m_profileView.setVisibility(View.VISIBLE);
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
-			((ProfileFragment)f).logPageView();
 
 		}else if( nTab == TAB_ACTIVITY )
 		{
@@ -170,20 +172,14 @@ public class HomeScreen extends FragmentActivity{
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.VISIBLE);
 			m_skillsView.setVisibility(View.GONE);
-			if (f instanceof ActivityFragment)
-				((ActivityFragment)f).logPageView();
-			else if (f instanceof ActivityDetailFragment)
-				((ActivityDetailFragment)f).logPageView();
+			
 		}else
 		{
 			viewId = R.id.fragmentView_skills;
 			m_profileView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.VISIBLE);
 			m_activityView.setVisibility(View.GONE);
-			if (f instanceof SkillFragment)
-				((SkillFragment)f).logPageView();
-			else if (f instanceof SkillDetailFragment)
-				((SkillDetailFragment)f).logPageView();
+			
 		}
 		if( !f.isAdded() )
 		{
