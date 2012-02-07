@@ -48,39 +48,32 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	       return (g2.time < g1.time)? -1: ( ( g2.time == g1.time )? 0: 1 ); 
 		}   
 	}   	
-  	 
- 	public class skillLearning {
-		 String item;
-		 int remainTime;
-		 int totalTime;
-		 long curTime;
- 	 };
 
    public class skillAvailable {
-   	 String id;
-   	 String item;
-		 String icon;
-		 String description;
-		 String type;
-		 Vector<skillAvailable> requirements;
-		 Vector<skillAvailable> postRequests;
-		 Vector<skillGiant> giants;
-		 String neededFor;
-		 String glant;
-		 boolean paused;
-		 boolean can_learn;		 
-		 boolean learning;
-		 boolean got;
-		 int level;
-		 String classId;
-		 int remainTime;
-		 int totalTime;
-		 long curTime;
+   	 	String id;
+   	 	String item;
+   	 	String icon;
+   	 	String description;
+   	 	String type;
+   	 	Vector<skillAvailable> requirements;
+   	 	Vector<skillAvailable> postRequests;
+   	 	Vector<skillGiant> giants;
+   	 	String neededFor;
+   	 	String glant;
+   	 	boolean paused;
+   	 	boolean can_learn;
+   	 	boolean learning;
+   	 	boolean got;
+   	 	int level;
+   	 	String classId;
+   	 	int remainTime;
+   	 	int totalTime;
+   	 	long curTime;
 	 };
 	 
 	public class skillGiant {
-		 String id;
-		 boolean isPrimary;
+		String id;
+		boolean isPrimary;
 	};
 	
 	public View ViewInit( LayoutInflater inflater, int nLayout, ViewGroup container )
@@ -276,7 +269,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		return false;
 	}
 	
-	public void addToLearningList( Vector<skillLearning> learningList, JSONObject response  )
+	public void addToLearningList( Vector<skillAvailable> learningList, JSONObject response  )
 	{
 		JSONObject jItems = response.optJSONObject("learning");
 		
@@ -286,8 +279,9 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 
     		while( it.hasNext() )
     		{	
-    			JSONObject jobj = jItems.optJSONObject( it.next() );
-    			skillLearning skill = new skillLearning();
+    			String sKey = it.next();
+    			JSONObject jobj = jItems.optJSONObject(sKey);
+    			skillAvailable skill = new skillAvailable();
 
     			int nSec = jobj.optInt("time_remaining");
     			int nTotal = jobj.optInt("total_time");
@@ -300,7 +294,12 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     			skill.remainTime = nSec;
 	    		skill.curTime = System.currentTimeMillis()/1000;
     			
-    			skill.item = jobj.optString("name");
+	    		skill.id = sKey;
+	    		skill.icon = jobj.optString("icon_100");
+    			skill.item = jobj.optString("name");    			
+    			skill.description = jobj.optString("description");
+           		skill.curTime = System.currentTimeMillis()/1000;
+           		
     			learningList.add(skill);
     		}
 		}

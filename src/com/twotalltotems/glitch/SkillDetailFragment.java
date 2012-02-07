@@ -2,6 +2,8 @@ package com.twotalltotems.glitch;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 import org.json.JSONArray;
@@ -12,6 +14,7 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -26,12 +29,19 @@ import android.widget.TextView;
 public class SkillDetailFragment extends BaseFragment{
 
   	private skillAvailable m_currentSkill;
-  	private String m_skillID;
+  	private String m_skillID;  
   	private View m_root;
+  	private Timer m_RemainingTimer;
   	
   	SkillDetailFragment( String skillID )
   	{
   		m_skillID = skillID;
+  	}
+  	
+  	SkillDetailFragment(skillAvailable skill)
+  	{
+  		m_skillID = skill.id;
+  		m_currentSkill = skill;
   	}
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -71,7 +81,7 @@ public class SkillDetailFragment extends BaseFragment{
        		{
            		m_currentSkill.learning = true;
        			m_currentSkill.remainTime = lastRemainTime;
-       			m_currentSkill.totalTime = lastTotalTime;
+       			m_currentSkill.totalTime = lastTotalTime;       			
        		}else
        			m_currentSkill.learning = false;
 
@@ -164,12 +174,33 @@ public class SkillDetailFragment extends BaseFragment{
         request1.execute(this);
 	}
 
-	private void UpdateSkillDetailProgress()
+	public void UpdateSkillDetailProgress()
 	{
 		View v = m_root.findViewById( R.id.learning_progress );	
 		TextView tv = (TextView) m_root.findViewById( R.id.learning_process_text );
 
 		Util.showProgress( getActivity(), v, tv, m_currentSkill.remainTime, m_currentSkill.totalTime, m_currentSkill.curTime );   
+	}
+	
+	private void InitUpdateSkillRemainningTimer()
+	{
+	   if( m_RemainingTimer != null )
+		   m_RemainingTimer.cancel();
+		   
+	   m_RemainingTimer = new Timer();
+	   m_RemainingTimer.scheduleAtFixedRate( new TimerTask(){
+	       public void run()
+		   {
+	    	   FragmentActivity act = getActivity();
+	    	   if (act != null) {
+	    		   act.runOnUiThread(new Runnable() {
+	    			   public void run(){
+	    				   if (m_currentSkill.learning)
+	    					   UpdateSkillDetailProgress();
+	    			   }});
+	    	   }
+   	       }  
+		}, 1000, 1000 ); 
 	}
 	
 	void setSkillDetailView()
@@ -215,10 +246,11 @@ public class SkillDetailFragment extends BaseFragment{
 		View v = m_root.findViewById( R.id.learning_process_bar );		
 		
 		if( m_currentSkill.learning )
-		{
+		{			
 			btnLearn.setVisibility(View.GONE);
 			v.setVisibility(View.VISIBLE);
 			UpdateSkillDetailProgress();
+			InitUpdateSkillRemainningTimer();			
 		}else if( m_currentSkill.got || !m_currentSkill.can_learn )
 		{
 			v.setVisibility(View.GONE);
@@ -325,4 +357,14 @@ public class SkillDetailFragment extends BaseFragment{
 		return skills.size() > 0;
 	}
 	
+	@Override
+	public void onStop()
+	{
+		if( m_RemainingTimer != null )
+	    {
+		   m_RemainingTimer.cancel();
+		   m_RemainingTimer = null;
+	    }
+		super.onStop();
+	}
 }

@@ -6,15 +6,16 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.twotalltotems.glitch.BaseFragment.skillLearning;
+import com.twotalltotems.glitch.BaseFragment.skillAvailable;
 
 public class LearningListViewAdapter extends BaseAdapter 
 {
-	 private Vector<skillLearning> m_learningList;
+	 private Vector<skillAvailable> m_learningList;
  	 private LayoutInflater m_inflater;
  	 private Activity m_act;
      private MyApplication m_application;    
@@ -26,7 +27,7 @@ public class LearningListViewAdapter extends BaseAdapter
 	     View 	   learningProgress;
    	 };
 	
-     public LearningListViewAdapter( Activity act, Vector<skillLearning> learningList  ) 
+     public LearningListViewAdapter( Activity act, Vector<skillAvailable> learningList  ) 
      {
     	 m_learningList = learningList;
     	 m_act = act;
@@ -62,7 +63,7 @@ public class LearningListViewAdapter extends BaseAdapter
 		{
     		convertView = m_inflater.inflate( R.layout.learning_list_item, null);
     		holder = new ViewHolder();
-
+ 
     		holder.item = (TextView)convertView.findViewById(R.id.tv_skillName);
             holder.time = (TextView)convertView.findViewById(R.id.tv_skillTime);
             holder.learningProgressText = (View)convertView.findViewById(R.id.learning_progress_text);
@@ -83,7 +84,8 @@ public class LearningListViewAdapter extends BaseAdapter
 			
 			Util.showProgress( m_act, holder.learningProgress, holder.time, remainTime, totalTime, curTime );   
 			holder.item.setText( m_learningList.get(position).item );
-		}
+		}		
+		
        	return convertView;
 	 }
 }

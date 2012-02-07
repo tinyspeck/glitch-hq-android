@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
+import com.twotalltotems.glitch.BaseFragment.skillAvailable;
 
 import android.os.Bundle;
 import android.text.Html;
@@ -22,6 +23,7 @@ import android.view.View.OnTouchListener;
 import android.view.animation.TranslateAnimation;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
@@ -63,7 +65,7 @@ public class ProfileFragment extends BaseFragment{
 	private boolean m_bFriend;
 	
  	private Vector<glitchActivity> m_actList;
-  	private Vector<skillLearning> m_learningList;
+  	private Vector<skillAvailable> m_learningList;
   	private View m_root;
 	
   	ProfileFragment( String playerID, boolean bOthers )
@@ -176,13 +178,23 @@ public class ProfileFragment extends BaseFragment{
 		m_listView.setAdapter( m_adapter );
 
 		if( bUpdateData )
-			m_learningList = new Vector<skillLearning>();
+			m_learningList = new Vector<skillAvailable>();
 			
 		m_learningAdapter = new LearningListViewAdapter( getActivity(), m_learningList );
 		m_learningListView.setAdapter( m_learningAdapter );
 
 		View clouds = root.findViewById(R.id.clouds);
 		Util.startTranslateAnimation( clouds, 300000 );
+
+		m_learningListView.setOnClickListener( new OnClickListener() 
+		{			
+			public void onClick(View arg0) {
+				skillAvailable skill = m_learningList.get(0);
+				SkillDetailFragment fm = new SkillDetailFragment(skill);					
+				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
+			}
+			
+		});
 		
 //     initPushToRefresh();
 	   setupSettings();
@@ -367,7 +379,7 @@ public class ProfileFragment extends BaseFragment{
     		m_learningList.clear();
 			addToLearningList( m_learningList, response );
     		m_learningAdapter.notifyDataSetChanged();			
-	        InitUpdateSkillRemainningTimer();	        
+	        InitUpdateSkillRemainningTimer();
 			onRequestComplete();
 			if ( !m_bAppendMode )
 				Util.startAlphaAnimation(m_learningListView, 1000, 0, 1, TranslateAnimation.ABSOLUTE);	

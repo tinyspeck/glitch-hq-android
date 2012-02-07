@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
+import com.twotalltotems.glitch.BaseFragment.skillAvailable;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,9 +18,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -39,7 +37,7 @@ public class SkillFragment extends BaseFragment{
 	private View m_learningSkillProgress;
 	
   	private Vector<skillAvailable> m_skillList;
-  	private Vector<skillLearning> m_learningList;
+  	private Vector<skillAvailable> m_learningList;
 	
     public void onActivityCreated(Bundle savedInstanceState) {
     	
@@ -73,12 +71,24 @@ public class SkillFragment extends BaseFragment{
 		m_learningSkillName.setTypeface( m_application.m_vagLightFont );
 		m_learningSkillTime.setTypeface( m_application.m_vagLightFont );
 
+		FrameLayout learningPanel = (FrameLayout) m_root.findViewById(R.id.skill_view_learning_panel);
+		learningPanel.setOnClickListener( new OnClickListener() 
+		{			
+			public void onClick(View arg0) {
+				skillAvailable skill = m_learningList.get(0);
+				SkillDetailFragment fm = new SkillDetailFragment(skill);					
+				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
+			}
+			
+		});
+		
 		if( bUpdateData )
 		{
-			m_learningList = new Vector<skillLearning>();
+			m_learningList = new Vector<skillAvailable>();
 			getSkills();
-		}else
+		} else {
 			showSkillPage();
+		}		
 	}
 	
 	private void showSkillPage()
@@ -193,7 +203,8 @@ public class SkillFragment extends BaseFragment{
 					SkillDetailFragment fm = new SkillDetailFragment( skill.id );
 					((HomeScreen)getActivity()).setCurrentFragment(fm,true);
 				}
-    	    });    
+    	    });
+    		
            	return convertView;
     	 }
     }
@@ -260,7 +271,7 @@ public class SkillFragment extends BaseFragment{
 
 	void setLearningSkill()
 	{
-		skillLearning skill = null;
+		skillAvailable skill = null;
 		FrameLayout learningPanel = (FrameLayout) m_root.findViewById(R.id.skill_view_learning_panel);
 		int wasVisible = learningPanel.getVisibility();
 		
@@ -274,9 +285,10 @@ public class SkillFragment extends BaseFragment{
 			m_learningSkillName.setText( m_learningList.get(0).item  );
 			if (wasVisible == View.GONE) {
 				Util.startScaleAnimation(learningPanel, 600);
-			}
-		}else
+			}			
+		} else {
 			learningPanel.setVisibility(View.GONE);
+		}
 	}
 
 	private void InitUpdateSkillRemainningTimer()
@@ -291,8 +303,7 @@ public class SkillFragment extends BaseFragment{
 		    	 getActivity().runOnUiThread(new Runnable(){
 		    		 public void run(){
 	        			 setLearningSkill();
-/*		        		 else if ( m_curLayout == LAYOUT_SKILL_DETAIL && m_currentSkill!=null && m_currentSkill.learning )
-		        			 UpdateSkillDetailProgress();		        		 
+		        		 /*
 		        		 else if( m_learningAdapter!= null )
 		    				 m_learningAdapter.notifyDataSetChanged(); */
 			         }});
