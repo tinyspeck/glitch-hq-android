@@ -190,7 +190,7 @@ public class ProfileFragment extends BaseFragment{
 		{			
 			public void onClick(View arg0) {
 				skillAvailable skill = m_learningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);					
+				SkillDetailFragment fm = new SkillDetailFragment(skill);				
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 			

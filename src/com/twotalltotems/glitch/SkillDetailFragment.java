@@ -67,11 +67,13 @@ public class SkillDetailFragment extends BaseFragment{
 			
        		int lastRemainTime = 0;
        		int lastTotalTime = 0;
+       		long lastCurTime = 0;
        		
        		if( m_currentSkill != null )
        		{
        			lastRemainTime = m_currentSkill.remainTime;
        			lastTotalTime = m_currentSkill.totalTime;
+       			lastCurTime = m_currentSkill.curTime;
        		}
 
        		m_currentSkill = new skillAvailable();
@@ -81,10 +83,13 @@ public class SkillDetailFragment extends BaseFragment{
        		{
            		m_currentSkill.learning = true;
        			m_currentSkill.remainTime = lastRemainTime;
-       			m_currentSkill.totalTime = lastTotalTime;       			
-       		}else
+       			m_currentSkill.totalTime = lastTotalTime;
+       			m_currentSkill.curTime = lastCurTime;
+       		} else {
        			m_currentSkill.learning = false;
-
+       			m_currentSkill.curTime = System.currentTimeMillis()/1000;
+       		}
+       		
        		m_currentSkill.icon = response.optString("icon_100");
        		m_currentSkill.item = response.optString("name");
        		m_currentSkill.description = response.optString("description");
@@ -95,9 +100,7 @@ public class SkillDetailFragment extends BaseFragment{
        		m_currentSkill.postRequests = new Vector<skillAvailable>();
        		m_currentSkill.requirements = new Vector<skillAvailable>();
        		m_currentSkill.giants = new Vector<skillGiant>();
-       		m_currentSkill.paused = ( response.optInt("paused") == 1 )? true: false;
-
-       		m_currentSkill.curTime = System.currentTimeMillis()/1000;
+       		m_currentSkill.paused = ( response.optInt("paused") == 1 )? true: false;       		
        		
        		try{
            		JSONArray jReqs = response.optJSONArray("reqs");
