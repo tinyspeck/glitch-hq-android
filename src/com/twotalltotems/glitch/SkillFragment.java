@@ -19,8 +19,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -81,6 +83,8 @@ public class SkillFragment extends BaseFragment{
 			}
 			
 		});
+		
+		setupSettings();
 		
 		if( bUpdateData )
 		{
@@ -309,6 +313,35 @@ public class SkillFragment extends BaseFragment{
 			         }});
    	       }  
 		}, 1000, 1000 ); 
+	}
+	
+	private void setupSettings() {
+		
+		final Button btnSettings = (Button)m_root.findViewById(R.id.btnSettings);
+		btnSettings.setVisibility( View.VISIBLE );
+		
+		btnSettings.setOnClickListener( new OnClickListener(){
+			public void onClick(View arg0) {
+				final PopupWindow pw = Util.showPopup( getActivity(), R.layout.skill_settings, true, btnSettings, 5, 5 );
+				View v = pw.getContentView();
+				Button btn = (Button)v.findViewById(R.id.btn_learning);
+				btn.setOnClickListener( new OnClickListener(){
+					public void onClick(View v) {						
+						pw.dismiss();
+						((HomeScreen)getActivity()).setCurrentFragmentSkills();
+					}
+					
+				});
+		
+				btn = (Button)v.findViewById(R.id.btn_unlearning);
+				btn.setOnClickListener( new OnClickListener(){
+					public void onClick(View v) {
+						pw.dismiss();
+						((HomeScreen)getActivity()).setCurrentFragmentUnlearn();
+					}
+				});
+			}
+		});
 	}
 	
 	protected boolean doesSupportRefresh()

@@ -31,6 +31,7 @@ public class HomeScreen extends FragmentActivity{
 	static final int TAB_PROFILE = 0;
 	static final int TAB_ACTIVITY = 1;
 	static final int TAB_SKILLS = 2;
+	static final int TAB_UNLEARN = 3;
 	
 	static final private int MENU_COMMAND_REFRESH = Menu.FIRST+0;
     static final private int MENU_COMMAND_MORE = Menu.FIRST+1;
@@ -38,7 +39,8 @@ public class HomeScreen extends FragmentActivity{
     private MyApplication m_application;    
     private String m_selfPlayerID;
     private View m_spinner;
-	private int m_curTab = 	TAB_PROFILE;				
+	private int m_curTab = 	TAB_PROFILE;
+	private int skillOrUnlearn = TAB_SKILLS;
 	
     private RadioButton m_btnProfile;
     private RadioButton m_btnActivity;
@@ -46,9 +48,10 @@ public class HomeScreen extends FragmentActivity{
     
     private ProfileFragment m_profileFrm;
     private SkillFragment m_skillFrm;
-    private ActivityFragment m_activityFrm;
+    private UnlearnFragment m_unlearnFrm;
+    private ActivityFragment m_activityFrm;    
     
-    private View m_profileView, m_activityView, m_skillsView;
+    private View m_profileView, m_activityView, m_skillsView, m_unlearnView;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +114,15 @@ public class HomeScreen extends FragmentActivity{
 						clearFragmentStack();
 					else
 					{
-						setCurrentFragment( m_skillFrm, false );
-						m_curTab = 	TAB_SKILLS;	
+						if (skillOrUnlearn == TAB_SKILLS) {
+							setCurrentFragment( m_skillFrm, false );
+							m_curTab = 	TAB_SKILLS;
+							skillOrUnlearn = TAB_SKILLS;
+						} else if (skillOrUnlearn == TAB_UNLEARN) {
+							setCurrentFragment( m_unlearnFrm, false );
+							m_curTab = TAB_UNLEARN;
+							skillOrUnlearn = TAB_UNLEARN;
+						}
 					}
 				}
 			 });
@@ -149,6 +159,26 @@ public class HomeScreen extends FragmentActivity{
 			fm.popBackStack();
 	}
 	
+	public void setCurrentFragmentSkills() {
+		if (m_curTab == TAB_SKILLS) { 
+			clearFragmentStack();
+		} else {
+			setCurrentFragment(m_skillFrm, false);
+			m_curTab = TAB_SKILLS;
+			skillOrUnlearn = TAB_SKILLS;
+		}
+	}
+	
+	public void setCurrentFragmentUnlearn() {
+		if (m_curTab == TAB_UNLEARN) {
+			clearFragmentStack();
+		} else {
+			setCurrentFragment(m_unlearnFrm, false);
+			m_curTab = TAB_UNLEARN;
+			skillOrUnlearn = TAB_UNLEARN;
+		}
+	}
+	
     public void setCurrentFragment( Fragment f, boolean bAddToStack )
     {
         FragmentManager fm = getSupportFragmentManager();
@@ -165,6 +195,7 @@ public class HomeScreen extends FragmentActivity{
 			m_profileView.setVisibility(View.VISIBLE);
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);
 
 		}else if( nTab == TAB_ACTIVITY )
 		{
@@ -172,14 +203,21 @@ public class HomeScreen extends FragmentActivity{
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.VISIBLE);
 			m_skillsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);
 			
 		}else
-		{
-			viewId = R.id.fragmentView_skills;
-			m_profileView.setVisibility(View.GONE);
-			m_skillsView.setVisibility(View.VISIBLE);
+		{			
+			m_profileView.setVisibility(View.GONE);			
 			m_activityView.setVisibility(View.GONE);
-			
+			if (f instanceof SkillFragment) {
+				viewId = R.id.fragmentView_skills;
+				m_skillsView.setVisibility(View.VISIBLE);
+				m_unlearnView.setVisibility(View.GONE);
+			} else {
+				viewId = R.id.fragmentView_unlearn;
+				m_skillsView.setVisibility(View.GONE);
+				m_unlearnView.setVisibility(View.VISIBLE);
+			}
 		}
 		if( !f.isAdded() )
 		{
@@ -236,11 +274,13 @@ public class HomeScreen extends FragmentActivity{
 
 		m_profileFrm = new ProfileFragment(null,false);
 		m_skillFrm = new SkillFragment();
+		m_unlearnFrm = new UnlearnFragment();
 		m_activityFrm = new ActivityFragment();
 
 		m_profileView = findViewById(R.id.fragmentView_profile);
 		m_activityView = findViewById(R.id.fragmentView_activity);
 		m_skillsView = findViewById(R.id.fragmentView_skills);
+		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
 		
 		setCurrentFragment( m_profileFrm, false );
 	}
