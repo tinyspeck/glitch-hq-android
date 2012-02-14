@@ -32,4 +32,7 @@
   <string name="btn_decline">Decline</string>
   <string name="btn_join">Join</string>
   <string name="activity_no_items">No items to see right now...</string>
+  <string name="btn_unlearn_this_skill">Unlearn this skill!</string>
+  <string name="str_you_are_unlearning">You\'re unlearning this!</string>
+  <string name="str_you_can_unlearn">You can unlearn this skill!</string>
 </resources>

@@ -295,4 +295,9 @@ public class Util
  	    		vText.setText( Util.TimeToString(remain, true) );
  	    }
 	}
+	
+	public static void showUnlearnProgress(Activity act, View v, TextView vText, int remainTime, int totalTime, long curTime)
+	{
+		
+	}
 };

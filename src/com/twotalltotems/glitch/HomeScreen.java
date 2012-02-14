@@ -254,6 +254,11 @@ public class HomeScreen extends FragmentActivity{
     	m_skillFrm.getSkills();
     }
     
+    public void updateUnlearnables()
+    {
+    	m_unlearnFrm.getSkills();
+    }
+    
     public void setPlayerID( String pID )
     {
     	m_selfPlayerID = pID;
@@ -339,6 +344,10 @@ public class HomeScreen extends FragmentActivity{
 
        int resId = m_btnProfile.isChecked()? R.id.fragmentView_profile: ( m_btnActivity.isChecked()? R.id.fragmentView_activity: R.id.fragmentView_skills );
 
+       if (resId == R.id.fragmentView_skills && skillOrUnlearn == TAB_UNLEARN) {
+    	   resId = R.id.fragmentView_unlearn;
+       }
+       
        return (BaseFragment)fm.findFragmentById( resId );
    }
    

@@ -37,6 +37,7 @@ public class SkillFragment extends BaseFragment{
 	private TextView m_learningSkillName;
 	private TextView m_learningSkillTime;
 	private View m_learningSkillProgress;
+	private boolean m_hasUnlearning;
 	
   	private Vector<skillAvailable> m_skillList;
   	private Vector<skillAvailable> m_learningList;
@@ -84,8 +85,6 @@ public class SkillFragment extends BaseFragment{
 			
 		});
 		
-		setupSettings();
-		
 		if( bUpdateData )
 		{
 			m_learningList = new Vector<skillAvailable>();
@@ -102,6 +101,10 @@ public class SkillFragment extends BaseFragment{
         updateSkillList();
 	}
 	
+	public boolean hasUnlearning() {
+		return m_hasUnlearning;
+	}
+	
 	public void getSkills()
 	{
         GlitchRequest request1 = m_application.glitch.getRequest("skills.listLearning");
@@ -110,7 +113,10 @@ public class SkillFragment extends BaseFragment{
 		GlitchRequest request2 = m_application.glitch.getRequest("skills.listAvailable");
         request2.execute(this);
         
-        m_requestCount = 2;
+		GlitchRequest request3 = m_application.glitch.getRequest("skills.hasUnlearning");
+		request3.execute(this);			
+        
+        m_requestCount = 3;
 		((HomeScreen)getActivity()).showSpinner(true);
 	}
 	
@@ -270,6 +276,12 @@ public class SkillFragment extends BaseFragment{
        			((TextView)m_root.findViewById( R.id.list_message )).setText("");
        		}
        		onRequestComplete();
+    	} else if (method == "skills.hasUnlearning") {
+    		m_hasUnlearning = response.optInt("has_unlearning") == 1 ? true : false;
+    		if (m_hasUnlearning) {
+    			setupSettings();
+    		}
+    		onRequestComplete();
     	}
 	}
 

@@ -59,6 +59,16 @@
 	    	android:paddingBottom="5sp"
 	    	android:textColor="#055c73"
 			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+  
+  <Button android:id="@+id/btn_unlearn_this_skill" android:text="@string/btn_unlearn_this_skill" android:layout_gravity="center"
+	    	android:layout_weight="0.0"
+	    	android:background="@drawable/button_state"
+	    	android:textSize="20sp"
+	    	android:paddingTop="5sp"
+	    	android:paddingBottom="5sp"
+	    	android:textColor="#055c73"
+	    	android:visibility="gone"
+			android:layout_width="fill_parent" android:layout_height="wrap_content" />
 
    <FrameLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/learning_process_bar"
 			android:layout_width="fill_parent" android:visibility="gone"
@@ -73,7 +83,21 @@
 	    	android:gravity="center"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
    </FrameLayout>
-   	
+   
+   <FrameLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/unlearning_process_bar"
+			android:layout_width="fill_parent" android:visibility="gone"
+	    	android:background="@drawable/unlearning_progress_contour"
+			>
+   <include layout="@layout/learning_process"/>
+
+   <TextView android:text="" 
+			android:id="@+id/unlearning_process_text"
+	    	style = "@style/TimeStyle"  
+	    	android:layout_gravity="center"
+	    	android:gravity="center"
+			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+   </FrameLayout>
+   
   </FrameLayout>
 
   <View android:id="@+id/area_border" android:layout_height="1sp" android:layout_gravity="center" android:background="#d0d0d0"

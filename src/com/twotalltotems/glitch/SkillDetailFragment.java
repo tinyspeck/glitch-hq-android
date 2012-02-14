@@ -29,11 +29,11 @@ import android.widget.TextView;
 public class SkillDetailFragment extends BaseFragment{
 
   	private skillAvailable m_currentSkill;
-  	private String m_skillID;  
+  	private String m_skillID;
   	private View m_root;
   	private Timer m_RemainingTimer;
   	
-  	SkillDetailFragment( String skillID )
+  	SkillDetailFragment( String skillID)
   	{
   		m_skillID = skillID;
   	}
@@ -76,19 +76,7 @@ public class SkillDetailFragment extends BaseFragment{
        			lastCurTime = m_currentSkill.curTime;
        		}
 
-       		m_currentSkill = new skillAvailable();
-
-       		m_currentSkill.totalTime = response.optInt("total_time");
-       		if( m_currentSkill.totalTime == 0 )
-       		{
-           		m_currentSkill.learning = true;
-       			m_currentSkill.remainTime = lastRemainTime;
-       			m_currentSkill.totalTime = lastTotalTime;
-       			m_currentSkill.curTime = lastCurTime;
-       		} else {
-       			m_currentSkill.learning = false;
-       			m_currentSkill.curTime = System.currentTimeMillis()/1000;
-       		}
+       		m_currentSkill = new skillAvailable();              	       	
        		
        		m_currentSkill.icon = response.optString("icon_100");
        		m_currentSkill.item = response.optString("name");
@@ -96,11 +84,24 @@ public class SkillDetailFragment extends BaseFragment{
        		m_currentSkill.id = response.optString( "class_tsid" );
        		m_currentSkill.can_learn = ( response.optInt("can_learn") == 1 )? true: false;
        		m_currentSkill.got = ( response.optInt("got") == 1 )? true: false;
+       		m_currentSkill.can_unlearn = ( response.optInt("can_unlearn") == 1 )? true: false;
        		
        		m_currentSkill.postRequests = new Vector<skillAvailable>();
        		m_currentSkill.requirements = new Vector<skillAvailable>();
        		m_currentSkill.giants = new Vector<skillGiant>();
        		m_currentSkill.paused = ( response.optInt("paused") == 1 )? true: false;       		
+       		m_currentSkill.learning = response.optInt("learning") == 1 ? true : false;
+       		m_currentSkill.unlearning = response.optInt("unlearning") == 1 ? true : false;
+       		
+       		m_currentSkill.totalTime = response.optInt("total_time");
+       		if( m_currentSkill.totalTime == 0 )
+       		{       			
+       			m_currentSkill.remainTime = lastRemainTime;
+       			m_currentSkill.totalTime = lastTotalTime;
+       			m_currentSkill.curTime = lastCurTime;
+       		} else {
+       			m_currentSkill.curTime = System.currentTimeMillis()/1000;
+       		}
        		
        		try{
            		JSONArray jReqs = response.optJSONArray("reqs");
@@ -153,6 +154,11 @@ public class SkillDetailFragment extends BaseFragment{
             FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
     		((HomeScreen)getActivity()).updateSkills();
+    	}else if ( method == "skills.unlearn" )
+    	{
+    		FragmentManager fm = getFragmentManager();
+    		fm.popBackStack();
+    		((HomeScreen)getActivity()).updateUnlearnables();
     	}
 	}	
 	
@@ -176,6 +182,15 @@ public class SkillDetailFragment extends BaseFragment{
         GlitchRequest request1 = m_application.glitch.getRequest("skills.learn", params );
         request1.execute(this);
 	}
+	
+	private void unlearnSkill()
+	{
+		Map<String,String> params = new  HashMap<String,String>();
+        params.put("skill_class", m_currentSkill.id );
+		
+        GlitchRequest request1 = m_application.glitch.getRequest("skills.unlearn", params );
+        request1.execute(this);
+	}
 
 	public void UpdateSkillDetailProgress()
 	{
@@ -185,7 +200,15 @@ public class SkillDetailFragment extends BaseFragment{
 		Util.showProgress( getActivity(), v, tv, m_currentSkill.remainTime, m_currentSkill.totalTime, m_currentSkill.curTime );   
 	}
 	
-	private void InitUpdateSkillRemainningTimer()
+	public void UpdateUnlearnDetailProgress()
+	{
+		View v = m_root.findViewById(R.id.unlearning_progress);
+		TextView tv = (TextView) m_root.findViewById(R.id.unlearning_process_text);
+		
+		Util.showUnlearnProgress(getActivity(), v, tv, m_currentSkill.remainTime, m_currentSkill.totalTime, m_currentSkill.curTime);
+	}
+	
+	private void InitUpdateSkillRemainingTimer()
 	{
 	   if( m_RemainingTimer != null )
 		   m_RemainingTimer.cancel();
@@ -200,6 +223,8 @@ public class SkillDetailFragment extends BaseFragment{
 	    			   public void run(){
 	    				   if (m_currentSkill.learning)
 	    					   UpdateSkillDetailProgress();
+	    				   else if (m_currentSkill.unlearning)
+	    					   UpdateUnlearnDetailProgress();
 	    			   }});
 	    	   }
    	       }  
@@ -229,8 +254,10 @@ public class SkillDetailFragment extends BaseFragment{
 		tv.setTypeface(m_application.m_vagFont);
 		
 		tv = (TextView) m_root.findViewById(R.id.skill_detail_time);
-		if( m_currentSkill.learning )
-			tv.setText( R.string.str_you_are_learning );	
+		if (m_currentSkill.learning)
+			tv.setText( R.string.str_you_are_learning );
+		else if (m_currentSkill.unlearning)
+			tv.setText(R.string.str_you_are_unlearning);
 		else
 			tv.setText( Util.TimeToString(m_currentSkill.totalTime, false ) );	
 
@@ -245,23 +272,51 @@ public class SkillDetailFragment extends BaseFragment{
 					learnSkill();
 				}
 			 });
-
-		View v = m_root.findViewById( R.id.learning_process_bar );		
 		
-		if( m_currentSkill.learning )
-		{			
+		Button btnUnlearn = (Button)m_root.findViewById(R.id.btn_unlearn_this_skill);
+		btnUnlearn.setTypeface(m_application.m_vagFont);
+		btnUnlearn.setOnClickListener( new OnClickListener() {
+			public void onClick(View arg0) {
+				FlurryAgent.logEvent("Skill Detail - Tapped unlearn button");
+				unlearnSkill();
+			}
+		});
+
+		View v_unlearn = m_root.findViewById( R.id.learning_process_bar );
+		View v_learn = m_root.findViewById(R.id.unlearning_process_bar);
+		
+		if( m_currentSkill.learning ) {			
 			btnLearn.setVisibility(View.GONE);
-			v.setVisibility(View.VISIBLE);
+			btnUnlearn.setVisibility(View.GONE);
+			v_learn.setVisibility(View.VISIBLE);
+			v_unlearn.setVisibility(View.GONE);
 			UpdateSkillDetailProgress();
-			InitUpdateSkillRemainningTimer();			
-		}else if( m_currentSkill.got || !m_currentSkill.can_learn )
-		{
-			v.setVisibility(View.GONE);
+			InitUpdateSkillRemainingTimer();		
+		}		
+		else if ( m_currentSkill.unlearning ) {
+			btnUnlearn.setVisibility(View.GONE);
 			btnLearn.setVisibility(View.GONE);
-		}else
-		{
-			v.setVisibility(View.GONE);
-			btnLearn.setVisibility(View.VISIBLE);
+			v_learn.setVisibility(View.GONE);
+			v_unlearn.setVisibility(View.VISIBLE);
+			UpdateUnlearnDetailProgress();
+			InitUpdateSkillRemainingTimer();
+		}
+		else if( (m_currentSkill.got || !m_currentSkill.can_learn) && !m_currentSkill.can_unlearn ){
+			v_learn.setVisibility(View.GONE);
+			v_unlearn.setVisibility(View.GONE);
+			btnLearn.setVisibility(View.GONE);
+			btnUnlearn.setVisibility(View.GONE);
+		}
+		else {
+			v_unlearn.setVisibility(View.GONE);
+			v_learn.setVisibility(View.GONE);
+			if (m_currentSkill.can_unlearn) {				
+				btnUnlearn.setVisibility(View.VISIBLE);
+				btnLearn.setVisibility(View.GONE);
+			} else {
+				btnUnlearn.setVisibility(View.GONE);
+				btnLearn.setVisibility(View.VISIBLE);
+			}
 		}
 		
 		View mLayout = m_root.findViewById(R.id.requirement_layout);
@@ -273,6 +328,7 @@ public class SkillDetailFragment extends BaseFragment{
 
 		mLayout = m_root.findViewById(R.id.need_for_layout);
 		LinearLayout ll = (LinearLayout) m_root.findViewById( R.id.post_request_panel );
+		
 		if( !addTextViewToLinearLayout( ll, m_currentSkill.postRequests, false ) )
 			mLayout.setVisibility(View.GONE);
 		else
@@ -286,11 +342,15 @@ public class SkillDetailFragment extends BaseFragment{
 			mLayout.setVisibility(View.VISIBLE);
 		
 		tv = (TextView) m_root.findViewById( R.id.skill_status );
-		if( m_currentSkill.learning )
+		if (m_currentSkill.learning)
 			tv.setText( R.string.str_you_are_learning );
-		else if( m_currentSkill.got )
+		else if (m_currentSkill.unlearning)
+			tv.setText(R.string.str_you_are_unlearning);
+		else if (m_currentSkill.can_unlearn)
+			tv.setText(R.string.str_you_can_unlearn);
+		else if (m_currentSkill.got)
 			tv.setText( R.string.str_you_have_skill );
-		else if( !m_currentSkill.can_learn )
+		else if (!m_currentSkill.can_learn)
 			tv.setText( R.string.str_you_can_not_learn );
 		else
 			tv.setText( m_currentSkill.paused? R.string.str_skill_status_started : R.string.str_skill_status_can_learn );

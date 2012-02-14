@@ -63,6 +63,8 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
    	 	boolean paused;
    	 	boolean can_learn;
    	 	boolean learning;
+   	 	boolean can_unlearn;
+   	 	boolean unlearning;
    	 	boolean got;
    	 	int level;
    	 	String classId;
