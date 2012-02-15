@@ -298,6 +298,31 @@ public class Util
 	
 	public static void showUnlearnProgress(Activity act, View v, TextView vText, int remainTime, int totalTime, long curTime)
 	{
-		
+		int nTotalWidth = act.getWindowManager().getDefaultDisplay().getWidth() - 20; 
+
+		ViewGroup.LayoutParams params = v.getLayoutParams();
+
+		long nElapse = (long)( System.currentTimeMillis()/1000 ) - curTime;
+		int remain = (int)( remainTime - nElapse );
+		if( remain < 0 )
+			remain = 0;
+	 	    
+		params.width = 20 + ( nTotalWidth - 20 ) * ( totalTime - remain ) / totalTime ;
+	 	    
+		v.setLayoutParams(params);
+		if( v.getTag() == null )
+		{
+			Util.startAlphaAnimation( v, 1000, 1, (float)0.5, TranslateAnimation.INFINITE );
+			v.setTag(true);
+		}
+		if( vText!=null )
+		{
+			if( remain == 0 )
+			{	
+				v.findViewById( R.id.unlearning_progress_end ).setVisibility(View.VISIBLE);
+				vText.setText( R.string.str_progress_done );
+			}else
+				vText.setText( Util.TimeToString(remain, true) );
+		}
 	}
 };

@@ -21,7 +21,7 @@
 				android:background="@drawable/user_panel"
 				android:layout_width="fill_parent">
 
-	 		 	<LinearLayout android:layout_height="fill_parent" android:layout_gravity="center"
+	 		 	<LinearLayout android:layout_height="fill_parent" android:gravity="right"
 					android:layout_width="fill_parent" android:padding="5sp">
 	
 	  				<include layout="@layout/unlearning_process"/>
