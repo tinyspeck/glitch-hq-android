@@ -110,7 +110,7 @@ public class HomeScreen extends FragmentActivity{
 		 
 		 m_btnSkills.setOnClickListener( new OnClickListener(){
 				public void onClick(View arg0) {
-					if( m_curTab == TAB_SKILLS )
+					if( m_curTab == TAB_SKILLS || m_curTab == TAB_UNLEARN)
 						clearFragmentStack();
 					else
 					{
@@ -207,17 +207,30 @@ public class HomeScreen extends FragmentActivity{
 			
 		}else
 		{			
-			m_profileView.setVisibility(View.GONE);			
+			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
+			
 			if (f instanceof SkillFragment) {
 				viewId = R.id.fragmentView_skills;
 				m_skillsView.setVisibility(View.VISIBLE);
 				m_unlearnView.setVisibility(View.GONE);
-			} else {
+			} else if (f instanceof UnlearnFragment) {
 				viewId = R.id.fragmentView_unlearn;
 				m_skillsView.setVisibility(View.GONE);
 				m_unlearnView.setVisibility(View.VISIBLE);
+			} else if (f instanceof SkillDetailFragment) {
+				
+				if (skillOrUnlearn == TAB_SKILLS) {
+					viewId = R.id.fragmentView_skills;
+					m_skillsView.setVisibility(View.VISIBLE);
+					m_unlearnView.setVisibility(View.GONE);
+				} else if (skillOrUnlearn == TAB_UNLEARN) {
+					viewId = R.id.fragmentView_unlearn;
+					m_skillsView.setVisibility(View.GONE);
+					m_unlearnView.setVisibility(View.VISIBLE);
+				}
 			}
+			
 		}
 		if( !f.isAdded() )
 		{

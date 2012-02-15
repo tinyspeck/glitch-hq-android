@@ -38,6 +38,7 @@ public class UnlearnFragment extends BaseFragment {
 	
 	private Vector<skillAvailable> m_unlearningList;
 	private Vector<skillAvailable> m_unlearnableList;
+	private boolean m_hasUnlearning;
 	
     public void onActivityCreated(Bundle savedInstanceState) {
     	
@@ -109,7 +110,10 @@ public class UnlearnFragment extends BaseFragment {
 		GlitchRequest request2 = m_application.glitch.getRequest("skills.listUnlearnable");
         request2.execute(this);
         
-        m_requestCount = 2;
+        GlitchRequest request3 = m_application.glitch.getRequest("skills.hasUnlearning");
+        request3.execute(this);
+        
+        m_requestCount = 3;
 		((HomeScreen)getActivity()).showSpinner(true);
     }
     
@@ -300,6 +304,12 @@ public class UnlearnFragment extends BaseFragment {
        			((TextView)m_root.findViewById( R.id.unlearn_list_message )).setText("");
        		}
        		onRequestComplete();
+    	} else if (method == "skills.hasUnlearning") {
+    		m_hasUnlearning = response.optInt("has_unlearning") == 1 ? true : false;
+    		if (m_hasUnlearning) {
+    			setupSettings();
+    		}
+    		onRequestComplete();
     	}
     }
     
