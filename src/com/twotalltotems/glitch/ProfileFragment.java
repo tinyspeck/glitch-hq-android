@@ -415,6 +415,7 @@ public class ProfileFragment extends BaseFragment{
 			onRequestComplete();
 			if (!m_bAppendMode)
 				Util.startAlphaAnimation(m_unlearningListView, 1000, 0, 1, TranslateAnimation.ABSOLUTE);
+			
 		}else if ( method == "friends.remove" ||  method == "friends.add" )
 		{
 			onRequestComplete();

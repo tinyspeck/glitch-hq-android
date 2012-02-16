@@ -266,7 +266,7 @@ public class UnlearnFragment extends BaseFragment {
     		if( m_unlearningList != null )
 				m_unlearningList.clear();
 			
-    		addToUnlearningList(response);
+    		addToUnlearningList(m_unlearningList, response);
 			setUnlearningSkill();
 			
 	        InitUpdateUnlearnRemainningTimer();
@@ -312,42 +312,7 @@ public class UnlearnFragment extends BaseFragment {
     		onRequestComplete();
     	}
     }
-    
-	private void addToUnlearningList(JSONObject response)
-	{
-		JSONObject jItems = response.optJSONObject("unlearning");
-		
-		if( jItems != null )
-		{
-    		Iterator<String> it = jItems.keys(); 
 
-    		while( it.hasNext() )
-    		{	
-    			String sKey = it.next();
-    			JSONObject jobj = jItems.optJSONObject(sKey);
-    			skillAvailable skill = new skillAvailable();
-
-    			int nSec = jobj.optInt("time_remaining");
-    			int nTotal = jobj.optInt("unlearn_time");
-
-    			int timeH = nSec/3600;
-    			int timeM = ( nSec - timeH * 3600 ) / 60;
-    			int timeS = nSec - timeH * 3600 - timeM * 60;
-    			
-    			skill.totalTime = nTotal;
-    			skill.remainTime = nSec;
-	    		skill.curTime = System.currentTimeMillis()/1000;
-    			
-	    		skill.id = sKey;
-	    		skill.icon = jobj.optString("icon_100");
-    			skill.item = jobj.optString("name");    			
-    			skill.description = jobj.optString("description");
-           		skill.curTime = System.currentTimeMillis()/1000;
-           		
-           		m_unlearningList.add(skill);
-    		}
-		}
-	}
     
     private void setUnlearningSkill() 
     {
@@ -361,7 +326,7 @@ public class UnlearnFragment extends BaseFragment {
 		if( skill != null )
 		{			
 			unlearningPanel.setVisibility(View.VISIBLE);			
-			Util.showProgress( getActivity(), m_unlearningSkillProgress, m_unlearningSkillTime, skill.remainTime, skill.totalTime, skill.curTime ); 
+			Util.showUnlearnProgress( getActivity(), m_unlearningSkillProgress, m_unlearningSkillTime, skill.remainTime, skill.totalTime, skill.curTime ); 
 			m_unlearningSkillName.setText( "Unlearning " + m_unlearningList.get(0).item  );
 			if (wasVisible == View.GONE) {
 				Util.startScaleAnimation(unlearningPanel, 600);

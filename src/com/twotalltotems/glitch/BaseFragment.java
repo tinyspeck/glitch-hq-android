@@ -275,25 +275,14 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	{
 		JSONObject jItems = response.optJSONObject("learning");
 		
-		addToList(learningList, jItems);
-	}
-	
-	public void addToUnlearningList( Vector<skillAvailable> unlearningList, JSONObject response  )
-	{
-		JSONObject jItems = response.optJSONObject("unlearning");
-		
-		addToList(unlearningList, jItems);
-	}
-	
-	private void addToList(Vector<skillAvailable> list, JSONObject items) {
-		if( items != null )
+		if( jItems!= null )
 		{
-    		Iterator<String> it = items.keys(); 
+    		Iterator<String> it = jItems.keys(); 
 
     		while( it.hasNext() )
     		{	
     			String sKey = it.next();
-    			JSONObject jobj = items.optJSONObject(sKey);
+    			JSONObject jobj = jItems.optJSONObject(sKey);
     			skillAvailable skill = new skillAvailable();
 
     			int nSec = jobj.optInt("time_remaining");
@@ -313,7 +302,44 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     			skill.description = jobj.optString("description");
            		skill.curTime = System.currentTimeMillis()/1000;
            		
-    			list.add(skill);
+    			learningList.add(skill);
+    		}
+		}
+		
+	}
+	
+	public void addToUnlearningList( Vector<skillAvailable> unlearningList, JSONObject response  )
+	{
+		JSONObject jItems = response.optJSONObject("unlearning");
+		
+		if( jItems != null )
+		{
+    		Iterator<String> it = jItems.keys(); 
+
+    		while( it.hasNext() )
+    		{	
+    			String sKey = it.next();
+    			JSONObject jobj = jItems.optJSONObject(sKey);
+    			skillAvailable skill = new skillAvailable();
+
+    			int nSec = jobj.optInt("time_remaining");
+    			int nTotal = jobj.optInt("unlearn_time");
+
+    			int timeH = nSec/3600;
+    			int timeM = ( nSec - timeH * 3600 ) / 60;
+    			int timeS = nSec - timeH * 3600 - timeM * 60;
+    			
+    			skill.totalTime = nTotal;
+    			skill.remainTime = nSec;
+	    		skill.curTime = System.currentTimeMillis()/1000;
+    			
+	    		skill.id = sKey;
+	    		skill.icon = jobj.optString("icon_100");
+    			skill.item = jobj.optString("name");    			
+    			skill.description = jobj.optString("description");
+           		skill.curTime = System.currentTimeMillis()/1000;
+           		
+           		unlearningList.add(skill);
     		}
 		}
 	}
