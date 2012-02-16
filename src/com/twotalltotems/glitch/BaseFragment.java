@@ -275,14 +275,25 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	{
 		JSONObject jItems = response.optJSONObject("learning");
 		
-		if( jItems != null )
+		addToList(learningList, jItems);
+	}
+	
+	public void addToUnlearningList( Vector<skillAvailable> unlearningList, JSONObject response  )
+	{
+		JSONObject jItems = response.optJSONObject("unlearning");
+		
+		addToList(unlearningList, jItems);
+	}
+	
+	private void addToList(Vector<skillAvailable> list, JSONObject items) {
+		if( items != null )
 		{
-    		Iterator<String> it = jItems.keys(); 
+    		Iterator<String> it = items.keys(); 
 
     		while( it.hasNext() )
     		{	
     			String sKey = it.next();
-    			JSONObject jobj = jItems.optJSONObject(sKey);
+    			JSONObject jobj = items.optJSONObject(sKey);
     			skillAvailable skill = new skillAvailable();
 
     			int nSec = jobj.optInt("time_remaining");
@@ -302,7 +313,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     			skill.description = jobj.optString("description");
            		skill.curTime = System.currentTimeMillis()/1000;
            		
-    			learningList.add(skill);
+    			list.add(skill);
     		}
 		}
 	}

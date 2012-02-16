@@ -244,7 +244,7 @@ public class SkillDetailFragment extends BaseFragment{
 		tv = (TextView) m_root.findViewById(R.id.caption_status); 
 		tv.setTypeface(m_application.m_vagFont);
 
-		tv = (TextView) m_root.findViewById(R.id.caption_giant); 
+		tv = (TextView) m_root.findViewById(R.id.caption_giant);
 		tv.setTypeface(m_application.m_vagFont);
 		
 		tv = (TextView) m_root.findViewById(R.id.caption_needed); 

@@ -105,6 +105,19 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
   />
+  
+  <com.twotalltotems.glitch.LinearListView 
+    android:id="@+id/unlearning_list"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="10sp"
+    android:layout_marginBottom="10sp"
+    android:layout_marginRight="5sp"
+    android:background="@drawable/user_panel"
+	android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+  />
 
   <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" 
 			    android:id="@+id/homeListViewLayout"

@@ -32,7 +32,7 @@ import android.widget.TextView;
 public class ProfileFragment extends BaseFragment{
 
 	private TextView nameTextView;
-    private LinearListView  m_listView, m_learningListView;
+    private LinearListView  m_listView, m_learningListView, m_unlearningListView;
     private String m_playerTsid, m_avatarUrl, m_playerName;
     private ImageView m_avatar;
     private int m_currentActType;
@@ -47,6 +47,7 @@ public class ProfileFragment extends BaseFragment{
 	
     private ActivityListViewAdapter m_adapter;
     private LearningListViewAdapter m_learningAdapter;
+    private UnlearningListViewAdapter m_unlearningAdapter;
     
     private TextView m_tv_energy1,m_tv_energy2;
     private ImageView m_imgMood;
@@ -65,7 +66,7 @@ public class ProfileFragment extends BaseFragment{
 	private boolean m_bFriend;
 	
  	private Vector<glitchActivity> m_actList;
-  	private Vector<skillAvailable> m_learningList;
+  	private Vector<skillAvailable> m_learningList, m_unlearningList;
   	private View m_root;
 	
   	ProfileFragment( String playerID, boolean bOthers )
@@ -143,6 +144,7 @@ public class ProfileFragment extends BaseFragment{
 
         m_listView = (LinearListView)root.findViewById( R.id.homeListView );
 		m_learningListView = (LinearListView)root.findViewById( R.id.learning_list );
+		m_unlearningListView = (LinearListView)root.findViewById(R.id.unlearning_list);
 
 		m_avatar = (ImageView)m_vProfile.findViewById( R.id.avatar );
 	    m_tv_energy1 = (TextView) m_vProfile.findViewById(R.id.tv_energy1);
@@ -177,11 +179,16 @@ public class ProfileFragment extends BaseFragment{
 	    m_adapter = new ActivityListViewAdapter( this, m_actList );
 		m_listView.setAdapter( m_adapter );
 
-		if( bUpdateData )
+		if( bUpdateData ) {
 			m_learningList = new Vector<skillAvailable>();
+			m_unlearningList = new Vector<skillAvailable>();
+		}
 			
 		m_learningAdapter = new LearningListViewAdapter( getActivity(), m_learningList );
 		m_learningListView.setAdapter( m_learningAdapter );
+		
+		m_unlearningAdapter = new UnlearningListViewAdapter(getActivity(), m_unlearningList);
+		m_unlearningListView.setAdapter(m_unlearningAdapter);		
 
 		View clouds = root.findViewById(R.id.clouds);
 		Util.startTranslateAnimation( clouds, 300000 );
@@ -196,17 +203,28 @@ public class ProfileFragment extends BaseFragment{
 			
 		});
 		
+		m_unlearningListView.setOnClickListener( new OnClickListener()
+		{
+			public void onClick(View arg0) {
+				skillAvailable skill = m_unlearningList.get(0);
+				SkillDetailFragment fm = new SkillDetailFragment(skill);
+				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
+			}
+		});
+		
 //     initPushToRefresh();
 	   setupSettings();
 		
 	   if( m_bOtherProfile )
 	   {
 		   m_learningListView.setVisibility(View.GONE);
+		   m_unlearningListView.setVisibility(View.GONE);
 		   if( bUpdateData )
 			   getProfileInfo(false);
 	   }
 	   else{
 		   m_learningListView.setVisibility(View.VISIBLE);
+		   m_unlearningListView.setVisibility(View.VISIBLE);
 		   if( bUpdateData )
 		   {
 			   GlitchRequest request = m_application.glitch.getRequest("players.info");
@@ -244,8 +262,11 @@ public class ProfileFragment extends BaseFragment{
 
         GlitchRequest request3 = m_application.glitch.getRequest("players.fullInfo", params );
         request3.execute(this);
+        
+        GlitchRequest request4 = m_application.glitch.getRequest("skills.listUnlearning");
+        request4.execute(this);
 
-        m_requestCount = 3;
+        m_requestCount = 4;
     	((HomeScreen)getActivity()).showSpinner(true);
     }
 	
@@ -271,7 +292,8 @@ public class ProfileFragment extends BaseFragment{
 		updateProfileInfo();
 		
 		m_learningAdapter.notifyDataSetChanged();
-        InitUpdateSkillRemainningTimer();		
+		m_unlearningAdapter.notifyDataSetChanged();
+        InitUpdateSkillRemainingTimer();		
 	}
 
 	private void updateActivityFeed()
@@ -379,11 +401,20 @@ public class ProfileFragment extends BaseFragment{
     		m_learningList.clear();
 			addToLearningList( m_learningList, response );
     		m_learningAdapter.notifyDataSetChanged();			
-	        InitUpdateSkillRemainningTimer();
+	        InitUpdateSkillRemainingTimer();
 			onRequestComplete();
 			if ( !m_bAppendMode )
 				Util.startAlphaAnimation(m_learningListView, 1000, 0, 1, TranslateAnimation.ABSOLUTE);	
 			
+		}else if (method == "skills.listUnlearning")
+		{
+			m_unlearningList.clear();
+			addToUnlearningList(m_unlearningList, response);
+			m_unlearningAdapter.notifyDataSetChanged();
+			InitUpdateSkillRemainingTimer();
+			onRequestComplete();
+			if (!m_bAppendMode)
+				Util.startAlphaAnimation(m_unlearningListView, 1000, 0, 1, TranslateAnimation.ABSOLUTE);
 		}else if ( method == "friends.remove" ||  method == "friends.add" )
 		{
 			onRequestComplete();
@@ -423,7 +454,7 @@ public class ProfileFragment extends BaseFragment{
     	}
 	}
 
-	private void InitUpdateSkillRemainningTimer()
+	private void InitUpdateSkillRemainingTimer()
 	{
 	   if( m_RemainingTimer != null )
 		   m_RemainingTimer.cancel();
@@ -436,6 +467,8 @@ public class ProfileFragment extends BaseFragment{
 		    		 public void run(){
 		        		  if( m_learningAdapter!= null && m_learningAdapter.getCount() > 0 )
 		    				 m_learningAdapter.notifyDataSetChanged(); 
+		        		  if (m_unlearningAdapter != null && m_unlearningAdapter.getCount() > 0)
+		        			  m_unlearningAdapter.notifyDataSetChanged();
 			         }});
    	       }  
 		}, 1000, 1000 ); 
