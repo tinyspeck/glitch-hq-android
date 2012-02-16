@@ -362,7 +362,7 @@ public class UnlearnFragment extends BaseFragment {
 		{			
 			unlearningPanel.setVisibility(View.VISIBLE);			
 			Util.showProgress( getActivity(), m_unlearningSkillProgress, m_unlearningSkillTime, skill.remainTime, skill.totalTime, skill.curTime ); 
-			m_unlearningSkillName.setText( m_unlearningList.get(0).item  );
+			m_unlearningSkillName.setText( "Unlearning " + m_unlearningList.get(0).item  );
 			if (wasVisible == View.GONE) {
 				Util.startScaleAnimation(unlearningPanel, 600);
 			}			

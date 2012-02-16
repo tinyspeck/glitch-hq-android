@@ -88,7 +88,7 @@
 			android:layout_width="fill_parent" android:visibility="gone"
 	    	android:background="@drawable/unlearning_progress_contour"
 			>
-   <include layout="@layout/learning_process"/>
+   <include layout="@layout/unlearning_process"/>
 
    <TextView android:text="" 
 			android:id="@+id/unlearning_process_text"

@@ -282,8 +282,8 @@ public class SkillDetailFragment extends BaseFragment{
 			}
 		});
 
-		View v_unlearn = m_root.findViewById( R.id.learning_process_bar );
-		View v_learn = m_root.findViewById(R.id.unlearning_process_bar);
+		View v_learn = m_root.findViewById( R.id.learning_process_bar );
+		View v_unlearn = m_root.findViewById(R.id.unlearning_process_bar);
 		
 		if( m_currentSkill.learning ) {			
 			btnLearn.setVisibility(View.GONE);
