@@ -78,7 +78,7 @@ public class UnlearnFragment extends BaseFragment {
 		{			
 			public void onClick(View arg0) {
 				skillAvailable skill = m_unlearningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);					
+				SkillDetailFragment fm = new SkillDetailFragment(skill, true);					
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 			
@@ -210,7 +210,7 @@ public class UnlearnFragment extends BaseFragment {
 					int nItem = (Integer)arg0.getTag();
 
 					skillAvailable skill = m_unlearnableList.get(nItem);
-					SkillDetailFragment fm = new SkillDetailFragment(skill);
+					SkillDetailFragment fm = new SkillDetailFragment(skill, true);
 					((HomeScreen)getActivity()).setCurrentFragment(fm,true);
 				}
     	    });

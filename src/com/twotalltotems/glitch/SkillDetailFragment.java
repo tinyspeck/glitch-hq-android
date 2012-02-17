@@ -32,16 +32,29 @@ public class SkillDetailFragment extends BaseFragment{
   	private String m_skillID;
   	private View m_root;
   	private Timer m_RemainingTimer;
+  	private boolean m_fromUnlearn;
   	
-  	SkillDetailFragment( String skillID)
+  	SkillDetailFragment(String skillID)
   	{
-  		m_skillID = skillID;
+  		this(skillID, false);
   	}
   	
   	SkillDetailFragment(skillAvailable skill)
   	{
+  		this(skill, false);
+  	}
+  	
+  	SkillDetailFragment( String skillID, boolean fromUnlearn)
+  	{
+  		m_skillID = skillID;
+  		m_fromUnlearn = fromUnlearn;
+  	}
+  	
+  	SkillDetailFragment(skillAvailable skill, boolean fromUnlearn)
+  	{
   		m_skillID = skill.id;
   		m_currentSkill = skill;
+  		m_fromUnlearn = fromUnlearn;
   	}
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -235,7 +248,7 @@ public class SkillDetailFragment extends BaseFragment{
 	    	   if (act != null) {
 	    		   act.runOnUiThread(new Runnable() {
 	    			   public void run(){
-	    				   if (m_currentSkill.learning)
+	    				   if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
 	    					   UpdateSkillDetailProgress();
 	    				   else if (m_currentSkill.unlearning)
 	    					   UpdateUnlearnDetailProgress();
@@ -268,7 +281,7 @@ public class SkillDetailFragment extends BaseFragment{
 		tv.setTypeface(m_application.m_vagFont);
 		
 		tv = (TextView) m_root.findViewById(R.id.skill_detail_time);
-		if (m_currentSkill.learning)
+		if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
 			tv.setText( R.string.str_you_are_learning );
 		else if (m_currentSkill.unlearning)
 			tv.setText(R.string.str_you_are_unlearning);
@@ -313,7 +326,7 @@ public class SkillDetailFragment extends BaseFragment{
 		View v_learn = m_root.findViewById( R.id.learning_process_bar );
 		View v_unlearn = m_root.findViewById(R.id.unlearning_process_bar);
 		
-		if( m_currentSkill.learning ) {			
+		if( m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got) {			
 			btnLearn.setVisibility(View.GONE);
 			btnUnlearn.setVisibility(View.GONE);
 			btnCancelUnlearn.setVisibility(View.GONE);
@@ -342,7 +355,7 @@ public class SkillDetailFragment extends BaseFragment{
 			v_unlearn.setVisibility(View.GONE);
 			v_learn.setVisibility(View.GONE);
 			btnCancelUnlearn.setVisibility(View.GONE);
-			if (m_currentSkill.can_unlearn) {				
+			if (m_currentSkill.can_unlearn && m_fromUnlearn) {	
 				btnUnlearn.setVisibility(View.VISIBLE);
 				btnLearn.setVisibility(View.GONE);
 			} else {
@@ -374,8 +387,10 @@ public class SkillDetailFragment extends BaseFragment{
 			mLayout.setVisibility(View.VISIBLE);
 		
 		tv = (TextView) m_root.findViewById( R.id.skill_status );
-		if (m_currentSkill.learning)
+		if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
 			tv.setText( R.string.str_you_are_learning );
+		else if (m_currentSkill.paused)
+			tv.setText(R.string.str_skill_status_started);
 		else if (m_currentSkill.unlearning)
 			tv.setText(R.string.str_you_are_unlearning);
 		else if (m_currentSkill.can_unlearn)
@@ -385,7 +400,7 @@ public class SkillDetailFragment extends BaseFragment{
 		else if (!m_currentSkill.can_learn)
 			tv.setText( R.string.str_you_can_not_learn );
 		else
-			tv.setText( m_currentSkill.paused? R.string.str_skill_status_started : R.string.str_skill_status_can_learn );
+			tv.setText( R.string.str_skill_status_can_learn );
 
 		m_root.scrollTo(0,0);
 	}
