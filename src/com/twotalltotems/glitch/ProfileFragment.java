@@ -235,7 +235,7 @@ public class ProfileFragment extends BaseFragment{
 		   showProfilePage();
 	}
 
-	private void getProfileInfo( boolean bMore )
+	public void getProfileInfo( boolean bMore )
 	{
 		String selfPlayerID = ((HomeScreen)getActivity()).getPlayerID();
         Map<String,String> params = new  HashMap<String,String>();

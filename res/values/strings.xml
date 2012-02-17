@@ -35,4 +35,5 @@
   <string name="btn_unlearn_this_skill">Unlearn this skill!</string>
   <string name="str_you_are_unlearning">You\'re unlearning this!</string>
   <string name="str_you_can_unlearn">You can unlearn this skill!</string>
+  <string name="btn_cancel_unlearning_this_skill">Cancel Unlearning</string>
 </resources>

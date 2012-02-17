@@ -143,7 +143,7 @@ public class SkillDetailFragment extends BaseFragment{
 	           		}
            		}
            		
-           		setSkillDetailView();	
+           		setSkillDetailView();
     			onRequestComplete();
        		}catch( Exception e )
        		{
@@ -155,6 +155,11 @@ public class SkillDetailFragment extends BaseFragment{
     		fm.popBackStack();
     		((HomeScreen)getActivity()).updateSkills();
     	}else if ( method == "skills.unlearn" )
+    	{
+    		FragmentManager fm = getFragmentManager();
+    		fm.popBackStack();
+    		((HomeScreen)getActivity()).updateUnlearnables();
+    	}else if (method == "skills.cancelUnlearning")
     	{
     		FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
@@ -189,6 +194,15 @@ public class SkillDetailFragment extends BaseFragment{
         params.put("skill_class", m_currentSkill.id );
 		
         GlitchRequest request1 = m_application.glitch.getRequest("skills.unlearn", params );
+        request1.execute(this);
+	}
+	
+	public void cancelUnlearning()
+	{
+		Map<String,String> params = new  HashMap<String,String>();
+        params.put("skill_class", m_currentSkill.id );
+		
+        GlitchRequest request1 = m_application.glitch.getRequest("skills.cancelUnlearning", params );
         request1.execute(this);
 	}
 
@@ -282,12 +296,27 @@ public class SkillDetailFragment extends BaseFragment{
 			}
 		});
 
+		Button btnCancelUnlearn = (Button)m_root.findViewById(R.id.btn_cancel_unlearning_this_skill);
+		btnCancelUnlearn.setTypeface(m_application.m_vagFont);
+		btnCancelUnlearn.setOnClickListener( new OnClickListener() {
+			public void onClick(View arg0) {
+				FlurryAgent.logEvent("Skill Detail - Tapped cancel unlearn button");
+				if( m_RemainingTimer != null )
+			    {
+				   m_RemainingTimer.cancel();
+				   m_RemainingTimer = null;
+			    }
+				cancelUnlearning();
+			}
+		});
+		
 		View v_learn = m_root.findViewById( R.id.learning_process_bar );
 		View v_unlearn = m_root.findViewById(R.id.unlearning_process_bar);
 		
 		if( m_currentSkill.learning ) {			
 			btnLearn.setVisibility(View.GONE);
 			btnUnlearn.setVisibility(View.GONE);
+			btnCancelUnlearn.setVisibility(View.GONE);
 			v_learn.setVisibility(View.VISIBLE);
 			v_unlearn.setVisibility(View.GONE);
 			UpdateSkillDetailProgress();
@@ -296,6 +325,7 @@ public class SkillDetailFragment extends BaseFragment{
 		else if ( m_currentSkill.unlearning ) {
 			btnUnlearn.setVisibility(View.GONE);
 			btnLearn.setVisibility(View.GONE);
+			btnCancelUnlearn.setVisibility(View.VISIBLE);
 			v_learn.setVisibility(View.GONE);
 			v_unlearn.setVisibility(View.VISIBLE);
 			UpdateUnlearnDetailProgress();
@@ -306,10 +336,12 @@ public class SkillDetailFragment extends BaseFragment{
 			v_unlearn.setVisibility(View.GONE);
 			btnLearn.setVisibility(View.GONE);
 			btnUnlearn.setVisibility(View.GONE);
+			btnCancelUnlearn.setVisibility(View.GONE);
 		}
 		else {
 			v_unlearn.setVisibility(View.GONE);
 			v_learn.setVisibility(View.GONE);
+			btnCancelUnlearn.setVisibility(View.GONE);
 			if (m_currentSkill.can_unlearn) {				
 				btnUnlearn.setVisibility(View.VISIBLE);
 				btnLearn.setVisibility(View.GONE);

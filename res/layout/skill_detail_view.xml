@@ -45,32 +45,32 @@
   
 </LinearLayout>	
 
-  <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center"
-	    	android:layout_marginTop="5sp"
-	    	android:layout_marginBottom="5sp"
-	    	android:layout_marginLeft="15sp"
-	    	android:layout_marginRight="15sp" >
+<FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center"
+	android:layout_marginTop="5sp"
+	android:layout_marginBottom="5sp"
+	android:layout_marginLeft="15sp"
+	android:layout_marginRight="15sp" >
 	    	
-  <Button android:id="@+id/btn_learn_this_skill" android:text="@string/btn_learn_this_skill" android:layout_gravity="center"
-	    	android:layout_weight="0.0"
-	    	android:background="@drawable/button_state"
-	    	android:textSize="20sp"
-	    	android:paddingTop="5sp"
-	    	android:paddingBottom="5sp"
-	    	android:textColor="#055c73"
-			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+	<Button android:id="@+id/btn_learn_this_skill" android:text="@string/btn_learn_this_skill" android:layout_gravity="center"
+		android:layout_weight="0.0"
+		android:background="@drawable/button_state"
+		android:textSize="20sp"
+	    android:paddingTop="5sp"
+	    android:paddingBottom="5sp"
+	    android:textColor="#055c73"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" />
   
-  <Button android:id="@+id/btn_unlearn_this_skill" android:text="@string/btn_unlearn_this_skill" android:layout_gravity="center"
-	    	android:layout_weight="0.0"
-	    	android:background="@drawable/button_state"
-	    	android:textSize="20sp"
-	    	android:paddingTop="5sp"
-	    	android:paddingBottom="5sp"
-	    	android:textColor="#055c73"
-	    	android:visibility="gone"
-			android:layout_width="fill_parent" android:layout_height="wrap_content" />
+	<Button android:id="@+id/btn_unlearn_this_skill" android:text="@string/btn_unlearn_this_skill" android:layout_gravity="center"
+		android:layout_weight="0.0"
+		android:background="@drawable/button_state"
+		android:textSize="20sp"
+		android:paddingTop="5sp"
+		android:paddingBottom="5sp"
+		android:textColor="#055c73"
+		android:visibility="gone"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" />  
 
-   <FrameLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/learning_process_bar"
+	<FrameLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/learning_process_bar"
 			android:layout_width="fill_parent" android:visibility="gone"
 	    	android:background="@drawable/learning_progress_contour"
 			>
@@ -82,9 +82,10 @@
 	    	android:layout_gravity="center"
 	    	android:gravity="center"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+
    </FrameLayout>
    
-   <FrameLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/unlearning_process_bar"
+	<FrameLayout android:layout_height="wrap_content" android:layout_gravity="center" android:id="@+id/unlearning_process_bar"
 			android:layout_width="fill_parent" android:visibility="gone"
 	    	android:background="@drawable/unlearning_progress_contour"
 			>
@@ -97,10 +98,29 @@
 	    	android:gravity="center"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
    </FrameLayout>
-   
-  </FrameLayout>
+	
+</FrameLayout>
+  
+ <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_gravity="center"
+	android:layout_marginTop="5sp"
+	android:layout_marginBottom="5sp"
+	android:layout_marginLeft="15sp"
+	android:layout_marginRight="15sp">
+	
+ 	<Button android:id="@+id/btn_cancel_unlearning_this_skill" android:text="@string/btn_cancel_unlearning_this_skill" 
+ 	    android:layout_gravity="center"
+		android:layout_weight="0.0"
+		android:background="@drawable/button_state"
+		android:textSize="20sp"
+		android:paddingTop="5sp"
+		android:paddingBottom="5sp"
+		android:textColor="#055c73"
+		android:visibility="gone"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" 
+	/>
+</FrameLayout>
 
-  <View android:id="@+id/area_border" android:layout_height="1sp" android:layout_gravity="center" android:background="#d0d0d0"
+<View android:id="@+id/area_border" android:layout_height="1sp" android:layout_gravity="center" android:background="#d0d0d0"
 			android:layout_width="fill_parent" />
 
   <LinearLayout android:layout_height="wrap_content" android:layout_gravity="center" android:background="#f0f0f0"

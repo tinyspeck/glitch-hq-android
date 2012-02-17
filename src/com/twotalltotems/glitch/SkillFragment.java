@@ -107,17 +107,19 @@ public class SkillFragment extends BaseFragment{
 	
 	public void getSkills()
 	{
-        GlitchRequest request1 = m_application.glitch.getRequest("skills.listLearning");
-        request1.execute(this);
-
-		GlitchRequest request2 = m_application.glitch.getRequest("skills.listAvailable");
-        request2.execute(this);
-        
-		GlitchRequest request3 = m_application.glitch.getRequest("skills.hasUnlearning");
-		request3.execute(this);			
-        
-        m_requestCount = 3;
-		((HomeScreen)getActivity()).showSpinner(true);
+		if (m_application != null) {
+	        GlitchRequest request1 = m_application.glitch.getRequest("skills.listLearning");
+	        request1.execute(this);
+	
+			GlitchRequest request2 = m_application.glitch.getRequest("skills.listAvailable");
+	        request2.execute(this);
+	        
+			GlitchRequest request3 = m_application.glitch.getRequest("skills.hasUnlearning");
+			request3.execute(this);			
+	        
+	        m_requestCount = 3;
+			((HomeScreen)getActivity()).showSpinner(true);
+		}
 	}
 	
 	private void updateSkillList()
@@ -210,7 +212,7 @@ public class SkillFragment extends BaseFragment{
 					int nItem = (Integer)arg0.getTag();
 
 					skillAvailable skill = m_skillList.get(nItem);
-					SkillDetailFragment fm = new SkillDetailFragment( skill.id );
+					SkillDetailFragment fm = new SkillDetailFragment(skill);
 					((HomeScreen)getActivity()).setCurrentFragment(fm,true);
 				}
     	    });

@@ -265,11 +265,13 @@ public class HomeScreen extends FragmentActivity{
     public void updateSkills()
     {
     	m_skillFrm.getSkills();
+    	m_profileFrm.getProfileInfo(false);
     }
     
     public void updateUnlearnables()
     {
     	m_unlearnFrm.getSkills();
+    	m_profileFrm.getProfileInfo(false);
     }
     
     public void setPlayerID( String pID )

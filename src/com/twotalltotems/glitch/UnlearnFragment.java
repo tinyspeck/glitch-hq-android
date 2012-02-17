@@ -104,17 +104,19 @@ public class UnlearnFragment extends BaseFragment {
 
     public void getSkills()
     {
-    	GlitchRequest request1 = m_application.glitch.getRequest("skills.listUnlearning");
-        request1.execute(this);
-
-		GlitchRequest request2 = m_application.glitch.getRequest("skills.listUnlearnable");
-        request2.execute(this);
-        
-        GlitchRequest request3 = m_application.glitch.getRequest("skills.hasUnlearning");
-        request3.execute(this);
-        
-        m_requestCount = 3;
-		((HomeScreen)getActivity()).showSpinner(true);
+    	if (m_application != null) {
+	    	GlitchRequest request1 = m_application.glitch.getRequest("skills.listUnlearning");
+	        request1.execute(this);
+	
+			GlitchRequest request2 = m_application.glitch.getRequest("skills.listUnlearnable");
+	        request2.execute(this);
+	        
+	        GlitchRequest request3 = m_application.glitch.getRequest("skills.hasUnlearning");
+	        request3.execute(this);
+	        
+	        m_requestCount = 3;
+			((HomeScreen)getActivity()).showSpinner(true);
+    	}
     }
     
     private void updateUnlearnableList()
@@ -197,7 +199,7 @@ public class UnlearnFragment extends BaseFragment {
     			holder.item.setText( skill.item );
     			
    				holder.time.setText( Util.TimeToString( skill.totalTime, false ) );
-   				boolean bShowStop = ( skill.remainTime > 0);
+   				boolean bShowStop = ( skill.remainTime > 0 );
 				holder.status.setVisibility( bShowStop? View.VISIBLE: View.INVISIBLE );
     		}
     		holder.whole.setTag(position);
@@ -208,7 +210,7 @@ public class UnlearnFragment extends BaseFragment {
 					int nItem = (Integer)arg0.getTag();
 
 					skillAvailable skill = m_unlearnableList.get(nItem);
-					SkillDetailFragment fm = new SkillDetailFragment(skill.id);
+					SkillDetailFragment fm = new SkillDetailFragment(skill);
 					((HomeScreen)getActivity()).setCurrentFragment(fm,true);
 				}
     	    });
