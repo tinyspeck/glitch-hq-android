@@ -105,10 +105,14 @@ public class SkillDetailFragment extends BaseFragment{
        		m_currentSkill.paused = ( response.optInt("paused") == 1 )? true: false;       		
        		m_currentSkill.learning = response.optInt("learning") == 1 ? true : false;
        		m_currentSkill.unlearning = response.optInt("unlearning") == 1 ? true : false;
+       		if (m_fromUnlearn) {
+       			m_currentSkill.totalTime = response.optInt("unlearn_time");
+       		} else {
+       			m_currentSkill.totalTime = response.optInt("total_time");
+       		}
        		
-       		m_currentSkill.totalTime = response.optInt("total_time");
        		if( m_currentSkill.totalTime == 0 || m_fromUnlearn)
-       		{       			
+       		{
        			m_currentSkill.remainTime = lastRemainTime;
        			m_currentSkill.totalTime = lastTotalTime;
        			m_currentSkill.curTime = lastCurTime;

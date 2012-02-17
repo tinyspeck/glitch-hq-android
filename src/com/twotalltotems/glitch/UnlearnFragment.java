@@ -225,7 +225,7 @@ public class UnlearnFragment extends BaseFragment {
        		
        		if (jItems != null) {
        			
-       			m_unlearningList.clear();
+       			m_unlearnableList.clear();
        			
        			Iterator<String> it = jItems.keys();
        			
