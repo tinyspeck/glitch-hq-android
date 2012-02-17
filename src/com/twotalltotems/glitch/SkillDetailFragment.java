@@ -13,6 +13,7 @@ import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -32,7 +33,7 @@ public class SkillDetailFragment extends BaseFragment{
   	private String m_skillID;
   	private View m_root;
   	private Timer m_RemainingTimer;
-  	private boolean m_fromUnlearn;
+  	private boolean m_fromUnlearn, m_pendingLearn = false;
   	
   	SkillDetailFragment(String skillID)
   	{
@@ -169,8 +170,21 @@ public class SkillDetailFragment extends BaseFragment{
     	}else if ( method == "skills.learn" )
     	{
     		if (response.optInt("busyUnlearning") == 1) {
-    			Util.Alert(getActivity(), "You can't learn this skill right now!", "Oh no!");
-    		} else {	    		
+    			Util.Alert(getActivity(), R.string.str_cancel_unlearning_warning, R.string.str_cancel_unlearning, true, R.string.str_yes, R.string.str_no,
+    				new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							if (which == DialogInterface.BUTTON_POSITIVE) {
+								// cancel unlearning and then learn
+								m_pendingLearn = true;
+								cancelUnlearning();
+								dialog.dismiss();
+							} else {
+								dialog.dismiss();
+							}
+						}
+    				}
+    			);
+    		} else {
     			FragmentManager fm = getFragmentManager();
         		fm.popBackStack();
         		((HomeScreen)getActivity()).updateSkills();
@@ -186,11 +200,16 @@ public class SkillDetailFragment extends BaseFragment{
     		onRequestComplete();
     	}else if (method == "skills.cancelUnlearning")
     	{
-    		FragmentManager fm = getFragmentManager();
-    		fm.popBackStack();
-    		((HomeScreen)getActivity()).updateSkills();
-    		((HomeScreen)getActivity()).updateUnlearnables();
-    		onRequestComplete();
+    		if (m_pendingLearn) {
+    			learnSkill();
+    			m_pendingLearn = false;
+    		} else {
+	    		FragmentManager fm = getFragmentManager();
+	    		fm.popBackStack();
+	    		((HomeScreen)getActivity()).updateSkills();
+	    		((HomeScreen)getActivity()).updateUnlearnables();
+	    		onRequestComplete();
+    		}
     	}
 	}	
 	
@@ -297,7 +316,7 @@ public class SkillDetailFragment extends BaseFragment{
 		tv = (TextView) m_root.findViewById(R.id.skill_detail_time);
 		if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
 			tv.setText( R.string.str_you_are_learning );
-		else if (m_currentSkill.unlearning)
+		else if (m_currentSkill.unlearning && m_fromUnlearn)
 			tv.setText(R.string.str_you_are_unlearning);
 		else
 			tv.setText( Util.TimeToString(m_currentSkill.totalTime, false ) );	
@@ -349,7 +368,7 @@ public class SkillDetailFragment extends BaseFragment{
 			UpdateSkillDetailProgress();
 			InitUpdateSkillRemainingTimer();		
 		}		
-		else if ( m_currentSkill.unlearning ) {
+		else if ( m_currentSkill.unlearning && m_fromUnlearn) {
 			btnUnlearn.setVisibility(View.GONE);
 			btnLearn.setVisibility(View.GONE);
 			btnCancelUnlearn.setVisibility(View.VISIBLE);
@@ -405,7 +424,7 @@ public class SkillDetailFragment extends BaseFragment{
 			tv.setText( R.string.str_you_are_learning );
 		else if (m_currentSkill.paused)
 			tv.setText(R.string.str_skill_status_started);
-		else if (m_currentSkill.unlearning)
+		else if (m_currentSkill.unlearning && m_fromUnlearn)
 			tv.setText(R.string.str_you_are_unlearning);
 		else if (m_currentSkill.can_unlearn)
 			tv.setText(R.string.str_you_can_unlearn);

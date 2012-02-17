@@ -66,6 +66,20 @@ public class Util
     return Alert( context, szMsg, szTitle, bYesNo, lsner );
   }
   
+  static public Dialog Alert(Activity context, int msgID, int titleID, boolean bYesNo, int posID, int negID, DialogInterface.OnClickListener lsner)
+  {
+	  String szMsg = context.getResources().getString(msgID);
+	  String szTitle = context.getResources().getString(titleID);
+	  AlertDialog.Builder blder = new AlertDialog.Builder(context)	 ;
+	  blder.setTitle(szTitle);
+	  blder.setMessage(szMsg);
+	  blder.setPositiveButton(posID, lsner);
+	  if (bYesNo)
+		  blder.setNegativeButton(negID, lsner);
+	  
+	  return blder.show();
+  }
+  
   static public int[] GetRandomTops( int setNumber, int topNumber, int nExclude )
   {
 	  int[] myNumbs = new int[topNumber];

@@ -36,4 +36,8 @@
   <string name="str_you_are_unlearning">You\'re unlearning this!</string>
   <string name="str_you_can_unlearn">You can unlearn this skill!</string>
   <string name="btn_cancel_unlearning_this_skill">Cancel Unlearning</string>
+  <string name="str_yes">Yes</string>
+  <string name="str_no">No</string>
+  <string name="str_cancel_unlearning">Cancel Unlearning?</string>
+  <string name="str_cancel_unlearning_warning">Your unlearning progress will be lost.</string>
 </resources>
