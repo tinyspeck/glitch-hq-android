@@ -33,7 +33,7 @@ public class SkillDetailFragment extends BaseFragment{
   	private String m_skillID;
   	private View m_root;
   	private Timer m_RemainingTimer;
-  	private boolean m_fromUnlearn, m_pendingLearn = false;
+  	private boolean m_fromUnlearn, m_pendingLearn = false, m_pendingUnlearn = false;
   	
   	SkillDetailFragment(String skillID)
   	{
@@ -175,9 +175,9 @@ public class SkillDetailFragment extends BaseFragment{
 						public void onClick(DialogInterface dialog, int which) {
 							if (which == DialogInterface.BUTTON_POSITIVE) {
 								// cancel unlearning and then learn
-								m_pendingLearn = true;
-								cancelUnlearning();
+								m_pendingLearn = true;								
 								dialog.dismiss();
+								cancelUnlearning();
 							} else {
 								dialog.dismiss();
 							}
@@ -193,16 +193,36 @@ public class SkillDetailFragment extends BaseFragment{
     		onRequestComplete();
     	}else if ( method == "skills.unlearn" )
     	{    		    		
-    		FragmentManager fm = getFragmentManager();
-    		fm.popBackStack();
-    		((HomeScreen)getActivity()).updateSkills();
-    		((HomeScreen)getActivity()).updateUnlearnables();
-    		onRequestComplete();
+    		if (response.optInt("busyUnlearning") == 1) {
+    			Util.Alert(getActivity(), R.string.str_cancel_unlearning_warning, R.string.str_cancel_unlearning, true, R.string.str_yes, R.string.str_no,
+    				new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							if (which == DialogInterface.BUTTON_POSITIVE) {
+								// cancel unlearning and then learn
+								m_pendingUnlearn = true;
+								dialog.dismiss();
+								cancelUnlearning();
+							} else {
+								dialog.dismiss();
+							}
+						}
+    				}
+    			);
+    		} else {
+	    		FragmentManager fm = getFragmentManager();
+	    		fm.popBackStack();
+	    		((HomeScreen)getActivity()).updateSkills();
+	    		((HomeScreen)getActivity()).updateUnlearnables();
+	    		onRequestComplete();
+    		}
     	}else if (method == "skills.cancelUnlearning")
     	{
     		if (m_pendingLearn) {
     			learnSkill();
     			m_pendingLearn = false;
+    		} else if (m_pendingUnlearn) {
+    			unlearnSkill();
+    			m_pendingUnlearn = false;
     		} else {
 	    		FragmentManager fm = getFragmentManager();
 	    		fm.popBackStack();
