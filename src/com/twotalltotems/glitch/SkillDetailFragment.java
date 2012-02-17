@@ -164,22 +164,29 @@ public class SkillDetailFragment extends BaseFragment{
        		}
     	}else if ( method == "skills.learn" )
     	{
-            FragmentManager fm = getFragmentManager();
-    		fm.popBackStack();
-    		((HomeScreen)getActivity()).updateSkills();
-    		((HomeScreen)getActivity()).updateUnlearnables();
+    		if (response.optInt("busyUnlearning") == 1) {
+    			Util.Alert(getActivity(), "You can't learn this skill right now!", "Oh no!");
+    		} else {	    		
+    			FragmentManager fm = getFragmentManager();
+        		fm.popBackStack();
+        		((HomeScreen)getActivity()).updateSkills();
+        		((HomeScreen)getActivity()).updateUnlearnables();
+    		}    		            
+    		onRequestComplete();
     	}else if ( method == "skills.unlearn" )
-    	{
+    	{    		    		
     		FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
     		((HomeScreen)getActivity()).updateSkills();
     		((HomeScreen)getActivity()).updateUnlearnables();
+    		onRequestComplete();
     	}else if (method == "skills.cancelUnlearning")
     	{
     		FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
     		((HomeScreen)getActivity()).updateSkills();
     		((HomeScreen)getActivity()).updateUnlearnables();
+    		onRequestComplete();
     	}
 	}	
 	
