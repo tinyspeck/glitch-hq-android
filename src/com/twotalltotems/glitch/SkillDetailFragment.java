@@ -167,15 +167,18 @@ public class SkillDetailFragment extends BaseFragment{
             FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
     		((HomeScreen)getActivity()).updateSkills();
+    		((HomeScreen)getActivity()).updateUnlearnables();
     	}else if ( method == "skills.unlearn" )
     	{
     		FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
+    		((HomeScreen)getActivity()).updateSkills();
     		((HomeScreen)getActivity()).updateUnlearnables();
     	}else if (method == "skills.cancelUnlearning")
     	{
     		FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
+    		((HomeScreen)getActivity()).updateSkills();
     		((HomeScreen)getActivity()).updateUnlearnables();
     	}
 	}	
@@ -248,7 +251,7 @@ public class SkillDetailFragment extends BaseFragment{
 	    	   if (act != null) {
 	    		   act.runOnUiThread(new Runnable() {
 	    			   public void run(){
-	    				   if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
+	    				   if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got && !m_fromUnlearn)
 	    					   UpdateSkillDetailProgress();
 	    				   else if (m_currentSkill.unlearning)
 	    					   UpdateUnlearnDetailProgress();
@@ -326,7 +329,7 @@ public class SkillDetailFragment extends BaseFragment{
 		View v_learn = m_root.findViewById( R.id.learning_process_bar );
 		View v_unlearn = m_root.findViewById(R.id.unlearning_process_bar);
 		
-		if( m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got) {			
+		if( m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got && !m_fromUnlearn) {
 			btnLearn.setVisibility(View.GONE);
 			btnUnlearn.setVisibility(View.GONE);
 			btnCancelUnlearn.setVisibility(View.GONE);
@@ -387,7 +390,7 @@ public class SkillDetailFragment extends BaseFragment{
 			mLayout.setVisibility(View.VISIBLE);
 		
 		tv = (TextView) m_root.findViewById( R.id.skill_status );
-		if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
+		if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got && !m_fromUnlearn)
 			tv.setText( R.string.str_you_are_learning );
 		else if (m_currentSkill.paused)
 			tv.setText(R.string.str_skill_status_started);

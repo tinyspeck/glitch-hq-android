@@ -16,8 +16,49 @@
 			android:layout_width="fill_parent"  
 			android:background="#005471"
 			>
-  
-<FrameLayout android:id="@+id/skill_view_learning_panel" android:layout_height="wrap_content" android:layout_gravity="center"
+
+    <FrameLayout android:id="@+id/unlearn_view_unlearning_panel" android:layout_height="wrap_content" android:layout_gravity="center"
+		android:layout_marginLeft="10sp" android:layout_marginRight="10sp" android:visibility="gone"
+		android:layout_marginTop="10sp" android:layout_marginBottom="10sp"
+		android:background="@drawable/user_panel"
+		android:layout_width="fill_parent">
+
+		<LinearLayout android:layout_height="fill_parent" android:gravity="right"
+			android:layout_width="fill_parent" android:padding="5sp">
+	
+			<include layout="@layout/unlearning_process"/>
+	   			
+		</LinearLayout>  
+	  
+		<LinearLayout android:id = "@+id/unlearning_progress_text" android:layout_height="wrap_content" android:layout_gravity="center"
+			android:layout_width="fill_parent" 	android:paddingLeft="8sp" android:paddingRight="8sp">
+				
+			<TextView android:text="" 
+				android:id="@+id/tv_unlearnName"
+				android:layout_weight="1.0"
+				style = "@style/LineTextStyle"  
+				android:textSize="14sp"
+				android:textStyle="bold"
+				android:shadowColor="#ffffff"
+				android:shadowDx="1.5"
+				android:shadowDy="1.5"
+				android:shadowRadius="1.5"
+				android:paddingLeft="4sp" 
+				android:layout_gravity="center"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+				
+			<TextView android:text="" 
+				android:id="@+id/tv_unlearnTime"
+				android:layout_weight="0.0"
+				style = "@style/ProgressTimeStyle"  
+				android:layout_gravity="center"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+			
+		</LinearLayout>
+			
+	</FrameLayout>
+    
+	<FrameLayout android:id="@+id/skill_view_learning_panel" android:layout_height="wrap_content" android:layout_gravity="center"
 			android:layout_marginLeft="10sp" android:layout_marginRight="10sp" android:visibility="gone"
 			android:layout_marginTop="10sp" android:layout_marginBottom="10sp"
 			android:background="@drawable/user_panel"
@@ -59,6 +100,7 @@
   </LinearLayout>	
 
 </FrameLayout>
+
 </LinearLayout>
 
   <TextView android:text="Available Skills" 

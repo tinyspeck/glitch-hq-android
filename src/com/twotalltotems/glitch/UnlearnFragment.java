@@ -10,33 +10,31 @@ import org.json.JSONObject;
 import com.tinyspeck.android.GlitchRequest;
 import com.twotalltotems.glitch.BaseFragment.skillAvailable;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class UnlearnFragment extends BaseFragment {
-
+	
 	private UnlearnableListAdapter m_unlearnableAdapter;
 	private LinearListView  m_unlearnableListView;
 	
 	private Timer m_RemainingTimer;
 	private View m_root;	
 	
-	private TextView m_unlearningSkillName;
-	private TextView m_unlearningSkillTime;
-	private View m_unlearningSkillProgress;
+	private TextView m_unlearningSkillName, m_learningSkillName;
+	private TextView m_unlearningSkillTime, m_learningSkillTime;
+	private View m_unlearningSkillProgress, m_learningSkillProgress;
 	
-	private Vector<skillAvailable> m_unlearningList;
+	private Vector<skillAvailable> m_learningList;
+	private Vector<skillAvailable> m_unlearningList;	
 	private Vector<skillAvailable> m_unlearnableList;
 	private boolean m_hasUnlearning;
 	
@@ -57,12 +55,18 @@ public class UnlearnFragment extends BaseFragment {
     {
     	boolean bUpdateData = m_unlearnableList == null;
 		
+    	if (bUpdateData) {
+    		m_unlearnableList = new Vector<skillAvailable>();
+    		m_unlearningList = new Vector<skillAvailable>();
+    		m_learningList = new Vector<skillAvailable>();
+    	}
+    	
    	    m_unlearnableListView = (LinearListView)root.findViewById( R.id.unlearn_list );
     	
    	    TextView tv = (TextView)root.findViewById(R.id.unlearnable_skills);
    	    tv.setTypeface(m_application.m_vagFont);
     	
-   	    m_unlearnableAdapter = new UnlearnableListAdapter();
+   	    m_unlearnableAdapter = new UnlearnableListAdapter(getActivity(), m_unlearnableList);
 		m_unlearnableListView.setAdapter( m_unlearnableAdapter );
 
 		m_unlearningSkillName = (TextView)root.findViewById(R.id.tv_unlearnName);
@@ -84,11 +88,27 @@ public class UnlearnFragment extends BaseFragment {
 			
 		});
    	    
+		m_learningSkillName = (TextView)root.findViewById(R.id.tv_skillName);
+		m_learningSkillTime = (TextView)root.findViewById(R.id.tv_skillTime);
+		m_learningSkillProgress = (View)root.findViewById(R.id.learning_progress);
+		
+		m_learningSkillName.setTypeface( m_application.m_vagLightFont );
+		m_learningSkillTime.setTypeface( m_application.m_vagLightFont );
+
+		FrameLayout learningPanel = (FrameLayout) m_root.findViewById(R.id.skill_view_learning_panel);
+		learningPanel.setOnClickListener( new OnClickListener() 
+		{			
+			public void onClick(View arg0) {
+				skillAvailable skill = m_learningList.get(0);
+				SkillDetailFragment fm = new SkillDetailFragment(skill);					
+				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
+			}
+			
+		});
+		
    	    setupSettings();
    	    
-   	    if( bUpdateData )
-		{
-			m_unlearningList = new Vector<skillAvailable>();
+   	    if( bUpdateData ) {
 			getSkills();
 		} else {
 			showSkillPage();
@@ -98,7 +118,7 @@ public class UnlearnFragment extends BaseFragment {
     private void showSkillPage()
 	{
 		setUnlearningSkill();
-        InitUpdateUnlearnRemainningTimer();
+        InitUpdateSkillRemainingTimer();
         updateUnlearnableList();
 	}
 
@@ -108,13 +128,16 @@ public class UnlearnFragment extends BaseFragment {
 	    	GlitchRequest request1 = m_application.glitch.getRequest("skills.listUnlearning");
 	        request1.execute(this);
 	
-			GlitchRequest request2 = m_application.glitch.getRequest("skills.listUnlearnable");
+	        GlitchRequest request2 = m_application.glitch.getRequest("skills.listLearning");
 	        request2.execute(this);
 	        
-	        GlitchRequest request3 = m_application.glitch.getRequest("skills.hasUnlearning");
+			GlitchRequest request3 = m_application.glitch.getRequest("skills.listUnlearnable");
 	        request3.execute(this);
 	        
-	        m_requestCount = 3;
+	        GlitchRequest request4 = m_application.glitch.getRequest("skills.hasUnlearning");
+	        request4.execute(this);
+	        
+	        m_requestCount = 4;
 			((HomeScreen)getActivity()).showSpinner(true);
     	}
     }
@@ -129,95 +152,6 @@ public class UnlearnFragment extends BaseFragment {
    		if( bHas )
    			m_unlearnableAdapter.notifyDataSetChanged();
 	}
-    
-    private class UnlearnableListAdapter extends BaseAdapter 
-	{
-	   	 public class ViewHolder {
-	   		 TextView  item;
-		     TextView  time;
-		     ImageView icon;
-		     ImageView status;
-		     View whole;
-	   	 };
-		
-	     public UnlearnableListAdapter() 
-	     {
-	     }
-	  
-	     public int getCount()
-	     {
-	    	 if( m_unlearnableList == null )
-	    		 return 0;
-	    	 
-	    	 return m_unlearnableList.size();
-	     }
-	  
-	     public Object getItem(int position)
-	     {
-	       return position;
-	     }
-	  
-	     public long getItemId(int position)
-	     {
-	       return position;
-	     }
-	  
-         public View getView(int position, View convertView, ViewGroup parent)
-         {
-    		ViewHolder holder=null; 
-    		
-    		if( convertView != null)
-    			holder = (ViewHolder)convertView.getTag();
-
-    		if( holder == null )
-    		{
-    			LayoutInflater inflater = (LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    			
-        		convertView = inflater.inflate( R.layout.skill_list_item, null);
-        		holder = new ViewHolder();
-        		
-        		holder.whole = convertView.findViewById(R.id.skill_item);
-        		holder.item = (TextView)convertView.findViewById(R.id.skill_name);
-                holder.time = (TextView)convertView.findViewById(R.id.skill_time);
-                holder.icon = (ImageView)convertView.findViewById(R.id.skill_icon);
-                holder.status = (ImageView)convertView.findViewById(R.id.skill_status);
-
-                holder.item.setTypeface( m_application.m_vagFont );
-                holder.time.setTypeface( m_application.m_vagLightFont );
-                
-                convertView.setTag(holder);
-    		}
-    		holder = (ViewHolder)convertView.getTag();
-
-    		if( position < getCount() )
-    		{
-    			skillAvailable skill = m_unlearnableList.get(position);
-    				
-    			//DrawableURL.Show( holder.icon, skill.icon, false);
-    			m_application.Download( skill.icon, holder.icon, MyApplication.DOWNLOAD_TYPE_NORMAL );
-    			
-    			holder.item.setText( skill.item );
-    			
-   				holder.time.setText( Util.TimeToString( skill.totalTime, false ) );
-   				boolean bShowStop = ( skill.remainTime > 0 );
-				holder.status.setVisibility( bShowStop? View.VISIBLE: View.INVISIBLE );
-    		}
-    		holder.whole.setTag(position);
-    		holder.whole.setOnClickListener( new OnClickListener()
-    	    {
-				public void onClick(View arg0) {
-					
-					int nItem = (Integer)arg0.getTag();
-
-					skillAvailable skill = m_unlearnableList.get(nItem);
-					SkillDetailFragment fm = new SkillDetailFragment(skill, true);
-					((HomeScreen)getActivity()).setCurrentFragment(fm,true);
-				}
-    	    });
-    		
-           	return convertView;
-    	 }
-    }
     
     private void setupSettings() 
     {
@@ -271,16 +205,27 @@ public class UnlearnFragment extends BaseFragment {
     		addToUnlearningList(m_unlearningList, response);
 			setUnlearningSkill();
 			
-	        InitUpdateUnlearnRemainningTimer();
+	        InitUpdateSkillRemainingTimer();
 			onRequestComplete();
     	
-    	} else if (method == "skills.listUnlearnable") {
+    	} else if (method == "skills.listLearning") {
     		
-    		m_unlearnableList = new Vector<skillAvailable>();
+    		if (m_learningList != null)
+    			m_learningList.clear();
+    		
+    		addToLearningList(m_learningList, response);
+    		setLearningSkill();
+    		
+    		InitUpdateSkillRemainingTimer();
+    		onRequestComplete();
+    		
+    	} else if (method == "skills.listUnlearnable") {
 
        		JSONObject jItems = response.optJSONObject("skills");
        		
        		if (jItems != null) {
+       			
+       			m_unlearningList.clear();
        			
        			Iterator<String> it = jItems.keys();
        			
@@ -315,6 +260,27 @@ public class UnlearnFragment extends BaseFragment {
     	}
     }
 
+    private void setLearningSkill()
+	{
+		skillAvailable skill = null;
+		FrameLayout learningPanel = (FrameLayout) m_root.findViewById(R.id.skill_view_learning_panel);
+		int wasVisible = learningPanel.getVisibility();
+		
+		if( m_learningList.size() > 0 )
+			skill = m_learningList.get(0);
+		
+		if( skill != null )
+		{			
+			learningPanel.setVisibility(View.VISIBLE);			
+			Util.showProgress( getActivity(), m_learningSkillProgress, m_learningSkillTime, m_learningList.get(0).remainTime, m_learningList.get(0).totalTime, m_learningList.get(0).curTime ); 
+			m_learningSkillName.setText( m_learningList.get(0).item  );
+			if (wasVisible == View.GONE) {
+				Util.startScaleAnimation(learningPanel, 600);
+			}			
+		} else {
+			learningPanel.setVisibility(View.GONE);
+		}
+	}
     
     private void setUnlearningSkill() 
     {
@@ -338,7 +304,7 @@ public class UnlearnFragment extends BaseFragment {
 		}
     }
     
-    private void InitUpdateUnlearnRemainningTimer()
+    private void InitUpdateSkillRemainingTimer()
     {
  	   if( m_RemainingTimer != null )
 		   m_RemainingTimer.cancel();
@@ -349,7 +315,10 @@ public class UnlearnFragment extends BaseFragment {
 		   {
 		    	 getActivity().runOnUiThread(new Runnable(){
 		    		 public void run(){
-	        			 setUnlearningSkill();
+		    			 if (m_unlearningList.size() > 0)
+		    				 setUnlearningSkill();
+		    			 else if (m_learningList.size() > 0)
+		    				 setLearningSkill();
 			         }});
    	       }  
 		}, 1000, 1000 ); 
