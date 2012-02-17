@@ -107,7 +107,7 @@ public class SkillDetailFragment extends BaseFragment{
        		m_currentSkill.unlearning = response.optInt("unlearning") == 1 ? true : false;
        		
        		m_currentSkill.totalTime = response.optInt("total_time");
-       		if( m_currentSkill.totalTime == 0 )
+       		if( m_currentSkill.totalTime == 0 || m_fromUnlearn)
        		{       			
        			m_currentSkill.remainTime = lastRemainTime;
        			m_currentSkill.totalTime = lastTotalTime;
