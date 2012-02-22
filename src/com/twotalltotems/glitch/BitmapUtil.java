@@ -100,6 +100,46 @@ public class BitmapUtil
 	    	return bmNew;
 	  }
 	  
+	  public static Bitmap CreateWireframeOvalImage( Bitmap orgBmp )
+	  {
+	    	int nW = 60;
+	    	int nH = 60;
+
+	    	int nW0 = orgBmp.getWidth();
+			int nH0 = orgBmp.getHeight();
+			
+			Rect r = new Rect();
+			r.left = (int) ( nW0 * 0.24 );
+			r.top = nH0 / 8;
+			r.right = (int) ( nW0 * 0.98 );
+			r.bottom = (int) ( nH0 * 0.63 );
+			
+	    	Bitmap  bmNew = Bitmap.createBitmap( nW, nH, Bitmap.Config.ARGB_8888 ); 
+	        
+	    	Canvas cvs = new Canvas(bmNew);	    		    
+	    	
+	        Paint paint = new Paint();	        
+	        paint.setStyle( Paint.Style.STROKE );
+	        paint.setAntiAlias(true);
+	        paint.setAlpha(78);	       
+	        paint.setColor(0xffc0c0c0);
+	        
+	        RectF rDest = new RectF();
+	        rDest.left = 1;   
+	        rDest.right = nW;
+	        rDest.top = 1;
+	        rDest.bottom = nH;
+	        
+	        Path clip = new Path();
+	        clip.addCircle(nW/2, nH/2, (float) (nW/2 + 0.5), Path.Direction.CW);
+	        cvs.clipPath(clip);
+	        cvs.drawARGB(78, 233, 240, 240);
+	        cvs.drawBitmap(orgBmp, r, rDest, paint);
+	        cvs.drawCircle(nW/2, nH/2, nW/2, paint);	        	       	      
+	        
+	    	return bmNew;
+	  }
+	  
 	  public static void Paste( Bitmap largeBmp, Bitmap newBmp, float faceX, float faceY )
 	  {
 	    	Canvas cvs = new Canvas(largeBmp);
@@ -259,5 +299,17 @@ public class BitmapUtil
 	     Matrix m = new Matrix();
 	     m.setValues(mirrorM);
 	     return Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
-	  }	  
+	  }
+	  
+	public static void CropShow(ImageView iv, Bitmap origBitmap)
+	{
+		Bitmap bm;
+		
+		iv.setImageDrawable(null);
+		if (origBitmap != null) {
+			bm = BitmapUtil.GetMirror(origBitmap);
+			bm = BitmapUtil.CreateWireframeOvalImage(bm);
+			iv.setImageBitmap(bm);
+		}
+	}
 };

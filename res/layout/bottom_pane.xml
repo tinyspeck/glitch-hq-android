@@ -24,6 +24,12 @@
 			android:drawablePadding="3sp"
 	    	android:drawableTop="@drawable/skills_icon"
 			android:layout_width="120sp" android:layout_height="wrap_content" />
+  
+  <RadioButton android:id="@+id/btn_friends" android:text="@string/str_menu_friends" android:layout_gravity="center" android:gravity="center"
+			style="@style/RadioButtonStyle"  android:maxLines="1" android:layout_weight="0.3"
+			android:drawablePadding="3sp"
+	    	android:drawableTop="@drawable/friends_icon"
+			android:layout_width="120sp" android:layout_height="wrap_content" />
 			
   </RadioGroup>
   

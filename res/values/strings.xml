@@ -40,4 +40,6 @@
   <string name="str_no">No</string>
   <string name="str_cancel_unlearning">Cancel Unlearning?</string>
   <string name="str_cancel_unlearning_warning">Your unlearning progress will be lost.</string>
+  <string name="friends_no_items">Go and add some friends!</string>
+  <string name="str_menu_friends">Friends</string>
 </resources>

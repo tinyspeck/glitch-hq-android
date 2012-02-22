@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content" 
+    android:layout_gravity="center" 	
+	android:layout_width="fill_parent" 
+	android:orientation="vertical">
+
+    <LinearLayout android:id="@+id/friendfeed_item"
+        android:layout_height="wrap_content" 
+        android:layout_gravity="center"
+		android:layout_width="fill_parent"  
+		android:padding="3sp"
+		android:clickable="true"
+		android:background="@drawable/list_item_bg_selector">
+        
+        <ImageView android:id="@+id/icon_friend"
+            android:layout_gravity="center|top"
+            android:layout_marginRight="2sp"
+            android:layout_width="40sp"
+            android:layout_height="40sp"/>
+        
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:orientation="vertical">
+                        
+			<TextView android:id="@+id/friend_name"
+				style="@style/PlayNameStyle"
+				android:text="Name"
+				android:layout_gravity="left"
+				android:layout_marginLeft="6sp"
+				android:layout_weight="0.0"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"/>                
+            
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+    
+    <View android:id="@+id/friend_divider" 
+        android:layout_height="1sp" 
+        android:layout_gravity="center" 
+        android:background="#e0e0e0"
+		android:layout_width="fill_parent" />
+    
+</LinearLayout>

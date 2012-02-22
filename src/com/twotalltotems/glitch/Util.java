@@ -70,7 +70,7 @@ public class Util
   {
 	  String szMsg = context.getResources().getString(msgID);
 	  String szTitle = context.getResources().getString(titleID);
-	  AlertDialog.Builder blder = new AlertDialog.Builder(context)	 ;
+	  AlertDialog.Builder blder = new AlertDialog.Builder(context);
 	  blder.setTitle(szTitle);
 	  blder.setMessage(szMsg);
 	  blder.setPositiveButton(posID, lsner);

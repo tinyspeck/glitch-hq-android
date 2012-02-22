@@ -2,11 +2,10 @@ package com.twotalltotems.glitch;
 
 import java.io.InputStream;
 import java.net.URL;
+import com.tinyspeck.android.AsyncTask;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ImageView;
 
 public class DrawableURL extends AsyncTask<String,Void,Bitmap>
@@ -64,7 +63,7 @@ public class DrawableURL extends AsyncTask<String,Void,Bitmap>
 			}.execute(  sURL  );
 		}
 	}
-
+	
 	public static void CropShow( ImageView iv, String sURL )
 	{
 		if( sURL == null )
@@ -79,6 +78,14 @@ public class DrawableURL extends AsyncTask<String,Void,Bitmap>
 			iv.setImageDrawable(null);
 
 			new DrawableURL( iv ){
+				protected void onPreExecute()
+				{					
+					Bitmap bm = BitmapFactory.decodeResource(((ImageView)m_param).getResources(), R.drawable.wireframe);
+					bm = BitmapUtil.GetMirror(bm);
+					bm = BitmapUtil.CreateWireframeOvalImage(bm);
+					((ImageView)m_param).setImageBitmap(bm);
+				}
+				
 				protected void onPostExecute(Bitmap bm)
 				{
 					if( bm!= null )

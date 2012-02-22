@@ -40,7 +40,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
  		 String type;
  		 String id;
  		 ArrayList<glitchActivity> replies;
- 		 glitchActivity in_reply_to;
+ 		 glitchActivity in_reply_to; 		  		 
   	 };
 
 	class SortByTime implements Comparator<glitchActivity>{   
@@ -77,6 +77,22 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		String id;
 		boolean isPrimary;
 	};
+	
+	public class glitchFriend {
+		String id;
+		String player_name;
+		String avatar;
+		boolean is_reverse;
+		String user_name;
+	};
+	
+	class SortByName implements Comparator<glitchFriend>{   
+		public int compare(glitchFriend f1, glitchFriend f2) {
+			String name1 = f1.player_name.toLowerCase();
+			String name2 = f2.player_name.toLowerCase();
+			return name1.compareTo(name2);  
+		}   
+	}   	
 	
 	public View ViewInit( LayoutInflater inflater, int nLayout, ViewGroup container )
 	{
@@ -181,7 +197,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			if( sType.equalsIgnoreCase("friend_add") || jobj.optString("state").equalsIgnoreCase("mutual") )
 			{
 				act.what = bOwner? "added you as a friend! (now it's mutual!)" : "added " + jobj.optString("addee_name") + " as a friend! (now it's mutual!)" ;
-				act.icon = R.drawable.update; 
+				act.icon = R.drawable.update;
 			}else
 			{
 				act.what = "added " + jobj.optString("addee_name")  + " as friend. You can add them back, or not";
@@ -341,6 +357,34 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
            		
            		unlearningList.add(skill);
     		}
+		}
+	}
+	
+	public void addFriendsList(Vector<glitchFriend> friendsList, JSONObject response) {
+		
+		JSONObject jItems = response.optJSONObject("friends");
+		
+		if (jItems != null) {
+			Iterator<String> it = jItems.keys();
+			
+			while (it.hasNext()) {
+				
+				String tsid = it.next();
+				JSONObject obj = jItems.optJSONObject(tsid);
+				glitchFriend friend = new glitchFriend();
+				
+				friend.id = tsid;
+				friend.player_name = obj.optString("player_name");
+				friend.user_name = obj.optString("user_name");
+				friend.is_reverse = obj.optBoolean("is_reverse");
+				JSONObject avatar = obj.optJSONObject("avatar");
+				if (avatar != null) {
+					friend.avatar = avatar.optString("100");
+				}
+				
+				friendsList.add(friend);
+			}
+			Collections.sort( friendsList, new SortByName() );
 		}
 	}
 	

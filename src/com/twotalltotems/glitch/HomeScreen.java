@@ -32,6 +32,7 @@ public class HomeScreen extends FragmentActivity{
 	static final int TAB_ACTIVITY = 1;
 	static final int TAB_SKILLS = 2;
 	static final int TAB_UNLEARN = 3;
+	static final int TAB_FRIENDS = 4;
 	
 	static final private int MENU_COMMAND_REFRESH = Menu.FIRST+0;
     static final private int MENU_COMMAND_MORE = Menu.FIRST+1;
@@ -45,13 +46,15 @@ public class HomeScreen extends FragmentActivity{
     private RadioButton m_btnProfile;
     private RadioButton m_btnActivity;
     private RadioButton m_btnSkills;
+    private RadioButton m_btnFriends;
     
     private ProfileFragment m_profileFrm;
     private SkillFragment m_skillFrm;
     private UnlearnFragment m_unlearnFrm;
-    private ActivityFragment m_activityFrm;    
+    private ActivityFragment m_activityFrm;
+    private FriendsFragment m_friendsFrm;
     
-    private View m_profileView, m_activityView, m_skillsView, m_unlearnView;
+    private View m_profileView, m_activityView, m_skillsView, m_unlearnView, m_friendsView;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +73,12 @@ public class HomeScreen extends FragmentActivity{
 		 m_btnProfile = (RadioButton) findViewById(R.id.btn_home);
 		 m_btnActivity = (RadioButton) findViewById(R.id.btn_activity);
 		 m_btnSkills = (RadioButton) findViewById(R.id.btn_skill);
+		 m_btnFriends = (RadioButton) findViewById(R.id.btn_friends);
 		 
-		 m_btnProfile.setTypeface( m_application.m_vagFont );  
-		 m_btnActivity.setTypeface( m_application.m_vagFont );  
-		 m_btnSkills.setTypeface( m_application.m_vagFont );  
+		 m_btnProfile.setTypeface(m_application.m_vagFont);  
+		 m_btnActivity.setTypeface(m_application.m_vagFont);
+		 m_btnSkills.setTypeface(m_application.m_vagFont);
+		 m_btnFriends.setTypeface(m_application.m_vagFont);
 		 
 		 m_btnProfile.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
@@ -149,6 +154,22 @@ public class HomeScreen extends FragmentActivity{
 					}
 				}
 			 });
+		 
+		 m_btnFriends.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				buttonView.setTextColor(isChecked? 0xffffffff : 0xffa0a0a0);
+			}
+		 });
+		 m_btnFriends.setOnClickListener(new OnClickListener() {
+			 public void onClick(View arg0) {
+				 if (m_curTab == TAB_FRIENDS)
+					 clearFragmentStack();
+				 else {
+					 setCurrentFragment(m_friendsFrm, false);
+					 m_curTab = TAB_FRIENDS;
+				 }
+			 }
+		 });
 	}
 	
 	public void clearFragmentStack()
@@ -184,7 +205,7 @@ public class HomeScreen extends FragmentActivity{
         FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		int viewId = 0;
-		int nTab = m_btnProfile.isChecked()? TAB_PROFILE: ( m_btnActivity.isChecked()? TAB_ACTIVITY: TAB_SKILLS );
+		int nTab = m_btnProfile.isChecked()? TAB_PROFILE: ( m_btnActivity.isChecked()? TAB_ACTIVITY: (m_btnFriends.isChecked()? TAB_FRIENDS: TAB_SKILLS) );
 		
 		if (f instanceof BaseFragment)
 			((BaseFragment)f).logPageView();
@@ -196,6 +217,7 @@ public class HomeScreen extends FragmentActivity{
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_friendsView.setVisibility(View.GONE);
 
 		}else if( nTab == TAB_ACTIVITY )
 		{
@@ -204,11 +226,21 @@ public class HomeScreen extends FragmentActivity{
 			m_activityView.setVisibility(View.VISIBLE);
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_friendsView.setVisibility(View.GONE);
 			
+		}else if (nTab == TAB_FRIENDS)
+		{
+			viewId = R.id.fragmentView_friends;
+			m_friendsView.setVisibility(View.VISIBLE);
+			m_profileView.setVisibility(View.GONE);
+			m_activityView.setVisibility(View.GONE);
+			m_skillsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);			
 		}else
 		{			
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
+			m_friendsView.setVisibility(View.GONE);
 			
 			if (f instanceof SkillFragment) {
 				viewId = R.id.fragmentView_skills;
@@ -296,11 +328,13 @@ public class HomeScreen extends FragmentActivity{
 		m_skillFrm = new SkillFragment();
 		m_unlearnFrm = new UnlearnFragment();
 		m_activityFrm = new ActivityFragment();
+		m_friendsFrm = new FriendsFragment();
 
 		m_profileView = findViewById(R.id.fragmentView_profile);
 		m_activityView = findViewById(R.id.fragmentView_activity);
 		m_skillsView = findViewById(R.id.fragmentView_skills);
 		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
+		m_friendsView = findViewById(R.id.fragmentView_friends);
 		
 		setCurrentFragment( m_profileFrm, false );
 	}
@@ -357,7 +391,7 @@ public class HomeScreen extends FragmentActivity{
    {
        FragmentManager fm = getSupportFragmentManager();
 
-       int resId = m_btnProfile.isChecked()? R.id.fragmentView_profile: ( m_btnActivity.isChecked()? R.id.fragmentView_activity: R.id.fragmentView_skills );
+       int resId = m_btnProfile.isChecked()? R.id.fragmentView_profile: ( m_btnActivity.isChecked()? R.id.fragmentView_activity: (m_btnFriends.isChecked()? R.id.fragmentView_friends: R.id.fragmentView_skills ));
 
        if (resId == R.id.fragmentView_skills && skillOrUnlearn == TAB_UNLEARN) {
     	   resId = R.id.fragmentView_unlearn;
