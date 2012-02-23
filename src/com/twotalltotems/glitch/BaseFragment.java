@@ -190,7 +190,14 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			act.who = jobj.optString("who_name");
 			act.icon = R.drawable.achievement; 
 			act.what = "earned the " + jobj.optString("achievement_name") + " badge";
-		}else if( sType.equalsIgnoreCase("friend_add") || sType.equalsIgnoreCase("request_friend_add")  )
+		}else if (sType.equalsIgnoreCase("request_friend_add")) {
+			
+			act.playerID = jobj.optString("who_tsid");
+			act.who = jobj.optString("who_name");
+			act.what = "added you as a friend. You can add them back, or not";
+			act.icon = R.drawable.friend_request;
+			
+;		}else if( sType.equalsIgnoreCase("friend_add") )
 		{
 			act.playerID = jobj.optString("adder_tsid");
 			act.who = jobj.optString("adder_name");
