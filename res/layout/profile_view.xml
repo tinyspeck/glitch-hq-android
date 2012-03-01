@@ -93,7 +93,7 @@
   <include layout="@layout/profile_others"/> 
   <include layout="@layout/margin_view"/> 
  
-  <com.twotalltotems.glitch.LinearListView 
+  <com.tinyspeck.glitchhq.LinearListView 
     android:id="@+id/learning_list"
     android:layout_marginLeft="5sp"
     android:layout_marginTop="10sp"
@@ -106,7 +106,7 @@
     android:gravity="center_vertical"
   />
   
-  <com.twotalltotems.glitch.LinearListView 
+  <com.tinyspeck.glitchhq.LinearListView 
     android:id="@+id/unlearning_list"
     android:layout_marginLeft="5sp"
     android:layout_marginTop="10sp"
@@ -125,7 +125,7 @@
 			    android:background="@drawable/wallpaper2"
 				android:layout_width="fill_parent" >
   
-  <com.twotalltotems.glitch.LinearListView 
+  <com.tinyspeck.glitchhq.LinearListView 
     android:id="@+id/homeListView"
     android:layout_marginTop="0sp"
     android:layout_marginLeft="5sp"

@@ -22,7 +22,7 @@
 			android:id="@+id/LayoutBack"
 			android:layout_width="fill_parent" android:layout_height="fill_parent" />
 
-<com.twotalltotems.glitch.KeyboardLayout
+<com.tinyspeck.glitchhq.KeyboardLayout
   android:layout_width="fill_parent"
   android:layout_height="fill_parent">
 
@@ -112,7 +112,7 @@
     	android:gravity="right" 
     	style = "@style/CopyrightTextStyle"
     	/>
-</com.twotalltotems.glitch.KeyboardLayout>
+</com.tinyspeck.glitchhq.KeyboardLayout>
 
 </FrameLayout>
 

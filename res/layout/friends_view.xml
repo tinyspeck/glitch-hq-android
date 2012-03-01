@@ -33,7 +33,7 @@
 		    	android:text="Loading friends..." 
 		    	android:gravity="center_horizontal" />
 
-			<com.twotalltotems.glitch.LinearListView 
+			<com.tinyspeck.glitchhq.LinearListView 
     			android:id="@+id/FriendsListView"
     			android:background="@drawable/friends_feed"
 				android:cacheColorHint="@drawable/white"
