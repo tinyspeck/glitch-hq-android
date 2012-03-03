@@ -2,12 +2,19 @@ package com.tinyspeck.glitchhq;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import org.json.JSONObject;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -123,11 +130,36 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 		super.onUnregistered(context);
 		Log.i(TAG, "Successfully unregistered device");
 	}
-	
+		
 	@Override
 	protected void onMessage(Context context, Intent intent) 
 	{
-		Log.i(TAG, intent.getExtras().toString());
+		Bundle data = intent.getExtras();
+		Set<String> keys = data.keySet();
+		Log.i(TAG, "Received message:");
+		for (Iterator<String> it = keys.iterator(); it.hasNext();) {
+			String k = it.next();
+			Log.i(TAG, "(" + k + ", " + data.getString(k) + ")");
+		}
+		
+		if (keys.contains("collapse_key") && data.getString("collapse_key").equals("notifications") && keys.contains("message")) {
+			String ns = Context.NOTIFICATION_SERVICE;
+			NotificationManager mNotificationMananger = (NotificationManager) getSystemService(ns);
+			int icon = R.drawable.icon;
+			CharSequence ticketText = "Glitch Notification";
+			long when = System.currentTimeMillis();
+			
+			Notification notification = new Notification(icon, ticketText, when);
+			
+			CharSequence contentTitle = "Glitch";
+			CharSequence contentText = data.getCharSequence("message");
+			Intent notificationIntent = new Intent(context, HomeScreen.class);
+			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);			
+			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+			notification.defaults = Notification.DEFAULT_ALL;
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+			mNotificationMananger.notify(1, notification);
+		}
 	}
 	
 	public static void register(Context context)
