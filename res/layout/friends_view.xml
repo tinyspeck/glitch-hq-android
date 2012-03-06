@@ -6,13 +6,29 @@
   	android:orientation="vertical">
   
 	<include layout="@layout/top_pane"/> 
-
-	<EditText android:id="@+id/friends_search_box"
-			        android:layout_width="fill_parent"
-			        android:layout_height="wrap_content"
-			        android:hint="Filter Friends"
-			        android:inputType="text"
-			        android:maxLines="1" />
+	<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="fill_parent"
+	    android:layout_height="50sp"
+	    android:clickable="true">
+	    	    
+		<EditText android:id="@+id/friends_search_box"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:hint="Filter Friends"
+			android:inputType="text"
+			android:maxLines="1" />
+	
+		<ImageView android:id="@+id/friends_filter_clear"
+	    	android:layout_gravity="right"
+	    	android:src="@drawable/cancel_button"
+	    	android:layout_marginTop="7sp"
+	    	android:layout_marginBottom="7sp"
+	    	android:layout_marginRight="9sp"
+	    	android:layout_marginLeft="9sp"
+	    	android:layout_width="30sp"
+			android:layout_height="30sp" />
+		
+	</FrameLayout>
 	
 	<ScrollView android:id="@+id/FriendsScrolLView" 
 	    android:layout_height="fill_parent" 

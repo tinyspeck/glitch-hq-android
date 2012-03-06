@@ -145,7 +145,7 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 		if (keys.contains("collapse_key") && data.getString("collapse_key").equals("notifications") && keys.contains("message")) {
 			String ns = Context.NOTIFICATION_SERVICE;
 			NotificationManager mNotificationMananger = (NotificationManager) getSystemService(ns);
-			int icon = R.drawable.icon;
+			int icon = R.drawable.notification_icon;
 			CharSequence ticketText = "Glitch Notification";
 			long when = System.currentTimeMillis();
 			

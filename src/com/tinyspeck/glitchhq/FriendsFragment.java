@@ -12,13 +12,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class FriendsFragment extends BaseFragment {
 
+	private ImageView m_filterClearImg;
 	private FriendsListViewAdapter m_adapter;
 	private LinearListView m_listView;
 	private EditText m_filterText;
@@ -47,7 +50,14 @@ public class FriendsFragment extends BaseFragment {
 			m_friendsList = new Vector<glitchFriend>();
 		
 		m_filterText = (EditText)root.findViewById(R.id.friends_search_box);
-		m_filterText.addTextChangedListener(filterTextWatcher);		
+		m_filterText.addTextChangedListener(filterTextWatcher);
+		m_filterClearImg = (ImageView)root.findViewById(R.id.friends_filter_clear);
+		m_filterClearImg.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				m_filterText.setText("");				
+			}			
+		});
+		
 		m_adapter = new FriendsListViewAdapter(this, m_friendsList);
 		m_listView = (LinearListView)root.findViewById(R.id.FriendsListView);
 		m_listView.setAdapter(m_adapter);
