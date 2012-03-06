@@ -147,7 +147,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		}
 	} 
 
-	protected glitchActivity GetActivityFromJObject( JSONObject jobj  )
+	protected glitchActivity GetActivityFromJObject( JSONObject jobj )
 	{
 		if( jobj == null )
 			return null;
@@ -215,7 +215,11 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		{
 			act.who = jobj.optString("who_name");
 			act.playerID = jobj.optString("who_tsid");
-			act.what = "has invited you to join " + jobj.optString("group_name");
+			if (bOwner) {
+				act.what = "joined " + jobj.optString("group_name");
+			} else {
+				act.what = "has invited you to join " + jobj.optString("group_name");
+			}
 			act.icon = R.drawable.status;
 		}
 		else if( sType.equalsIgnoreCase( "auction_buy" ) )

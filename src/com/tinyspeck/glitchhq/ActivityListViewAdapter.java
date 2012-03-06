@@ -126,7 +126,7 @@ public class ActivityListViewAdapter extends BaseAdapter
 				if( act.in_reply_to != null )
 				{
 					toname = act.in_reply_to.who;
-					if( act.playerID.equalsIgnoreCase( act.in_reply_to.playerID ) )
+					if (((HomeScreen)m_act).getPlayerID().equalsIgnoreCase(act.in_reply_to.playerID))
 					{
 						toname = "you";
 						holder.to_who.setTextColor( 0xff707070 );
