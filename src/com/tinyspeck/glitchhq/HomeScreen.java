@@ -529,7 +529,6 @@ public class HomeScreen extends FragmentActivity{
 	//// GlitchSession interface methods ////
 
 	public void glitchLoggedOut() {
-		// Called when user logs out (method stub, not yet implemented)
 	}
 	
 	//// Dialog Creation ////
@@ -598,6 +597,11 @@ public class HomeScreen extends FragmentActivity{
 	
 	public void Logout()
 	{
+		Log.i("HomeScreen", "Logout");
+		
+		// unregister your registrationId
+		C2DMReceiver.unregister(this);
+		
 		m_application.PreferencePutString("username", "");
 		m_application.PreferencePutString("password", "");
 
@@ -606,6 +610,7 @@ public class HomeScreen extends FragmentActivity{
 		startActivity(intent);
 		
 		FlurryAgent.logEvent("App Delegate - Logged out");
+		
 		finish();
 	}
 	
