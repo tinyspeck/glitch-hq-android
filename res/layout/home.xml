@@ -2,8 +2,11 @@
 
 <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
   xmlns:android="http://schemas.android.com/apk/res/android" >
-
+    
+<FrameLayout android:id = "@+id/fragmentView_sidebar" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    
 <LinearLayout
+  android:id="@+id/linearLayout_stack"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent" 
   android:orientation="vertical">
