@@ -434,7 +434,7 @@ public class HomeScreen extends FragmentActivity{
 		
 		m_stack = (LinearLayout) findViewById(R.id.linearLayout_stack);
 
-		m_sidebarView = findViewById(R.id.fragmentView_sidebar);
+		m_sidebarView = findViewById(R.id.view_sidebar);
 		m_profileView = findViewById(R.id.fragmentView_profile);
 		m_activityView = findViewById(R.id.fragmentView_activity);
 		m_skillsView = findViewById(R.id.fragmentView_skills);
@@ -464,7 +464,7 @@ public class HomeScreen extends FragmentActivity{
    		 if( bf != null && bf.doesSupportMore() )
    		     menu.add(1, MENU_COMMAND_MORE, Menu.NONE+1, R.string.str_menu_more);
    		 
-   		 menu.add(2, MENU_COMMAND_SIDEBAR, Menu.NONE+2, "Sidebar");
+   		 //menu.add(2, MENU_COMMAND_SIDEBAR, Menu.NONE+2, "Sidebar");
 	     
 	     return super.onCreateOptionsMenu(menu);
 	}
