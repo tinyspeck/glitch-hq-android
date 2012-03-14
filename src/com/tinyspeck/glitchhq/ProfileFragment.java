@@ -339,7 +339,11 @@ public class ProfileFragment extends BaseFragment{
 		m_tv_currants.setText( Html.fromHtml("You have <b>" + sCurrants + "</b> currants" ));
 		if( m_address != null && !m_address.equalsIgnoreCase("null") )
 		{
-			m_tv_address.setText("You own " + m_address);
+			if (m_bOtherProfile) {
+				m_tv_address.setText(m_playerName + " owns " + m_address);
+			} else {
+				m_tv_address.setText("You own " + m_address);
+			}
 			m_tv_address.setVisibility(View.VISIBLE);
 		}else
 		{
