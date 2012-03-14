@@ -11,18 +11,22 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.CompoundButton;
@@ -30,6 +34,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RadioButton;
 
 public class HomeScreen extends FragmentActivity{
@@ -65,11 +70,11 @@ public class HomeScreen extends FragmentActivity{
     private UnlearnFragment m_unlearnFrm;
     private ActivityFragment m_activityFrm;
     private FriendsFragment m_friendsFrm;
-    private SidebarFragment m_sidebarFrm;
+    private View m_stack;
     
-    private LinearLayout m_stack;
-    
-    private View m_profileView, m_activityView, m_skillsView, m_unlearnView, m_friendsView, m_sidebarView;
+    private View m_profileView, m_activityView, m_skillsView, m_unlearnView, m_friendsView;
+    private View m_sidebarShadow;
+    private FrameLayout m_sidebarView;
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -211,6 +216,12 @@ public class HomeScreen extends FragmentActivity{
 
 			public void onAnimationEnd(Animation animation) {
 				HomeScreen.this.m_showingSidebar = true;
+				
+				m_sidebarView.getParent().bringChildToFront(m_sidebarView);
+				
+				FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) m_sidebarShadow.getLayoutParams();
+				layoutParams.setMargins(0, 0, -100, 0);
+				m_sidebarShadow.setLayoutParams(layoutParams);
 			}
 
 			public void onAnimationRepeat(Animation animation) {}
@@ -224,7 +235,7 @@ public class HomeScreen extends FragmentActivity{
 		m_stack.startAnimation(animation);
 		
 		// Set the sidebar's layout parameters so it'll show up
-		m_sidebarView.layout(0, 0, width, m_stack.getHeight());
+		m_sidebarView.layout(0, 0, dx, m_stack.getHeight());
 	}
 	
 	public Boolean isShowingSidebar()
@@ -252,7 +263,7 @@ public class HomeScreen extends FragmentActivity{
 				Display display = getWindowManager().getDefaultDisplay();
 				
 				// Move back to normal position and fill the whole display width-wise
-				m_stack.layout(0, 0, display.getWidth(), m_stack.getHeight());
+				m_stack.layout(-27, 0, display.getWidth(), m_stack.getHeight());
 				
 				HomeScreen.this.m_showingSidebar = false;
 			}
@@ -266,6 +277,8 @@ public class HomeScreen extends FragmentActivity{
 		
 		// Run the dismiss animation
 		m_stack.startAnimation(animation);
+		
+		m_stack.getParent().bringChildToFront(m_stack);
 	}
 	
 	/*
@@ -425,21 +438,28 @@ public class HomeScreen extends FragmentActivity{
 	    m_spinner = findViewById(R.id.spinner);
 		m_btnProfile.setChecked(true);
 
-		m_sidebarFrm = new SidebarFragment();
 		m_profileFrm = new ProfileFragment(null,false);
 		m_skillFrm = new SkillFragment();
 		m_unlearnFrm = new UnlearnFragment();
 		m_activityFrm = new ActivityFragment();
 		m_friendsFrm = new FriendsFragment();
 		
-		m_stack = (LinearLayout) findViewById(R.id.linearLayout_stack);
+		m_stack = findViewById(R.id.view_stack);
 
-		m_sidebarView = findViewById(R.id.view_sidebar);
 		m_profileView = findViewById(R.id.fragmentView_profile);
 		m_activityView = findViewById(R.id.fragmentView_activity);
 		m_skillsView = findViewById(R.id.fragmentView_skills);
 		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
 		m_friendsView = findViewById(R.id.fragmentView_friends);
+		m_sidebarView = (FrameLayout) findViewById(R.id.view_sidebar);
+		
+		// Inflate sidebar and add to sidebarView
+		LayoutInflater inflator = (LayoutInflater)this.getSystemService(
+		  Context.LAYOUT_INFLATER_SERVICE);
+		View sidebarView = (View)inflator.inflate(R.layout.sidebar_view, null);
+		m_sidebarView.addView(sidebarView);
+		m_sidebarShadow = sidebarView.findViewById(R.id.sidebar_shadow);
+		Sidebar sidebar = new Sidebar(m_sidebarView, this);
 		
 		setCurrentFragment( m_profileFrm, false );
 	}
@@ -464,7 +484,7 @@ public class HomeScreen extends FragmentActivity{
    		 if( bf != null && bf.doesSupportMore() )
    		     menu.add(1, MENU_COMMAND_MORE, Menu.NONE+1, R.string.str_menu_more);
    		 
-   		 //menu.add(2, MENU_COMMAND_SIDEBAR, Menu.NONE+2, "Sidebar");
+   		menu.add(2, MENU_COMMAND_SIDEBAR, Menu.NONE+2, "Sidebar");
 	     
 	     return super.onCreateOptionsMenu(menu);
 	}
