@@ -1,4 +1,20 @@
+<<<<<<< HEAD
 
 bin/res/drawable/wallpaper_other.png
 
 bin/classes/com/google/android/c2dm/C2DMBaseReceiver.class
+=======
+# OS generated files #
+######################
+.DS_Store
+
+# Generated folders #
+#####################
+bin/*
+gen/*
+
+# Compiled source #
+###################
+*.class
+*.apk
+>>>>>>> 971c8ec96375c16f9d3b17aa65c58b9fd2052a4c
