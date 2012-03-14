@@ -8,46 +8,60 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout_stack"
+    <RelativeLayout
+        android:id="@+id/view_stack"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:layout_marginLeft="-28dip">
+        
+        <View
+            android:id="@+id/view_shadow"
+            android:layout_width="27dip"
+            android:layout_height="fill_parent"
+            android:background="@drawable/shadow" >
+        </View>
 
-        <FrameLayout
-            android:id="@+id/fragmentView_stack"
+        <LinearLayout
+            android:layout_toRightOf="@id/view_shadow"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1.0" >
+            android:orientation="vertical" >
 
             <FrameLayout
-                android:id="@+id/fragmentView_profile"
+                android:id="@+id/fragmentView_stack"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0" >
 
-            <FrameLayout
-                android:id="@+id/fragmentView_activity"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                <FrameLayout
+                    android:id="@+id/fragmentView_profile"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
 
-            <FrameLayout
-                android:id="@+id/fragmentView_skills"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                <FrameLayout
+                    android:id="@+id/fragmentView_activity"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
 
-            <FrameLayout
-                android:id="@+id/fragmentView_unlearn"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                <FrameLayout
+                    android:id="@+id/fragmentView_skills"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
 
-            <FrameLayout
-                android:id="@+id/fragmentView_friends"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-        </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/fragmentView_unlearn"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
 
-        <include layout="@layout/bottom_pane" />
-    </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/fragmentView_friends"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+            </FrameLayout>
+
+            <include layout="@layout/bottom_pane" />
+        </LinearLayout>
+    </RelativeLayout>
 
     <ProgressBar
         android:id="@+id/spinner"
