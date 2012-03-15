@@ -130,7 +130,7 @@
 			android:paddingRight="10sp"
 			android:paddingTop="5sp"
 			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-  <TextView android:text="1 person liked" 
+  <TextView android:text="" 
   			android:id = "@+id/itemLikedByPerson"
 	    	style = "@style/TimeStyle"  
 	    	android:textSize="14sp"
