@@ -21,12 +21,4 @@
             android:orientation="vertical" />
     </ScrollView>
 
-    <View
-        android:id="@+id/sidebar_shadow"
-        android:layout_width="27dip"
-        android:layout_height="fill_parent"
-        android:background="@drawable/shadow"
-        android:layout_gravity="right">
-    </View>
-
 </FrameLayout>

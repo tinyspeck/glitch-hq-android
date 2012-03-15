@@ -1,4 +1,13 @@
+# OS generated files #
+######################
+.DS_Store
 
-bin/res/drawable/wallpaper_other.png
+# Generated folders #
+#####################
+bin/*
+gen/*
 
-bin/classes/com/google/android/c2dm/C2DMBaseReceiver.class
+# Compiled source #
+###################
+*.class
+*.apk
