@@ -284,6 +284,8 @@ public class Util
 	
 	public static void showProgress( Activity act, View v, TextView vText, int remainTime, int totalTime, long curTime ) 
 	{
+		if (act == null || v == null || vText == null) return;
+		
  	    int nTotalWidth = act.getWindowManager().getDefaultDisplay().getWidth() - 20; 
 
  	    ViewGroup.LayoutParams params = v.getLayoutParams();
