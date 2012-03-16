@@ -66,8 +66,16 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 		params.put("id", registrationId);		
 		params.put("registration_id", registrationId);
 		
-		GlitchRequest request = ((MyApplication)context.getApplicationContext()).glitch.getRequest("users.devices.add", params );
-        request.execute(this);
+		Glitch glitch = ((MyApplication)context.getApplicationContext()).glitch;		
+		GlitchRequest request = glitch.getRequest("users.devices.add", params );
+		if (glitch.accessToken != null) {			
+			request.execute(this);
+		} else {
+			// We havent logged in yet so lets try this later
+			requestFailed(request);
+		}
+		
+		
 	}
 	
 	public void removeRegistration(Context context, String registrationId) {
@@ -116,7 +124,12 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
   		
   		handler.postDelayed(new Runnable() {
   			public void run() {
-  				request.execute(receiver);
+  				Glitch glitch = ((MyApplication)context.getApplicationContext()).glitch;
+  				if (glitch.accessToken != null) {
+  					request.execute(receiver);
+  				} else {
+  					requestFailed(request);
+  				}
   			}
   		}, 30000);
 	}
