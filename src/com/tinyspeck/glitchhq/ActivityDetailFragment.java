@@ -10,6 +10,7 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.util.Linkify;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -242,8 +243,9 @@ public class ActivityDetailFragment extends BaseFragment{
 		}
 		
 		tv = (TextView) sectionV.findViewById(R.id.itemDetail); 
-	//	tv.setTypeface(m_application.m_vagLightFont);
+	//	tv.setTypeface(m_application.m_vagLightFont);		
 		tv.setText( act.what );
+		Linkify.addLinks(tv, Linkify.WEB_URLS);
 		tv.setTag( act );
 		
 		if( act != m_currentActivity )
