@@ -70,7 +70,14 @@ public class ProfileFragment extends BaseFragment{
   	private Vector<skillAvailable> m_learningList, m_unlearningList;
   	private View m_root;
 	
-  	ProfileFragment( String playerID, boolean bOthers )
+  	public ProfileFragment()
+  	{
+  		m_playerTsid = null;
+  		m_bOtherProfile = false;
+  		m_bFriend = false;
+  	}
+  	
+  	public ProfileFragment( String playerID, boolean bOthers )
   	{
   		m_bOtherProfile = bOthers;
   		m_playerTsid = playerID;
