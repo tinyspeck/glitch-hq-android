@@ -2,7 +2,6 @@ package com.tinyspeck.glitchhq;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -62,12 +61,13 @@ public class HomeScreen extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 
 		m_application = (MyApplication) getApplicationContext();
-		m_application.Init(this);
+		m_application.init(this);
 
 		setTitle(getResources().getString(R.string.str_main_title));
 		initLayout();
 
 	}
+	
 
 	private void initBottomPane() {
 		m_btnProfile = (RadioButton) findViewById(R.id.btn_home);
@@ -311,7 +311,7 @@ public class HomeScreen extends FragmentActivity {
 		m_spinner = findViewById(R.id.spinner);
 		m_btnProfile.setChecked(true);
 
-		m_profileFrm = new ProfileFragment(null, false);
+		m_profileFrm = new ProfileFragment();
 		m_skillFrm = new SkillFragment();
 		m_unlearnFrm = new UnlearnFragment();
 		m_activityFrm = new ActivityFragment();
