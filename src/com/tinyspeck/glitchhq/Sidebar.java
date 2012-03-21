@@ -21,7 +21,8 @@ public class Sidebar {
 
 	public class sidebarItem {
 		 Boolean isHeader;
-		 String text; 		  		 
+		 String text; 		  
+		 Page page;
  	 };
 	
 	private Vector<sidebarItem> m_sbList;
@@ -68,11 +69,13 @@ public class Sidebar {
 			add(new sidebarItem() {{
 				isHeader = false;
 				text = "Profile";
+				page = Page.Profile;
 			}});
 			
 			add(new sidebarItem() {{
 				isHeader = false;
 				text = "Skills";
+				page = Page.Skills;
 			}});
 			
 			add(new sidebarItem() {{
@@ -94,6 +97,7 @@ public class Sidebar {
 			add(new sidebarItem() {{
 				isHeader = false;
 				text = "Feed";
+				page = Page.Activity;
 			}});
 			
 			add(new sidebarItem() {{
@@ -104,6 +108,7 @@ public class Sidebar {
 			add(new sidebarItem() {{
 				isHeader = false;
 				text = "Friends";
+				page = Page.Friends;
 			}});
 			
 			// Settings section
