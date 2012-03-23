@@ -30,6 +30,12 @@
 			android:drawablePadding="3sp"
 	    	android:drawableTop="@drawable/friends_icon"
 			android:layout_width="120sp" android:layout_height="wrap_content" />
+  
+  <RadioButton android:id="@+id/btn_achievements" android:text="Achievements" android:layout_gravity="center" android:gravity="center"
+			style="@style/RadioButtonStyle"  android:maxLines="1" android:layout_weight="0.3"
+			android:drawablePadding="3sp"
+	    	android:drawableTop="@drawable/friends_icon"
+			android:layout_width="120sp" android:layout_height="wrap_content" />
 			
   </RadioGroup>
   

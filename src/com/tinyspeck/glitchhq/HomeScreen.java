@@ -39,6 +39,7 @@ public class HomeScreen extends FragmentActivity {
 	static final int TAB_SKILLS = 2;
 	static final int TAB_UNLEARN = 3;
 	static final int TAB_FRIENDS = 4;
+	static final int TAB_ACHIEVEMENTS = 5;
 
 	static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
@@ -56,16 +57,18 @@ public class HomeScreen extends FragmentActivity {
 	private RadioButton m_btnActivity;
 	private RadioButton m_btnSkills;
 	private RadioButton m_btnFriends;
+	private RadioButton m_btnAchievements;
 
 	private ProfileFragment m_profileFrm;
 	private SkillFragment m_skillFrm;
 	private UnlearnFragment m_unlearnFrm;
 	private ActivityFragment m_activityFrm;
 	private FriendsFragment m_friendsFrm;
+	private AchievementCategoriesFragment m_achievementsFrm;
 	private View m_stack;
 
 	private View m_profileView, m_activityView, m_skillsView, m_unlearnView,
-			m_friendsView;
+			m_friendsView, m_achievementsView;
 	private FrameLayout m_sidebarView;
 
 	@Override
@@ -85,11 +88,13 @@ public class HomeScreen extends FragmentActivity {
 		m_btnActivity = (RadioButton) findViewById(R.id.btn_activity);
 		m_btnSkills = (RadioButton) findViewById(R.id.btn_skill);
 		m_btnFriends = (RadioButton) findViewById(R.id.btn_friends);
+		m_btnAchievements = (RadioButton) findViewById(R.id.btn_achievements);
 
 		m_btnProfile.setTypeface(m_application.m_vagFont);
 		m_btnActivity.setTypeface(m_application.m_vagFont);
 		m_btnSkills.setTypeface(m_application.m_vagFont);
 		m_btnFriends.setTypeface(m_application.m_vagFont);
+		m_btnAchievements.setTypeface(m_application.m_vagFont);
 
 		m_btnProfile.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -183,6 +188,22 @@ public class HomeScreen extends FragmentActivity {
 				else {
 					setCurrentFragment(m_friendsFrm, false);
 					m_curTab = TAB_FRIENDS;
+				}
+			}
+		});
+		
+		m_btnAchievements.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				buttonView.setTextColor(isChecked ? 0xffffffff : 0xffa0a0a0);
+			}
+		});
+		m_btnAchievements.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				if (m_curTab == TAB_ACHIEVEMENTS)
+					clearFragmentStack();
+				else {
+					setCurrentFragment(m_achievementsFrm, false);
+					m_curTab = TAB_ACHIEVEMENTS;
 				}
 			}
 		});
@@ -384,13 +405,12 @@ public class HomeScreen extends FragmentActivity {
 	}
 
 	public void setCurrentFragment(Fragment f, boolean bAddToStack) {
+		
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		int viewId = 0;
-		int nTab = m_btnProfile.isChecked() ? TAB_PROFILE : (m_btnActivity
-				.isChecked() ? TAB_ACTIVITY
-				: (m_btnFriends.isChecked() ? TAB_FRIENDS : TAB_SKILLS));
-
+		int nTab = m_btnProfile.isChecked() ? TAB_PROFILE : (m_btnActivity.isChecked() ? TAB_ACTIVITY : (m_btnFriends.isChecked() ? TAB_FRIENDS : (m_btnAchievements.isChecked() ? TAB_ACHIEVEMENTS : TAB_SKILLS)));
+		
 		if (f instanceof BaseFragment)
 			((BaseFragment) f).logPageView();
 
@@ -401,6 +421,7 @@ public class HomeScreen extends FragmentActivity {
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 
 		} else if (nTab == TAB_ACTIVITY) {
 			viewId = R.id.fragmentView_activity;
@@ -409,6 +430,7 @@ public class HomeScreen extends FragmentActivity {
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 
 		} else if (nTab == TAB_FRIENDS) {
 			viewId = R.id.fragmentView_friends;
@@ -417,10 +439,21 @@ public class HomeScreen extends FragmentActivity {
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
+			
+		} else if (nTab == TAB_ACHIEVEMENTS) {
+			viewId = R.id.fragmentView_achievements;
+			m_achievementsView.setVisibility(View.VISIBLE);
+			m_friendsView.setVisibility(View.GONE);
+			m_profileView.setVisibility(View.GONE);
+			m_activityView.setVisibility(View.GONE);
+			m_skillsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);
 		} else {
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 
 			if (f instanceof SkillFragment) {
 				viewId = R.id.fragmentView_skills;
@@ -493,8 +526,9 @@ public class HomeScreen extends FragmentActivity {
 		m_profileFrm = new ProfileFragment(null, false);
 		m_skillFrm = new SkillFragment();
 		m_unlearnFrm = new UnlearnFragment();
-		m_activityFrm = new ActivityFragment();
+		m_activityFrm = new ActivityFragment();		
 		m_friendsFrm = new FriendsFragment();
+		m_achievementsFrm = new AchievementCategoriesFragment();
 
 		m_stack = findViewById(R.id.view_stack);
 
@@ -503,6 +537,7 @@ public class HomeScreen extends FragmentActivity {
 		m_skillsView = findViewById(R.id.fragmentView_skills);
 		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
 		m_friendsView = findViewById(R.id.fragmentView_friends);
+		m_achievementsView = findViewById(R.id.fragmentView_achievements);
 		m_sidebarView = (FrameLayout) findViewById(R.id.view_sidebar);
 
 		// Inflate sidebar and add to sidebarView
@@ -576,10 +611,7 @@ public class HomeScreen extends FragmentActivity {
 	public BaseFragment getCurrentFragment() {
 		FragmentManager fm = getSupportFragmentManager();
 
-		int resId = m_btnProfile.isChecked() ? R.id.fragmentView_profile
-				: (m_btnActivity.isChecked() ? R.id.fragmentView_activity
-						: (m_btnFriends.isChecked() ? R.id.fragmentView_friends
-								: R.id.fragmentView_skills));
+		int resId = m_btnProfile.isChecked() ? R.id.fragmentView_profile : (m_btnActivity.isChecked() ? R.id.fragmentView_activity : (m_btnFriends.isChecked() ? R.id.fragmentView_friends : (m_btnAchievements.isChecked() ? R.id.fragmentView_achievements : R.id.fragmentView_skills)));
 
 		if (resId == R.id.fragmentView_skills && skillOrUnlearn == TAB_UNLEARN) {
 			resId = R.id.fragmentView_unlearn;

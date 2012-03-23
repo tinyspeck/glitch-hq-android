@@ -87,6 +87,14 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		String user_name;
 	};
 	
+	public class glitchAchievement {
+		String id;
+		String name;
+		String desc;
+		String icon;
+		boolean got;
+	}
+	
 	class SortByName implements Comparator<glitchFriend>{   
 		public int compare(glitchFriend f1, glitchFriend f2) {
 			String name1 = f1.player_name.toLowerCase();

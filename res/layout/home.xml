@@ -57,6 +57,11 @@
                     android:id="@+id/fragmentView_friends"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
+                
+                <FrameLayout
+                    android:id="@+id/fragmentView_achievements"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"/>
             </FrameLayout>
 
             <include layout="@layout/bottom_pane" />
