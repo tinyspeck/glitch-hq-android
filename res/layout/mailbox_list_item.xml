@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:layout_gravity="center">
+    
+    <LinearLayout android:id="@+id/inbox_item"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:background="@drawable/list_item_bg_selector"
+        android:layout_marginRight="5sp"
+        android:layout_width="fill_parent"
+        android:padding="3sp">
+        
+        <ImageView android:id="@+id/icon_message_sender"
+            android:layout_gravity="center"
+            android:padding="3sp"
+            android:layout_width="44sp"
+            android:layout_height="44sp"/>
+        
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_width="fill_parent"
+            android:orientation="vertical">
+	
+            <LinearLayout android:layout_height="wrap_content"
+                android:layout_width="fill_parent"
+                android:layout_gravity="center">
+                
+	            <TextView android:id="@+id/inbox_message_name"
+	              	style="@style/PlayNameStyle"
+	              	android:layout_gravity="center"
+	              	android:layout_weight="0.0"
+	              	android:layout_width="wrap_content"
+	              	android:layout_height="wrap_content"/>
+            
+	            <View android:layout_weight="1.0"
+	                android:layout_height="fill_parent"
+	                android:layout_width="0sp"/>
+	            
+	            <TextView android:id="@+id/inbox_message_when"
+	                android:text=""
+	                style="@style/TimeStyle"
+	                android:layout_gravity="center"
+	                android:layout_weight="0.0"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"/>
+	            
+            </LinearLayout>
+            
+            <TextView android:id="@+id/inbox_message_text" 
+                android:text=""
+                style="@style/SmallTextStyle"
+                android:layout_gravity="center"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            
+        </LinearLayout>
+                
+    </LinearLayout>
+    
+    <View android:id="@+id/inbox_message_divider" 
+        android:layout_height="1sp" 
+        android:layout_gravity="center" 
+        android:background="#e0e0e0"
+		android:layout_width="fill_parent" />
+
+</LinearLayout>

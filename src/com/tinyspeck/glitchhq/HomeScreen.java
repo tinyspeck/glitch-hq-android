@@ -56,12 +56,13 @@ public class HomeScreen extends FragmentActivity {
 	private ActivityFragment m_activityFrm;
 	private FriendsFragment m_friendsFrm;
 	private AchievementCategoriesFragment m_achievementsFrm;
+	private MailboxFragment m_mailboxFrm;
 	private View m_stack;
 
 	private BaseFragment m_curFrm;
 
 	private View m_profileView, m_activityView, m_skillsView, m_unlearnView,
-			m_friendsView, m_achievementsView;
+			m_friendsView, m_achievementsView, m_mailboxView;
 	private FrameLayout m_sidebarView;
 
 	@Override
@@ -101,6 +102,10 @@ public class HomeScreen extends FragmentActivity {
 				break;
 			case Achievements:
 				setCurrentFragment(m_achievementsFrm, false);
+				break;
+			case Mailbox:
+				setCurrentFragment(m_mailboxFrm, false);
+				break;
 			default:
 				break;
 			}
@@ -333,6 +338,7 @@ public class HomeScreen extends FragmentActivity {
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 			m_achievementsView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
 
 		} else if (m_curPage == Page.Activity) {
 			viewId = R.id.fragmentView_activity;
@@ -342,6 +348,7 @@ public class HomeScreen extends FragmentActivity {
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 			m_achievementsView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
 
 		} else if (m_curPage == Page.Friends) {
 			viewId = R.id.fragmentView_friends;
@@ -351,6 +358,7 @@ public class HomeScreen extends FragmentActivity {
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
 			m_achievementsView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
 			
 		} else if (m_curPage == Page.Achievements) {
 			viewId = R.id.fragmentView_achievements;
@@ -360,11 +368,22 @@ public class HomeScreen extends FragmentActivity {
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
+		} else if (m_curPage == Page.Mailbox) {
+			viewId = R.id.fragmentView_mailbox;
+			m_mailboxView.setVisibility(View.VISIBLE);
+			m_achievementsView.setVisibility(View.GONE);
+			m_friendsView.setVisibility(View.GONE);
+			m_profileView.setVisibility(View.GONE);
+			m_activityView.setVisibility(View.GONE);
+			m_skillsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);			
 		} else {
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 			m_achievementsView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
 
 			if (f instanceof SkillFragment) {
 				viewId = R.id.fragmentView_skills;
@@ -446,6 +465,7 @@ public class HomeScreen extends FragmentActivity {
 		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
 		m_friendsView = findViewById(R.id.fragmentView_friends);
 		m_achievementsView = findViewById(R.id.fragmentView_achievements);
+		m_mailboxView = findViewById(R.id.fragmentView_mailbox);
 		m_sidebarView = (FrameLayout) findViewById(R.id.view_sidebar);
 
 		// Inflate sidebar and add to sidebarView
