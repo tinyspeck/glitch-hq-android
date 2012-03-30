@@ -69,7 +69,6 @@ public class MailboxListViewAdapter extends BaseAdapter {
 			
 			holder.name = (TextView)convertView.findViewById(R.id.inbox_message_name);
 			holder.name.setTypeface(m_application.m_vagFont);
-			// TODO: ellipsis 
 			holder.text = (TextView)convertView.findViewById(R.id.inbox_message_text);
 			holder.text.setTypeface(m_application.m_vagLightFont);
 			
@@ -84,10 +83,15 @@ public class MailboxListViewAdapter extends BaseAdapter {
 		
 		if (position < getCount()) {
 			glitchMail message = m_mailList.get(position);
-			holder.name.setText(message.sender_label);
-			if (message.sender_avatar != null && !message.sender_avatar.equals("")) {
-				DrawableURL.CropShow(holder.icon, message.sender_avatar);
+			if (message.sender_label != null && !message.sender_label.equals("")) {
+				holder.name.setText(message.sender_label);
 			} else {
+				holder.name.setText("Glitch");
+			}			
+			if (message.sender_avatar != null && !message.sender_avatar.equals("")) {
+				DrawableURL.CropShow(holder.icon, message.sender_avatar + "_100.png");
+			} else {
+				// TODO: If there's no sender, then its probably from staff so use the glitch icon
 				BitmapUtil.CropShow(holder.icon, BitmapFactory.decodeResource(m_act.getResources(), R.drawable.wireframe));
 			}
 			holder.text.setText(message.text);

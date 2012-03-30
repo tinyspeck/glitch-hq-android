@@ -94,14 +94,17 @@ public class MailboxDetailFragment extends BaseFragment {
 	protected void setMailboxDetailView(View root)
 	{
 		ImageView icon = (ImageView) m_root.findViewById(R.id.message_detail_sender_icon);
-		if (m_currentMessage.sender_avatar != null)
-			DrawableURL.CropShow(icon, m_currentMessage.sender_avatar);
+		if (m_currentMessage.sender_avatar != null && !m_currentMessage.sender_avatar.equals(""))
+			DrawableURL.CropShow(icon, m_currentMessage.sender_avatar + "_100.png");
 		else
 			BitmapUtil.CropShow(icon, BitmapFactory.decodeResource(m_root.getResources(), R.drawable.wireframe));
 		
 		TextView tvSenderName = (TextView) m_root.findViewById(R.id.message_detail_sender_name);
 		tvSenderName.setTypeface(m_application.m_vagFont);
-		tvSenderName.setText(m_currentMessage.sender_label);
+		if (m_currentMessage.sender_label != null && !m_currentMessage.sender_label.equals(""))
+			tvSenderName.setText(m_currentMessage.sender_label);
+		else
+			tvSenderName.setText("Glitch");
 		
 		TextView tvReceived = (TextView) m_root.findViewById(R.id.message_detail_received);
 		tvReceived.setTypeface(m_application.m_vagLightFont);

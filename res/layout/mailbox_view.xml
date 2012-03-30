@@ -14,20 +14,26 @@
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:background="#005471"
-	    android:gravity="center_vertical"
+	    android:gravity="center"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content" />
     
-    <ScrollView android:id="@+id/MailboxScrollView" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" android:fadingEdge="none">
+    <ScrollView android:id="@+id/MailboxScrollView" 
+        android:layout_height="fill_parent" 
+        android:layout_gravity="center" 
+        android:layout_width="fill_parent" 
+        android:fadingEdge="none">
+    	
     	<LinearLayout android:layout_height="fill_parent"
     	    android:layout_width="fill_parent"
-    	    android:layout_gravity="top"
+    	    android:layout_gravity="center|top"
     	    android:orientation="vertical">
     	    
     	    <TextView android:id="@+id/mailbox_list_message"
     	        android:text="Checking for mail..."
     	        style="@style/NormalTextStyle"
-    	        android:layout_width="fill_parent"
+    	        android:layout_gravity="center"
+    	        android:layout_width="wrap_content"
     	        android:layout_height="fill_parent"
     	        android:layout_marginTop="10sp"
 			/>

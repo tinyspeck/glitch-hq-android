@@ -456,6 +456,7 @@ public class HomeScreen extends FragmentActivity {
 		m_activityFrm = new ActivityFragment();		
 		m_friendsFrm = new FriendsFragment();
 		m_achievementsFrm = new AchievementCategoriesFragment();
+		m_mailboxFrm = new MailboxFragment();
 
 		m_stack = findViewById(R.id.view_stack);
 

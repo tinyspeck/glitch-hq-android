@@ -119,9 +119,7 @@ public class MailboxFragment extends BaseFragment {
 		if (method == "mail.getInbox") {
 			
 			if (!m_bAppendMode)
-				m_mailList.clear();
-			
-			currentPage = response.optInt("page");
+				m_mailList.clear();					
 			
 			addMailboxList(response);
 			if (m_mailList.size() == 0) {
@@ -138,6 +136,7 @@ public class MailboxFragment extends BaseFragment {
 		if (inbox != null) {
 			messageCount = inbox.optInt("message_count");
 			unreadCount = inbox.optInt("unread_count");
+			currentPage = inbox.optInt("page");
 			JSONArray messages = inbox.optJSONArray("messages");
 			if (messages != null) {
 				for (int i = 0; i < messages.length(); i++) {
@@ -167,6 +166,8 @@ public class MailboxFragment extends BaseFragment {
 						mail.item.desc = item.optString("desc");
 						mail.item.icon = item.optString("icon");
 					}
+					
+					m_mailList.add(mail);
 				}
 			}
 		}
@@ -175,5 +176,31 @@ public class MailboxFragment extends BaseFragment {
 	private void composeMail()
 	{
 		
+	}
+	
+	protected boolean doesSupportRefresh()
+	{
+		return true;
+	}
+	
+	protected boolean doesSupportMore()
+	{
+		return true;
+	}
+	
+	protected void onRefresh()
+	{
+		getInbox(false);
+	}
+	
+	protected void onMore()
+	{
+		getInbox(true);
+	}
+	
+	protected void scrollToTop()
+	{
+		ScrollView sv = (ScrollView) m_root.findViewById(R.id.MailboxScrollView);
+		sv.smoothScrollTo(0, 0);
 	}
 }
