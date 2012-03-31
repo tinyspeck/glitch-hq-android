@@ -86,4 +86,40 @@
         </LinearLayout>
     </ScrollView>
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_weight="0.0"
+        android:background="#ffffff"
+        android:layout_gravity="center">
+        
+        <LinearLayout android:id="@+id/footer_bar_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+            
+            <ImageView android:id="@+id/img_footer_bar"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:src="@drawable/navbar"
+                android:scaleType="centerCrop"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="fill_parent"
+                android:layout_height="41sp"/>
+            
+        </LinearLayout>
+        
+        <Button android:id="@+id/btnDelete"
+            android:text=""
+            android:layout_visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6sp"
+            android:background="@drawable/delete_button_state"
+            android:layout_centerVertical="true"
+            android:layout_width="41sp"
+            android:layout_height="33sp"/>
+        
+    </RelativeLayout>
 </LinearLayout>
