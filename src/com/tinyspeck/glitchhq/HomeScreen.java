@@ -319,6 +319,11 @@ public class HomeScreen extends FragmentActivity {
 			skillOrUnlearn = TAB_UNLEARN;
 		}
 	}
+	
+	public MailboxFragment getMailboxFragment()
+	{
+		return m_mailboxFrm;
+	}
 
 	public void setCurrentFragment(Fragment f, boolean bAddToStack) {
 		m_curFrm = (BaseFragment) f;

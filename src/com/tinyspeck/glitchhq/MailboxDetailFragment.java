@@ -13,6 +13,7 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -125,6 +126,10 @@ public class MailboxDetailFragment extends BaseFragment {
 				
 				setMailboxDetailView();
 			}
+		} else if (method == "mail.deleteMessage") {
+			((HomeScreen)getActivity()).getMailboxFragment().removeMessage(m_currentMessage);
+			FragmentManager fm = getFragmentManager();
+    		fm.popBackStack();    		
 		}
 		onRequestComplete();
 	}
@@ -157,24 +162,21 @@ public class MailboxDetailFragment extends BaseFragment {
 	
 	private void replyMail()
 	{
-				
+	
 	}
 	
 	private void deleteMail()
 	{
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("message_id", Integer.toString(m_msgId));
 		
+		GlitchRequest request = m_application.glitch.getRequest("mail.deleteMessage", params);	
+		request.execute(this);
+		
+		m_requestCount = 1;
+		((HomeScreen)getActivity()).showSpinner(true);
 	}
-	
-	protected boolean doesSupportRefresh()
-	{
-		return true;
-	}
-	
-	protected void onRefresh()
-	{
-		getMessage();
-	}
-	
+
 	protected void scrollToTop()
 	{
 		ScrollView sv = (ScrollView)m_root.findViewById(R.id.MailboxDetailScrollView);
