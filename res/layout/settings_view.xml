@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#d0d0d0">
+    
+    <include layout="@layout/top_pane"/>
+    
+    <TextView android:id="@+id/settings_header" 
+        android:text="Settings" 		
+		style="@style/MiddleTextStyle"
+		android:paddingTop="10sp"
+		android:paddingBottom="10sp"		
+	    android:gravity="center"
+	    android:background="#005471"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"/>
+    
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/settings_item_background"
+        android:layout_gravity="center"
+        android:layout_margin="10sp"
+        android:padding="10sp">
+        
+        <TextView android:id="@+id/push_notifications"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="Push Notifications"
+            style="@style/PlayNameStyle"/>
+        
+        <ToggleButton android:id="@+id/btnNotifications" 
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"            
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textOn="On"
+            android:textOff="Off"/>
+        
+    </RelativeLayout>
+    
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        android:orientation="vertical">
+        
+        <TextView android:id="@+id/terms_of_service"
+            android:text="Terms Of Service"
+            style="@style/PlayNameStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:clickable="true"
+            android:background="@drawable/settings_item_background"/>
+        
+        <View android:layout_height="1sp" 
+            android:layout_gravity="center" 
+            android:background="#e0e0e0"
+			android:layout_width="fill_parent" />
+        
+        <TextView android:id="@+id/privacy_policy"
+            android:text="Privacy Policy"
+            style="@style/PlayNameStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:clickable="true"
+            android:background="@drawable/settings_item_background"/>
+        
+        <View android:layout_height="1sp" 
+            android:layout_gravity="center" 
+            android:background="#e0e0e0"
+			android:layout_width="fill_parent" />
+        
+        <TextView android:id="@+id/community_guidelines"
+            android:text="Community Guidelines"
+            style="@style/PlayNameStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10sp"
+            android:paddingRight="10sp"
+            android:clickable="true"
+            android:background="@drawable/settings_item_background"/>
+    </LinearLayout>
+
+    <TextView android:id="@+id/settings_logout"
+        android:text="Logout"
+        style="@style/PlayNameStyle"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:padding="10sp"
+        android:layout_margin="10sp"
+        android:clickable="true"
+        android:background="@drawable/settings_item_background"/>
+    
+    <TextView android:id="@+id/settings_copyright" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10sp"/>
+        
+    <TextView android:id="@+id/settings_version" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+</LinearLayout>

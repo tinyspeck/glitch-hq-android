@@ -119,6 +119,7 @@ public class Sidebar {
 			add(new sidebarItem() {{
 				isHeader = false;
 				text = "Settings";
+				page = Page.Settings;
 			}});
 		}}; 
 	}

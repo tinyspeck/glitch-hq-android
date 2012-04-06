@@ -209,11 +209,11 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	}
 
 	public glitchActivity GetActivityFromJObject( JSONObject jobj, String key, boolean bOwner )
-	{
+	{	
 		glitchActivity act = new glitchActivity();
 		
-		String sType = jobj.optString("type");
-
+		String sType = jobj.optString("type");	
+		
 		act.id = key;
 		act.time = jobj.optInt("when");
 		long seconds = System.currentTimeMillis()/1000;
@@ -321,9 +321,11 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     		{	
     			String key =  it.next();
     			JSONObject jobj = jItems.optJSONObject( key );
-    			glitchActivity act = GetActivityFromJObject( jobj, key, bOwner );
-    			if( act != null && !findActivityInList( actList,act.id ) ) 	
-    				actList.add(act);
+    			if (jobj != null) {
+    				glitchActivity act = GetActivityFromJObject( jobj, key, bOwner );
+    				if( act != null && !findActivityInList( actList,act.id ) ) 	
+    					actList.add(act);
+    			}
     		}
     		Collections.sort( actList, new SortByTime() );
 //    		m_adapter.notifyDataSetChanged();

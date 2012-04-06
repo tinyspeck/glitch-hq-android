@@ -68,6 +68,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"/>
                 
+                <FrameLayout
+                    android:id="@+id/fragmentView_settings"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"/>
+                
             </FrameLayout>
         </LinearLayout>
     </RelativeLayout>
