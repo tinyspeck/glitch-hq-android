@@ -163,16 +163,6 @@ public class ProfileFragment extends BaseFragment{
 	    
 	    m_tv_currants = (TextView) m_vProfile.findViewById(R.id.tv_currants);
 	    m_tv_currants.setTypeface( m_application.m_vagLightFont );  
-
-	    m_tv_logout = (TextView) root.findViewById(R.id.tv_logout);
-	    m_tv_logout.setVisibility( m_bOtherProfile? View.GONE: View.VISIBLE );
-	    m_tv_logout.setTypeface( m_application.m_vagFont );  
-	    
-	    m_tv_logout.setOnClickListener( new OnClickListener(){
-				public void onClick(View arg0) {
-					((HomeScreen)getActivity()).Logout();
-				}
-			 });
 	    
 	    if( bUpdateData )
 	    	m_actList = new Vector<glitchActivity>();
@@ -307,8 +297,6 @@ public class ProfileFragment extends BaseFragment{
 
 		ImageView imgv = (ImageView)m_root.findViewById( R.id.iv_wallpaper );
 		imgv.setImageResource( m_bOtherProfile? R.drawable.wallpaper_other: R.drawable.wallpaper );
-		
-		m_root.findViewById( R.id.logoutLayout ).setVisibility( m_bOtherProfile? View.GONE : View.VISIBLE  );
 		
 		m_listView.setVisibility( m_actList.size() == 0 ? View.GONE : View.VISIBLE );
 		
