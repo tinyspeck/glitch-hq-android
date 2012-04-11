@@ -140,10 +140,10 @@ public class HomeScreen extends FragmentActivity {
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
 
-		int dx = (int) (width * m_sidebarDeltaX);
+		//int dx = (int) (width * m_sidebarDeltaX);
 
 		// Create the show animation
-		Animation animation = new TranslateAnimation(0, dx, 0, 0);
+		Animation animation = new TranslateAnimation(0, width, 0, 0);
 		animation.setDuration(m_sidebarAnimationDuration);
 
 		animation.setAnimationListener(new AnimationListener() {
@@ -152,10 +152,9 @@ public class HomeScreen extends FragmentActivity {
 				HomeScreen.this.m_showingSidebar = true;
 
 				// Get display width
-				Display display = getWindowManager().getDefaultDisplay();
-				int width = display.getWidth();
+				//Display display = getWindowManager().getDefaultDisplay();
+				//int width = display.getWidth();
 
-				int dx = (int) (width * m_sidebarDeltaX);
 
 				// Set the sidebar's layout parameters so it'll show up
 				// FrameLayout.LayoutParams params = new
@@ -180,7 +179,6 @@ public class HomeScreen extends FragmentActivity {
 	}
 
 	private float sidebarTouchOffset;
-	private float previousTouchX;
 	private Boolean sidebarPickedUp = false;
 	private final static int shadowWidth = 27;
 
@@ -191,54 +189,13 @@ public class HomeScreen extends FragmentActivity {
 			// Get main stack location
 			Display display = getWindowManager().getDefaultDisplay();
 			int width = display.getWidth();
-			int dx = (int) (width * m_sidebarDeltaX);
 
 			// Touch location X
 			float x = ev.getX();
-
-			if (x < dx) {
-				m_sidebarView.dispatchTouchEvent(ev);
-				m_stack.getParent().requestDisallowInterceptTouchEvent(true);
-			} else {
-				// Touch action
-				int action = ev.getAction();
-
-				switch (action) {
-				// Initial touch
-				case (MotionEvent.ACTION_DOWN):
-					if (x >= dx) {
-						sidebarTouchOffset = dx - x;
-						sidebarPickedUp = true;
-						m_stack.getParent().bringChildToFront(m_stack);
-
-						return true;
-					}
-					break;
-				// Touch moved
-				case (MotionEvent.ACTION_MOVE): {
-					if (sidebarPickedUp) {
-						// Set the sidebar's layout parameters so it'll show up
-						// m_stack.layout((int) (-shadowWidth + x - dx), 0,
-						// width, m_stack.getHeight());
-
-						return true;
-					}
-					break;
-				}
-					// Touch ended
-				case (MotionEvent.ACTION_UP):
-					if (sidebarPickedUp) {
-						dismissSidebar();
-						sidebarPickedUp = false;
-						return true;
-					}
-					break;
-				default:
-					break;
-				}
-
-				previousTouchX = x;
-			}
+			ev.setLocation(ev.getX(), ev.getY()-20.0f);
+			
+			m_sidebarView.dispatchTouchEvent(ev);
+			m_stack.getParent().requestDisallowInterceptTouchEvent(true);
 		} else {
 			// Handle event normally
 			return super.dispatchTouchEvent(ev);
@@ -258,10 +215,8 @@ public class HomeScreen extends FragmentActivity {
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
 
-		int dx = (int) (width * m_sidebarDeltaX);
-
 		// Create the dismiss animation
-		Animation animation = new TranslateAnimation(dx, 0, 0, 0);
+		Animation animation = new TranslateAnimation(width, 0, 0, 0);
 		animation.setDuration(m_sidebarAnimationDuration);
 
 		animation.setAnimationListener(new AnimationListener() {

@@ -33,7 +33,6 @@ public class ActivityFragment extends BaseFragment{
     
     private Button m_btnFilter;
     private Button m_btnEdit;
-    private Button m_btnSettings;
     
 	private String m_actItemLast;
 	private boolean m_actHasMore;
