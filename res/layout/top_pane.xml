@@ -12,6 +12,17 @@
 		
   	</LinearLayout>			
 	 
+  	
+  	<Button android:id="@+id/btnBackToMailbox"
+  	    android:text="Mailbox"
+  	    android:textColor="#ffffff"
+		android:visibility="gone"
+		android:layout_marginLeft="6sp"
+		android:layout_alignParentLeft="true"
+		android:background="@drawable/filter_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp"/>
+  	
   	<Button android:id="@+id/btnFilter" android:text="Filter" 
 		android:textColor="#ffffff"
 		android:visibility="gone"
@@ -20,6 +31,28 @@
 		android:background="@drawable/filter_button_state"
 		android:layout_centerVertical="true"
 		android:layout_width="54sp" android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnCloseRecipientChooser"
+  	    android:text="Close"
+  	    android:textColor="#ffffff"
+  	    android:visibility="gone"
+  	    android:layout_marginLeft="6sp"
+  	    android:layout_alignParentLeft="true"
+  	    android:background="@drawable/filter_button_state"
+  	    android:layout_centerVertical="true"
+  	    android:layout_width="54sp"
+  	    android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnBackToRecipientChooser"
+  	    android:text="To"
+  	    android:textColor="#ffffff"
+  	    android:visibility="gone"
+  	    android:layout_marginLeft="6sp"
+  	    android:layout_alignParentLeft="true"
+  	    android:background="@drawable/filter_button_state"
+  	    android:layout_centerVertical="true"
+  	    android:layout_width="48sp"
+  	    android:layout_height="33sp" />
 
   	<Button android:id="@+id/btnEdit" android:text="" 
 		android:layout_alignParentRight="true"
@@ -42,6 +75,16 @@
 		android:visibility="gone"
 		android:layout_marginRight="6sp"
 		android:background="@drawable/settings_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnSendMail"
+  	    android:textColor="#ffffff" 
+  	    android:text="Send" 
+		android:layout_alignParentRight="true"
+		android:visibility="gone"
+		android:layout_marginRight="6sp"
+		android:background="@drawable/filter_button_state"
 		android:layout_centerVertical="true"
 		android:layout_width="54sp" android:layout_height="33sp" />
 

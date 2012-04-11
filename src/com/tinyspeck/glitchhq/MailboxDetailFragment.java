@@ -29,6 +29,7 @@ public class MailboxDetailFragment extends BaseFragment {
 	private glitchMail m_currentMessage;
 	private int m_msgId;
 	private View m_root;
+	private Button m_btnBack;
 	private Button m_btnReply;
 	private Button m_btnDelete;
 	
@@ -47,6 +48,16 @@ public class MailboxDetailFragment extends BaseFragment {
 		View curView = ViewInit(inflater, R.layout.mail_detail_view, container);
 		m_root = curView;
 		m_root.setVisibility(View.INVISIBLE);
+		
+		m_btnBack = (Button) m_root.findViewById(R.id.btnBackToMailbox);
+		m_btnBack.setVisibility(View.VISIBLE);
+		m_btnBack.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				FlurryAgent.logEvent("Mail - back to 'Mailbox' button pressed");
+				FragmentManager fm = getFragmentManager();
+				fm.popBackStack();
+			}
+		});
 		
 		m_btnReply = (Button) m_root.findViewById(R.id.btnReply);
 		m_btnReply.setVisibility(View.VISIBLE);
@@ -109,7 +120,7 @@ public class MailboxDetailFragment extends BaseFragment {
 		} else if (method == "mail.deleteMessage") {
 			((HomeScreen)getActivity()).getMailboxFragment().removeMessage(m_currentMessage);
 			FragmentManager fm = getFragmentManager();
-    		fm.popBackStack();    		
+    		fm.popBackStack();
 		}
 		onRequestComplete();
 	}
@@ -177,7 +188,10 @@ public class MailboxDetailFragment extends BaseFragment {
 	
 	private void replyMail()
 	{
-	
+		MailChooseRecipientFragment f1 = new MailChooseRecipientFragment();
+		((HomeScreen)getActivity()).setCurrentFragment(f1, true);
+		MailComposeFragment f2 = new MailComposeFragment(m_currentMessage.sender_label, m_currentMessage.sender_tsid, m_currentMessage.id);
+		((HomeScreen)getActivity()).setCurrentFragment(f2, true);
 	}
 	
 	private void deleteMail()

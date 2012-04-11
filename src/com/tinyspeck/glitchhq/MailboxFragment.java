@@ -26,6 +26,7 @@ public class MailboxFragment extends BaseFragment {
 	
 	private View m_root;
 	private Button m_btnCompose;
+	private TextView m_mailboxHeader;
 
 	private Vector<glitchMail> m_mailList;
 	private int unreadCount;
@@ -62,6 +63,9 @@ public class MailboxFragment extends BaseFragment {
 		} else {
 			showMailboxPage();
 		}
+		
+		m_mailboxHeader = (TextView)m_root.findViewById(R.id.mailbox_header);
+		m_mailboxHeader.setTypeface(m_application.m_vagFont);
 		
 		m_btnCompose = (Button)m_root.findViewById(R.id.btnEdit);
 		m_btnCompose.setVisibility(View.VISIBLE);
@@ -181,7 +185,8 @@ public class MailboxFragment extends BaseFragment {
 	
 	private void composeMail()
 	{
-		
+		MailChooseRecipientFragment f = new MailChooseRecipientFragment();
+		((HomeScreen)getActivity()).setCurrentFragment(f, true);
 	}
 	
 	protected boolean doesSupportRefresh()
