@@ -208,7 +208,14 @@ public class ActivityFragment extends BaseFragment{
     			((TextView)m_root.findViewById( R.id.list_message )).setText( R.string.activity_no_items );
     		}
 			onRequestComplete();
-		}else if ( method == "activity.setStatus" || method == "activity.joinGroup" || method == "activity.declineGroup" || method == "activity.addBuddy" || method == "activity.declineBuddy" )
+		} else if ( method == "activity.setStatus" ) 
+		{
+			if (response.optInt("ok") != 1) {
+				Util.shortToast(getActivity(), "Failed");
+			} else {
+				Util.shortToast(getActivity(), "Posted");				
+			}
+		} else if (method == "activity.joinGroup" || method == "activity.declineGroup" || method == "activity.addBuddy" || method == "activity.declineBuddy")
 		{
 			getActivity(false);
 			onRequestComplete();

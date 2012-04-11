@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -88,6 +89,8 @@ public class MailChooseRecipientFragment extends BaseFragment {
 	        request1.execute(this);
 	        
 	        m_requestCount = 1;
+	        FrameLayout recipientFilterArea = (FrameLayout) m_root.findViewById(R.id.recipients_filter_area);
+   			recipientFilterArea.setVisibility(View.GONE);
 	        ((HomeScreen)getActivity()).showSpinner(true);
 		}
 	}
@@ -96,11 +99,13 @@ public class MailChooseRecipientFragment extends BaseFragment {
 	{
 		boolean bHas = m_recipientsList.size() > 0;
 		
-		m_root.findViewById( R.id.list_mail_recipients_message ).setVisibility( bHas? View.GONE: View.VISIBLE );
+		m_root.findViewById( R.id.list_mail_recipients_message ).setVisibility( bHas? View.GONE: View.VISIBLE );		
 		m_listView.setVisibility( bHas? View.VISIBLE: View.GONE );
-   		
-   		if( bHas )
+		if (bHas) {			
    			m_adapter.notifyDataSetChanged();
+   			FrameLayout recipientFilterArea = (FrameLayout) m_root.findViewById(R.id.recipients_filter_area);
+   			recipientFilterArea.setVisibility(View.VISIBLE);
+		}
 	}
 	
 	@Override

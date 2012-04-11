@@ -28,9 +28,17 @@ import android.view.animation.TranslateAnimation;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Util
 {
+	static public void shortToast(Activity context, String msg)
+	{
+		Toast sentNotification = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+		sentNotification.setGravity(Gravity.CENTER, 0, 0);
+		sentNotification.show();
+	}
+	
   static public Dialog Alert(Activity context, String msg, String title )
   {
     return Alert(context,msg,title,false,null);
