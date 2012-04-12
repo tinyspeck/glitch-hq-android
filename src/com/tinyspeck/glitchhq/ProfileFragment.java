@@ -1,6 +1,8 @@
 package com.tinyspeck.glitchhq;
 
+import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -39,23 +41,22 @@ public class ProfileFragment extends BaseFragment{
     private int m_currentActType;
 
 	private int m_nCurrants;
-	private int m_nEnergy;
-	private int m_nEnergyMax;
+	private int m_nImagination;
 	private int m_nLevel;
-	private int m_nMood;
-	private int m_nMoodMax;
-    private String m_address;
+	private int m_nAchievements;
+	private int m_nSkills;
+    private int m_nUpgrades;
 	
     private ActivityListViewAdapter m_adapter;
     private LearningListViewAdapter m_learningAdapter;
     private UnlearningListViewAdapter m_unlearningAdapter;
     
-    private TextView m_tv_energy1,m_tv_energy2;
-    private ImageView m_imgMood;
-    private TextView m_tv_level;
-    private TextView m_tv_address;
     private TextView m_tv_currants;
-    private TextView m_tv_logout;
+    private TextView m_tv_imagination;
+    private TextView m_tv_level;
+    private TextView m_tv_achievements;    
+    private TextView m_tv_skills;
+    private TextView m_tv_upgrades;
     private View m_vProfile;
     
 	private Timer m_RemainingTimer;
@@ -133,12 +134,11 @@ public class ProfileFragment extends BaseFragment{
 	    
 	    profileSelf.setVisibility( m_bOtherProfile? View.GONE: View.VISIBLE );
 	    profileOther.setVisibility( m_bOtherProfile? View.VISIBLE: View.GONE );
+	    
 	    ((ImageView)root.findViewById( R.id.rookfossil_image )).setVisibility( m_bOtherProfile ? View.GONE: View.VISIBLE);
 	    ((ImageView)root.findViewById( R.id.treasure_image )).setVisibility( m_bOtherProfile ? View.VISIBLE: View.GONE);
 	    
-	    m_vProfile = m_bOtherProfile? profileOther: profileSelf;
-	    
-	    m_vProfile.findViewById( R.id.profile_currant ).setVisibility( m_bOtherProfile? View.GONE: View.VISIBLE );
+	    m_vProfile = m_bOtherProfile? profileOther: profileSelf;	    
 	    
         nameTextView = (TextView) m_vProfile.findViewById(R.id.playername);
         nameTextView.setTypeface( m_application.m_vagFont );  
@@ -148,21 +148,26 @@ public class ProfileFragment extends BaseFragment{
 		m_unlearningListView = (LinearListView)root.findViewById(R.id.unlearning_list);
 
 		m_avatar = (ImageView)m_vProfile.findViewById( R.id.avatar );
-	    m_tv_energy1 = (TextView) m_vProfile.findViewById(R.id.tv_energy1);
-	    m_tv_energy1.setTypeface( m_application.m_vagLightFont );  
-	    m_tv_energy2 = (TextView) m_vProfile.findViewById(R.id.tv_energy2);
-	    m_tv_energy2.setTypeface( m_application.m_vagLightFont );  
+		
+		if (!m_bOtherProfile) {
+			m_tv_currants = (TextView) m_vProfile.findViewById(R.id.profile_currant_amount);
+			m_tv_currants.setTypeface( m_application.m_vagLightFont );
 	    
-	    m_tv_address = (TextView) m_vProfile.findViewById(R.id.player_address);
-	    m_tv_address.setTypeface( m_application.m_vagLightFont );  
-
-	    m_imgMood = (ImageView) m_vProfile.findViewById(R.id.img_mood);
-
+			m_tv_imagination = (TextView) m_vProfile.findViewById(R.id.profile_imagination_amount);
+			m_tv_imagination.setTypeface(m_application.m_vagLightFont);
+		}
+		
 	    m_tv_level = (TextView) m_vProfile.findViewById(R.id.tv_level);
-	    m_tv_level.setTypeface( m_application.m_vagLightFont );  
+	    m_tv_level.setTypeface( m_application.m_vagLightFont );
 	    
-	    m_tv_currants = (TextView) m_vProfile.findViewById(R.id.tv_currants);
-	    m_tv_currants.setTypeface( m_application.m_vagLightFont );  
+	    m_tv_achievements = (TextView) m_vProfile.findViewById(R.id.tv_achievements);
+	    m_tv_achievements.setTypeface(m_application.m_vagLightFont);
+	    
+	    m_tv_skills = (TextView) m_vProfile.findViewById(R.id.tv_skills);
+	    m_tv_skills.setTypeface(m_application.m_vagLightFont);
+	    
+	    m_tv_upgrades = (TextView) m_vProfile.findViewById(R.id.tv_upgrades);
+	    m_tv_upgrades.setTypeface(m_application.m_vagLightFont);
 	    
 	    if( bUpdateData )
 	    	m_actList = new Vector<glitchActivity>();
@@ -309,55 +314,25 @@ public class ProfileFragment extends BaseFragment{
 	}
 	
 	private void updateProfileInfo()
-	{
-		m_tv_energy1.setText( String.valueOf( m_nEnergy) );
-		m_tv_energy2.setText( String.valueOf( m_nEnergyMax) );
-		
-		m_tv_level.setText( Html.fromHtml("Made it to <b>Level " + m_nLevel + "</b>") );
-
-		String sCurrants;
-
-        if( m_nCurrants > 1000000 )
-             sCurrants = String.format("%d,%03d,%03d",m_nCurrants/1000000, (m_nCurrants%1000000)/1000, m_nCurrants%1000 );
-        else if( m_nCurrants > 1000 )
-             sCurrants = String.format("%d,%03d", m_nCurrants/1000, (m_nCurrants%1000) );
-        else
-             sCurrants = String.valueOf(m_nCurrants);
-        
-		m_tv_currants.setText( Html.fromHtml("You have <b>" + sCurrants + "</b> currants" ));
-		if( m_address != null && !m_address.equalsIgnoreCase("null") )
-		{
-			if (m_bOtherProfile) {
-				m_tv_address.setText(m_playerName + " owns " + m_address);
-			} else {
-				m_tv_address.setText("You own " + m_address);
-			}
-			m_tv_address.setVisibility(View.VISIBLE);
-		}else
-		{
-			View v = m_vProfile.findViewById( R.id.player_address_view );
-			v.setVisibility(View.INVISIBLE);
-		}
+	{		
+		m_tv_level.setText(Html.fromHtml("Level <b>" + m_nLevel + "</b>"));
+		m_tv_achievements.setText(Html.fromHtml("<b>" + m_nAchievements + "</b> Achievements"));
+		m_tv_skills.setText(Html.fromHtml("<b>" + m_nSkills + "</b> Skills"));
+		m_tv_upgrades.setText(Html.fromHtml("<b>" + m_nUpgrades + "</b> Upgrades"));
 
 		View v = m_vProfile.findViewById( R.id.user_data );
 		v.setVisibility(View.VISIBLE);
+		
+		m_vProfile.findViewById(R.id.profile_currants).setVisibility( m_bOtherProfile ? View.GONE : View.VISIBLE);
+	    m_vProfile.findViewById(R.id.profile_imagination).setVisibility(m_bOtherProfile ? View.GONE : View.VISIBLE);
 
 		if( !m_bOtherProfile )
 		{
-			v = m_vProfile.findViewById( R.id.player_mood );
-			v.setVisibility(View.VISIBLE);
-
-			v = m_vProfile.findViewById( R.id.player_energy );
-			v.setVisibility(View.VISIBLE);
-
-    		int nMoodRes[] = { R.drawable.mood1, R.drawable.mood2, R.drawable.mood3, R.drawable.mood4, R.drawable.mood5,
-    						   R.drawable.mood6, R.drawable.mood7, R.drawable.mood8, R.drawable.mood9, R.drawable.mood10 };
-
-    		int nEnergyRes[] = { R.drawable.energy1, R.drawable.energy2, R.drawable.energy3, R.drawable.energy4, R.drawable.energy5,
-					   R.drawable.energy6, R.drawable.energy7, R.drawable.energy8, R.drawable.energy9, R.drawable.energy10 };
-    		
-    		m_imgMood.setImageResource( nMoodRes[ 10 * (m_nMoodMax-m_nMood-1)/m_nMoodMax] );
-    		m_vProfile.findViewById(R.id.img_energy).setBackgroundResource( nEnergyRes[ 10 * (m_nEnergyMax-m_nEnergy-1) / m_nEnergyMax ] );
+			String sCurrants = NumberFormat.getNumberInstance(Locale.US).format(m_nCurrants);	        
+			m_tv_currants.setText( Html.fromHtml("<b>" + sCurrants + "</b>" ));
+			
+			String sImagination = NumberFormat.getNumberInstance(Locale.US).format(m_nImagination);
+			m_tv_imagination.setText(Html.fromHtml("<b>" + sImagination + "</b>"));			
 		}
 	}
 	
@@ -427,20 +402,15 @@ public class ProfileFragment extends BaseFragment{
 	        		nameTextView.setText( m_playerName );
     			}
 
-    			m_nCurrants = response.optJSONObject("stats").optInt("currants");
-        		m_nEnergy = response.optJSONObject("stats").optInt("energy");
-        		m_nEnergyMax = response.optJSONObject("stats").optInt("energy_max");
-        		m_nLevel = response.optJSONObject("stats").optInt("level");
-        		m_nMood = response.optJSONObject("stats").optInt("mood");
-        		m_nMoodMax = response.optJSONObject("stats").optInt("mood_max");
-        		
-        		if( m_nMoodMax == 0 )
-        			m_nMoodMax = 1;
-        		if( m_nEnergyMax == 0 )
-        			m_nEnergyMax = 1;
-
-        		m_address = response.optJSONObject("pol").optString("name");
-        		
+    			JSONObject stats = response.optJSONObject("stats");
+    			if (stats != null) {
+    				m_nCurrants = stats.optInt("currants");
+    				m_nImagination = stats.optInt("xp");
+    				m_nLevel = stats.optInt("level");    				
+    			}
+    			m_nAchievements = response.optInt("num_achievements");
+    			m_nSkills = response.optInt("num_skills");
+    			m_nUpgrades = response.optInt("num_upgrades");
         		updateProfileInfo();
 //        		addPreShowListener(m_listView);
     		}
