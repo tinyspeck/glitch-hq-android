@@ -122,13 +122,16 @@
     
     </LinearLayout>
     
-    <TextView android:id="@+id/settings_copyright" 
+    <TextView android:id="@+id/settings_copyright"
+        android:text="Copyright © 2012 Tiny Speck"        
+        style="@style/CopyrightTextStyle"         
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="10sp"/>
+        android:layout_gravity="center"/>
         
-    <TextView android:id="@+id/settings_version" 
+    <TextView android:id="@+id/settings_version"
+        android:text="HQ v1.3"
+        style="@style/CopyrightTextStyle" 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
