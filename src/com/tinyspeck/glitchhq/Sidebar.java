@@ -1,6 +1,9 @@
 package com.tinyspeck.glitchhq;
 
+import java.util.Iterator;
 import java.util.Vector;
+
+import com.tinyspeck.glitchhq.Sidebar.sidebarItem;
 
 import android.app.Activity;
 import android.view.View;
@@ -20,6 +23,7 @@ public class Sidebar {
 		 Boolean isHeader;
 		 String text; 		  
 		 Page page;
+		 int badge;
  	 };
 	
 	private Vector<sidebarItem> m_sbList;
@@ -46,9 +50,22 @@ public class Sidebar {
 	}
 
 	protected void scrollToTop() {
-		ScrollView sv = (ScrollView) m_root
-				.findViewById(R.id.SidebarScrolLView);
+		ScrollView sv = (ScrollView) m_root.findViewById(R.id.SidebarScrolLView);
 		sv.smoothScrollTo(0, 0);
+	}
+	
+	public void setSidebarBadge(Page p, int count) {
+		Iterator<sidebarItem> itr = m_sbList.iterator();
+		sidebarItem item;
+		
+		while(itr.hasNext()) {
+			item = itr.next();
+			if (item.page == p) {
+				item.badge = count;
+				break;
+			}
+		}
+		m_adapter.notifyDataSetChanged();
 	}
 
 	private Vector<sidebarItem> getSidebarList()

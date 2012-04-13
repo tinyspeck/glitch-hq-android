@@ -7,16 +7,42 @@
     
     <include layout="@layout/top_pane"/>
     
-    <TextView android:id="@+id/mailbox_header"
-        android:text="Mailbox"
-        android:textSize="20sp"
-        android:padding="4sp"
-        android:textStyle="bold"
-        android:textColor="#ffffff"
+    <LinearLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:background="#005471"
-	    android:gravity="center"
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content" />
+        android:orientation="vertical">
+                   
+        
+        <RelativeLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            
+	    <TextView android:id="@+id/mailbox_header"
+	        android:text="Mailbox"
+	        android:textSize="20sp"
+	        android:padding="4sp"
+	        android:textStyle="bold"
+	        android:textColor="#ffffff"		    
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_centerInParent="true"/>
+	    
+	    <TextView android:id="@+id/mailbox_unread"
+	        android:text=""
+	        android:textSize="15sp"
+	        android:textStyle="normal"
+	        android:textColor="#ffffff"     
+	        android:layout_width="20sp"
+	        android:layout_height="20sp"
+	        android:gravity="center"
+	        android:layout_centerInParent="true"
+	        android:layout_toRightOf="@+id/mailbox_header"
+	        android:background="@drawable/red_circle"
+	        android:layout_marginLeft="5sp"
+	        android:visibility="gone"/>
+	    
+	    </RelativeLayout>
+    </LinearLayout>
     
     <ScrollView android:id="@+id/MailboxScrollView" 
         android:layout_height="fill_parent" 

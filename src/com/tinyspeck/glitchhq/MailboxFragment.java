@@ -27,6 +27,7 @@ public class MailboxFragment extends BaseFragment {
 	private View m_root;
 	private Button m_btnCompose;
 	private TextView m_mailboxHeader;
+	private TextView m_mailboxUnread;
 
 	private Vector<glitchMail> m_mailList;
 	private int unreadCount;
@@ -66,6 +67,8 @@ public class MailboxFragment extends BaseFragment {
 		
 		m_mailboxHeader = (TextView)m_root.findViewById(R.id.mailbox_header);
 		m_mailboxHeader.setTypeface(m_application.m_vagFont);
+		m_mailboxUnread = (TextView)m_root.findViewById(R.id.mailbox_unread);
+		m_mailboxUnread.setTypeface(m_application.m_vagFont);
 		
 		m_btnCompose = (Button)m_root.findViewById(R.id.btnComposeMail);
 		m_btnCompose.setVisibility(View.VISIBLE);
@@ -140,6 +143,11 @@ public class MailboxFragment extends BaseFragment {
 		if (inbox != null) {
 			messageCount = inbox.optInt("message_count");
 			unreadCount = inbox.optInt("unread_count");
+			
+			m_mailboxUnread.setText(String.valueOf(unreadCount));
+			m_mailboxUnread.setVisibility(unreadCount > 0 ? View.VISIBLE : View.GONE);
+			((HomeScreen)getActivity()).getSidebar().setSidebarBadge(Page.Mailbox, unreadCount);
+			
 			currentPage = inbox.optInt("page");
 			JSONArray messages = inbox.optJSONArray("messages");
 			if (messages != null) {

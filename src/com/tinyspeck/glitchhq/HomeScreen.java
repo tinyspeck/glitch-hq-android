@@ -49,6 +49,7 @@ public class HomeScreen extends FragmentActivity {
 	private int m_curTab = TAB_PROFILE;
 	private Page m_curPage = Page.Profile;
 	private int skillOrUnlearn = TAB_SKILLS;
+	private Sidebar sidebar;
 
 	private ProfileFragment m_profileFrm;
 	private SkillFragment m_skillFrm;
@@ -456,7 +457,7 @@ public class HomeScreen extends FragmentActivity {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View sidebarView = (View) inflator.inflate(R.layout.sidebar_view, null);
 		m_sidebarView.addView(sidebarView);
-		Sidebar sidebar = new Sidebar(m_sidebarView, this);
+		sidebar = new Sidebar(m_sidebarView, this);
 
 		setCurrentFragment(m_profileFrm, false);
 	}
@@ -465,6 +466,11 @@ public class HomeScreen extends FragmentActivity {
 
 		super.onBackPressed();
 
+	}
+	
+	public Sidebar getSidebar() 
+	{
+		return sidebar;
 	}
 
 	@Override

@@ -25,6 +25,7 @@ public class SidebarListViewAdapter extends BaseAdapter {
 
 	public class ViewHolder {
 		TextView text;
+		TextView badge;
 		View divider;
 		View whole;
 	};
@@ -64,18 +65,24 @@ public class SidebarListViewAdapter extends BaseAdapter {
 		// Inflate views
 		if (holder == null && sbItem != null) {
 			
-			if (sbItem.isHeader)
+			if (sbItem.isHeader) {
 				convertView = m_inflater.inflate(R.layout.sidebar_header, null);
-			else
-				convertView = m_inflater.inflate(R.layout.sidebar_list_item, null);
+			} else {
+				convertView = m_inflater.inflate(R.layout.sidebar_list_item, null);				
+			}
 			
 			holder = new ViewHolder();
 
 			holder.text = (TextView) convertView
 					.findViewById(R.id.sidebar_item_text);
-			holder.divider = (View) convertView
-					.findViewById(R.id.list_diveider);
 			holder.text.setTypeface(m_application.m_vagFont);
+			holder.divider = (View) convertView
+					.findViewById(R.id.list_diveider);								
+			
+			if (!sbItem.isHeader) {
+				holder.badge = (TextView) convertView.findViewById(R.id.sidebar_item_badge);
+				holder.badge.setTypeface(m_application.m_vagFont);
+			}
 
 			holder.whole = (View) convertView.findViewById(R.id.actfeed_item);
 			// holder.description.setTypeface( m_application.m_vagFont );
@@ -86,6 +93,18 @@ public class SidebarListViewAdapter extends BaseAdapter {
 
 		// Update properties
 		if (sbItem != null) {
+			
+			if (!sbItem.isHeader) {
+				holder.badge.setVisibility(sbItem.badge > 0 ? View.VISIBLE : View.GONE);
+				if (sbItem.badge > 0) {
+					holder.badge.setText(String.valueOf(sbItem.badge));				
+				} else if (sbItem.badge > 99) {
+					holder.badge.setText("!!");
+				} else {
+					holder.badge.setText("0");
+				}
+			}
+			
 			holder.text.setText(sbItem.text);
 			
 			if (position == getCount() - 1)
