@@ -67,7 +67,7 @@ public class MailboxFragment extends BaseFragment {
 		m_mailboxHeader = (TextView)m_root.findViewById(R.id.mailbox_header);
 		m_mailboxHeader.setTypeface(m_application.m_vagFont);
 		
-		m_btnCompose = (Button)m_root.findViewById(R.id.btnEdit);
+		m_btnCompose = (Button)m_root.findViewById(R.id.btnComposeMail);
 		m_btnCompose.setVisibility(View.VISIBLE);
 		m_btnCompose.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {

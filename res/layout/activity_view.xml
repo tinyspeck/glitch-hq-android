@@ -5,40 +5,66 @@
   android:layout_height="fill_parent" android:background="#ffffff"
   android:orientation="vertical">
   
-<include layout="@layout/top_pane"/> 
+	<include layout="@layout/top_pane"/> 
 
-<TextView android:text="Requests" 
-			android:id="@+id/activity_header"
-			android:textSize="16sp"
-			android:paddingLeft="4sp"
-			android:textStyle="bold"
-	    	android:textColor="#ffffff"
-	    	android:background="#005471"
-	    	android:gravity="center_vertical"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"/>
+	<TextView android:text="Requests" 
+		android:id="@+id/activity_header"
+		android:textSize="16sp"
+		android:paddingLeft="4sp"
+		android:textStyle="bold"
+		android:textColor="#ffffff"
+		android:background="#005471"
+		android:gravity="center_vertical"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"/>
 
-<ScrollView android:id="@+id/ActivityScrolLView" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" android:fadingEdge="none">
+	<RelativeLayout android:layout_height="fill_parent"
+    	android:layout_width="fill_parent"
+    	android:layout_gravity="center">
+	
+		<ScrollView android:id="@+id/ActivityScrolLView"
+		    android:layout_alignParentTop="true" 
+		    android:layout_height="fill_parent" 
+		    android:layout_gravity="center" 
+		    android:layout_width="fill_parent" 
+		    android:fadingEdge="none">
 
-<LinearLayout android:layout_height="fill_parent" android:layout_gravity="top"
-				android:layout_width="fill_parent" android:orientation="vertical">
+			<LinearLayout android:layout_height="wrap_content" 
+			    android:layout_gravity="top"
+				android:layout_width="fill_parent" 
+				android:orientation="vertical">
 
-<TextView android:id="@+id/list_message" 
-    android:layout_marginTop="10sp" 
-    style="@style/NormalTextStyle" 
-    android:layout_width="fill_parent" 
-    android:layout_height="fill_parent" 
-    android:text="Checking for latest activity..." 
-    android:gravity="center_horizontal" />
+				<TextView android:id="@+id/list_message" 
+				    android:layout_marginTop="10sp" 
+				    style="@style/NormalTextStyle" 
+				    android:layout_width="fill_parent" 
+				    android:layout_height="fill_parent" 
+				    android:text="Checking for latest activity..." 
+				    android:gravity="center_horizontal" />
+	
+				<com.tinyspeck.glitchhq.LinearListView 
+				    android:id="@+id/ActivityListView"
+				    android:background="@drawable/activity_feed"
+					android:cacheColorHint="@drawable/white"
+					android:orientation="vertical"
+				    android:layout_width="fill_parent"
+				    android:layout_height="wrap_content"
+				    android:gravity="center_vertical"/>
+									
+			</LinearLayout>
+			
+		</ScrollView>
 
-<com.tinyspeck.glitchhq.LinearListView 
-    android:id="@+id/ActivityListView"
-    android:background="@drawable/activity_feed"
-	android:cacheColorHint="@drawable/white"
-	android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-  />
-</LinearLayout>
-</ScrollView>
+		<Button android:id="@+id/btnNewUpdate" 
+			android:layout_marginRight="6sp"
+			android:background="@drawable/compose_button_state"	   
+			android:layout_width="41sp"
+			android:layout_height="33sp"
+			android:layout_above="@+id/ActivityScrolLView"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			android:layout_margin="6sp"/>
+		
+	</RelativeLayout>
+	
 </LinearLayout>

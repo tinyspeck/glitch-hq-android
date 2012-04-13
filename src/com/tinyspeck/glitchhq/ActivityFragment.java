@@ -32,7 +32,7 @@ public class ActivityFragment extends BaseFragment{
     private LinearListView  m_listView;
     
     private Button m_btnFilter;
-    private Button m_btnEdit;
+    private Button m_btnNewUpdate;
     
 	private String m_actItemLast;
 	private boolean m_actHasMore;
@@ -83,17 +83,15 @@ public class ActivityFragment extends BaseFragment{
 	private void initTopMenu()
 	{
 		 m_btnFilter = (Button)m_root.findViewById(R.id.btnFilter);
-		 m_btnEdit = (Button)m_root.findViewById(R.id.btnEdit);
 		 m_btnFilter.setVisibility(View.VISIBLE);
-		 m_btnEdit.setVisibility(View.VISIBLE);
 		 
-		 m_btnEdit.setOnClickListener( new OnClickListener(){
+		 m_btnNewUpdate = (Button)m_root.findViewById(R.id.btnNewUpdate);		 		 
+		 m_btnNewUpdate.setOnClickListener( new OnClickListener(){
 				public void onClick(View arg0) {
 					FlurryAgent.logEvent("Activity - 'Compose' button pressed");
 					composeNotes();
 				}
-		 });
-		 
+		 });		 
 		 m_btnFilter.setOnClickListener( new OnClickListener(){
 				public void onClick(View arg0) {
 				
