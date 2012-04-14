@@ -3,13 +3,18 @@ package com.tinyspeck.glitchhq;
 import java.util.Iterator;
 import java.util.Vector;
 
+import org.json.JSONObject;
+
+import com.tinyspeck.android.GlitchRequest;
+import com.tinyspeck.android.GlitchRequestDelegate;
 import com.tinyspeck.glitchhq.Sidebar.sidebarItem;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 
-public class Sidebar {
+public class Sidebar implements GlitchRequestDelegate {
 
 	private SidebarListViewAdapter m_adapter;
 	private LinearListView m_listView;
@@ -35,6 +40,9 @@ public class Sidebar {
 		m_adapter = new SidebarListViewAdapter(this, m_sbList);
 		m_listView = (LinearListView) root.findViewById(R.id.SidebarListView);
 		m_listView.setAdapter(m_adapter);
+		
+		GlitchRequest request = ((MyApplication)((HomeScreen)m_activity).getApplication()).glitch.getRequest("mail.getUnreadCount");
+		request.execute(this);
 	}
 
 	public Activity getActivity() {
@@ -139,5 +147,33 @@ public class Sidebar {
 				page = Page.Settings;
 			}});
 		}}; 
+	}
+
+	public void onRequestBack(String method, JSONObject response)
+	{
+		if (method == "mail.getUnreadCount") {
+			if (response.optInt("ok") == 1) {
+				setSidebarBadge(Page.Mailbox, response.optInt("unread_count"));
+			}
+		}
+	}
+	
+	public void requestFinished(GlitchRequest request) {
+		if( getActivity() == null )
+			return;
+		
+        if (request != null && request.method != null )
+        {
+        	JSONObject response = request.response;
+        	if( response != null )
+        	{
+        		Log.i("response", " method: " + request.method + " response: " + request.response );
+        		onRequestBack( request.method, response );
+        	}
+        }
+	}
+
+	public void requestFailed(GlitchRequest request) {
+		((HomeScreen)getActivity()).requestFailed(request);		
 	}
 }

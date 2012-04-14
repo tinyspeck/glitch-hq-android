@@ -127,7 +127,7 @@ public class HomeScreen extends FragmentActivity {
 		 * TAB_UNLEARN; skillOrUnlearn = TAB_UNLEARN; } }
 		 */
 	}
-
+	
 	/*
 	 * Sidebar methods
 	 */

@@ -7,6 +7,7 @@ import com.tinyspeck.glitchhq.BaseFragment.glitchMail;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +20,7 @@ public class MailboxListViewAdapter extends BaseAdapter {
 
 	private Vector<glitchMail> m_mailList;
 	private LayoutInflater m_inflater;
+	private BaseFragment m_bf;
 	private Activity m_act;
 	private MyApplication m_application;
 	
@@ -32,10 +34,11 @@ public class MailboxListViewAdapter extends BaseAdapter {
 		View whole;
 	}
 	
-	public MailboxListViewAdapter(Activity act, Vector<glitchMail> mailList)
+	public MailboxListViewAdapter(BaseFragment bf, Vector<glitchMail> mailList)
 	{
 		m_mailList = mailList;
-		m_act = (HomeScreen) act;
+		m_act = bf.getActivity();
+		m_bf = bf;
 		m_inflater = (LayoutInflater)m_act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		m_application = (MyApplication)m_act.getApplicationContext();
 	}
@@ -93,8 +96,12 @@ public class MailboxListViewAdapter extends BaseAdapter {
 			} else {
 				// TODO: If there's no sender, then its probably from staff so use the glitch icon
 				BitmapUtil.CropShow(holder.icon, BitmapFactory.decodeResource(m_act.getResources(), R.drawable.wireframe));
+			}			
+			if (message.is_read == false) {
+				holder.text.setTypeface(m_application.m_vagLightFont, Typeface.BOLD);
 			}
 			holder.text.setText(message.text);
+			
 			holder.time.setText(Util.TimeToString((int)(System.currentTimeMillis()/1000 - message.received)));
 			if( position == getCount() - 1)
 				holder.divider.setVisibility(View.GONE);
@@ -106,6 +113,13 @@ public class MailboxListViewAdapter extends BaseAdapter {
 		{
 			public void onClick(View arg0) {
 				glitchMail currentMessage = m_mailList.get((Integer)arg0.getTag());
+				
+				if (currentMessage.is_read == false) {
+					currentMessage.is_read = true;
+					((MailboxFragment)m_bf).markAsRead(currentMessage.id);
+					((HomeScreen)m_act).getSidebar().setSidebarBadge(Page.Mailbox, ((MailboxFragment)m_bf).getUnreadCount());
+				}
+				
 				MailboxDetailFragment fm = new MailboxDetailFragment(currentMessage.id);
 				((HomeScreen)m_act).setCurrentFragment(fm, true);
 			}
