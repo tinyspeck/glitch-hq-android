@@ -49,6 +49,18 @@
 			android:layout_gravity="center"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"/>
+		
+		<ImageView android:id="@+id/more_achievements_icon"
+		    android:src="@drawable/goto_button"
+		    android:layout_gravity="center" 
+		    android:layout_alignParentTop="true"
+		    android:layout_toRightOf="@id/tv_achievements" 
+		    android:layout_margin="3sp"
+		    android:paddingRight="5sp"
+		    android:layout_width="20sp"
+		    android:layout_height="20sp"
+		    android:clickable="true"
+		    android:visibility="gone"/>
 
 	</RelativeLayout>	
 	

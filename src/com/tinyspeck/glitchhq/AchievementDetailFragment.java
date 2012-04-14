@@ -8,9 +8,12 @@ import org.json.JSONObject;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,11 +21,15 @@ public class AchievementDetailFragment extends BaseFragment {
 	
 	private glitchAchievement m_currentAchievement;
 	private String m_achId;
+	private String m_category;
 	private View m_root;
+	private Button m_btnBack;
+	private Button m_btnSidebar;
 	
-	AchievementDetailFragment(String achievementId)
+	AchievementDetailFragment(String achievementId, String category)
 	{
 		m_achId = achievementId;		
+		m_category = category;
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) 
@@ -35,6 +42,18 @@ public class AchievementDetailFragment extends BaseFragment {
 		View curView = ViewInit(inflater, R.layout.achievement_detail_view, container);
 		m_root = curView;
 		m_root.setVisibility(View.INVISIBLE);
+		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
+		m_btnBack.setText(m_category);
+		m_btnBack.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				FragmentManager fm = getFragmentManager();
+				fm.popBackStack();
+			}			
+		});
+		m_btnBack.setVisibility(View.VISIBLE);
+		m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
+		m_btnSidebar.setVisibility(View.GONE);
+		
 		getAchievement();
 		return curView;
 	}

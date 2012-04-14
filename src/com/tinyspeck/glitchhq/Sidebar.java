@@ -82,10 +82,30 @@ public class Sidebar implements GlitchRequestDelegate {
 		
 			private static final long serialVersionUID = -1411733025455724158L;
 		{
-			// Profile section
 			add(new sidebarItem() {{
 				isHeader = true;
-				text = "Brady";
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = false;
+				text = "Activity";
+				page = Page.Activity;
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = false;
+				text = "Friends";
+				page = Page.Friends;
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = false;
+				text = "Mailbox";
+				page = Page.Mailbox;
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = true;
 			}});
 			
 			add(new sidebarItem() {{
@@ -98,47 +118,11 @@ public class Sidebar implements GlitchRequestDelegate {
 				isHeader = false;
 				text = "Skills";
 				page = Page.Skills;
-			}});
-			
-			add(new sidebarItem() {{
-				isHeader = false;
-				text = "Achievements";
-				page = Page.Achievements;
-			}});
-			
-			add(new sidebarItem() {{
-				isHeader = false;
-				text = "Auctions";
-			}});
-			
-			// Activity section
-			add(new sidebarItem() {{
-				isHeader = true;
-				text = "Activity";
-			}});
-			
-			add(new sidebarItem() {{
-				isHeader = false;
-				text = "Feed";
-				page = Page.Activity;
-			}});
-			
-			add(new sidebarItem() {{
-				isHeader = false;
-				text = "Mailbox";
-				page = Page.Mailbox;
-			}});
-			
-			add(new sidebarItem() {{
-				isHeader = false;
-				text = "Friends";
-				page = Page.Friends;
-			}});
+			}});			
 			
 			// Settings section
 			add(new sidebarItem() {{
 				isHeader = true;
-				text = " ";
 			}});
 			
 			add(new sidebarItem() {{

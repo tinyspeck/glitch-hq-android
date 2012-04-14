@@ -5,7 +5,6 @@ public enum Page {
 	Activity,
 	Skills,
 	Friends,
-	Achievements,
 	Mailbox,
 	Settings
 }

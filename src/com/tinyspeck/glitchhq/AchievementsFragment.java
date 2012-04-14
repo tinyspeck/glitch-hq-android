@@ -12,9 +12,12 @@ import org.json.JSONObject;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,6 +27,8 @@ public class AchievementsFragment extends BaseFragment {
 	private AchievementsListViewAdapter m_adapter;
 	private LinearListView m_listView;
 	private View m_root;
+	private Button m_btnBack;
+	private Button m_btnSidebar;
 	
 	private int currentPage;
 	
@@ -49,12 +54,25 @@ public class AchievementsFragment extends BaseFragment {
 	private void init(View root)
 	{
 		boolean bUpdateData = (m_achievementsList == null);
+	
+		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
+		m_btnBack.setText("Categories");
+		m_btnBack.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				FragmentManager fm = getFragmentManager();
+				fm.popBackStack();			
+			}			
+		});
+		m_btnBack.setVisibility(View.VISIBLE);
+		
+		m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
+		m_btnSidebar.setVisibility(View.GONE);
 		
 		if (bUpdateData) {
 			m_achievementsList = new Vector<glitchAchievement>();			
 		}
 		
-		m_adapter = new AchievementsListViewAdapter(getActivity(), m_achievementsList);
+		m_adapter = new AchievementsListViewAdapter(getActivity(), m_achievementsList, m_category);
 		m_listView = (LinearListView) root.findViewById(R.id.achievements_list);
 		m_listView.setAdapter(m_adapter);
 		TextView tv = (TextView)m_root.findViewById(R.id.achievements_title);
