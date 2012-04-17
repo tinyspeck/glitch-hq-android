@@ -35,6 +35,8 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
  		 String when;
  		 String what;
  		 String avatar;
+ 		 String secret; // for snaps
+ 		 String photo_id; // for snaps
  		 int icon;
  		 int time;
  		 int likes;
@@ -237,8 +239,8 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		act.time = jobj.optInt("when");
 		long seconds = System.currentTimeMillis()/1000;
 		int nSec = (int)seconds - act.time; 
-			act.when = Util.TimeToString(nSec);
-			act.type = sType;
+		act.when = Util.TimeToString(nSec);
+		act.type = sType;
 			
 		if( sType.equalsIgnoreCase("skill_learned") )
 		{
@@ -323,6 +325,42 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			act.playerID = jobj.optString("who_tsid");
 			act.what = "has invited you to join " + jobj.optString("group_name");
 			act.icon = R.drawable.friend_request;
+		} else if (sType.equalsIgnoreCase("photo")) {
+			act.who = jobj.optString("who_name");
+			act.playerID = jobj.optString("who_tsid");
+			JSONObject jURL = jobj.optJSONObject("who_urls");
+			if (jURL != null)
+				act.avatar = jURL.optString("singles") + "_100.png";
+			act.what = jobj.optString("txt");
+			act.secret = jobj.optString("secret");
+			act.photo_id = jobj.optString("photo_id");
+		} else if (sType.equalsIgnoreCase("photo-comment")) 
+		{
+			act.who = jobj.optString("who_name");
+			act.playerID = jobj.optString("who_name");
+			JSONObject jURL = jobj.optJSONObject("who_urls");
+			if (jURL != null)
+				act.avatar = jURL.optString("singles") + "_100.png";
+			act.what = jobj.optString("txt");
+			glitchActivity in_reply_to = new glitchActivity();
+			in_reply_to.who = jobj.optString("owner_name");
+			in_reply_to.playerID = jobj.optString("owner_tsid");
+			act.in_reply_to = in_reply_to;
+			act.secret = jobj.optString("secret");
+			act.photo_id = jobj.optString("photo_id");
+		} else if (sType.equalsIgnoreCase("photo-comment-received")) 
+		{			
+			act.who = jobj.optString("who_name");
+			act.playerID = jobj.optString("who_name");			
+			JSONObject jURL = jobj.optJSONObject("who_urls");
+			if (jURL != null)
+				act.avatar = jURL.optString("singles") + "_100.png";
+			act.what = jobj.optString("txt");				
+			glitchActivity in_reply_to = new glitchActivity();
+			in_reply_to.playerID = ((HomeScreen)getActivity()).getPlayerID();
+			act.in_reply_to = in_reply_to;
+			act.secret = jobj.optString("secret");
+			act.photo_id = jobj.optString("photo_id");
 		}else
 			return null;
 		
