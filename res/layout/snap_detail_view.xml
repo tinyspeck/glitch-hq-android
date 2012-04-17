@@ -61,11 +61,12 @@
   				</LinearLayout> 
 				
  				<ImageView android:id="@+id/snap_detail_photo"
- 				    android:layout_gravity="center" 
+ 				    android:layout_gravity="top" 
  				    android:layout_width="fill_parent"
  				    android:layout_height="wrap_content"
- 				    android:padding="10sp" />
- 				
+ 				    android:background="#000000"
+ 				    android:scaleType="centerCrop"/>
+ 				 				
   				<TextView android:text="" 
 		  			android:id = "@+id/snap_detail_text"
 		  			android:autoLink="all"

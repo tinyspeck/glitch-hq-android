@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -62,7 +63,7 @@ public class SnapDetailFragment extends BaseFragment {
 		String what;
 	}
 	
-	SnapDetailFragment(BaseFragment bf, String ownerTsid, String secret, String photoId)
+	SnapDetailFragment(BaseFragment bf, String ownerTsid, String photoId, String secret)
 	{
 		m_bf = bf;
 		m_ownerTsid = ownerTsid;
@@ -149,7 +150,7 @@ public class SnapDetailFragment extends BaseFragment {
 		m_currentSnap.locationTsid = response.optString("location_tsid");
 		m_currentSnap.shortURL = response.optString("short_url");
 		JSONObject imageURL = response.optJSONObject("images");
-		m_currentSnap.image = imageURL.optString("thumb");
+		m_currentSnap.image = imageURL.optString("standard");
 		JSONArray jsonComments = response.optJSONArray("comments");
 		
 		if (jsonComments != null) {
