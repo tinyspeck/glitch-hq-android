@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -48,6 +49,7 @@ public class HomeScreen extends FragmentActivity {
 	private View m_spinner;
 	private int m_curTab = TAB_PROFILE;
 	private Page m_curPage = Page.Profile;
+	private Page m_newPage;
 	private int skillOrUnlearn = TAB_SKILLS;
 	private Sidebar sidebar;
 
@@ -63,54 +65,73 @@ public class HomeScreen extends FragmentActivity {
 	private BaseFragment m_curFrm;
 
 	private View m_profileView, m_activityView, m_skillsView, m_unlearnView,
-			m_friendsView, m_mailboxView, m_settingsView;
-	private FrameLayout m_sidebarView;
+			m_friendsView, m_achievementsView, m_mailboxView, m_settingsView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		m_application = (MyApplication) getApplicationContext();
+		m_application.homeScreen = this;
 		m_application.Init(this);
 
 		setTitle(getResources().getString(R.string.str_main_title));
 		initLayout();
 	}
+	
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		
+		if (m_newPage != null)
+		{
+			if (m_curPage == m_newPage) {
+				clearFragmentStack();
+			} else {
+				m_curPage = m_newPage;
+				
+				Handler handler = new Handler();
+				Runnable runnable = new Runnable() {
+				    public void run() {
+				    	switch (m_curPage) {
+						case Profile:
+							setCurrentFragment(m_profileFrm, false);
+							break;
+						case Activity:
+							setCurrentFragment(m_activityFrm, false);
+							break;
+						case Skills:
+							setCurrentFragment(m_skillFrm, false);
+							break;
+						case Friends:
+							setCurrentFragment(m_friendsFrm, false);
+							break;
+						case Achievements:
+							setCurrentFragment(m_achievementsFrm, false);
+							break;
+						case Mailbox:
+							setCurrentFragment(m_mailboxFrm, false);
+							break;
+						case Settings:
+							setCurrentFragment(m_settingsFrm, false);
+							break;
+						default:
+							break;
+						}
+				    }
+				};
+				
+				handler.postDelayed(runnable, 1);
+			}			
+		}
+		
+		m_newPage = null;
+	}
 
 	public void setSelectedPage(Page page) {
 
-		if (page == null) {
-			return;
-		}
-
-		if (m_curPage == page) {
-			clearFragmentStack();
-		} else {
-			m_curPage = page;
-			
-			switch (page) {
-			case Profile:
-				setCurrentFragment(m_profileFrm, false);
-				break;
-			case Activity:
-				setCurrentFragment(m_activityFrm, false);
-				break;
-			case Skills:
-				setCurrentFragment(m_skillFrm, false);
-				break;
-			case Friends:
-				setCurrentFragment(m_friendsFrm, false);
-				break;
-			case Mailbox:
-				setCurrentFragment(m_mailboxFrm, false);
-				break;
-			case Settings:
-				setCurrentFragment(m_settingsFrm, false);
-				break;
-			default:
-				break;
-			}
-		}
+		m_newPage = page;
 
 		/*
 		 * Unlearning Code
@@ -133,6 +154,12 @@ public class HomeScreen extends FragmentActivity {
 	static final private float m_sidebarDeltaX = 0.8f; // 80%
 
 	public void showSidebar() {
+		
+		Intent intent = new Intent();
+		intent.setClass(HomeScreen.this, Sidebar.class);
+		startActivityForResult(intent, 0); 
+		
+		/*
 		// Get display width
 		Display display = getWindowManager().getDefaultDisplay();
 		int width = display.getWidth();
@@ -173,11 +200,11 @@ public class HomeScreen extends FragmentActivity {
 
 		// Run the animation
 		m_stack.startAnimation(animation);
+		*/
 	}
 
 	private float sidebarTouchOffset;
 	private Boolean sidebarPickedUp = false;
-	private final static int shadowWidth = 27;
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -191,7 +218,7 @@ public class HomeScreen extends FragmentActivity {
 			float x = ev.getX();
 			ev.setLocation(ev.getX(), ev.getY()-20.0f);
 			
-			m_sidebarView.dispatchTouchEvent(ev);
+			//m_sidebarView.dispatchTouchEvent(ev);
 			m_stack.getParent().requestDisallowInterceptTouchEvent(true);
 		} else {
 			// Handle event normally
@@ -427,15 +454,7 @@ public class HomeScreen extends FragmentActivity {
 		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
 		m_friendsView = findViewById(R.id.fragmentView_friends);
 		m_mailboxView = findViewById(R.id.fragmentView_mailbox);
-		m_sidebarView = (FrameLayout) findViewById(R.id.view_sidebar);
 		m_settingsView = findViewById(R.id.fragmentView_settings);
-
-		// Inflate sidebar and add to sidebarView
-		LayoutInflater inflator = (LayoutInflater) this
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View sidebarView = (View) inflator.inflate(R.layout.sidebar_view, null);
-		m_sidebarView.addView(sidebarView);
-		sidebar = new Sidebar(m_sidebarView, this);
 
 		setCurrentFragment(m_profileFrm, false);
 	}
@@ -463,8 +482,6 @@ public class HomeScreen extends FragmentActivity {
 			menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1,
 					R.string.str_menu_more);
 
-		menu.add(2, MENU_COMMAND_SIDEBAR, Menu.NONE + 2, "Sidebar");
-
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -484,13 +501,6 @@ public class HomeScreen extends FragmentActivity {
 				m_curFrm.onMore();
 				FlurryAgent.logEvent(m_curFrm.getClass().toString()
 						+ " - Clicked to load more");
-			}
-			break;
-		case MENU_COMMAND_SIDEBAR:
-			if (isShowingSidebar()) {
-				dismissSidebar();
-			} else {
-				showSidebar();
 			}
 			break;
 		}

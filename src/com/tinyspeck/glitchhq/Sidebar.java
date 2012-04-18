@@ -14,7 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 
-public class Sidebar implements GlitchRequestDelegate {
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ScrollView;
+
+public class Sidebar extends Activity implements GlitchRequestDelegate {
 
 	private SidebarListViewAdapter m_adapter;
 	private LinearListView m_listView;
@@ -26,6 +32,7 @@ public class Sidebar implements GlitchRequestDelegate {
 
 	public class sidebarItem {
 		 Boolean isHeader;
+		 Boolean isTop = false;
 		 String text; 		  
 		 Page page;
 		 int badge;
@@ -33,6 +40,7 @@ public class Sidebar implements GlitchRequestDelegate {
 	
 	private Vector<sidebarItem> m_sbList;
 
+	/*
 	public Sidebar(View root, Activity activity) {
 		m_sbList = getSidebarList();
 
@@ -40,9 +48,33 @@ public class Sidebar implements GlitchRequestDelegate {
 		m_adapter = new SidebarListViewAdapter(this, m_sbList);
 		m_listView = (LinearListView) root.findViewById(R.id.SidebarListView);
 		m_listView.setAdapter(m_adapter);
+<<<<<<< HEAD
+=======
+	}*/
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.sidebar_view);
+		
+		m_sbList = getSidebarList();
+
+		MyApplication app = (MyApplication) getApplicationContext();
+		m_activity = app.homeScreen;
+		m_adapter = new SidebarListViewAdapter(this, m_sbList);
+		m_listView = (LinearListView) findViewById(R.id.SidebarListView);
+		m_listView.setAdapter(m_adapter);
 		
 		GlitchRequest request = ((MyApplication)((HomeScreen)m_activity).getApplication()).glitch.getRequest("mail.getUnreadCount");
 		request.execute(this);
+		
+		/*
+		// Inflate sidebar and add to sidebarView
+		LayoutInflater inflator = (LayoutInflater) this
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View sidebarView = (View) inflator.inflate(R.layout.sidebar_view, null);
+		m_sidebarView.addView(sidebarView);
+		Sidebar sidebar = new Sidebar(m_sidebarView, this);*/
 	}
 
 	public Activity getActivity() {
@@ -84,6 +116,8 @@ public class Sidebar implements GlitchRequestDelegate {
 		{
 			add(new sidebarItem() {{
 				isHeader = true;
+				text = " ";
+				isTop = true;
 			}});
 			
 			add(new sidebarItem() {{
@@ -106,6 +140,7 @@ public class Sidebar implements GlitchRequestDelegate {
 			
 			add(new sidebarItem() {{
 				isHeader = true;
+				text = " ";
 			}});
 			
 			add(new sidebarItem() {{
@@ -118,7 +153,7 @@ public class Sidebar implements GlitchRequestDelegate {
 				isHeader = false;
 				text = "Skills";
 				page = Page.Skills;
-			}});			
+			}});
 			
 			// Settings section
 			add(new sidebarItem() {{

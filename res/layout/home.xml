@@ -11,18 +11,9 @@
     <RelativeLayout
         android:id="@+id/view_stack"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="-28dip">
-        
-        <View
-            android:id="@+id/view_shadow"
-            android:layout_width="27dip"
-            android:layout_height="fill_parent"
-            android:background="@drawable/shadow" >
-        </View>
+        android:layout_height="fill_parent">
 
         <LinearLayout
-            android:layout_toRightOf="@id/view_shadow"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical" >
