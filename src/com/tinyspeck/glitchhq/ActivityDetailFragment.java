@@ -10,6 +10,7 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,13 +31,17 @@ public class ActivityDetailFragment extends BaseFragment{
   	private glitchActivity m_currentActivity;
   	private String m_actId, m_playerId, m_playerName;
   	private View m_root;
+  	private Button m_btnBack, m_btnSidebar;
+  	private BaseFragment m_bf;
   	private boolean m_bNotes = false;
   	private boolean m_bRefreshToBottom = false;
   	
-  	ActivityDetailFragment( String playerName, String playerId, String actId )
+  	public ActivityDetailFragment(BaseFragment bf, String playerName, String playerId, String actId )
   	{
+  		m_bf = bf;
   		m_actId = actId;
   		m_playerId = playerId;
+  		m_playerName = playerName;  		
   	}
   	
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -48,6 +53,24 @@ public class ActivityDetailFragment extends BaseFragment{
     {
     	View curView =  ViewInit( inflater, R.layout.activity_detail_view, container );
     	m_root = curView;
+    	
+    	m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
+    	if (m_bf instanceof ProfileFragment) {
+    		m_btnBack.setText(((HomeScreen)getActivity()).getPlayerName());
+    	} else if (m_bf instanceof ActivityFragment){
+    		m_btnBack.setText("Feed");
+    	} else {
+    		m_btnBack.setText("Back");
+    	}
+    	m_btnBack.setVisibility(View.VISIBLE);
+    	m_btnBack.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				FragmentManager fm = getFragmentManager();
+				fm.popBackStack();
+			}
+		});
+    	m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
+		m_btnSidebar.setVisibility(View.GONE);
     	
     	getActivityStatus();
 		return curView;
@@ -250,7 +273,7 @@ public class ActivityDetailFragment extends BaseFragment{
 			tv.setOnClickListener( new OnClickListener(){
 				public void onClick(View v) {
 					glitchActivity gact = (glitchActivity)v.getTag();
-					ActivityDetailFragment fm = new ActivityDetailFragment( gact.who, gact.playerID, gact.id);
+					ActivityDetailFragment fm = new ActivityDetailFragment(m_bf, gact.who, gact.playerID, gact.id);
 					((HomeScreen)getActivity()).setCurrentFragment(fm, true );
 				}
 			});

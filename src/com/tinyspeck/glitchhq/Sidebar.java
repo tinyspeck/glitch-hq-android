@@ -110,7 +110,7 @@ public class Sidebar implements GlitchRequestDelegate {
 			
 			add(new sidebarItem() {{
 				isHeader = false;
-				text = "Profile";
+				text = "Your profile";
 				page = Page.Profile;
 			}});
 			

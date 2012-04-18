@@ -224,11 +224,14 @@ public class ActivityListViewAdapter extends BaseAdapter
 						currentActivity.type.equalsIgnoreCase("photo-comment") ||
 						currentActivity.type.equalsIgnoreCase("photo-comment-received")) 
 				{
-					SnapDetailFragment f = new SnapDetailFragment(m_bf, currentActivity.in_reply_to.playerID, currentActivity.photo_id, currentActivity.secret);
+					SnapDetailFragment f = new SnapDetailFragment(m_bf, 
+							currentActivity.in_reply_to.who, currentActivity.in_reply_to.playerID, 
+							currentActivity.photo_id, currentActivity.secret);
 					((HomeScreen)m_act).setCurrentFragment(f, true);
 				}
 				else{
-					ActivityDetailFragment fm = new ActivityDetailFragment(currentActivity.who, currentActivity.playerID,currentActivity.id);
+					ActivityDetailFragment fm = new ActivityDetailFragment(m_bf, currentActivity.who, 
+							currentActivity.playerID,currentActivity.id);
 					((HomeScreen)m_act).setCurrentFragment(fm, true );
 				}
 			}
