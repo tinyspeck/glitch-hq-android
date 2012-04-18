@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tinyspeck.glitchhq.BaseFragment.glitchActivity;
@@ -65,11 +67,18 @@ public class SidebarListViewAdapter extends BaseAdapter {
 		// Inflate views
 		if (holder == null && sbItem != null) {
 			
-			if (sbItem.isHeader) {
+			if (sbItem.isHeader)
+			{
 				convertView = m_inflater.inflate(R.layout.sidebar_header, null);
-			} else {
-				convertView = m_inflater.inflate(R.layout.sidebar_list_item, null);				
+				if (sbItem.isTop)
+				{
+					LinearLayout layout = (LinearLayout) convertView.findViewById(R.id.actfeed_item);
+					layout.setBackgroundResource(R.drawable.sidebar_header_gradient_top);
+				}
+					
 			}
+			else
+				convertView = m_inflater.inflate(R.layout.sidebar_list_item, null);
 			
 			holder = new ViewHolder();
 
@@ -116,8 +125,8 @@ public class SidebarListViewAdapter extends BaseAdapter {
 		holder.whole.setTag(position);
 		holder.whole.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
+				m_sb.finish();
 				m_act.setSelectedPage(sbItem.page);
-				m_act.dismissSidebar();
 			}
 		});
 		return convertView;

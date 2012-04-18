@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/actfeed_item"
         android:layout_width="fill_parent"
-        android:layout_height="28dip"
+        android:layout_height="20dip"
         android:layout_gravity="center"
         android:background="@drawable/sidebar_header_gradient"
         android:clickable="false">
