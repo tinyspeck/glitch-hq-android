@@ -60,6 +60,7 @@ public class HomeScreen extends FragmentActivity {
 	private FriendsFragment m_friendsFrm;
 	private MailboxFragment m_mailboxFrm;
 	private SettingsFragment m_settingsFrm;
+	private AchievementsFragment m_achievementsFrm;
 	private View m_stack;
 
 	private BaseFragment m_curFrm;
