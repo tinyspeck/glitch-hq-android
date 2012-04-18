@@ -20,10 +20,10 @@
 
 	<ImageView android:id="@+id/avatar"
 	    android:layout_below="@id/playername"
-	    android:layout_gravity="center"
+	    android:layout_gravity="left"
 		android:layout_alignParentLeft="true"	    			
 		android:paddingBottom="10sp"
-		android:layout_width="140sp" 
+		android:layout_width="140sp"
 		android:layout_height="188sp" />
 
   	<LinearLayout android:id="@+id/profile_user_energy"
@@ -48,7 +48,7 @@
 	    android:gravity="center" 
 		android:layout_width="fill_parent"
 		android:paddingTop="5sp"
-		android:paddingRight="40sp"    
+		android:paddingRight="20sp"    
 		android:orientation="vertical" >
   
   		<include layout="@layout/profile_user_data"/>

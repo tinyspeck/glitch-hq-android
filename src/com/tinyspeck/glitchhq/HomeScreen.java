@@ -44,6 +44,7 @@ public class HomeScreen extends FragmentActivity {
 
 	private MyApplication m_application;
 	private String m_selfPlayerID;
+	private String m_selfPlayerName;
 	private View m_spinner;
 	private int m_curTab = TAB_PROFILE;
 	private Page m_curPage = Page.Profile;
@@ -568,7 +569,11 @@ public class HomeScreen extends FragmentActivity {
 	 */
 
 	public void setPlayerName(String playerName) {
-		//m_btnProfile.setText(playerName);
+		m_selfPlayerName = playerName;
+	}
+	
+	public String getPlayerName() {
+		return m_selfPlayerName;
 	}
 
 	public void showSpinner(boolean bVisible) {

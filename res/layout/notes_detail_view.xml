@@ -63,11 +63,13 @@
 
 		</LinearLayout>
   
-<ImageView  android:gravity="center" android:src="@drawable/in_reply_to"
+		<ImageView android:src="@drawable/in_reply_to"
+		    android:gravity="center" 
 	    	android:layout_gravity="center"
-			android:layout_width="fill_parent" android:layout_height="50sp"/>
+			android:layout_width="fill_parent" 
+			android:layout_height="50sp"/>
   
-</LinearLayout>
+	</LinearLayout>
   
 <LinearLayout
   android:id="@+id/section_myself"

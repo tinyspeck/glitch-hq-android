@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/user_data" 
     android:layout_height="wrap_content" 		     
-	android:layout_width="160sp"    
+	android:layout_width="wrap_content" 
 	android:orientation="vertical" 
 	android:visibility="invisible">
 
@@ -45,14 +45,14 @@
 			android:layout_alignParentTop="true"
 			android:layout_toRightOf="@id/profile_achievements_icon"
 			android:layout_margin="3sp" 
-			android:paddingRight="5sp" 
+			android:paddingRight="2sp"
 			android:layout_gravity="center"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"/>
 		
 		<ImageView android:id="@+id/more_achievements_icon"
 		    android:src="@drawable/goto_button"
-		    android:layout_gravity="center" 
+		    android:layout_gravity="center_vertical" 
 		    android:layout_alignParentTop="true"
 		    android:layout_toRightOf="@id/tv_achievements" 
 		    android:layout_margin="3sp"

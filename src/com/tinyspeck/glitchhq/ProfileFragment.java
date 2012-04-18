@@ -355,6 +355,7 @@ public class ProfileFragment extends BaseFragment{
     		m_playerTsid = response.optString("player_tsid");
     		((HomeScreen)getActivity()).setPlayerID( m_playerTsid );
     		m_playerName = response.optString("player_name");
+    		((HomeScreen)getActivity()).setPlayerName(m_playerName);
     		m_avatarUrl = response.optString("avatar_url");
 
     		m_application.Download( m_avatarUrl, m_avatar, MyApplication.DOWNLOAD_TYPE_MIRROR );
@@ -371,7 +372,7 @@ public class ProfileFragment extends BaseFragment{
 		    m_actItemLast = response.optString("last");
     		m_actHasMore = (response.optInt("has_more")==1)? true: false;
 
-    		addActivityList( m_actList, response, !m_bOtherProfile );
+    		addActivityList(m_actList, response, m_playerName, m_playerTsid);
     		updateActivityFeed();
     		onRequestComplete();
     		

@@ -28,12 +28,12 @@ import android.widget.TextView.OnEditorActionListener;
 public class ActivityDetailFragment extends BaseFragment{
 
   	private glitchActivity m_currentActivity;
-  	private String m_actId, m_playerId;
+  	private String m_actId, m_playerId, m_playerName;
   	private View m_root;
   	private boolean m_bNotes = false;
   	private boolean m_bRefreshToBottom = false;
   	
-  	ActivityDetailFragment( String playerId, String actId )
+  	ActivityDetailFragment( String playerName, String playerId, String actId )
   	{
   		m_actId = actId;
   		m_playerId = playerId;
@@ -96,8 +96,7 @@ public class ActivityDetailFragment extends BaseFragment{
 	
 	private void receiveActivityStatus( JSONObject response )
 	{
-		boolean bOwner = ((HomeScreen)getActivity()).getPlayerID() == m_playerId;
-		m_currentActivity = GetActivityFromJObject( response.optJSONObject("item"), m_actId, bOwner );
+		m_currentActivity = GetActivityFromJObject( response.optJSONObject("item"), m_actId, m_playerName, m_playerId );
 		m_currentActivity.in_reply_to =  GetActivityFromJObject( response.optJSONObject("item").optJSONObject("in_reply_to") );
 		m_currentActivity.likes = response.optJSONObject("item").optInt("likes");
 		m_bNotes = m_currentActivity.type.equalsIgnoreCase("status_reply") || m_currentActivity.type.equalsIgnoreCase("status");
@@ -251,7 +250,7 @@ public class ActivityDetailFragment extends BaseFragment{
 			tv.setOnClickListener( new OnClickListener(){
 				public void onClick(View v) {
 					glitchActivity gact = (glitchActivity)v.getTag();
-					ActivityDetailFragment fm = new ActivityDetailFragment( gact.playerID, gact.id);
+					ActivityDetailFragment fm = new ActivityDetailFragment( gact.who, gact.playerID, gact.id);
 					((HomeScreen)getActivity()).setCurrentFragment(fm, true );
 				}
 			});
