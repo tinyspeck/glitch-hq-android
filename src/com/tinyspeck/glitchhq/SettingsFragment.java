@@ -94,6 +94,11 @@ public class SettingsFragment extends BaseFragment {
 			}
 			
 		});
+		
+		TextView copyright = (TextView) m_root.findViewById(R.id.settings_copyright);
+		copyright.setTypeface(m_application.m_vagLightFont);
+		TextView version = (TextView) m_root.findViewById(R.id.settings_version);
+		version.setTypeface(m_application.m_vagLightFont);
 	}
 	
 	public static boolean getPushNotificationsOption(Context context) {		
