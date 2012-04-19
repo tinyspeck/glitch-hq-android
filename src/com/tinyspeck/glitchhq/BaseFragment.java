@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -34,6 +35,8 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
  		 String when;
  		 String what;
  		 String avatar;
+ 		 String secret; // for snaps
+ 		 String photo_id; // for snaps
  		 int icon;
  		 int time;
  		 int likes;
@@ -87,6 +90,48 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		String user_name;
 	};
 	
+	public class glitchAchievement {
+		String id;
+		String name;
+		String desc;
+		String icon;
+		boolean got;
+	}
+	
+	public class glitchMail {
+		int id;
+		int currants;
+		String sender_label;
+		String sender_tsid;
+		String sender_avatar;
+		String text;
+		long received;
+		boolean replied;
+		boolean is_read;
+		boolean is_expedited;
+		glitchMailItem item;
+		
+		@Override
+		public boolean equals(Object other)
+		{
+			if (other == null) return false;
+			if (other == this) return true;
+			if (!(other instanceof glitchMail)) return false;
+			glitchMail otherMail = (glitchMail)other;
+			if (this.id == otherMail.id) return true;
+			else return false;
+		}
+	}
+	
+	public class glitchMailItem {
+		String tsid;
+		String name;
+		String class_id;
+		String desc;
+		int count;
+		String icon;
+	}
+	
 	class SortByName implements Comparator<glitchFriend>{   
 		public int compare(glitchFriend f1, glitchFriend f2) {
 			String name1 = f1.player_name.toLowerCase();
@@ -101,8 +146,26 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		View curView = inflater.inflate( nLayout, container, false  );
 		setEmptyClickListener( curView );
 		setupTitlebar( curView );
+		setupSidebarButton( curView );
 		return curView;
 	}
+	
+	
+	private void setupSidebarButton( View root )
+	{
+		final Button btnSidebar = (Button)root.findViewById(R.id.btnSidebar);
+		btnSidebar.setVisibility(View.VISIBLE);
+		
+		btnSidebar.setOnClickListener( new OnClickListener() {
+
+			public void onClick(View arg0) {
+				HomeScreen activity = (HomeScreen) getActivity();
+				activity.showSidebar();
+			}
+			
+		});
+	}
+	
 	
 	private void setupTitlebar( View root )
 	{
@@ -166,18 +229,19 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
    		return act;
 	}
 
-	public glitchActivity GetActivityFromJObject( JSONObject jobj, String key, boolean bOwner )
-	{
+	public glitchActivity GetActivityFromJObject( JSONObject jobj, String key, String ownerName, String ownerTsid )
+	{	
+		boolean bOwner = ownerTsid.equalsIgnoreCase(((HomeScreen)getActivity()).getPlayerID());
 		glitchActivity act = new glitchActivity();
 		
-		String sType = jobj.optString("type");
-
+		String sType = jobj.optString("type");	
+		
 		act.id = key;
 		act.time = jobj.optInt("when");
 		long seconds = System.currentTimeMillis()/1000;
 		int nSec = (int)seconds - act.time; 
-			act.when = Util.TimeToString(nSec);
-			act.type = sType;
+		act.when = Util.TimeToString(nSec);
+		act.type = sType;
 			
 		if( sType.equalsIgnoreCase("skill_learned") )
 		{
@@ -262,13 +326,56 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			act.playerID = jobj.optString("who_tsid");
 			act.what = "has invited you to join " + jobj.optString("group_name");
 			act.icon = R.drawable.friend_request;
+		} else if (sType.equalsIgnoreCase("photo")) {
+			act.who = jobj.optString("who_name");
+			act.playerID = jobj.optString("who_tsid");
+			JSONObject jURL = jobj.optJSONObject("who_urls");
+			if (jURL != null)
+				act.avatar = jURL.optString("singles") + "_100.png";
+			else
+				act.icon = R.drawable.status;
+			act.what = jobj.optString("txt");
+			act.secret = jobj.optString("secret");
+			act.photo_id = jobj.optString("photo_id");
+		} else if (sType.equalsIgnoreCase("photo-comment")) 
+		{
+			act.who = jobj.optString("who_name");
+			act.playerID = jobj.optString("who_name");
+			JSONObject jURL = jobj.optJSONObject("who_urls");
+			if (jURL != null)
+				act.avatar = jURL.optString("singles") + "_100.png";
+			else
+				act.icon = R.drawable.status;
+			act.what = jobj.optString("txt");
+			glitchActivity in_reply_to = new glitchActivity();
+			in_reply_to.who = jobj.optString("owner_name");
+			in_reply_to.playerID = jobj.optString("owner_tsid");
+			act.in_reply_to = in_reply_to;
+			act.secret = jobj.optString("secret");
+			act.photo_id = jobj.optString("photo_id");
+		} else if (sType.equalsIgnoreCase("photo-comment-received")) 
+		{			
+			act.who = jobj.optString("who_name");
+			act.playerID = jobj.optString("who_name");			
+			JSONObject jURL = jobj.optJSONObject("who_urls");
+			if (jURL != null)
+				act.avatar = jURL.optString("singles") + "_100.png";
+			else
+				act.icon = R.drawable.status;
+			act.what = jobj.optString("txt");				
+			glitchActivity in_reply_to = new glitchActivity();
+			in_reply_to.who = ownerName;
+			in_reply_to.playerID = ownerTsid;	
+			act.in_reply_to = in_reply_to;
+			act.secret = jobj.optString("secret");
+			act.photo_id = jobj.optString("photo_id");
 		}else
 			return null;
 		
 		return act;
 	}
 	
-	public void addActivityList( Vector<glitchActivity> actList, JSONObject response, boolean bOwner )
+	public void addActivityList( Vector<glitchActivity> actList, JSONObject response, String ownerName, String ownerTsid)
 	{
 		JSONObject jItems = response.optJSONObject("items");
 		if( jItems != null && jItems.length() > 0)
@@ -279,9 +386,11 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     		{	
     			String key =  it.next();
     			JSONObject jobj = jItems.optJSONObject( key );
-    			glitchActivity act = GetActivityFromJObject( jobj, key, bOwner );
-    			if( act != null && !findActivityInList( actList,act.id ) ) 	
-    				actList.add(act);
+    			if (jobj != null) {
+    				glitchActivity act = GetActivityFromJObject( jobj, key, ownerName, ownerTsid );
+    				if( act != null && !findActivityInList( actList,act.id ) ) 	
+    					actList.add(act);
+    			}
     		}
     		Collections.sort( actList, new SortByTime() );
 //    		m_adapter.notifyDataSetChanged();

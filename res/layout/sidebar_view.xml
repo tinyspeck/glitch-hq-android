@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#E4EDEC">
+    android:background="#000000">
 
     <ScrollView
         android:id="@+id/SidebarScrolLView"
@@ -20,13 +20,5 @@
             android:gravity="center_vertical"
             android:orientation="vertical" />
     </ScrollView>
-
-    <View
-        android:id="@+id/sidebar_shadow"
-        android:layout_width="27dip"
-        android:layout_height="fill_parent"
-        android:background="@drawable/shadow"
-        android:layout_gravity="right">
-    </View>
 
 </FrameLayout>

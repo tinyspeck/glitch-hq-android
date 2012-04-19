@@ -1,56 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content" 
+    android:layout_gravity="top" >
 
- <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top" 
-		      xmlns:android="http://schemas.android.com/apk/res/android" 
- 			   android:layout_width="wrap_content" >
+	<LinearLayout android:id="@+id/profile_currants"
+	    android:visibility="gone"
+	    android:layout_height="wrap_content"
+	    android:layout_width="60sp" 
+	    android:layout_gravity="top" 				
+		android:orientation="vertical">
 
-  <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top" 
-		    	android:visibility="invisible"
-		    	android:id="@+id/player_mood"
-				android:layout_width="60sp" android:orientation="vertical">
-
-  <TextView android:text="Mood" 
-	    	style = "@style/MoodTextStyle"  
+	    <ImageView android:id="@+id/profile_currant_icon"
+	        android:src="@drawable/curranticon"
+	        android:layout_gravity="center"	    	
+			android:layout_width="30sp" 
+			android:layout_height="30sp" />
+	    
+		<TextView android:id="@+id/profile_currant_amount" 
+		    android:text="" 
+	    	style = "@style/ProfileStyle"  
 	    	android:layout_gravity="center"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-
-  <ImageView android:layout_gravity="center"
-	    	android:id="@+id/img_mood"
-			android:layout_width="30sp" android:layout_height="30sp" />
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>  
 				
-  </LinearLayout>				
+	</LinearLayout>				
 
- <LinearLayout android:layout_height="wrap_content" android:layout_gravity="top" 
-		    	android:id="@+id/player_energy"
-		    	android:visibility="invisible"
-		    	android:layout_marginRight="20sp"
-				android:layout_width="52sp" android:orientation="vertical">
+	<LinearLayout android:id="@+id/profile_imagination"
+	    android:visibility="gone" 
+	    android:layout_height="wrap_content"
+	    android:layout_width="60sp" 
+	    android:layout_gravity="top"		
+		android:layout_marginRight="10sp"
+		android:orientation="vertical">
 
-  <TextView android:text="Energy" 
-	    	style = "@style/MoodTextStyle"  
+	    <ImageView android:id="@+id/profile_imagination_icon" 
+	        android:src="@drawable/imagination_icon"
+	        android:layout_gravity="center"
+	        android:layout_width="30sp"
+	        android:layout_height="30sp"/>
+	    
+  		<TextView android:id="@+id/profile_imagination_amount" 
+  		    android:text="" 
+	    	style = "@style/ProfileStyle"  
 	    	android:layout_gravity="center"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"/>
+	
+	</LinearLayout>				
 
-  <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content" >
-  <ImageView android:layout_width="52sp" android:layout_height="52sp" android:id="@+id/img_energy" android:layout_alignParentTop="true" android:layout_alignParentLeft="true" />
-  <TextView android:text="" 
-	    	style = "@style/EnergyTextStyle1"  
-	    	android:id="@+id/tv_energy1"
-	    	android:layout_marginTop="10sp"
-	    	android:layout_alignParentTop="true"
-	    	android:layout_centerHorizontal="true"
-	    	android:gravity="center"
-	    	android:layout_gravity="center"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-  <TextView android:text="" 
-	    	style = "@style/EnergyTextStyle2"  
-	    	android:id="@+id/tv_energy2"
-	    	android:layout_centerHorizontal="true"
-	    	android:layout_below="@id/tv_energy1"
-	    	android:gravity="center"
-	    	android:layout_gravity="center"
-			android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-  </RelativeLayout>
-  
-  </LinearLayout>				
-
-  </LinearLayout>
+</LinearLayout>

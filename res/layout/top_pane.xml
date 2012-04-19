@@ -1,50 +1,127 @@
-<RelativeLayout android:id="@+id/title" android:layout_height="wrap_content" android:layout_gravity="center"
- 		   xmlns:android="http://schemas.android.com/apk/res/android"
-			android:layout_width="fill_parent" android:layout_weight="0.0" android:background="#ffffff"
-			>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title" 
+    android:layout_height="wrap_content" 
+    android:layout_gravity="center"
+	android:layout_width="fill_parent" 
+	android:layout_weight="0.0" 
+	android:background="#ffffff">
 
-  <LinearLayout android:id="@+id/title_bar_layout" android:layout_height="wrap_content" android:layout_gravity="center"
+  	<LinearLayout android:id="@+id/title_bar_layout" android:layout_height="wrap_content" android:layout_gravity="center"
   		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
   		android:layout_width="fill_parent" >
   		
-  <include layout="@layout/title_bar" />
-    		
-  </LinearLayout>			
+  		<include layout="@layout/title_bar" />
+		
+  	</LinearLayout>			
 	 
-  <Button android:id="@+id/btnFilter" android:text="Filter" 
-  			android:textColor="#ffffff"
-  			android:visibility="gone"
-  			android:layout_marginLeft="6sp"
-  			android:layout_alignParentLeft="true"
-  			android:background="@drawable/filter_button_state"
-  			android:layout_centerVertical="true"
-			android:layout_width="54sp" android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnBackToMailbox"
+  	    android:text="Mailbox"
+  	    android:textColor="#ffffff"
+		android:visibility="gone"
+		android:layout_marginLeft="6sp"
+		android:layout_alignParentLeft="true"
+		android:background="@drawable/filter_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="60sp" android:layout_height="33sp"/>
+  	
+  	<Button android:id="@+id/btnFilter" android:text="Filter" 
+		android:textColor="#ffffff"
+		android:visibility="gone"
+		android:layout_marginRight ="6sp"
+		android:layout_alignParentRight="true"
+		android:background="@drawable/filter_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnCloseRecipientChooser"
+  	    android:text="Close"
+  	    android:textColor="#ffffff"
+  	    android:visibility="gone"
+  	    android:layout_marginLeft="6sp"
+  	    android:layout_alignParentLeft="true"
+  	    android:background="@drawable/filter_button_state"
+  	    android:layout_centerVertical="true"
+  	    android:layout_width="54sp"
+  	    android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnBackToRecipientChooser"
+  	    android:text="To"
+  	    android:textColor="#ffffff"
+  	    android:visibility="gone"
+  	    android:layout_marginLeft="6sp"
+  	    android:layout_alignParentLeft="true"
+  	    android:background="@drawable/filter_button_state"
+  	    android:layout_centerVertical="true"
+  	    android:layout_width="48sp"
+  	    android:layout_height="33sp" />
 
-  <Button android:id="@+id/btnEdit" android:text="" 
-  			android:layout_alignParentRight="true"
-  			android:visibility="gone"
-  			android:layout_marginRight="6sp"
-  			android:background="@drawable/compose_button_state"
-  			android:layout_centerVertical="true"
-			android:layout_width="41sp" android:layout_height="33sp" />
+  	<Button android:id="@+id/btnComposeMail" android:text="" 
+		android:layout_alignParentRight="true"
+		android:visibility="gone"
+		android:layout_marginRight="6sp"
+		android:background="@drawable/compose_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="41sp" android:layout_height="33sp" />
+  
+  	<Button android:id="@+id/btnReply" android:text="" 
+		android:layout_alignParentRight="true"
+		android:visibility="gone"
+		android:layout_marginRight="6sp"
+		android:background="@drawable/reply_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp" />
 
-  <Button android:id="@+id/btnSettings" android:text="" 
-  			android:layout_alignParentRight="true"
-  			android:visibility="gone"
-  			android:layout_marginRight="6sp"
-  			android:background="@drawable/settings_button_state"
-  			android:layout_centerVertical="true"
-			android:layout_width="54sp" android:layout_height="33sp" />
+  	<Button android:id="@+id/btnSettings" android:text="" 
+		android:layout_alignParentRight="true"
+		android:visibility="gone"
+		android:layout_marginRight="6sp"
+		android:background="@drawable/settings_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnSendMail"
+  	    android:textColor="#ffffff" 
+  	    android:text="Send" 
+		android:layout_alignParentRight="true"
+		android:visibility="gone"
+		android:layout_marginRight="6sp"
+		android:background="@drawable/filter_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp" />
+  
+	<Button android:id="@+id/btnSidebar" android:text="" 
+		android:layout_alignParentLeft="true"
+		android:visibility="gone"
+  		android:layout_marginLeft="6sp"
+  		android:background="@drawable/sidebar"
+  		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp" />
 
-  <Button android:id="@+id/btnLike" android:text="Like" 
-  			android:layout_alignParentRight="true"
-  			android:textColor="#ffffff"
-  			android:visibility="gone"
-  			android:layout_marginRight="6sp"
-  			android:background="@drawable/filter_button_state"
-  			android:layout_centerVertical="true"
-			android:layout_width="50sp" android:layout_height="33sp" />
+	<Button android:id="@+id/btnLike" android:text="Like" 
+		android:layout_alignParentRight="true"
+		android:textColor="#ffffff"
+		android:visibility="gone"
+		android:layout_marginRight="6sp"
+		android:background="@drawable/filter_button_state"
+		android:layout_centerVertical="true"
+		android:layout_width="50sp" android:layout_height="33sp" />
+  
+	<Button android:id="@+id/btnBack"
+		android:text="Back"
+		android:singleLine="true"
+		android:textColor="#ffffff"
+		android:visibility="gone"
+		android:paddingLeft="5sp"
+		android:paddingRight="5sp"
+		android:layout_marginLeft="6sp"
+		android:layout_alignParentLeft="true"
+		android:layout_centerVertical="true"
+		android:ellipsize="end"
+		android:background="@drawable/filter_button_state"
+		android:layout_width="70sp" 
+		android:layout_height="33sp"/>
 
 </RelativeLayout>	
   

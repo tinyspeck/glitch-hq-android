@@ -32,8 +32,7 @@ public class ActivityFragment extends BaseFragment{
     private LinearListView  m_listView;
     
     private Button m_btnFilter;
-    private Button m_btnEdit;
-    private Button m_btnSettings;
+    private Button m_btnNewUpdate;
     
 	private String m_actItemLast;
 	private boolean m_actHasMore;
@@ -84,17 +83,15 @@ public class ActivityFragment extends BaseFragment{
 	private void initTopMenu()
 	{
 		 m_btnFilter = (Button)m_root.findViewById(R.id.btnFilter);
-		 m_btnEdit = (Button)m_root.findViewById(R.id.btnEdit);
 		 m_btnFilter.setVisibility(View.VISIBLE);
-		 m_btnEdit.setVisibility(View.VISIBLE);
 		 
-		 m_btnEdit.setOnClickListener( new OnClickListener(){
+		 m_btnNewUpdate = (Button)m_root.findViewById(R.id.btnNewUpdate);		 		 
+		 m_btnNewUpdate.setOnClickListener( new OnClickListener(){
 				public void onClick(View arg0) {
 					FlurryAgent.logEvent("Activity - 'Compose' button pressed");
 					composeNotes();
 				}
-		 });
-		 
+		 });		 
 		 m_btnFilter.setOnClickListener( new OnClickListener(){
 				public void onClick(View arg0) {
 				
@@ -202,13 +199,20 @@ public class ActivityFragment extends BaseFragment{
 		    m_actItemLast = response.optString("last");
     		m_actHasMore = (response.optInt("has_more")==1)? true: false;
     		
-    		addActivityList( m_actList, response, true );
+    		addActivityList( m_actList, response, ((HomeScreen)getActivity()).getPlayerName(), ((HomeScreen)getActivity()).getPlayerID());
     		updateActivityFeeds();
     		if ( m_actList.size() == 0 ) {
     			((TextView)m_root.findViewById( R.id.list_message )).setText( R.string.activity_no_items );
     		}
 			onRequestComplete();
-		}else if ( method == "activity.setStatus" || method == "activity.joinGroup" || method == "activity.declineGroup" || method == "activity.addBuddy" || method == "activity.declineBuddy" )
+		} else if ( method == "activity.setStatus" ) 
+		{
+			if (response.optInt("ok") != 1) {
+				Util.shortToast(getActivity(), "Failed");
+			} else {
+				Util.shortToast(getActivity(), "Posted");				
+			}
+		} else if (method == "activity.joinGroup" || method == "activity.declineGroup" || method == "activity.addBuddy" || method == "activity.declineBuddy")
 		{
 			getActivity(false);
 			onRequestComplete();

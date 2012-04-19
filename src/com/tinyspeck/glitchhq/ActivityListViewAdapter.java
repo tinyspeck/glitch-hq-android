@@ -127,7 +127,7 @@ public class ActivityListViewAdapter extends BaseAdapter
 				{
 					toname = act.in_reply_to.who;
 					if (((HomeScreen)m_act).getPlayerID().equalsIgnoreCase(act.in_reply_to.playerID))
-					{
+					{						
 						toname = "you";
 						holder.to_who.setTextColor( 0xff707070 );
 					}else
@@ -137,6 +137,27 @@ public class ActivityListViewAdapter extends BaseAdapter
 				holder.replyIcon.setVisibility( View.VISIBLE );
 				holder.to_who.setVisibility( View.VISIBLE );
 				holder.to_who.setText( toname );
+			} else if (act.type.equalsIgnoreCase("photo")) 
+			{				
+				holder.replyIcon.setImageResource(R.drawable.snap_feed_icon);
+				holder.replyIcon.setVisibility( View.VISIBLE );
+				holder.to_who.setVisibility(View.GONE);
+			}else if (act.type.equalsIgnoreCase("photo-comment") || act.type.equalsIgnoreCase("photo-comment-received"))
+			{
+				String toname ="";
+				
+				if (act.in_reply_to != null) {
+					toname = act.in_reply_to.who;
+					holder.to_who.setTextColor(0xff005471);
+					if (((HomeScreen)m_act).getPlayerID().equalsIgnoreCase(act.in_reply_to.playerID))
+						toname = "Your snapshot";
+					else
+						toname += "'s snapshot";
+				}
+				
+				holder.replyIcon.setVisibility(View.VISIBLE);
+				holder.to_who.setVisibility(View.VISIBLE);
+				holder.to_who.setText(toname);
 			}else
 			{
 				holder.to_who.setVisibility( View.GONE );
@@ -198,8 +219,19 @@ public class ActivityListViewAdapter extends BaseAdapter
 				{
 					ProfileFragment f = new ProfileFragment( currentActivity.playerID, true );
 					((HomeScreen)m_act).setCurrentFragment(f, true );
-				}else{
-					ActivityDetailFragment fm = new ActivityDetailFragment(currentActivity.playerID,currentActivity.id);
+				} 
+				else if (currentActivity.type.equalsIgnoreCase("photo") || 
+						currentActivity.type.equalsIgnoreCase("photo-comment") ||
+						currentActivity.type.equalsIgnoreCase("photo-comment-received")) 
+				{
+					SnapDetailFragment f = new SnapDetailFragment(m_bf, 
+							currentActivity.in_reply_to.who, currentActivity.in_reply_to.playerID, 
+							currentActivity.photo_id, currentActivity.secret);
+					((HomeScreen)m_act).setCurrentFragment(f, true);
+				}
+				else{
+					ActivityDetailFragment fm = new ActivityDetailFragment(m_bf, currentActivity.who, 
+							currentActivity.playerID,currentActivity.id);
 					((HomeScreen)m_act).setCurrentFragment(fm, true );
 				}
 			}

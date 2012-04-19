@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/actfeed_item"
         android:layout_width="fill_parent"
-        android:layout_height="28dip"
+        android:layout_height="20dip"
         android:layout_gravity="center"
         android:background="@drawable/sidebar_header_gradient"
         android:clickable="false">
@@ -24,15 +24,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:paddingLeft="18sp"
-                android:paddingTop="4sp"
-                android:paddingBottom="4sp"
+                android:paddingTop="2sp"
+                android:paddingBottom="2sp"
                 android:shadowColor="#000000"
                 android:shadowRadius="0.5"
                 android:shadowDx="0"
                 android:shadowDy="1"
-                android:text="Brady"
+                android:text=""
                 android:textColor="#ffffff"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" >
             </TextView>
         </LinearLayout>

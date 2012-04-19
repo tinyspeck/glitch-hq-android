@@ -46,7 +46,7 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 	public void onRegistered(Context context, String registrationId) throws IOException
 	{
 		super.onRegistered(context, registrationId);		
-		Log.i(TAG, "Received registration id: " + registrationId + ". Let's tell the Glitch servers.");
+		Log.i(TAG, "Received registration id. Let's tell the Glitch servers.");
 		// see if we already had a registrationId, if yes, then remove it
 		String oldRegistrationId = C2DMessaging.getRegistrationId(this);
 		if (registrationId != null && registrationId.length() > 0) {

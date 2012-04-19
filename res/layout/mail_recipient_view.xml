@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/top_pane" />
+    
+    <FrameLayout android:id="@+id/recipients_filter_area"
+        android:layout_width="fill_parent"
+        android:layout_height="50sp"
+        android:visibility="gone"
+        android:clickable="true">
+        
+        <EditText android:id="@+id/recipients_search_box" 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Filter Recipients"
+            android:inputType="text"
+            android:maxLines="1"/>            
+        
+        <ImageView android:id="@+id/recipients_filter_clear"
+            android:layout_gravity="right"
+            android:src="@drawable/cancel_button"
+            android:layout_marginTop="7sp"
+            android:layout_marginBottom="7sp"
+            android:layout_marginRight="9sp"
+            android:layout_marginLeft="9sp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"/>
+        
+    </FrameLayout>
+    
+    <ScrollView android:id="@+id/RecipientsScrollView"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:fadingEdge="none">
+        
+        <LinearLayout android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical">
+            
+            <TextView android:id="@+id/list_mail_recipients_message"
+                android:text="Loading recipients..."
+                style="@style/NormalTextStyle"
+                android:layout_marginTop="10sp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center_horizontal"/>
+            
+            <com.tinyspeck.glitchhq.LinearListView
+                android:id="@+id/RecipientsListView"
+                android:background="@drawable/friends_feed"
+                android:cacheColorHint="@drawable/white"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"/>
+            
+        </LinearLayout>
+        
+    </ScrollView>
+
+</LinearLayout>

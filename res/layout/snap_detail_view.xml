@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"    
+    android:orientation="vertical" 
+    android:background="#ffffff">
+    
+    <include layout="@layout/top_pane" />
+
+    <ScrollView android:id="@+id/snap_detail_scrollview"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1.0"
+        android:fadingEdge="none">
+
+		<LinearLayout android:layout_width="fill_parent"
+  			android:layout_height="fill_parent" 
+  			android:orientation="vertical"   
+  			android:paddingTop="10sp">
+
+			<LinearLayout android:id="@+id/section_activity"
+  				android:layout_width="fill_parent"
+  				android:layout_height="fill_parent" 
+  				android:paddingLeft="10sp"
+  				android:paddingRight="10sp"
+  				android:orientation="vertical">
+  
+ 				<LinearLayout android:layout_width="fill_parent"
+	  				android:layout_height="wrap_content" 
+	  				android:layout_gravity="left" >
+
+  					<ImageView android:id="@+id/snap_detail_icon"
+  					    android:src="@drawable/snap_detail_icon" 
+  					    android:layout_gravity="left"
+  						android:paddingRight="8sp"  
+  						android:layout_weight="0.0"
+						android:layout_width="60sp" 
+						android:layout_height="60sp" />
+
+  					<TextView android:id = "@+id/snap_owner_name"
+  					    android:text=""   						
+  						android:layout_weight="1.0"
+  						android:textSize="22sp"
+	    				style = "@style/PlayNameStyle"  
+	    				android:layout_gravity="center_vertical"
+	    				android:gravity="center_vertical"
+						android:layout_width="wrap_content" 
+						android:layout_height="wrap_content"/>
+
+  					<ImageView android:id="@+id/snap_go_arrow" 
+  					    android:layout_gravity="center" 
+  					    android:layout_weight="0.0"
+  						android:src="@drawable/go_arrow"
+  						android:paddingLeft="8sp"  
+  						android:paddingRight="8sp" 
+						android:layout_width="30sp" 
+						android:layout_height="30sp" />
+			
+  				</LinearLayout> 
+				
+ 				<ImageView android:id="@+id/snap_detail_photo"
+ 				    android:src="@drawable/snap_loading"
+ 				    android:layout_gravity="top|center" 
+ 				    android:layout_width="fill_parent"
+ 				    android:layout_height="wrap_content"
+ 				    android:background="#000000"
+ 				    android:scaleType="centerInside"
+ 				    android:adjustViewBounds="true" 
+ 				    android:layout_marginBottom="5sp"/>
+ 				 				 				
+  				<TextView android:text="" 
+		  			android:id = "@+id/snap_detail_text"
+		  			android:background="@drawable/message_background_big"
+		  			android:autoLink="all"
+			    	style = "@style/NormalTextStyle"  
+			    	android:layout_gravity="center"
+			    	android:gravity="left"
+					android:paddingTop="25sp"
+					android:paddingLeft="10sp"
+					android:layout_width="fill_parent" 
+					android:layout_height="wrap_content"/>
+
+  				<RelativeLayout android:layout_width="fill_parent"
+	    			android:layout_height="wrap_content"
+	    			android:layout_gravity="center">
+  					
+	  				<TextView android:text="" 
+	  					android:id = "@+id/snap_detail_time"
+				    	style = "@style/TimeStyle"  
+				    	android:textSize="14sp"
+				    	android:layout_alignParentTop="true"
+				    	android:layout_alignParentLeft="true"
+						android:paddingRight="10sp"
+						android:paddingTop="5sp"
+						android:paddingBottom="15sp"
+						android:layout_width="wrap_content" 
+						android:layout_height="wrap_content"/>
+  					
+	  				<TextView android:id="@+id/snap_detail_views" 
+					    android:text=""
+					    style="@style/TimeStyle"
+					    android:textSize="14sp"
+					    android:layout_alignParentTop="true"
+					    android:layout_alignParentRight="true"
+					    android:paddingLeft="10sp"
+					    android:paddingTop="5sp"
+					    android:paddingBottom="15sp"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"/>
+	  				
+  				</RelativeLayout>
+
+			</LinearLayout>
+			
+			<LinearLayout android:id="@+id/snap_comments_view"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"     
+  				android:orientation="vertical" 
+  				android:visibility="gone">
+  				
+			    <ImageView android:src="@drawable/snap_comments_divider" 
+			        android:gravity="center"
+			        android:layout_gravity="center"
+			        android:layout_width="fill_parent"
+			        android:layout_height="50sp"/>
+			    
+			    <com.tinyspeck.glitchhq.LinearListView 
+			        android:id="@+id/snap_comments_listview"
+			        android:cacheColorHint="@drawable/white"
+			        android:orientation="vertical"
+			        android:layout_width="fill_parent" 
+			        android:layout_height="fill_parent"
+			        android:gravity="center_vertical" />
+			    
+			</LinearLayout>			
+  
+		</LinearLayout>
+		        
+    </ScrollView>
+    
+    <LinearLayout android:id="@+id/snap_comment_pane"
+		android:orientation="vertical"
+  	  	android:layout_weight="0.0"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:background="#f0f4f6"
+		android:layout_marginTop="10sp"
+		android:layout_gravity="center" >
+
+	<View android:id="@+id/list_divider" 
+	    android:layout_height="1sp" 
+	    android:layout_gravity="center" 
+	    android:background="#e0e0e0"
+		android:layout_width="fill_parent" />
+
+ 	<EditText android:id="@+id/snap_comment_editor" 
+ 	    android:layout_height="wrap_content" 
+ 	    android:layout_gravity="center"
+		android:imeOptions="actionDone"
+		android:inputType="text"
+		android:layout_width="fill_parent" 
+		android:singleLine="true"  
+		android:hint="Comment on "
+		android:layout_marginBottom="5sp"
+		android:layout_marginTop="5sp"
+		android:layout_marginLeft="10sp"
+		android:layout_marginRight="10sp"
+		android:text="" />
+
+	</LinearLayout> 
+
+</LinearLayout>

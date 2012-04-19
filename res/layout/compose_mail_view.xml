@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:background="#ffffff">
+    
+    <include layout="@layout/top_pane" />
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
+        
+        <TextView android:id="@+id/recipient_text_view"
+            android:text="To: "
+            style="@style/PlayNameStyle"
+            android:layout_gravity="center|left"      
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:padding="10sp"/>
+        
+        <View android:layout_height="1sp" 
+        	android:layout_gravity="center" 
+        	android:background="#e0e0e0"
+			android:layout_width="fill_parent" />
+        
+        <EditText android:id="@+id/mail_composer"
+            android:gravity="top"
+            android:layout_gravity="center"
+            android:padding="10sp"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:background="#ffffff"/>
+        
+    </LinearLayout>
+
+</LinearLayout>

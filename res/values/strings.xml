@@ -42,4 +42,6 @@
   <string name="str_cancel_unlearning_warning">Your unlearning progress will be lost.</string>
   <string name="friends_no_items">Go and add some friends!</string>
   <string name="str_menu_friends">Friends</string>
+  <string name="str_got_achievement">You earned this achievement!</string>
+  <string name="str_no_got_achievement">You haven\'t earned this yet.</string>
 </resources>
