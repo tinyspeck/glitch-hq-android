@@ -4,7 +4,6 @@ import java.util.Vector;
 
 import com.tinyspeck.glitchhq.BaseFragment.skillAvailable;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -103,6 +102,7 @@ public class SkillListAdapter extends BaseAdapter {
 				skillAvailable skill = m_skillList.get(nItem);
 				SkillDetailFragment fm = new SkillDetailFragment(skill);
 				m_act.setCurrentFragment(fm,true);
+				
 			}
 	    });
 		

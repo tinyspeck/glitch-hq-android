@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="#f0f0f0">
+    
+    <include layout="@layout/top_pane"/>
+    
+    <ScrollView android:layout_height="fill_parent" 
+        android:layout_gravity="center" 
+        android:layout_width="fill_parent" 
+        android:fadingEdge="none">
+    
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"            
+			android:layout_marginTop="10sp"
+  			android:orientation="vertical">
+  			
+            <LinearLayout android:id="@+id/achievement_detail_item"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+				android:background="#ffffff"
+                android:padding="3sp">
+                
+                <ImageView android:id="@+id/achievement_detail_icon"
+                    android:layout_gravity="center|top"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginRight="2sp"
+                    android:layout_marginBottom="10sp"
+                    android:layout_marginTop="10sp"
+                    android:layout_weight="0.0"
+                    android:layout_width="80sp"
+                    android:layout_height="80sp"/>
+                   
+               	<LinearLayout android:layout_height="fill_parent" 
+  					    android:layout_gravity="center" 
+  					    android:layout_weight="1.0"
+						android:layout_width="wrap_content" 
+						android:orientation="vertical">
+					
+					<TextView android:id="@+id/achievement_detail_name"
+					    style="@style/PlayNameStyle"
+					    android:layout_gravity="left"
+					    android:textSize="24sp"
+					    android:layout_marginTop="10sp"
+					    android:layout_marginLeft="6sp"
+					    android:layout_width="fill_parent" 
+					    android:layout_height="wrap_content"/>
+					
+					<TextView android:id="@+id/achievement_got"
+					    style="@style/ProgressTimeStyle"
+					    android:layout_gravity="left"
+					    android:textColor="#505050"
+					    android:layout_marginLeft="6sp"
+					    android:layout_marginTop="30sp"
+					    android:layout_width="fill_parent"
+					    android:layout_height="wrap_content"/>
+					
+				</LinearLayout>
+                
+            </LinearLayout>
+            
+            
+			<View android:id="@+id/area_border"
+				android:layout_height="1sp"
+				android:layout_width="fill_parent"
+				android:layout_gravity="center"
+				android:background="#d0d0d0"/>
+				
+			<LinearLayout android:layout_height="fill_parent"
+			    android:layout_gravity="center"
+				android:layout_width="fill_parent"
+				android:orientation="vertical">
+			        
+				<TextView android:id="@+id/achievement_description"
+					style="@style/NormalTextStyle"
+					android:layout_gravity="center"
+					android:textSize="14sp"
+					android:gravity="bottom"
+					android:padding="10sp"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"/>			           
+			        
+			</LinearLayout>			        
+			
+  		</LinearLayout>
+
+        
+	</ScrollView>
+
+</LinearLayout>
