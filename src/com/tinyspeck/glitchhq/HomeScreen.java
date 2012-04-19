@@ -40,12 +40,8 @@ public class HomeScreen extends FragmentActivity {
 	private String m_selfPlayerID;
 	private View m_spinner;
 	private int m_curTab = TAB_PROFILE;
+	private Page m_curPage = Page.Profile;
 	private int skillOrUnlearn = TAB_SKILLS;
-
-	private RadioButton m_btnProfile;
-	private RadioButton m_btnActivity;
-	private RadioButton m_btnSkills;
-	private RadioButton m_btnFriends;
 
 	private ProfileFragment m_profileFrm;
 	private SkillFragment m_skillFrm;
@@ -53,6 +49,8 @@ public class HomeScreen extends FragmentActivity {
 	private ActivityFragment m_activityFrm;
 	private FriendsFragment m_friendsFrm;
 	private View m_stack;
+
+	private BaseFragment m_curFrm;
 
 	private View m_profileView, m_activityView, m_skillsView, m_unlearnView,
 			m_friendsView;
@@ -66,7 +64,6 @@ public class HomeScreen extends FragmentActivity {
 
 		setTitle(getResources().getString(R.string.str_main_title));
 		initLayout();
-
 	}
 	
 
@@ -146,35 +143,43 @@ public class HomeScreen extends FragmentActivity {
 				// 0, 0);
 			}
 
-		});
+		if (page == null) {
+			return;
+		}
 
-		m_btnActivity.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
-				if (m_curTab == TAB_ACTIVITY)
-					clearFragmentStack();
-				else {
-					setCurrentFragment(m_activityFrm, false);
-					m_curTab = TAB_ACTIVITY;
-				}
+		if (m_curPage == page) {
+			clearFragmentStack();
+		} else {
+			m_curPage = page;
+			
+			switch (page) {
+			case Profile:
+				setCurrentFragment(m_profileFrm, false);
+				break;
+			case Activity:
+				setCurrentFragment(m_activityFrm, false);
+				break;
+			case Skills:
+				setCurrentFragment(m_skillFrm, false);
+				break;
+			case Friends:
+				setCurrentFragment(m_friendsFrm, false);
+				break;
+			default:
+				break;
 			}
-		});
+		}
 
-		m_btnFriends.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				buttonView.setTextColor(isChecked ? 0xffffffff : 0xffa0a0a0);
-			}
-		});
-		m_btnFriends.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
-				if (m_curTab == TAB_FRIENDS)
-					clearFragmentStack();
-				else {
-					setCurrentFragment(m_friendsFrm, false);
-					m_curTab = TAB_FRIENDS;
-				}
-			}
-		});
+		/*
+		 * Unlearning Code
+		 * 
+		 * if (m_curTab == TAB_SKILLS || m_curTab == TAB_UNLEARN)
+		 * clearFragmentStack(); else { if (skillOrUnlearn == TAB_SKILLS) {
+		 * setCurrentFragment(m_skillFrm, false); m_curTab = TAB_SKILLS;
+		 * skillOrUnlearn = TAB_SKILLS; } else if (skillOrUnlearn ==
+		 * TAB_UNLEARN) { setCurrentFragment(m_unlearnFrm, false); m_curTab =
+		 * TAB_UNLEARN; skillOrUnlearn = TAB_UNLEARN; } }
+		 */
 	}
 
 	/*
@@ -208,9 +213,12 @@ public class HomeScreen extends FragmentActivity {
 				int dx = (int) (width * m_sidebarDeltaX);
 
 				// Set the sidebar's layout parameters so it'll show up
-				m_sidebarView.layout(0, 0, dx, m_stack.getHeight());
+				// FrameLayout.LayoutParams params = new
+				// FrameLayout.LayoutParams(width, m_stack.getHeight(),
+				// Gravity.LEFT);
+				// m_sidebarView.setLayoutParams(params);
 
-				m_sidebarView.getParent().bringChildToFront(m_sidebarView);
+				// m_sidebarView.getParent().bringChildToFront(m_sidebarView);
 			}
 		});
 
@@ -222,61 +230,60 @@ public class HomeScreen extends FragmentActivity {
 		});
 
 		animation.setFillAfter(true);
-		
+
 		// Run the animation
 		m_stack.startAnimation(animation);
 	}
-	
+
 	private float sidebarTouchOffset;
 	private float previousTouchX;
-	private Boolean sidebarPickedUp;
+	private Boolean sidebarPickedUp = false;
 	private final static int shadowWidth = 27;
-	
+
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
-		
-		if (isShowingSidebar())
-		{
+
+		if (isShowingSidebar()) {
 			// Get main stack location
 			Display display = getWindowManager().getDefaultDisplay();
 			int width = display.getWidth();
 			int dx = (int) (width * m_sidebarDeltaX);
-			
+
 			// Touch location X
 			float x = ev.getX();
-			
-			// Touch action
-			int action = ev.getAction();
-			
-			switch (action)
-			{
-				// Initial touch 
+
+			if (x < dx) {
+				m_sidebarView.dispatchTouchEvent(ev);
+				m_stack.getParent().requestDisallowInterceptTouchEvent(true);
+			} else {
+				// Touch action
+				int action = ev.getAction();
+
+				switch (action) {
+				// Initial touch
 				case (MotionEvent.ACTION_DOWN):
-					if (x >= dx)
-					{
+					if (x >= dx) {
 						sidebarTouchOffset = dx - x;
 						sidebarPickedUp = true;
 						m_stack.getParent().bringChildToFront(m_stack);
-						
+
 						return true;
 					}
 					break;
 				// Touch moved
-				case (MotionEvent.ACTION_MOVE):
-				{
-					if (sidebarPickedUp)
-					{
+				case (MotionEvent.ACTION_MOVE): {
+					if (sidebarPickedUp) {
 						// Set the sidebar's layout parameters so it'll show up
-						m_stack.layout((int) (-shadowWidth + x - dx), 0, width, m_stack.getHeight());
-						
+						// m_stack.layout((int) (-shadowWidth + x - dx), 0,
+						// width, m_stack.getHeight());
+
 						return true;
 					}
-					break;						
+					break;
 				}
-				// Touch ended
+					// Touch ended
 				case (MotionEvent.ACTION_UP):
-					if (sidebarPickedUp)
-					{
+					if (sidebarPickedUp) {
 						dismissSidebar();
 						sidebarPickedUp = false;
 						return true;
@@ -284,16 +291,15 @@ public class HomeScreen extends FragmentActivity {
 					break;
 				default:
 					break;
+				}
+
+				previousTouchX = x;
 			}
-			
-			previousTouchX = x;
-		}
-		else
-		{
+		} else {
 			// Handle event normally
 			return super.dispatchTouchEvent(ev);
 		}
-		
+
 		// Handle event normally
 		return super.dispatchTouchEvent(ev);
 	}
@@ -322,7 +328,8 @@ public class HomeScreen extends FragmentActivity {
 
 				// Move back to normal position and fill the whole display
 				// width-wise
-				m_stack.layout(-27, 0, display.getWidth(), m_stack.getHeight());
+				// m_stack.layout(-27, 0, display.getWidth(),
+				// m_stack.getHeight());
 
 				HomeScreen.this.m_showingSidebar = false;
 			}
@@ -374,17 +381,16 @@ public class HomeScreen extends FragmentActivity {
 	}
 
 	public void setCurrentFragment(Fragment f, boolean bAddToStack) {
+		m_curFrm = (BaseFragment) f;
+		
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		int viewId = 0;
-		int nTab = m_btnProfile.isChecked() ? TAB_PROFILE : (m_btnActivity
-				.isChecked() ? TAB_ACTIVITY
-				: (m_btnFriends.isChecked() ? TAB_FRIENDS : TAB_SKILLS));
 
 		if (f instanceof BaseFragment)
 			((BaseFragment) f).logPageView();
 
-		if (nTab == TAB_PROFILE) {
+		if (m_curPage == Page.Profile) {
 			viewId = R.id.fragmentView_profile;
 			m_profileView.setVisibility(View.VISIBLE);
 			m_activityView.setVisibility(View.GONE);
@@ -392,7 +398,7 @@ public class HomeScreen extends FragmentActivity {
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 
-		} else if (nTab == TAB_ACTIVITY) {
+		} else if (m_curPage == Page.Activity) {
 			viewId = R.id.fragmentView_activity;
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.VISIBLE);
@@ -400,7 +406,7 @@ public class HomeScreen extends FragmentActivity {
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 
-		} else if (nTab == TAB_FRIENDS) {
+		} else if (m_curPage == Page.Friends) {
 			viewId = R.id.fragmentView_friends;
 			m_friendsView.setVisibility(View.VISIBLE);
 			m_profileView.setVisibility(View.GONE);
@@ -432,7 +438,6 @@ public class HomeScreen extends FragmentActivity {
 					m_unlearnView.setVisibility(View.VISIBLE);
 				}
 			}
-
 		}
 		if (!f.isAdded()) {
 			if (bAddToStack) {
@@ -475,10 +480,8 @@ public class HomeScreen extends FragmentActivity {
 
 	private void initLayout() {
 		setContentView(R.layout.home);
-		initBottomPane();
 
 		m_spinner = findViewById(R.id.spinner);
-		m_btnProfile.setChecked(true);
 
 		m_profileFrm = new ProfileFragment();
 		m_skillFrm = new SkillFragment();
@@ -507,14 +510,11 @@ public class HomeScreen extends FragmentActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		menu.clear();
 
-		BaseFragment bf;
-		bf = getCurrentFragment();
-
-		if (bf != null && bf.doesSupportRefresh())
+		if (m_curFrm != null && m_curFrm.doesSupportRefresh())
 			menu.add(0, MENU_COMMAND_REFRESH, Menu.NONE + 0,
 					R.string.str_menu_refresh);
 
-		if (bf != null && bf.doesSupportMore())
+		if (m_curFrm != null && m_curFrm.doesSupportMore())
 			menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1,
 					R.string.str_menu_more);
 
@@ -523,42 +523,24 @@ public class HomeScreen extends FragmentActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		BaseFragment bf;
 
 		switch (item.getItemId()) {
 		case MENU_COMMAND_REFRESH:
-			bf = getCurrentFragment();
-			if (bf != null) {
-				bf.onRefresh();
-				FlurryAgent.logEvent(bf.getClass().toString()
+			if (m_curFrm != null) {
+				m_curFrm.onRefresh();
+				FlurryAgent.logEvent(m_curFrm.getClass().toString()
 						+ " - Clicked to refresh");
 			}
 			break;
 		case MENU_COMMAND_MORE:
-			bf = getCurrentFragment();
-			if (bf != null) {
-				bf.onMore();
-				FlurryAgent.logEvent(bf.getClass().toString()
+			if (m_curFrm != null) {
+				m_curFrm.onMore();
+				FlurryAgent.logEvent(m_curFrm.getClass().toString()
 						+ " - Clicked to load more");
 			}
 			break;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	public BaseFragment getCurrentFragment() {
-		FragmentManager fm = getSupportFragmentManager();
-
-		int resId = m_btnProfile.isChecked() ? R.id.fragmentView_profile
-				: (m_btnActivity.isChecked() ? R.id.fragmentView_activity
-						: (m_btnFriends.isChecked() ? R.id.fragmentView_friends
-								: R.id.fragmentView_skills));
-
-		if (resId == R.id.fragmentView_skills && skillOrUnlearn == TAB_UNLEARN) {
-			resId = R.id.fragmentView_unlearn;
-		}
-
-		return (BaseFragment) fm.findFragmentById(resId);
 	}
 
 	public void requestFailed(GlitchRequest request) {
@@ -633,7 +615,7 @@ public class HomeScreen extends FragmentActivity {
 	 */
 
 	public void setPlayerName(String playerName) {
-		m_btnProfile.setText(playerName);
+		//m_btnProfile.setText(playerName);
 	}
 
 	public void showSpinner(boolean bVisible) {

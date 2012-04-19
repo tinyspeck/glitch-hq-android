@@ -19,7 +19,7 @@ import com.tinyspeck.glitchhq.Sidebar.sidebarItem;
 public class SidebarListViewAdapter extends BaseAdapter {
 	private Vector<sidebarItem> m_sbList;
 	private LayoutInflater m_inflater;
-	private Activity m_act;
+	private HomeScreen m_act;
 	private Sidebar m_sb;
 	private MyApplication m_application;
 
@@ -32,7 +32,7 @@ public class SidebarListViewAdapter extends BaseAdapter {
 	public SidebarListViewAdapter(Sidebar sidebar,
 			Vector<sidebarItem> actList) {
 		m_sbList = actList;
-		m_act = sidebar.getActivity();
+		m_act = (HomeScreen) sidebar.getActivity();
 		m_sb = sidebar;
 		m_inflater = (LayoutInflater) m_act
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -56,11 +56,7 @@ public class SidebarListViewAdapter extends BaseAdapter {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-		sidebarItem sbItem = null;
-		
-		if (position < getCount()) {
-			sbItem = m_sbList.get(position);
-		}
+		final sidebarItem sbItem = m_sbList.get(position);
 
 		if (convertView != null)
 			holder = (ViewHolder) convertView.getTag();
@@ -101,8 +97,8 @@ public class SidebarListViewAdapter extends BaseAdapter {
 		holder.whole.setTag(position);
 		holder.whole.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
-				sidebarItem currentActivity = m_sbList.get((Integer) arg0
-						.getTag());
+				m_act.setSelectedPage(sbItem.page);
+				m_act.dismissSidebar();
 			}
 		});
 		return convertView;
