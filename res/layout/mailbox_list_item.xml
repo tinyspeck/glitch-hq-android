@@ -15,7 +15,7 @@
         android:padding="3sp">
         
         <ImageView android:id="@+id/icon_message_sender"
-            android:layout_gravity="center"
+            android:layout_gravity="center|top"
             android:padding="3sp"
             android:layout_width="44sp"
             android:layout_height="44sp"/>
@@ -55,8 +55,11 @@
                 style="@style/SmallTextStyle"
                 android:layout_gravity="center"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
-            
+                android:layout_height="wrap_content"
+                android:textColor="#505050"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:paddingRight="10sp"/>            
         </LinearLayout>
                 
     </LinearLayout>
