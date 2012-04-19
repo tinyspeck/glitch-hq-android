@@ -19,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ public class MailboxDetailFragment extends BaseFragment {
 	private int m_msgId;
 	private View m_root;
 	private Button m_btnReply;
+	private Button m_btnDelete;
 	
 	MailboxDetailFragment(int msgId)
 	{
@@ -44,6 +46,7 @@ public class MailboxDetailFragment extends BaseFragment {
 		View curView = ViewInit(inflater, R.layout.mail_detail_view, container);
 		m_root = curView;
 		m_root.setVisibility(View.INVISIBLE);
+		
 		m_btnReply = (Button) m_root.findViewById(R.id.btnReply);
 		m_btnReply.setVisibility(View.VISIBLE);
 		m_btnReply.setOnClickListener(new OnClickListener() {
@@ -52,8 +55,28 @@ public class MailboxDetailFragment extends BaseFragment {
 				replyMail();
 			}
 		});
+		m_btnDelete = (Button) m_root.findViewById(R.id.btnDelete);
+		m_btnDelete.setVisibility(View.VISIBLE);
+		m_btnDelete.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				FlurryAgent.logEvent("Mail - 'Delete' button pressed");
+				deleteMail();
+			}
+		});				
+		setupFooter();
 		getMessage();
 		return curView;
+	}
+	
+	private void setupFooter()
+	{
+		ImageView v = (ImageView)m_root.findViewById(R.id.img_footer_bar);
+		if (v != null)
+		{
+			int[] nRes = { R.drawable.footerbar, R.drawable.footerbar, R.drawable.footerbar_xl };
+			int nType = Util.GetScreenSizeAttribute(getActivity());
+			v.setImageResource(nRes[nType]);
+		}
 	}
 	
 	public void getMessage()
@@ -100,13 +123,13 @@ public class MailboxDetailFragment extends BaseFragment {
 					m_currentMessage.item.count = item.optInt("count");
 				}
 				
-				setMailboxDetailView(m_root);
+				setMailboxDetailView();
 			}
 		}
 		onRequestComplete();
 	}
 	
-	protected void setMailboxDetailView(View root)
+	protected void setMailboxDetailView()
 	{
 		ImageView icon = (ImageView) m_root.findViewById(R.id.message_detail_sender_icon);
 		if (m_currentMessage.sender_avatar != null && !m_currentMessage.sender_avatar.equals(""))
@@ -133,6 +156,11 @@ public class MailboxDetailFragment extends BaseFragment {
 	}
 	
 	private void replyMail()
+	{
+				
+	}
+	
+	private void deleteMail()
 	{
 		
 	}
