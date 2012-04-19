@@ -20,6 +20,7 @@ public class AchievementsListViewAdapter extends BaseAdapter {
 	private LayoutInflater m_inflater;
 	private Activity m_act;
 	private MyApplication m_application;
+	private String m_category;
 	
 	public class ViewHolder 
 	{
@@ -28,12 +29,13 @@ public class AchievementsListViewAdapter extends BaseAdapter {
 		View whole;
 	}
 	
-	public AchievementsListViewAdapter(Activity act, Vector<glitchAchievement> achList) 
+	public AchievementsListViewAdapter(Activity act, Vector<glitchAchievement> achList, String category) 
 	{	
 		m_achList = achList;
 		m_act = (HomeScreen)act;
 		m_inflater = (LayoutInflater)m_act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		m_application = (MyApplication)m_act.getApplicationContext();
+		m_category = category;
 	}
 	
 	public int getCount() 
@@ -94,7 +96,7 @@ public class AchievementsListViewAdapter extends BaseAdapter {
 		{
 			public void onClick(View arg0) {
 				glitchAchievement currentAchievement = m_achList.get((Integer)arg0.getTag());
-				AchievementDetailFragment fm = new AchievementDetailFragment(currentAchievement.id);
+				AchievementDetailFragment fm = new AchievementDetailFragment(currentAchievement.id, m_category);
 				((HomeScreen)m_act).setCurrentFragment(fm,  true);
 			}
 		});

@@ -57,6 +57,7 @@ public class ProfileFragment extends BaseFragment{
     private TextView m_tv_achievements;    
     private TextView m_tv_skills;
     private TextView m_tv_upgrades;
+    private ImageView m_iv_achievements;
     private View m_vProfile;
     
 	private Timer m_RemainingTimer;
@@ -162,7 +163,17 @@ public class ProfileFragment extends BaseFragment{
 	    
 			m_tv_imagination = (TextView) m_vProfile.findViewById(R.id.profile_imagination_amount);
 			m_tv_imagination.setTypeface(m_application.m_vagLightFont);
-		}
+			
+			m_iv_achievements = (ImageView) m_vProfile.findViewById(R.id.more_achievements_icon);
+			m_iv_achievements.setVisibility(View.VISIBLE);
+			
+			m_iv_achievements.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					AchievementCategoriesFragment f = new AchievementCategoriesFragment();
+					((HomeScreen)getActivity()).setCurrentFragment(f, true);
+				}				
+			});
+		}		
 		
 	    m_tv_level = (TextView) m_vProfile.findViewById(R.id.tv_level);
 	    m_tv_level.setTypeface( m_application.m_vagLightFont );
