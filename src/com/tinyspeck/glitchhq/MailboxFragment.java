@@ -1,6 +1,7 @@
 package com.tinyspeck.glitchhq;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
@@ -55,7 +56,7 @@ public class MailboxFragment extends BaseFragment {
 			m_mailList = new Vector<glitchMail>();
 		}
 		
-		m_adapter = new MailboxListViewAdapter(getActivity(), m_mailList);
+		m_adapter = new MailboxListViewAdapter(this, m_mailList);
 		m_listView = (LinearListView) root.findViewById(R.id.mailbox_list);
 		m_listView.setAdapter(m_adapter);
 		
@@ -160,7 +161,9 @@ public class MailboxFragment extends BaseFragment {
 					mail.text = message.optString("text");
 					mail.received = message.optLong("received");
 					mail.replied = message.optInt("replied") == 1;
-					mail.is_read = message.optInt("is_read") == 1;
+					mail.is_expedited = message.optBoolean("is_expedited");
+					mail.is_read = message.optBoolean("is_read");
+					
 					
 					JSONObject sender = message.optJSONObject("sender");
 					if (sender != null) {
@@ -183,6 +186,25 @@ public class MailboxFragment extends BaseFragment {
 				}
 			}
 		}
+	}
+	
+	public void markAsRead(int messageId) 
+	{
+		Iterator<glitchMail> itr = m_mailList.iterator();
+		glitchMail mail;
+		
+		while(itr.hasNext()) {
+			mail = itr.next();
+			if (mail.id == messageId) {
+				mail.is_read = true;
+				m_adapter.notifyDataSetChanged();
+				break;
+			}
+		}
+	}
+	
+	public int getUnreadCount() {
+		return unreadCount;
 	}
 	
 	public void removeMessage(glitchMail message)
