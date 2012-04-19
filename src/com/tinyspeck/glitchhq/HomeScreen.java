@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
@@ -114,7 +115,6 @@ public class HomeScreen extends FragmentActivity {
 				// buttonView.setCompoundDrawablesWithIntrinsicBounds(0, icon,
 				// 0, 0);
 			}
-
 		});
 
 		m_btnSkills.setOnClickListener(new OnClickListener() {
@@ -176,6 +176,175 @@ public class HomeScreen extends FragmentActivity {
 			}
 		});
 	}
+
+	/*
+	 * Sidebar methods
+	 */
+
+	static final private long m_sidebarAnimationDuration = 500; // half second
+																// (500ms)
+	static final private float m_sidebarDeltaX = 0.8f; // 80%
+
+	public void showSidebar() {
+		// Get display width
+		Display display = getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+
+		int dx = (int) (width * m_sidebarDeltaX);
+
+		// Create the show animation
+		Animation animation = new TranslateAnimation(0, dx, 0, 0);
+		animation.setDuration(m_sidebarAnimationDuration);
+
+		animation.setAnimationListener(new AnimationListener() {
+
+			public void onAnimationEnd(Animation animation) {
+				HomeScreen.this.m_showingSidebar = true;
+
+				// Get display width
+				Display display = getWindowManager().getDefaultDisplay();
+				int width = display.getWidth();
+
+				int dx = (int) (width * m_sidebarDeltaX);
+
+				// Set the sidebar's layout parameters so it'll show up
+				m_sidebarView.layout(0, 0, dx, m_stack.getHeight());
+
+				m_sidebarView.getParent().bringChildToFront(m_sidebarView);
+			}
+		});
+
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			public void onAnimationStart(Animation animation) {
+			}
+		});
+
+		animation.setFillAfter(true);
+		
+		// Run the animation
+		m_stack.startAnimation(animation);
+	}
+	
+	private float sidebarTouchOffset;
+	private float previousTouchX;
+	private Boolean sidebarPickedUp;
+	private final static int shadowWidth = 27;
+	
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		
+		if (isShowingSidebar())
+		{
+			// Get main stack location
+			Display display = getWindowManager().getDefaultDisplay();
+			int width = display.getWidth();
+			int dx = (int) (width * m_sidebarDeltaX);
+			
+			// Touch location X
+			float x = ev.getX();
+			
+			// Touch action
+			int action = ev.getAction();
+			
+			switch (action)
+			{
+				// Initial touch 
+				case (MotionEvent.ACTION_DOWN):
+					if (x >= dx)
+					{
+						sidebarTouchOffset = dx - x;
+						sidebarPickedUp = true;
+						m_stack.getParent().bringChildToFront(m_stack);
+						
+						return true;
+					}
+					break;
+				// Touch moved
+				case (MotionEvent.ACTION_MOVE):
+				{
+					if (sidebarPickedUp)
+					{
+						// Set the sidebar's layout parameters so it'll show up
+						m_stack.layout((int) (-shadowWidth + x - dx), 0, width, m_stack.getHeight());
+						
+						return true;
+					}
+					break;						
+				}
+				// Touch ended
+				case (MotionEvent.ACTION_UP):
+					if (sidebarPickedUp)
+					{
+						dismissSidebar();
+						sidebarPickedUp = false;
+						return true;
+					}
+					break;
+				default:
+					break;
+			}
+			
+			previousTouchX = x;
+		}
+		else
+		{
+			// Handle event normally
+			return super.dispatchTouchEvent(ev);
+		}
+		
+		// Handle event normally
+		return super.dispatchTouchEvent(ev);
+	}
+
+	public Boolean isShowingSidebar() {
+		// If stack is away from the left side
+		return m_showingSidebar;
+	}
+
+	public void dismissSidebar() {
+		// Get display width
+		Display display = getWindowManager().getDefaultDisplay();
+		int width = display.getWidth();
+
+		int dx = (int) (width * m_sidebarDeltaX);
+
+		// Create the dismiss animation
+		Animation animation = new TranslateAnimation(dx, 0, 0, 0);
+		animation.setDuration(m_sidebarAnimationDuration);
+
+		animation.setAnimationListener(new AnimationListener() {
+
+			public void onAnimationEnd(Animation animation) {
+				// Get display width
+				Display display = getWindowManager().getDefaultDisplay();
+
+				// Move back to normal position and fill the whole display
+				// width-wise
+				m_stack.layout(-27, 0, display.getWidth(), m_stack.getHeight());
+
+				HomeScreen.this.m_showingSidebar = false;
+			}
+
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			public void onAnimationStart(Animation animation) {
+			}
+		});
+
+		animation.setFillAfter(true);
+
+		// Run the dismiss animation
+		m_stack.startAnimation(animation);
+
+		m_stack.getParent().bringChildToFront(m_stack);
+	}
+
+	/*
+	 * End sidebar methods
+	 */
 
 	public void clearFragmentStack() {
 		FragmentManager fm = getSupportFragmentManager();
