@@ -9,8 +9,8 @@
     
     <TextView android:id="@+id/mailbox_header"
         android:text="Mailbox"
-        android:textSize="16sp"
-        android:paddingLeft="4sp"
+        android:textSize="20sp"
+        android:padding="4sp"
         android:textStyle="bold"
         android:textColor="#ffffff"
         android:background="#005471"

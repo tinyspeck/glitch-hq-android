@@ -1,7 +1,7 @@
 
-<LinearLayout android:id="@+id/filter_menu" android:layout_height="wrap_content" android:layout_gravity="left" 
+<LinearLayout android:id="@+id/filter_menu" android:layout_height="wrap_content" android:layout_gravity="right" 
 			android:layout_width="fill_parent" android:orientation="vertical"
-			android:background="@drawable/popover_background_left"
+			android:background="@drawable/popover_background_right"
 		    xmlns:android="http://schemas.android.com/apk/res/android"
 			 >
   <Button android:id="@+id/btn_filter_all" android:text="All" android:layout_gravity="center" android:gravity="center"

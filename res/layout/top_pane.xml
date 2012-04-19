@@ -27,7 +27,7 @@
 		android:textColor="#ffffff"
 		android:visibility="gone"
 		android:layout_marginLeft="6sp"
-		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
 		android:background="@drawable/filter_button_state"
 		android:layout_centerVertical="true"
 		android:layout_width="54sp" android:layout_height="33sp" />
@@ -54,7 +54,7 @@
   	    android:layout_width="48sp"
   	    android:layout_height="33sp" />
 
-  	<Button android:id="@+id/btnEdit" android:text="" 
+  	<Button android:id="@+id/btnComposeMail" android:text="" 
 		android:layout_alignParentRight="true"
 		android:visibility="gone"
 		android:layout_marginRight="6sp"
