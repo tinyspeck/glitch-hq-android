@@ -106,7 +106,18 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		boolean replied;
 		boolean is_read;
 		boolean is_expedited;
-		glitchMailItem item;		
+		glitchMailItem item;
+		
+		@Override
+		public boolean equals(Object other)
+		{
+			if (other == null) return false;
+			if (other == this) return true;
+			if (!(other instanceof glitchMail)) return false;
+			glitchMail otherMail = (glitchMail)other;
+			if (this.id == otherMail.id) return true;
+			else return false;
+		}
 	}
 	
 	public class glitchMailItem {

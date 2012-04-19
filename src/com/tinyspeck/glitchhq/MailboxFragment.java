@@ -173,6 +173,12 @@ public class MailboxFragment extends BaseFragment {
 		}
 	}
 	
+	public void removeMessage(glitchMail message)
+	{
+		m_mailList.remove(message);
+		m_adapter.notifyDataSetChanged();
+	}
+	
 	private void composeMail()
 	{
 		
