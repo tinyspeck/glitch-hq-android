@@ -28,15 +28,16 @@ public class MailComposeFragment extends BaseFragment {
 	private EditText m_composer;
 	private Button m_btnBackToRecipientChooser;
 	private Button m_btnSendMail;
+	private Button m_btnSidebar;
 	private View m_root;
 	private int m_inReplyTo;
 		
-	MailComposeFragment(String recipientLabel, String recipientTsid)
+	public MailComposeFragment(String recipientLabel, String recipientTsid)
 	{
 		this(recipientLabel, recipientTsid, 0);
 	}
 	
-	MailComposeFragment(String recipientLabel, String recipientTsid, int inReplyTo)
+	public MailComposeFragment(String recipientLabel, String recipientTsid, int inReplyTo)
 	{
 		m_recipientLabel = recipientLabel;
 		m_recipientTsid = recipientTsid;
@@ -77,6 +78,9 @@ public class MailComposeFragment extends BaseFragment {
 				sendMail();
 			}
 		});
+		
+		m_btnSidebar = (Button) root.findViewById(R.id.btnSidebar);
+		m_btnSidebar.setVisibility(View.GONE);
 		
 		m_recipientTextView = (TextView) root.findViewById(R.id.recipient_text_view);
 		m_recipientTextView.setTypeface(m_application.m_vagFont);

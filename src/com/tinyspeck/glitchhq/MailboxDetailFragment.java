@@ -32,6 +32,7 @@ public class MailboxDetailFragment extends BaseFragment {
 	private Button m_btnBack;
 	private Button m_btnReply;
 	private Button m_btnDelete;
+	private Button m_btnSidebar;
 	
 	MailboxDetailFragment(int msgId)
 	{
@@ -58,6 +59,9 @@ public class MailboxDetailFragment extends BaseFragment {
 				fm.popBackStack();
 			}
 		});
+		
+		m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
+		m_btnSidebar.setVisibility(View.GONE);
 		
 		m_btnReply = (Button) m_root.findViewById(R.id.btnReply);
 		m_btnReply.setVisibility(View.VISIBLE);

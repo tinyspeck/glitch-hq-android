@@ -147,7 +147,7 @@ public class MailboxFragment extends BaseFragment {
 			
 			m_mailboxUnread.setText(String.valueOf(unreadCount));
 			m_mailboxUnread.setVisibility(unreadCount > 0 ? View.VISIBLE : View.GONE);
-			((HomeScreen)getActivity()).getSidebar().setSidebarBadge(Page.Mailbox, unreadCount);
+			m_application.setMailUnreadCount(unreadCount);
 			
 			currentPage = inbox.optInt("page");
 			JSONArray messages = inbox.optJSONArray("messages");
@@ -196,8 +196,14 @@ public class MailboxFragment extends BaseFragment {
 		while(itr.hasNext()) {
 			mail = itr.next();
 			if (mail.id == messageId) {
-				mail.is_read = true;
-				m_adapter.notifyDataSetChanged();
+				if (!mail.is_read) {
+					mail.is_read = true;					
+					m_application.decrMailUnreadCount();
+					m_mailboxUnread.setText(String.valueOf(m_application.getMailUnreadCount()));
+					if (m_application.getMailUnreadCount() <= 0)
+						m_mailboxUnread.setVisibility(View.GONE);
+					m_adapter.notifyDataSetChanged();
+				}
 				break;
 			}
 		}

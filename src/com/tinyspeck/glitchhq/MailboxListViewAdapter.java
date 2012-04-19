@@ -111,13 +111,12 @@ public class MailboxListViewAdapter extends BaseAdapter {
 		holder.whole.setTag(position);
 		holder.whole.setOnClickListener(new OnClickListener() 
 		{
-			public void onClick(View arg0) {
-				glitchMail currentMessage = m_mailList.get((Integer)arg0.getTag());
+			public void onClick(View v) {
+				glitchMail currentMessage = m_mailList.get((Integer)v.getTag());
 				
 				if (currentMessage.is_read == false) {
-					currentMessage.is_read = true;
 					((MailboxFragment)m_bf).markAsRead(currentMessage.id);
-					((HomeScreen)m_act).getSidebar().setSidebarBadge(Page.Mailbox, ((MailboxFragment)m_bf).getUnreadCount());
+					((TextView)v.findViewById(R.id.inbox_message_text)).setTypeface(m_application.m_vagLightFont, Typeface.NORMAL);
 				}
 				
 				MailboxDetailFragment fm = new MailboxDetailFragment(currentMessage.id);
