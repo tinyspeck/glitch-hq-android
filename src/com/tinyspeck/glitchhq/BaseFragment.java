@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -143,8 +144,26 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		View curView = inflater.inflate( nLayout, container, false  );
 		setEmptyClickListener( curView );
 		setupTitlebar( curView );
+		setupSidebarButton( curView );
 		return curView;
 	}
+	
+	
+	private void setupSidebarButton( View root )
+	{
+		final Button btnSidebar = (Button)root.findViewById(R.id.btnSidebar);
+		btnSidebar.setVisibility(View.VISIBLE);
+		
+		btnSidebar.setOnClickListener( new OnClickListener() {
+
+			public void onClick(View arg0) {
+				HomeScreen activity = (HomeScreen) getActivity();
+				activity.showSidebar();
+			}
+			
+		});
+	}
+	
 	
 	private void setupTitlebar( View root )
 	{

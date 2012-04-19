@@ -87,6 +87,14 @@
 		android:background="@drawable/filter_button_state"
 		android:layout_centerVertical="true"
 		android:layout_width="54sp" android:layout_height="33sp" />
+  
+  <Button android:id="@+id/btnSidebar" android:text="" 
+  			android:layout_alignParentLeft="true"
+  			android:visibility="gone"
+  			android:layout_marginLeft="6sp"
+  			android:background="@drawable/sidebar"
+  			android:layout_centerVertical="true"
+			android:layout_width="54sp" android:layout_height="33sp" />
 
 	<Button android:id="@+id/btnLike" android:text="Like" 
 		android:layout_alignParentRight="true"
