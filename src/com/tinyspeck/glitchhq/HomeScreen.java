@@ -2,7 +2,6 @@ package com.tinyspeck.glitchhq;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -21,7 +19,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 
 import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
@@ -39,6 +36,7 @@ public class HomeScreen extends FragmentActivity {
 
 	static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
+	static final private int MENU_COMMAND_SIDEBAR = Menu.FIRST + 2;
 
 	private Boolean m_showingSidebar = false;
 
@@ -50,6 +48,7 @@ public class HomeScreen extends FragmentActivity {
 	private Page m_curPage = Page.Profile;
 	private Page m_newPage;
 	private int skillOrUnlearn = TAB_SKILLS;
+	private Sidebar sidebar;
 
 	private ProfileFragment m_profileFrm;
 	private SkillFragment m_skillFrm;
@@ -462,6 +461,11 @@ public class HomeScreen extends FragmentActivity {
 
 		super.onBackPressed();
 
+	}
+	
+	public Sidebar getSidebar() 
+	{
+		return sidebar;
 	}
 
 	@Override
