@@ -8,6 +8,7 @@ import com.tinyspeck.glitchhq.BaseFragment.glitchFriend;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -103,14 +104,24 @@ public class FriendsListViewAdapter extends BaseAdapter implements Filterable {
 			holder.divider.setVisibility(View.VISIBLE);
 		}
 		holder.whole.setTag(position);
-		holder.whole.setOnClickListener( new OnClickListener() {
-			
-			public void onClick(View arg0) {
-				glitchFriend friend = m_friendsList.get((Integer)arg0.getTag());
-				ProfileFragment f = new ProfileFragment(friend.id, true);
-				((HomeScreen)m_act).setCurrentFragment(f, true);
-			}
-		});
+		
+		if (m_bf instanceof MailChooseRecipientFragment) {
+			holder.whole.setOnClickListener(new OnClickListener() {
+				public void onClick(View arg0) {
+					glitchFriend friend = m_friendsList.get((Integer)arg0.getTag());
+		    		MailComposeFragment f = new MailComposeFragment(friend.player_name, friend.id);					
+					((HomeScreen)m_act).setCurrentFragment(f, true);
+				}
+			});
+		} else {
+			holder.whole.setOnClickListener( new OnClickListener() {				
+				public void onClick(View arg0) {
+					glitchFriend friend = m_friendsList.get((Integer)arg0.getTag());
+					ProfileFragment f = new ProfileFragment(friend.id, true);
+					((HomeScreen)m_act).setCurrentFragment(f, true);
+				}
+			});
+		}
 		
 		return convertView;
 	}
