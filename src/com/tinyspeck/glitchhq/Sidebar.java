@@ -1,13 +1,10 @@
 package com.tinyspeck.glitchhq;
 
-import java.util.ArrayList;
 import java.util.Vector;
 
 import android.app.Activity;
 import android.view.View;
 import android.widget.ScrollView;
-
-import com.tinyspeck.glitchhq.BaseFragment.glitchActivity;
 
 public class Sidebar {
 
@@ -102,7 +99,8 @@ public class Sidebar {
 			
 			add(new sidebarItem() {{
 				isHeader = false;
-				text = "Messages";
+				text = "Mailbox";
+				page = Page.Mailbox;
 			}});
 			
 			add(new sidebarItem() {{

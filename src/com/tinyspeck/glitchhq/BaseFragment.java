@@ -95,6 +95,29 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		boolean got;
 	}
 	
+	public class glitchMail {
+		int id;
+		int currants;
+		String sender_label;
+		String sender_tsid;
+		String sender_avatar;
+		String text;
+		long received;
+		boolean replied;
+		boolean is_read;
+		boolean is_expedited;
+		glitchMailItem item;		
+	}
+	
+	public class glitchMailItem {
+		String tsid;
+		String name;
+		String class_id;
+		String desc;
+		int count;
+		String icon;
+	}
+	
 	class SortByName implements Comparator<glitchFriend>{   
 		public int compare(glitchFriend f1, glitchFriend f2) {
 			String name1 = f1.player_name.toLowerCase();

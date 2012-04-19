@@ -4,5 +4,6 @@ public enum Page {
 	Profile,
 	Activity,
 	Skills,
-	Friends
+	Friends,
+	Mailbox
 }

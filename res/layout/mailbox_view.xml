@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/top_pane"/>
+    
+    <TextView android:id="@+id/mailbox_header"
+        android:text="Mailbox"
+        android:textSize="16sp"
+        android:paddingLeft="4sp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:background="#005471"
+	    android:gravity="center_vertical"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" />
+    
+    <ScrollView android:id="@+id/MailboxScrollView" android:layout_height="fill_parent" android:layout_gravity="center" android:layout_width="fill_parent" android:fadingEdge="none">
+    	<LinearLayout android:layout_height="fill_parent"
+    	    android:layout_width="fill_parent"
+    	    android:layout_gravity="top"
+    	    android:orientation="vertical">
+    	    
+    	    <TextView android:id="@+id/mailbox_list_message"
+    	        android:text="Checking for mail..."
+    	        style="@style/NormalTextStyle"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="fill_parent"
+    	        android:layout_marginTop="10sp"
+			/>
+    	    
+    	    <com.tinyspeck.glitchhq.LinearListView
+    	        android:id="@+id/mailbox_list"
+    	        android:background="@drawable/mailbox_feed"
+    	        android:cacheColorHint="@drawable/white"
+    	        android:orientation="vertical"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:gravity="center_vertical"
+    	       />
+    	    
+    	</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>
