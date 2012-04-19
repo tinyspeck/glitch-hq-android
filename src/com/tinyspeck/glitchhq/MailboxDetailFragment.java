@@ -56,28 +56,8 @@ public class MailboxDetailFragment extends BaseFragment {
 				replyMail();
 			}
 		});
-		m_btnDelete = (Button) m_root.findViewById(R.id.btnDelete);
-		m_btnDelete.setVisibility(View.VISIBLE);
-		m_btnDelete.setOnClickListener(new OnClickListener() {
-			public void onClick(View arg0) {
-				FlurryAgent.logEvent("Mail - 'Delete' button pressed");
-				deleteMail();
-			}
-		});				
-		setupFooter();
 		getMessage();
 		return curView;
-	}
-	
-	private void setupFooter()
-	{
-		ImageView v = (ImageView)m_root.findViewById(R.id.img_footer_bar);
-		if (v != null)
-		{
-			int[] nRes = { R.drawable.footerbar, R.drawable.footerbar, R.drawable.footerbar_xl };
-			int nType = Util.GetScreenSizeAttribute(getActivity());
-			v.setImageResource(nRes[nType]);
-		}
 	}
 	
 	public void getMessage()
@@ -111,7 +91,7 @@ public class MailboxDetailFragment extends BaseFragment {
 				m_currentMessage.is_read = message.optBoolean("is_read");
 				m_currentMessage.is_expedited = message.optBoolean("is_expedited");
 				
-				JSONArray items = response.optJSONArray("itemstacks");
+				JSONArray items = message.optJSONArray("itemstacks");
 				// only one item can be attached now
 				if (items != null && items.length() == 1) {					
 					JSONObject item = items.optJSONObject(0);
@@ -156,6 +136,41 @@ public class MailboxDetailFragment extends BaseFragment {
 		TextView tvBody = (TextView) m_root.findViewById(R.id.message_detail_body);
 		tvBody.setTypeface(m_application.m_vagLightFont);
 		tvBody.setText(m_currentMessage.text);
+		
+		if (m_currentMessage.currants > 0) {
+			LinearLayout messageCurrants = (LinearLayout) m_root.findViewById(R.id.message_currants);
+			messageCurrants.setVisibility(View.VISIBLE);
+			
+			TextView tvCurrants = (TextView) m_root.findViewById(R.id.message_detail_currants);
+			tvCurrants.setTypeface(m_application.m_vagLightFont);
+			tvCurrants.setText(String.valueOf(m_currentMessage.currants));			
+		} 
+		
+		if (m_currentMessage.item != null) {
+			LinearLayout messageItem = (LinearLayout) m_root.findViewById(R.id.message_detail_item);
+			messageItem.setVisibility(View.VISIBLE);
+			
+			ImageView messageItemIcon = (ImageView) m_root.findViewById(R.id.message_detail_item_icon);
+			m_application.Download(m_currentMessage.item.icon, messageItemIcon, MyApplication.DOWNLOAD_TYPE_NORMAL);
+			
+			TextView messageItemTxt = (TextView) m_root.findViewById(R.id.message_detail_item_txt);
+			if (m_currentMessage.item.count > 1) {
+				messageItemTxt.setText(m_currentMessage.item.name + " (" + m_currentMessage.item.count + ")");
+			} else {
+				messageItemTxt.setText(m_currentMessage.item.name);
+			}
+		}
+		
+		if (m_currentMessage.currants <= 0 && m_currentMessage.item == null) {
+			m_btnDelete = (Button) m_root.findViewById(R.id.btnDelete);
+			m_btnDelete.setVisibility(View.VISIBLE);
+			m_btnDelete.setOnClickListener(new OnClickListener() {
+				public void onClick(View arg0) {
+					FlurryAgent.logEvent("Mail - 'Delete' button pressed");
+					deleteMail();
+				}
+			});
+		}
 		
 		m_root.scrollBy(0,0);
 	}
