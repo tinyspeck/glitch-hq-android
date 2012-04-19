@@ -1,7 +1,11 @@
 package com.tinyspeck.glitchhq;
 
 import com.flurry.android.FlurryAgent;
+import com.google.android.c2dm.C2DMessaging;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +18,10 @@ import android.widget.ToggleButton;
 
 public class SettingsFragment extends BaseFragment {
 	
+	public static final String PUSH_NOTIFICATIONS_OPTION = "push_notifications_option";
+	
 	private View m_root;
-	private ToggleButton m_btnNotification;
+	private ToggleButton m_btnNotification;	
 	
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -74,10 +80,12 @@ public class SettingsFragment extends BaseFragment {
 		});
 		
 		m_btnNotification = (ToggleButton) m_root.findViewById(R.id.btnNotifications);
+		m_btnNotification.setChecked(SettingsFragment.getPushNotificationsOption(getActivity()));
 		m_btnNotification.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				FlurryAgent.logEvent("Settings - 'Notifications' " + arg1);
+				SettingsFragment.setPushNotificationsOption(getActivity(), arg1);
 				if (arg1) {
 					turnOnPushNotifications();
 				} else {
@@ -86,21 +94,38 @@ public class SettingsFragment extends BaseFragment {
 			}
 			
 		});
-		showSettingsPage();
+	}
+	
+	public static boolean getPushNotificationsOption(Context context) {		
+		final SharedPreferences prefs = context.getSharedPreferences("com.tinyspeck.glitchhq", Context.MODE_PRIVATE);
+		return prefs.getBoolean(PUSH_NOTIFICATIONS_OPTION, true);
+	}
+	
+	public static void setPushNotificationsOption(Context context, boolean want) {
+		final SharedPreferences prefs = context.getSharedPreferences("com.tinyspeck.glitchhq", Context.MODE_PRIVATE);
+		Editor editor = prefs.edit();
+		editor.putBoolean(PUSH_NOTIFICATIONS_OPTION, want);
+		editor.commit();
 	}
 	
 	private void turnOnPushNotifications()
 	{
-		
+		Context context = getActivity();
+		String registrationId =  C2DMessaging.getRegistrationId(context);
+		if (registrationId == null || registrationId.equals("")) {
+			C2DMReceiver.register(context);
+		} else {
+			(new C2DMReceiver()).addRegistrationId(context, registrationId);
+		}		
 	}
 	
 	private void turnOffPushNotifications()
 	{
-		
-	}
-	
-	private void showSettingsPage()
-	{
-		
+		Context context = getActivity();
+		String registrationId =  C2DMessaging.getRegistrationId(context);
+		if (registrationId != null && !registrationId.equals("")) {
+			(new C2DMReceiver()).removeRegistration(context, registrationId);
+		}
+		C2DMReceiver.unregister(context);
 	}
 }
