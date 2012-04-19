@@ -45,51 +45,55 @@
     <LinearLayout android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:padding="10sp"
-        android:orientation="vertical">
-        
-        <TextView android:id="@+id/terms_of_service"
-            android:text="Terms Of Service"
-            style="@style/PlayNameStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp"
-            android:clickable="true"
-            android:background="@drawable/settings_item_background"/>
-        
-        <View android:layout_height="1sp" 
-            android:layout_gravity="center" 
-            android:background="#e0e0e0"
-			android:layout_width="fill_parent" />
-        
-        <TextView android:id="@+id/privacy_policy"
-            android:text="Privacy Policy"
-            style="@style/PlayNameStyle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp"
-            android:clickable="true"
-            android:background="@drawable/settings_item_background"/>
-        
-        <View android:layout_height="1sp" 
-            android:layout_gravity="center" 
-            android:background="#e0e0e0"
-			android:layout_width="fill_parent" />
-        
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+        android:orientation="vertical"
+        android:background="@drawable/settings_item_background">        
+            
+	    <TextView android:id="@+id/terms_of_service" 
+			android:text="Terms Of Service"
+			style="@style/PlayNameStyle"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginBottom="20sp"
+			android:clickable="true"/>
+	        
+		<View android:layout_height="1sp" 
+			android:layout_gravity="center" 
+			android:background="#e0e0e0"
+			android:layout_width="fill_parent" />	              
+	        
+		<TextView android:id="@+id/privacy_policy"
+			android:text="Privacy Policy"
+			style="@style/PlayNameStyle"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_marginTop="20sp"
+			android:layout_marginBottom="20sp"
+			android:clickable="true"/>
+	        
+		<View android:layout_height="1sp" 
+			android:layout_gravity="center" 
+			android:background="#e0e0e0"
+			android:layout_width="fill_parent" />              
+            
         <TextView android:id="@+id/community_guidelines"
             android:text="Community Guidelines"
             style="@style/PlayNameStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp"
-            android:clickable="true"
-            android:background="@drawable/settings_item_background"/>
+            android:layout_marginTop="20sp"
+            android:clickable="true"/>        
+        
     </LinearLayout>
 
     <TextView android:id="@+id/settings_logout"
@@ -98,10 +102,15 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_gravity="center"
-        android:padding="10sp"
-        android:layout_margin="10sp"
-        android:clickable="true"
-        android:background="@drawable/settings_item_background"/>
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:paddingTop="20sp"
+        android:paddingBottom="20sp"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginTop="20sp"
+        android:layout_marginBottom="20sp"
+        android:clickable="true"/>
     
     <TextView android:id="@+id/settings_copyright" 
         android:layout_width="wrap_content"
