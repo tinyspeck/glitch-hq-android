@@ -30,7 +30,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_width="60sp" 
 	    android:layout_gravity="top"		
-		android:layout_marginRight="20sp"
+		android:layout_marginRight="10sp"
 		android:orientation="vertical">
 
 	    <ImageView android:id="@+id/profile_imagination_icon" 

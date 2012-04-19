@@ -199,7 +199,7 @@ public class ActivityFragment extends BaseFragment{
 		    m_actItemLast = response.optString("last");
     		m_actHasMore = (response.optInt("has_more")==1)? true: false;
     		
-    		addActivityList( m_actList, response, true );
+    		addActivityList( m_actList, response, ((HomeScreen)getActivity()).getPlayerName(), ((HomeScreen)getActivity()).getPlayerID());
     		updateActivityFeeds();
     		if ( m_actList.size() == 0 ) {
     			((TextView)m_root.findViewById( R.id.list_message )).setText( R.string.activity_no_items );

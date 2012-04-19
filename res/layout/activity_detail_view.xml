@@ -91,32 +91,37 @@
 			    android:layout_height="fill_parent"/> 
   
 		</LinearLayout>
+	
 	</ScrollView>
 
-<LinearLayout
-	  android:id="@+id/reply_pane"
-  	  android:orientation="vertical"
-  	  android:layout_weight="0.0"
-	  android:layout_width="fill_parent"
-	  android:layout_height="wrap_content" 
-	  android:background="#f0f4f6"
-	  android:layout_marginTop="10sp"
-	  android:visibility="gone"
-	  android:layout_gravity="center" >
+	<LinearLayout android:id="@+id/reply_pane"
+		android:orientation="vertical"
+  	  	android:layout_weight="0.0"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" 
+		android:background="#f0f4f6"
+		android:layout_marginTop="10sp"
+		android:visibility="gone"
+		android:layout_gravity="center" >
 
- <View android:id="@+id/list_diveider" android:layout_height="1sp" android:layout_gravity="center" android:background="#e0e0e0"
-			android:layout_width="fill_parent" />
+	<View android:id="@+id/list_diveider" 
+	    android:layout_height="1sp" 
+	    android:layout_gravity="center" 
+	    android:background="#e0e0e0"
+		android:layout_width="fill_parent" />
 
- <EditText android:id="@+id/replyEditor" android:layout_height="wrap_content" android:layout_gravity="center"
-	    	android:imeOptions="actionDone"
-	    	android:inputType="text"
-			android:layout_width="fill_parent" android:singleLine="true"  android:hint="Reply to "
-			android:layout_marginBottom="5sp"
-			android:layout_marginTop="5sp"
-			android:layout_marginLeft="10sp"
-			android:layout_marginRight="10sp"
-			android:text="" />
+ 	<EditText android:id="@+id/replyEditor" 
+ 	    android:layout_height="wrap_content" 
+ 	    android:layout_gravity="center"
+		android:imeOptions="actionDone"
+		android:inputType="text"
+		android:layout_width="fill_parent" android:singleLine="true"  android:hint="Reply to "
+		android:layout_marginBottom="5sp"
+		android:layout_marginTop="5sp"
+		android:layout_marginLeft="10sp"
+		android:layout_marginRight="10sp"
+		android:text="" />
 
-</LinearLayout> 
+	</LinearLayout> 
 
 </LinearLayout>

@@ -229,8 +229,9 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
    		return act;
 	}
 
-	public glitchActivity GetActivityFromJObject( JSONObject jobj, String key, boolean bOwner )
+	public glitchActivity GetActivityFromJObject( JSONObject jobj, String key, String ownerName, String ownerTsid )
 	{	
+		boolean bOwner = ownerTsid.equalsIgnoreCase(((HomeScreen)getActivity()).getPlayerID());
 		glitchActivity act = new glitchActivity();
 		
 		String sType = jobj.optString("type");	
@@ -331,6 +332,8 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			JSONObject jURL = jobj.optJSONObject("who_urls");
 			if (jURL != null)
 				act.avatar = jURL.optString("singles") + "_100.png";
+			else
+				act.icon = R.drawable.status;
 			act.what = jobj.optString("txt");
 			act.secret = jobj.optString("secret");
 			act.photo_id = jobj.optString("photo_id");
@@ -341,6 +344,8 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			JSONObject jURL = jobj.optJSONObject("who_urls");
 			if (jURL != null)
 				act.avatar = jURL.optString("singles") + "_100.png";
+			else
+				act.icon = R.drawable.status;
 			act.what = jobj.optString("txt");
 			glitchActivity in_reply_to = new glitchActivity();
 			in_reply_to.who = jobj.optString("owner_name");
@@ -355,9 +360,12 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			JSONObject jURL = jobj.optJSONObject("who_urls");
 			if (jURL != null)
 				act.avatar = jURL.optString("singles") + "_100.png";
+			else
+				act.icon = R.drawable.status;
 			act.what = jobj.optString("txt");				
 			glitchActivity in_reply_to = new glitchActivity();
-			in_reply_to.playerID = ((HomeScreen)getActivity()).getPlayerID();
+			in_reply_to.who = ownerName;
+			in_reply_to.playerID = ownerTsid;	
 			act.in_reply_to = in_reply_to;
 			act.secret = jobj.optString("secret");
 			act.photo_id = jobj.optString("photo_id");
@@ -367,7 +375,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		return act;
 	}
 	
-	public void addActivityList( Vector<glitchActivity> actList, JSONObject response, boolean bOwner )
+	public void addActivityList( Vector<glitchActivity> actList, JSONObject response, String ownerName, String ownerTsid)
 	{
 		JSONObject jItems = response.optJSONObject("items");
 		if( jItems != null && jItems.length() > 0)
@@ -379,7 +387,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     			String key =  it.next();
     			JSONObject jobj = jItems.optJSONObject( key );
     			if (jobj != null) {
-    				glitchActivity act = GetActivityFromJObject( jobj, key, bOwner );
+    				glitchActivity act = GetActivityFromJObject( jobj, key, ownerName, ownerTsid );
     				if( act != null && !findActivityInList( actList,act.id ) ) 	
     					actList.add(act);
     			}
