@@ -74,7 +74,7 @@ public class HomeScreen extends FragmentActivity {
 
 		m_application = (MyApplication) getApplicationContext();
 		m_application.homeScreen = this;
-		m_application.Init(this);
+		m_application.init(this);
 
 		setTitle(getResources().getString(R.string.str_main_title));
 		initLayout();

@@ -1,7 +1,10 @@
-<RelativeLayout android:id="@+id/title" android:layout_height="wrap_content" android:layout_gravity="center"
- 		   xmlns:android="http://schemas.android.com/apk/res/android"
-			android:layout_width="fill_parent" android:layout_weight="0.0" android:background="#ffffff"
-			>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/title" 
+    android:layout_height="wrap_content" 
+    android:layout_gravity="center"
+	android:layout_width="fill_parent" 
+	android:layout_weight="0.0" 
+	android:background="#ffffff">
 
   	<LinearLayout android:id="@+id/title_bar_layout" android:layout_height="wrap_content" android:layout_gravity="center"
   		android:layout_alignParentTop="true"
@@ -88,13 +91,13 @@
 		android:layout_centerVertical="true"
 		android:layout_width="54sp" android:layout_height="33sp" />
   
-  <Button android:id="@+id/btnSidebar" android:text="" 
-  			android:layout_alignParentLeft="true"
-  			android:visibility="gone"
-  			android:layout_marginLeft="6sp"
-  			android:background="@drawable/sidebar"
-  			android:layout_centerVertical="true"
-			android:layout_width="54sp" android:layout_height="33sp" />
+	<Button android:id="@+id/btnSidebar" android:text="" 
+		android:layout_alignParentLeft="true"
+		android:visibility="gone"
+  		android:layout_marginLeft="6sp"
+  		android:background="@drawable/sidebar"
+  		android:layout_centerVertical="true"
+		android:layout_width="54sp" android:layout_height="33sp" />
 
 	<Button android:id="@+id/btnLike" android:text="Like" 
 		android:layout_alignParentRight="true"
@@ -107,12 +110,16 @@
   
 	<Button android:id="@+id/btnBack"
 		android:text="Back"
+		android:singleLine="true"
 		android:textColor="#ffffff"
 		android:visibility="gone"
+		android:paddingLeft="5sp"
+		android:paddingRight="5sp"
 		android:layout_marginLeft="6sp"
 		android:layout_alignParentLeft="true"
-		android:background="@drawable/filter_button_state"
 		android:layout_centerVertical="true"
+		android:ellipsize="end"
+		android:background="@drawable/filter_button_state"
 		android:layout_width="70sp" 
 		android:layout_height="33sp"/>
 

@@ -33,7 +33,7 @@ import android.widget.TextView.OnEditorActionListener;
 public class SnapDetailFragment extends BaseFragment {
 
 	private glitchSnap m_currentSnap;
-	private String m_secret, m_photoId, m_ownerTsid;
+	private String m_secret, m_photoId, m_ownerName, m_ownerTsid;
 	private BaseFragment m_bf;
 	private Activity m_act;
 	private View m_root;
@@ -71,11 +71,13 @@ public class SnapDetailFragment extends BaseFragment {
 		String what;
 	}
 	
-	SnapDetailFragment(BaseFragment bf, String ownerTsid, String photoId, String secret)
+	public SnapDetailFragment(BaseFragment bf, String ownerName, String ownerTsid, 
+			String photoId, String secret)
 	{
 		m_bf = bf;
 		m_act = bf.getActivity();
 		m_ownerTsid = ownerTsid;
+		m_ownerName = ownerName;
 		m_secret = secret;
 		m_photoId = photoId;
 	}
@@ -91,13 +93,7 @@ public class SnapDetailFragment extends BaseFragment {
 		m_root = curView;
 		
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		if (m_bf instanceof ProfileFragment) {
-			m_btnBack.setText("Profile");
-		} else if (m_bf instanceof ActivityFragment) {
-			m_btnBack.setText("Activity");
-		} else {
-			m_btnBack.setText("Back");
-		}
+		m_btnBack.setText(m_ownerName);
 		m_btnBack.setVisibility(View.VISIBLE);
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
