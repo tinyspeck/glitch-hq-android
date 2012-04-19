@@ -1,19 +1,25 @@
 package com.tinyspeck.glitchhq;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class MailboxDetailFragment extends BaseFragment {
@@ -21,6 +27,7 @@ public class MailboxDetailFragment extends BaseFragment {
 	private glitchMail m_currentMessage;
 	private int m_msgId;
 	private View m_root;
+	private Button m_btnReply;
 	
 	MailboxDetailFragment(int msgId)
 	{
@@ -37,6 +44,14 @@ public class MailboxDetailFragment extends BaseFragment {
 		View curView = ViewInit(inflater, R.layout.mail_detail_view, container);
 		m_root = curView;
 		m_root.setVisibility(View.INVISIBLE);
+		m_btnReply = (Button) m_root.findViewById(R.id.btnReply);
+		m_btnReply.setVisibility(View.VISIBLE);
+		m_btnReply.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				FlurryAgent.logEvent("Mail - 'Reply' button pressed");
+				replyMail();
+			}
+		});
 		getMessage();
 		return curView;
 	}
@@ -68,7 +83,7 @@ public class MailboxDetailFragment extends BaseFragment {
 				m_currentMessage.sender_avatar = message.optString("sender_avatar");
 				m_currentMessage.currants = message.optInt("currants");
 				m_currentMessage.text = message.optString("text");
-				m_currentMessage.received = message.optLong("delivery_time");
+				m_currentMessage.received = message.optLong("delivery_time") * 1000; // convert to milliseconds
 				m_currentMessage.is_read = message.optBoolean("is_read");
 				m_currentMessage.is_expedited = message.optBoolean("is_expedited");
 				
@@ -108,13 +123,18 @@ public class MailboxDetailFragment extends BaseFragment {
 		
 		TextView tvReceived = (TextView) m_root.findViewById(R.id.message_detail_received);
 		tvReceived.setTypeface(m_application.m_vagLightFont);
-		tvReceived.setText(Util.TimeToString((int)(System.currentTimeMillis()/1000 - m_currentMessage.received)));
+		tvReceived.setText(DateFormat.getDateTimeInstance().format(new Date(m_currentMessage.received)));
 		
 		TextView tvBody = (TextView) m_root.findViewById(R.id.message_detail_body);
 		tvBody.setTypeface(m_application.m_vagLightFont);
 		tvBody.setText(m_currentMessage.text);
 		
 		m_root.scrollBy(0,0);
+	}
+	
+	private void replyMail()
+	{
+		
 	}
 	
 	protected boolean doesSupportRefresh()
@@ -127,4 +147,9 @@ public class MailboxDetailFragment extends BaseFragment {
 		getMessage();
 	}
 	
+	protected void scrollToTop()
+	{
+		ScrollView sv = (ScrollView)m_root.findViewById(R.id.MailboxDetailScrollView);
+		sv.smoothScrollTo(0, 0);
+	}
 }
