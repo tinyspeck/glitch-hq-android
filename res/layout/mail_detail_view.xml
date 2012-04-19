@@ -119,15 +119,17 @@
 			android:layout_height="wrap_content"
 			android:layout_width="fill_parent"
 			android:layout_centerVertical="true"
-			android:layout_alignParentLeft="true"
-	       	android:layout_marginLeft="10sp"
+			android:layout_alignParentLeft="true"			
+	       	android:layout_marginLeft="3sp"
 	       	android:visibility="gone">
 	        
 			<ImageView android:id="@+id/curranticon"
 			    android:src="@drawable/curranticon"
 			    android:layout_gravity="center_vertical"			    
 			    android:layout_height="wrap_content"
-			    android:layout_width="wrap_content"/>
+			    android:layout_width="wrap_content"
+			    android:paddingTop="3sp"
+			    android:paddingBottom="3sp"/>
 			
 			<TextView android:id="@+id/message_detail_currants"
 			    android:layout_gravity="center_vertical"
