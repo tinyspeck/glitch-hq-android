@@ -27,6 +27,7 @@ public class MailChooseRecipientFragment extends BaseFragment {
 	private FriendsListViewAdapter m_adapter;
 	private LinearListView m_listView;
 	private Button m_btnClose;
+	private Button m_btnSidebar;
 	private EditText m_filterText;
 	private View m_root;
 	
@@ -69,6 +70,9 @@ public class MailChooseRecipientFragment extends BaseFragment {
 				fm.popBackStack();
 			}
 		});
+		
+		m_btnSidebar = (Button) root.findViewById(R.id.btnSidebar);
+		m_btnSidebar.setVisibility(View.GONE);
 		
 		m_adapter = new FriendsListViewAdapter(this, m_recipientsList);
 		m_listView = (LinearListView)root.findViewById(R.id.RecipientsListView);
