@@ -7,9 +7,10 @@
     
     <include layout="@layout/top_pane" />
     
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <FrameLayout android:id="@+id/recipients_filter_area"
         android:layout_width="fill_parent"
         android:layout_height="50sp"
+        android:visibility="gone"
         android:clickable="true">
         
         <EditText android:id="@+id/recipients_search_box" 

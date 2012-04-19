@@ -21,7 +21,7 @@
 		android:layout_alignParentLeft="true"
 		android:background="@drawable/filter_button_state"
 		android:layout_centerVertical="true"
-		android:layout_width="54sp" android:layout_height="33sp"/>
+		android:layout_width="60sp" android:layout_height="33sp"/>
   	
   	<Button android:id="@+id/btnFilter" android:text="Filter" 
 		android:textColor="#ffffff"

@@ -10,6 +10,7 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MailComposeFragment extends BaseFragment {
 	
@@ -111,6 +113,11 @@ public class MailComposeFragment extends BaseFragment {
 	public void onRequestBack(String method, JSONObject response)
 	{
 		if (method == "mail.sendMessage") {
+			if (response.optInt("ok") != 1) {
+				Util.shortToast(getActivity(), "Failed");
+			} else {
+				Util.shortToast(getActivity(), "Sent");
+			}
 			FragmentManager fm = getFragmentManager();
 			fm.popBackStack(); // go back to recipient selector
 			fm.popBackStack(); // go back to whatever was before

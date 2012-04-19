@@ -118,6 +118,9 @@ public class MailboxDetailFragment extends BaseFragment {
 				setMailboxDetailView();
 			}
 		} else if (method == "mail.deleteMessage") {
+			if (response.optInt("ok") == 1) {
+				Util.shortToast(getActivity(), "Deleted");
+			}
 			((HomeScreen)getActivity()).getMailboxFragment().removeMessage(m_currentMessage);
 			FragmentManager fm = getFragmentManager();
     		fm.popBackStack();
