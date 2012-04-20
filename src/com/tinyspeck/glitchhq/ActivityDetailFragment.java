@@ -57,7 +57,7 @@ public class ActivityDetailFragment extends BaseFragment{
     	
     	m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
     	if (m_bf instanceof ProfileFragment) {
-    		m_btnBack.setText(((HomeScreen)getActivity()).getPlayerName());
+    		m_btnBack.setText(((ProfileFragment)m_bf).getPlayerName());
     	} else if (m_bf instanceof ActivityFragment){
     		m_btnBack.setText("Feed");
     	} else {
@@ -245,7 +245,7 @@ public class ActivityDetailFragment extends BaseFragment{
 			OnClickListener lsn = new OnClickListener(){
 				public void onClick(View v) {
 					String pID = (String)v.getTag();
-					ProfileFragment f = new ProfileFragment( pID, true );
+					ProfileFragment f = new ProfileFragment(m_bf, pID, true );
 					((HomeScreen)getActivity()).setCurrentFragment(f, true );
 				}
 			};

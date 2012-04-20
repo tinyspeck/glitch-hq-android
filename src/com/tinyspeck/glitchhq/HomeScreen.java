@@ -436,7 +436,7 @@ public class HomeScreen extends FragmentActivity {
 
 		m_spinner = findViewById(R.id.spinner);
 
-		m_profileFrm = new ProfileFragment(null, false);
+		m_profileFrm = new ProfileFragment();
 		m_skillFrm = new SkillFragment();
 		m_unlearnFrm = new UnlearnFragment();
 		m_activityFrm = new ActivityFragment();		
