@@ -142,7 +142,13 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			String name2 = f2.player_name.toLowerCase();
 			return name1.compareTo(name2);  
 		}   
-	}   	
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
+	}
 	
 	public View ViewInit( LayoutInflater inflater, int nLayout, ViewGroup container )
 	{
@@ -562,5 +568,33 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	public void logPageView()
 	{
 		FlurryAgent.onPageView();
+	}
+	
+	@Override
+	public void onPrepareOptionsMenu(Menu menu) {
+		menu.clear();
+
+		if (doesSupportRefresh())
+			menu.add(0, MENU_COMMAND_REFRESH, Menu.NONE + 0, R.string.str_menu_refresh);
+
+		if (doesSupportMore())
+			menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1, R.string.str_menu_more);
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case MENU_COMMAND_REFRESH:
+			onRefresh();
+			FlurryAgent.logEvent(getClass().toString() + " - Clicked to refresh");
+			break;
+		case MENU_COMMAND_MORE:
+			onMore();
+			FlurryAgent.logEvent(getClass().toString() + " - Clicked to load more");
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
