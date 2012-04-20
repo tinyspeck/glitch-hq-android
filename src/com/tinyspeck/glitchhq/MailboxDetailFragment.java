@@ -103,6 +103,7 @@ public class MailboxDetailFragment extends BaseFragment {
 				m_currentMessage.sender_avatar = message.optString("sender_avatar");
 				m_currentMessage.currants = message.optInt("currants");
 				m_currentMessage.text = message.optString("text");
+				if (mail.text.equalsIgnoreCase("null")) { mail.text = ""; }
 				m_currentMessage.received = message.optLong("delivery_time") * 1000; // convert to milliseconds
 				m_currentMessage.is_read = message.optBoolean("is_read");
 				m_currentMessage.is_expedited = message.optBoolean("is_expedited");
