@@ -14,6 +14,7 @@ import com.tinyspeck.android.GlitchRequest;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -135,25 +136,29 @@ public class MailboxDetailFragment extends BaseFragment {
 	protected void setMailboxDetailView()
 	{
 		ImageView icon = (ImageView) m_root.findViewById(R.id.message_detail_sender_icon);
-		if (m_currentMessage.sender_avatar != null && !m_currentMessage.sender_avatar.equals(""))
+		if (m_currentMessage.sender_avatar != null && !m_currentMessage.sender_avatar.equals("")) {
 			DrawableURL.CropShow(icon, m_currentMessage.sender_avatar + "_100.png");
-		else
+		} else {
 			BitmapUtil.CropShow(icon, BitmapFactory.decodeResource(m_root.getResources(), R.drawable.wireframe));
+			icon.setVisibility(View.INVISIBLE);
+		}
+		
+		TextView tvBody = (TextView) m_root.findViewById(R.id.message_detail_body);
+		tvBody.setTypeface(m_application.m_vagLightFont);		
 		
 		TextView tvSenderName = (TextView) m_root.findViewById(R.id.message_detail_sender_name);
 		tvSenderName.setTypeface(m_application.m_vagFont);
-		if (m_currentMessage.sender_label != null && !m_currentMessage.sender_label.equals(""))
+		if (m_currentMessage.sender_label != null && !m_currentMessage.sender_label.equals("")) {
 			tvSenderName.setText(m_currentMessage.sender_label);
-		else
+			tvBody.setText(m_currentMessage.text);
+		} else {
 			tvSenderName.setText("Glitch");
+			tvBody.setText(Html.fromHtml(m_currentMessage.text));
+		}
 		
 		TextView tvReceived = (TextView) m_root.findViewById(R.id.message_detail_received);
 		tvReceived.setTypeface(m_application.m_vagLightFont);
-		tvReceived.setText(DateFormat.getDateTimeInstance().format(new Date(m_currentMessage.received)));
-		
-		TextView tvBody = (TextView) m_root.findViewById(R.id.message_detail_body);
-		tvBody.setTypeface(m_application.m_vagLightFont);
-		tvBody.setText(m_currentMessage.text);
+		tvReceived.setText(DateFormat.getDateTimeInstance().format(new Date(m_currentMessage.received)));		
 		
 		if (m_currentMessage.currants > 0) {
 			LinearLayout messageCurrants = (LinearLayout) m_root.findViewById(R.id.message_currants);
