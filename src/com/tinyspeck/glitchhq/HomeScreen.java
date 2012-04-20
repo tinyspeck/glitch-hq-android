@@ -9,6 +9,8 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.BackStackEntry;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.Display;
@@ -36,7 +38,6 @@ public class HomeScreen extends FragmentActivity {
 
 	static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
-	static final private int MENU_COMMAND_SIDEBAR = Menu.FIRST + 2;
 
 	private Boolean m_showingSidebar = false;
 
@@ -458,9 +459,7 @@ public class HomeScreen extends FragmentActivity {
 	}
 
 	public void onBackPressed() {
-
-		super.onBackPressed();
-
+		super.onBackPressed(); 
 	}
 	
 	public Sidebar getSidebar() 
@@ -468,6 +467,12 @@ public class HomeScreen extends FragmentActivity {
 		return sidebar;
 	}
 
+	@Override
+	public void onAttachFragment(Fragment f) {
+		super.onAttachFragment(f);
+		m_curFrm = (BaseFragment) f;
+	}
+	
 	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		menu.clear();
@@ -504,7 +509,7 @@ public class HomeScreen extends FragmentActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
+	
 	public void requestFailed(GlitchRequest request) {
 		// if( m_homeScrollView != null )
 		// m_homeScrollView.onRefreshComplete();

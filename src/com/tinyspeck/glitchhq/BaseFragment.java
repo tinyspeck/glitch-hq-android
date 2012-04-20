@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -28,7 +30,9 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 {
 	public int m_requestCount = 0;
 	public boolean m_bAppendMode;
-    protected MyApplication m_application;    
+    protected MyApplication m_application;
+    static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
+	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
 	
   	public class glitchActivity{
  		 String who;
