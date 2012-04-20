@@ -49,7 +49,6 @@ public class HomeScreen extends FragmentActivity {
 	private Page m_curPage = Page.Profile;
 	private Page m_newPage;
 	private int skillOrUnlearn = TAB_SKILLS;
-	private Sidebar sidebar;
 
 	private ProfileFragment m_profileFrm;
 	private SkillFragment m_skillFrm;
@@ -457,57 +456,9 @@ public class HomeScreen extends FragmentActivity {
 
 		setCurrentFragment(m_profileFrm, false);
 	}
-
+	
 	public void onBackPressed() {
-		super.onBackPressed(); 
-	}
-	
-	public Sidebar getSidebar() 
-	{
-		return sidebar;
-	}
-
-	@Override
-	public void onAttachFragment(Fragment f) {
-		super.onAttachFragment(f);
-		m_curFrm = (BaseFragment) f;
-	}
-	
-	@Override
-	public boolean onPrepareOptionsMenu(Menu menu) {
-		menu.clear();
-
-		if (m_curFrm != null && m_curFrm.doesSupportRefresh())
-			menu.add(0, MENU_COMMAND_REFRESH, Menu.NONE + 0,
-					R.string.str_menu_refresh);
-
-		if (m_curFrm != null && m_curFrm.doesSupportMore())
-			menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1,
-					R.string.str_menu_more);
-
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-		case MENU_COMMAND_REFRESH:
-			if (m_curFrm != null) {
-				m_curFrm.onRefresh();
-				FlurryAgent.logEvent(m_curFrm.getClass().toString()
-						+ " - Clicked to refresh");
-			}
-			break;
-		case MENU_COMMAND_MORE:
-			if (m_curFrm != null) {
-				m_curFrm.onMore();
-				FlurryAgent.logEvent(m_curFrm.getClass().toString()
-						+ " - Clicked to load more");
-			}
-			break;
-		}
-		return super.onOptionsItemSelected(item);
+		super.onBackPressed();		
 	}
 	
 	public void requestFailed(GlitchRequest request) {
