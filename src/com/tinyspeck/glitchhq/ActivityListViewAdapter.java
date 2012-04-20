@@ -217,11 +217,17 @@ public class ActivityListViewAdapter extends BaseAdapter
 				glitchActivity currentActivity = m_actList.get( (Integer)arg0.getTag() );
 				if(  currentActivity.type.equalsIgnoreCase( "request_friend_add" ) )
 				{
-					ProfileFragment f = new ProfileFragment( currentActivity.playerID, true );
+					ProfileFragment f = new ProfileFragment(m_bf, currentActivity.playerID, true );
 					((HomeScreen)m_act).setCurrentFragment(f, true );
 				} 
-				else if (currentActivity.type.equalsIgnoreCase("photo") || 
-						currentActivity.type.equalsIgnoreCase("photo-comment") ||
+				else if (currentActivity.type.equalsIgnoreCase("photo")) 
+				{
+					SnapDetailFragment f = new SnapDetailFragment(m_bf,
+							currentActivity.who, currentActivity.playerID,
+							currentActivity.photo_id, currentActivity.secret);
+					((HomeScreen)m_act).setCurrentFragment(f, true);
+				}
+				else if (currentActivity.type.equalsIgnoreCase("photo-comment") ||
 						currentActivity.type.equalsIgnoreCase("photo-comment-received")) 
 				{
 					SnapDetailFragment f = new SnapDetailFragment(m_bf, 
@@ -230,10 +236,10 @@ public class ActivityListViewAdapter extends BaseAdapter
 					((HomeScreen)m_act).setCurrentFragment(f, true);
 				}
 				else{
-					ActivityDetailFragment fm = new ActivityDetailFragment(m_bf, currentActivity.who, 
+					ActivityDetailFragment f = new ActivityDetailFragment(m_bf, currentActivity.who, 
 							currentActivity.playerID,currentActivity.id);
-					((HomeScreen)m_act).setCurrentFragment(fm, true );
-				}
+					((HomeScreen)m_act).setCurrentFragment(f, true );
+				}				
 			}
 	    });  
        	return convertView;

@@ -38,6 +38,7 @@ public class SnapDetailFragment extends BaseFragment {
 	private Activity m_act;
 	private View m_root;
 	private boolean m_bRefreshToBottom;
+	private SnapDetailFragment m_this;
 	
 	private SnapCommentsListAdapter m_commentsAdapter;
 	private LinearListView m_commentsListView;
@@ -80,6 +81,7 @@ public class SnapDetailFragment extends BaseFragment {
 		m_ownerName = ownerName;
 		m_secret = secret;
 		m_photoId = photoId;
+		m_this = this;
 	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) 
@@ -93,7 +95,13 @@ public class SnapDetailFragment extends BaseFragment {
 		m_root = curView;
 		
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		m_btnBack.setText(m_ownerName);
+		if (m_bf instanceof ActivityFragment) {
+			m_btnBack.setText("Feed");
+		} else if (m_bf instanceof ProfileFragment) {
+			m_btnBack.setText(((ProfileFragment)m_bf).getPlayerName());
+		} else {
+			m_btnBack.setText("Back");
+		}
 		m_btnBack.setVisibility(View.VISIBLE);
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -196,19 +204,23 @@ public class SnapDetailFragment extends BaseFragment {
 	
 	protected void setSnapDetailView(View root)
 	{
+		OnClickListener lsn = new OnClickListener() {
+			public void onClick(View v) {
+				String playerId = (String)v.getTag();
+				ProfileFragment f = new ProfileFragment(m_this, playerId, true);
+				((HomeScreen)getActivity()).setCurrentFragment(f, true);
+			}
+		};
+		
 		TextView ownerName = (TextView) root.findViewById(R.id.snap_owner_name);
 		ownerName.setTypeface(m_application.m_vagFont);
-		ownerName.setText(m_currentSnap.who);		
+		ownerName.setText(m_currentSnap.who);
+		ownerName.setTag(m_currentSnap.playerID);
+		ownerName.setOnClickListener(lsn);
 		
 		ImageView goArrow = (ImageView) root.findViewById(R.id.snap_go_arrow);
 		goArrow.setTag(m_currentSnap.playerID);
-		goArrow.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				String playerId = (String)v.getTag();
-				ProfileFragment f = new ProfileFragment(playerId, true);
-				((HomeScreen)getActivity()).setCurrentFragment(f, true);
-			}
-		});
+		goArrow.setOnClickListener(lsn);
 		
 		ImageView snapPhoto = (ImageView) root.findViewById(R.id.snap_detail_photo);
 		m_application.Download(m_currentSnap.image, snapPhoto, MyApplication.DOWNLOAD_TYPE_NORMAL);

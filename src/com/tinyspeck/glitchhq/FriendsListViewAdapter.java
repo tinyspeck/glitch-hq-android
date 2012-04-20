@@ -117,7 +117,7 @@ public class FriendsListViewAdapter extends BaseAdapter implements Filterable {
 			holder.whole.setOnClickListener( new OnClickListener() {				
 				public void onClick(View arg0) {
 					glitchFriend friend = m_friendsList.get((Integer)arg0.getTag());
-					ProfileFragment f = new ProfileFragment(friend.id, true);
+					ProfileFragment f = new ProfileFragment(m_bf, friend.id, true);
 					((HomeScreen)m_act).setCurrentFragment(f, true);
 				}
 			});

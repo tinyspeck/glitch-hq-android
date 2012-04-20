@@ -16,6 +16,7 @@ import com.tinyspeck.glitchhq.BaseFragment.skillAvailable;
 
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +39,9 @@ public class ProfileFragment extends BaseFragment{
     private LinearListView  m_listView, m_learningListView, m_unlearningListView;
     private String m_playerTsid, m_avatarUrl, m_playerName;
     private ImageView m_avatar;
+    private BaseFragment m_bf;
+    private Button m_btnBack;
+    private Button m_btnSidebar;
     private int m_currentActType;
 
 	private int m_nCurrants;
@@ -58,7 +62,7 @@ public class ProfileFragment extends BaseFragment{
     private TextView m_tv_skills;
     private TextView m_tv_upgrades;
     private ImageView m_iv_achievements;
-    private View m_vProfile;
+    private View m_vProfile;    
     
 	private Timer m_RemainingTimer;
 	
@@ -74,13 +78,15 @@ public class ProfileFragment extends BaseFragment{
 	
   	public ProfileFragment()
   	{
+  		m_bf = null;
   		m_playerTsid = null;
   		m_bOtherProfile = false;
   		m_bFriend = false;
   	}
   	
-  	public ProfileFragment( String playerID, boolean bOthers )
+  	public ProfileFragment(BaseFragment bf, String playerID, boolean bOthers )
   	{
+  		m_bf = bf;
   		m_bOtherProfile = bOthers;
   		m_playerTsid = playerID;
   		m_bFriend = false;
@@ -95,6 +101,31 @@ public class ProfileFragment extends BaseFragment{
     {
     	View curView = ViewInit( inflater, R.layout.profile_view, container );
     	m_root = curView;
+    	
+    	if (m_bf != null) {
+    		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
+    		if (m_bf instanceof SnapDetailFragment) {
+    			m_btnBack.setText("Snap");
+    		} else if (m_bf instanceof FriendsFragment) {
+    			m_btnBack.setText("Friends");
+    		} else if (m_bf instanceof ActivityFragment) {
+    			m_btnBack.setText("Feed");
+    		} else if (m_bf instanceof ProfileFragment) {
+    			m_btnBack.setText(((ProfileFragment)m_bf).getPlayerName());
+    		} else {
+    			m_btnBack.setText("Back");
+    		}
+    		m_btnBack.setVisibility(View.VISIBLE);
+    		m_btnBack.setOnClickListener(new OnClickListener() {
+    			public void onClick(View v) {
+    				FragmentManager fm = getFragmentManager();
+    				fm.popBackStack();
+    			}
+    		});
+    		m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
+    		m_btnSidebar.setVisibility(View.GONE);
+    	}
+    	
     	init( curView );
 		return curView;
     }
@@ -455,6 +486,10 @@ public class ProfileFragment extends BaseFragment{
 			         }});
    	       }  
 		}, 1000, 1000 ); 
+	}
+	
+	public String getPlayerName() {
+		return m_playerName;
 	}
 	
 	private void AddOrRemoveFriend( boolean bRemove, String player )
