@@ -159,6 +159,7 @@ public class MailboxFragment extends BaseFragment {
 					mail.id = message.optInt("message_id");
 					mail.currants = message.optInt("currants");
 					mail.text = message.optString("text");
+					if (mail.text.equalsIgnoreCase("null")) { mail.text = ""; }
 					mail.received = message.optLong("received");
 					mail.replied = message.optInt("replied") == 1;
 					mail.is_expedited = message.optBoolean("is_expedited");

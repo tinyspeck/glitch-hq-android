@@ -289,11 +289,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		{
 			act.who = jobj.optString("who_name");
 			act.playerID = jobj.optString("who_tsid");
-			if (bOwner) {
-				act.what = "joined " + jobj.optString("group_name");
-			} else {
-				act.what = "has invited you to join " + jobj.optString("group_name");
-			}
+			act.what = "joined " + jobj.optString("group_name");
 			act.icon = R.drawable.status;
 		}
 		else if( sType.equalsIgnoreCase( "auction_buy" ) )

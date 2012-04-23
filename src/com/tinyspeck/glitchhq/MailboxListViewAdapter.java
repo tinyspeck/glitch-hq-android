@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -88,19 +89,20 @@ public class MailboxListViewAdapter extends BaseAdapter {
 			glitchMail message = m_mailList.get(position);
 			if (message.sender_label != null && !message.sender_label.equals("")) {
 				holder.name.setText(message.sender_label);
+				holder.text.setText(message.text);
 			} else {
 				holder.name.setText("Glitch");
-			}			
+				holder.text.setText(Html.fromHtml(message.text));
+			}
 			if (message.sender_avatar != null && !message.sender_avatar.equals("")) {
 				DrawableURL.CropShow(holder.icon, message.sender_avatar + "_100.png");
 			} else {
-				// TODO: If there's no sender, then its probably from staff so use the glitch icon
 				BitmapUtil.CropShow(holder.icon, BitmapFactory.decodeResource(m_act.getResources(), R.drawable.wireframe));
+				holder.icon.setVisibility(View.INVISIBLE);
 			}			
 			if (message.is_read == false) {
 				holder.text.setTypeface(m_application.m_vagLightFont, Typeface.BOLD);
-			}
-			holder.text.setText(message.text);
+			}			
 			
 			holder.time.setText(Util.TimeToString((int)(System.currentTimeMillis()/1000 - message.received)));
 			if( position == getCount() - 1)
