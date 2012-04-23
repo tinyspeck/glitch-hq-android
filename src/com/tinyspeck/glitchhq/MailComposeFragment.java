@@ -101,7 +101,7 @@ public class MailComposeFragment extends BaseFragment {
 	{
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("recipient", m_recipientTsid);
-		params.put("message", m_recipientTextView.getText().toString());
+		params.put("message", m_composer.getText().toString());
 		if (m_inReplyTo > 0) {
 			params.put("in_reply_to", String.valueOf(m_inReplyTo));
 		}
