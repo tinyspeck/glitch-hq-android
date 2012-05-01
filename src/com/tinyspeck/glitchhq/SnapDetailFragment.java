@@ -15,6 +15,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.support.v4.app.FragmentManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -226,7 +227,9 @@ public class SnapDetailFragment extends BaseFragment {
 		m_application.Download(m_currentSnap.image, snapPhoto, MyApplication.DOWNLOAD_TYPE_NORMAL);
 		
 		TextView snapDetail = (TextView) root.findViewById(R.id.snap_detail_text);
-		snapDetail.setText(m_currentSnap.what);
+		
+		snapDetail.setText(Html.fromHtml(m_currentSnap.what));
+		
 		snapDetail.setVisibility((m_currentSnap.what != null && m_currentSnap.what.length() > 0)
 				? View.VISIBLE : View.GONE);
 		
