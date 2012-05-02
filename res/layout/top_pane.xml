@@ -107,7 +107,7 @@
 		android:background="@drawable/filter_button_state"
 		android:layout_centerVertical="true"
 		android:layout_width="50sp" android:layout_height="33sp" />
-  
+	
 	<Button android:id="@+id/btnBack"
 		android:text="Back"
 		android:singleLine="true"
