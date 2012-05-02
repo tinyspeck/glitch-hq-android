@@ -86,7 +86,11 @@ public class AchievementsListViewAdapter extends BaseAdapter {
 			glitchAchievement ach = m_achList.get(position);
 			holder.name.setText(ach.name);
 			if (ach.icon != null) {
-				DrawableURL.Show(holder.icon, ach.icon, false);
+				if (ach.got) {
+					DrawableURL.ShowGrayscaleAchievementBadge(holder.icon, ach.icon, false);
+				} else {
+					DrawableURL.Show(holder.icon, ach.icon, false);
+				}
 			} else {
 				holder.icon.setVisibility(View.GONE);
 			}
