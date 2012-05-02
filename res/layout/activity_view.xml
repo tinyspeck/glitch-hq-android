@@ -9,11 +9,11 @@
 
 	<TextView android:text="Requests" 
 		android:id="@+id/activity_header"
-		android:textSize="16sp"
-		android:paddingLeft="4sp"
+		android:textSize="14sp"
+		android:paddingLeft="10sp"
 		android:textStyle="bold"
 		android:textColor="#ffffff"
-		android:background="#005471"
+		android:background="@drawable/sidebar_header_gradient"
 		android:gravity="center_vertical"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"/>

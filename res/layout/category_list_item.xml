@@ -5,22 +5,33 @@
     android:orientation="vertical" 
     android:layout_gravity="center">
     
-    <LinearLayout android:id="@+id/category_item"
+    <RelativeLayout android:id="@+id/category_item"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_gravity="center"
         android:clickable="true"
-        android:background="@drawable/list_item_bg_selector"
         android:padding="3sp">
         
         <TextView android:id="@+id/category_name"
             style="@style/PlayNameStyle" 
-			android:layout_gravity="left"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:padding="10sp"/>
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"			
+			android:padding="10sp"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true"/>
         
-    </LinearLayout>
+        <TextView android:id="@+id/category_count"
+            style="@style/MoodTextStyle"
+            android:textSize="15sp"            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10sp"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/category_name"/>
+        
+    </RelativeLayout>
     
     <View android:id="@+id/list_divider" 
         android:layout_height="1sp"

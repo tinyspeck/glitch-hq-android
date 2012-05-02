@@ -23,18 +23,21 @@ import android.widget.TextView;
 
 public class AchievementsFragment extends BaseFragment {
 
-	private String m_category;
-	private AchievementsListViewAdapter m_adapter;
-	private LinearListView m_listView;
+	private glitchAchievementCategory m_category;
+	private AchievementsListViewAdapter m_incompleteAdapter;
+	private AchievementsListViewAdapter m_completedAdapter;
+	private LinearListView m_incompleteListView;
+	private LinearListView m_completedListView;
 	private View m_root;
 	private Button m_btnBack;
 	private Button m_btnSidebar;
+	private TextView m_incompleteHeader;
+	private TextView m_completedHeader;
 	
-	private int currentPage;
+	private Vector<glitchAchievement> m_incompleteList;
+	private Vector<glitchAchievement> m_completedList;
 	
-	private Vector<glitchAchievement> m_achievementsList;
-	
-	public AchievementsFragment(String category)
+	public AchievementsFragment(glitchAchievementCategory category)
 	{
 		m_category = category; 
 	}
@@ -53,10 +56,11 @@ public class AchievementsFragment extends BaseFragment {
 	
 	private void init(View root)
 	{
-		boolean bUpdateData = (m_achievementsList == null);
+		boolean bUpdateData = (m_incompleteList == null || m_completedList == null);
 	
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
 		m_btnBack.setText("Categories");
+		m_btnBack.setWidth(100);
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				FragmentManager fm = getFragmentManager();
@@ -69,18 +73,28 @@ public class AchievementsFragment extends BaseFragment {
 		m_btnSidebar.setVisibility(View.GONE);
 		
 		if (bUpdateData) {
-			m_achievementsList = new Vector<glitchAchievement>();			
+			m_incompleteList = new Vector<glitchAchievement>();
+			m_completedList = new Vector<glitchAchievement>();
 		}
 		
-		m_adapter = new AchievementsListViewAdapter(getActivity(), m_achievementsList, m_category);
-		m_listView = (LinearListView) root.findViewById(R.id.achievements_list);
-		m_listView.setAdapter(m_adapter);
+		m_incompleteAdapter = new AchievementsListViewAdapter(getActivity(), m_incompleteList, m_category.name);
+		m_completedAdapter = new AchievementsListViewAdapter(getActivity(), m_completedList, m_category.name);
+		m_incompleteListView = (LinearListView) root.findViewById(R.id.incomplete_achievements_list);
+		m_incompleteListView.setAdapter(m_incompleteAdapter);
+		m_completedListView = (LinearListView) root.findViewById(R.id.completed_achievements_list);
+		m_completedListView.setAdapter(m_completedAdapter);		
+		
 		TextView tv = (TextView)m_root.findViewById(R.id.achievements_title);
 		tv.setTypeface(m_application.m_vagFont);
-		tv.setText(m_category);
+		tv.setText(m_category.name + " (" + m_category.completed + "/" + m_category.total + ")");
+		m_incompleteHeader = (TextView)m_root.findViewById(R.id.incomplete_header);
+		m_incompleteHeader.setTypeface(m_application.m_vagFont);
+		m_completedHeader = (TextView)m_root.findViewById(R.id.completed_header);
+		m_completedHeader.setTypeface(m_application.m_vagFont);
+		
 		
 		if (bUpdateData) {
-			getAchievements(false);
+			getAchievements();
 		} else {
 			showAchievementsPage();
 		}		
@@ -88,32 +102,27 @@ public class AchievementsFragment extends BaseFragment {
 	
 	private void showAchievementsPage()
 	{
-		boolean bHas = m_achievementsList.size() > 0;		
-		m_root.findViewById(R.id.achievements_list_message).setVisibility(bHas ? View.GONE : View.VISIBLE);
-		m_listView.setVisibility(bHas ? View.VISIBLE : View.GONE);
+		boolean bHasIncomplete = m_incompleteList.size() > 0;
+		boolean bHasCompleted = m_completedList.size() > 0;
+		m_root.findViewById(R.id.achievements_list_message).setVisibility(bHasIncomplete || bHasCompleted ? View.GONE : View.VISIBLE);
 		
-		if (bHas)
-			m_adapter.notifyDataSetChanged();
+		m_incompleteListView.setVisibility(bHasIncomplete ? View.VISIBLE : View.GONE);
+		m_incompleteHeader.setVisibility(bHasIncomplete ? View.VISIBLE : View.GONE);
+		m_completedListView.setVisibility(bHasCompleted ? View.VISIBLE : View.GONE);
+		m_completedHeader.setVisibility(bHasCompleted ? View.VISIBLE : View.GONE);
 		
-		if (m_bAppendMode) {
-			ScrollView sv = (ScrollView) m_root.findViewById(R.id.AchievementsScrollView);
-			Util.delayedFlingOfScrollView(sv, 500, 500);
-		}
+		if (bHasIncomplete)
+			m_incompleteAdapter.notifyDataSetChanged();
+		if (bHasCompleted)
+			m_completedAdapter.notifyDataSetChanged();
 	}
 	
-	public void getAchievements(boolean bMore)
+	public void getAchievements()
 	{
 		if (m_application != null) {
 			Map<String, String> params = new HashMap<String, String>();
-			params.put("category", m_category);
-			params.put("per_page", "20");
-			
-			if (bMore) {
-				params.put("page", String.valueOf(currentPage + 1));
-				m_bAppendMode = true;
-			} else {
-				m_bAppendMode = false;
-			}
+			params.put("category", m_category.name);
+			params.put("per_page", String.valueOf(m_category.total));
 			
 			GlitchRequest request = m_application.glitch.getRequest("achievements.listAllInCategory", params);
 			request.execute(this);
@@ -128,15 +137,11 @@ public class AchievementsFragment extends BaseFragment {
 	{
 		if (method == "achievements.listAllInCategory") {
 			
-			if (!m_bAppendMode)
-				m_achievementsList.clear();
-			
-			currentPage = response.optInt("page");
+			m_incompleteList.clear();
+			m_completedList.clear();
 						
 			addAchievementsList(response);
-			if (m_achievementsList.size() == 0) {
-				((TextView)m_root.findViewById(R.id.achievements_list_message)).setText("");
-			}
+					
 			showAchievementsPage();			
 		}
 		onRequestComplete();
@@ -163,40 +168,26 @@ public class AchievementsFragment extends BaseFragment {
 				ach.icon = jobj.optString("image_60");
 				ach.got = jobj.optInt("got") == 1 ? true : false;
 				
-				if (ach != null && !findAchievementInList(ach.id)) {
-					m_achievementsList.add(ach);
+				if (ach.got) {
+					m_completedList.add(ach);
+				} else {
+					m_incompleteList.add(ach);
 				}
 			}
-			Collections.sort(m_achievementsList, new SortById());
+			SortById comp = new SortById();
+			Collections.sort(m_completedList, comp);
+			Collections.sort(m_incompleteList, comp);
 		}			
-	}
-	
-	private boolean findAchievementInList(String id) {
-		for (int i=0; i < m_achievementsList.size(); i++) {
-			if (m_achievementsList.get(i).id.equalsIgnoreCase(id))
-				return true;
-		}
-		return false;
-	}
+	}	
 	
 	protected boolean doesSupportRefresh()
 	{
 		return true;
-	}
-	
-	protected boolean doesSupportMore()
-	{
-		return true;
-	}
+	}	
 	
 	protected void OnRefresh()
 	{
-		getAchievements(false);
-	}
-	
-	protected void onMore()
-	{
-		getAchievements(true);
+		getAchievements();
 	}
 	
 	protected void scrollToTop()

@@ -2,6 +2,8 @@ package com.tinyspeck.glitchhq;
 
 import java.util.Vector;
 
+import com.tinyspeck.glitchhq.BaseFragment.glitchAchievementCategory;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +15,7 @@ import android.widget.TextView;
 
 public class AchievementCategoriesListViewAdapter extends BaseAdapter {
 
-	private Vector<String> m_categoriesList;
+	private Vector<glitchAchievementCategory> m_categoriesList;
 	private LayoutInflater m_inflater;
 	private Activity m_act;
 	private BaseFragment m_bf;
@@ -22,10 +24,11 @@ public class AchievementCategoriesListViewAdapter extends BaseAdapter {
 	public class ViewHolder 
 	{
 		TextView name;
+		TextView count;
 		View whole;
 	}
 	
-	public AchievementCategoriesListViewAdapter(BaseFragment bf, Vector<String> categoriesList) 
+	public AchievementCategoriesListViewAdapter(BaseFragment bf, Vector<glitchAchievementCategory> categoriesList) 
 	{
 		m_categoriesList = categoriesList;
 		m_act = bf.getActivity();
@@ -65,20 +68,23 @@ public class AchievementCategoriesListViewAdapter extends BaseAdapter {
 			
 			holder.name = (TextView)convertView.findViewById(R.id.category_name);
 			holder.name.setTypeface(m_application.m_vagFont);
+			holder.count = (TextView)convertView.findViewById(R.id.category_count);
+			holder.count.setTypeface(m_application.m_vagLightFont);
 			holder.whole = (View)convertView.findViewById(R.id.category_item);
 			convertView.setTag(holder);
 		}
 		holder = (ViewHolder)convertView.getTag();
 		
 		if (position < getCount()) {
-			String category = m_categoriesList.get(position);
-			holder.name.setText(category);			
+			glitchAchievementCategory category = m_categoriesList.get(position);
+			holder.name.setText(category.name);
+			holder.count.setText(category.completed + "/" + category.total);
 		}
 		holder.whole.setTag(position);
 		holder.whole.setOnClickListener(new OnClickListener() 
 		{
 			public void onClick(View arg0) {
-				String category = m_categoriesList.get((Integer)arg0.getTag());
+				glitchAchievementCategory category = m_categoriesList.get((Integer)arg0.getTag());
 				AchievementsFragment fm = new AchievementsFragment(category);
 				((HomeScreen)m_act).setCurrentFragment(fm, true);
 			}			
