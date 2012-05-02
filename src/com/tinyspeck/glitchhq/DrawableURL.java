@@ -39,6 +39,27 @@ public class DrawableURL extends AsyncTask<String,Void,Bitmap>
 		return null;
     }
 	
+	public static void ShowGrayscaleAchievementBadge(ImageView iv, String sURL, final boolean addCheck)
+	{
+		if (sURL == null) {
+			iv.setImageDrawable(null);
+			iv.setTag(null);
+			return;
+		}
+		if (iv.getTag() != sURL) {
+			iv.setTag(sURL);
+			iv.setImageDrawable(null);
+			
+			new DrawableURL(iv) {
+				protected void onPostExecute(Bitmap bm) {
+					bm = BitmapUtil.GetGrayscale(bm);
+					((ImageView)m_param).setImageBitmap(bm);
+				}
+			}.execute(sURL);
+			
+		}
+	}
+	
 	public static void Show( ImageView iv, String sURL, final boolean bMirror )
 	{
 		if( sURL == null )

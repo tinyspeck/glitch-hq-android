@@ -11,6 +11,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -300,6 +302,40 @@ public class BitmapUtil
 	     m.setValues(mirrorM);
 	     return Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
 	  }
+	
+	public static Bitmap GetGrayscale(Bitmap bm)
+	{
+		int width, height;		
+		height = bm.getHeight();
+		width = bm.getWidth();
+		
+		Bitmap bmGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		Canvas c = new Canvas(bmGrayscale);
+		
+		Paint paint = new Paint(); // for bitmap		
+		Paint cPaint = new Paint(); // for circle around bitmap
+		cPaint.setStyle( Paint.Style.STROKE );
+        cPaint.setAntiAlias(true);
+        cPaint.setAlpha(78);	       
+        cPaint.setColor(0xffc0c0c0);
+        
+		ColorMatrix cm = new ColorMatrix();
+		cm.setSaturation(0);
+		
+		ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
+		paint.setColorFilter(f);
+		
+		//c.drawBitmap(bm, 0, 0, paint);
+        
+        Path clip = new Path();
+        clip.addCircle(width/2, height/2, (float)(width/2 + 1.0), Path.Direction.CW);
+        c.clipPath(clip);
+        c.drawARGB(78, 233, 240, 240);
+        c.drawBitmap(bm, 0, 0, paint);
+        c.drawCircle(width/2, height/2, width/2, cPaint);	
+		
+		return bmGrayscale;
+	}
 	  
 	public static void CropShow(ImageView iv, Bitmap origBitmap)
 	{
