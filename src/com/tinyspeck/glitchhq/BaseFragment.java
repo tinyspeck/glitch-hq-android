@@ -102,6 +102,12 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		boolean got;
 	}
 	
+	public class glitchAchievementCategory {
+		String name;
+		int completed;
+		int total;
+	}
+	
 	public class glitchMail {
 		int id;
 		int currants;

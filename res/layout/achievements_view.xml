@@ -6,19 +6,8 @@
     android:orientation="vertical" >
     
     <include layout="@layout/top_pane"/>
-        
-    <ScrollView android:id="@+id/AchievementsScrollView"
-        android:layout_height="fill_parent"
-        android:layout_width="fill_parent"
-        android:fadingEdge="none"
-        android:layout_gravity="center">
-        
-        <LinearLayout android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-            android:layout_gravity="top"
-            android:orientation="vertical">
-        
-	        <TextView android:id="@+id/achievements_title" 
+    
+    <TextView android:id="@+id/achievements_title" 
 	            android:text=""
 	            style="@style/TitleTextStyle"
 	            android:textColor="#ffffff"
@@ -29,6 +18,29 @@
 	            android:paddingTop="5sp"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"/>
+    
+    <ScrollView android:id="@+id/AchievementsScrollView"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:fadingEdge="none"
+        android:layout_gravity="center">
+        
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical">        	        
+	        
+	        <TextView android:id="@+id/incomplete_header"
+	            android:text="Incomplete"
+	            android:textSize="14sp"
+	            android:paddingLeft="10sp"
+	            android:textStyle="bold"
+	            android:textColor="#ffffff"
+	            android:background="@drawable/sidebar_header_gradient"
+				android:gravity="center_vertical"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:visibility="gone"/>
 	        
 	        <TextView android:id="@+id/achievements_list_message"
 	            android:layout_marginTop="10sp"
@@ -37,18 +49,36 @@
 	            android:layout_height="fill_parent"
 	            android:text="Retrieving achievements.."
 	            android:gravity="center_horizontal"/>
-        
-	        
+        	        
 	        <com.tinyspeck.glitchhq.LinearListView
-	            android:id="@+id/achievements_list"
+	            android:id="@+id/incomplete_achievements_list"
 	            android:visibility="gone"
 	            android:background="@drawable/activity_feed"
 	            android:orientation="vertical"
 	            android:layout_width="fill_parent"
 	            android:layout_height="wrap_content"
-	            android:gravity="center_vertical"
-	        />
+	            android:gravity="center_vertical" />
 	        
+	        <TextView android:id="@+id/completed_header"
+	            android:text="Complete"
+	            android:textSize="14sp"
+	            android:paddingLeft="10sp"
+	            android:textStyle="bold"
+	            android:textColor="#ffffff"
+	            android:background="@drawable/sidebar_header_gradient"
+				android:gravity="center_vertical"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:visibility="gone"/>	        
+	        
+	        <com.tinyspeck.glitchhq.LinearListView 
+	            android:id="@+id/completed_achievements_list"
+	            android:visibility="gone"
+	            android:background="@drawable/activity_feed"
+	            android:orientation="vertical"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_vertical" />
         </LinearLayout>
         
     </ScrollView>
