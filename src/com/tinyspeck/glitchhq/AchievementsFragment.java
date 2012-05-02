@@ -17,7 +17,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -59,8 +61,7 @@ public class AchievementsFragment extends BaseFragment {
 		boolean bUpdateData = (m_incompleteList == null || m_completedList == null);
 	
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		m_btnBack.setText("Categories");
-		m_btnBack.setWidth(100);
+		m_btnBack.setText("Achieves");
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				FragmentManager fm = getFragmentManager();
