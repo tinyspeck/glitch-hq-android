@@ -303,36 +303,45 @@ public class BitmapUtil
 	     return Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
 	  }
 	
-	public static Bitmap GetGrayscale(Bitmap bm)
+	public static Bitmap GetGrayscale(ImageView iv, Bitmap bm, boolean big)
 	{
 		int width, height;		
 		height = bm.getHeight();
 		width = bm.getWidth();
 		
 		Bitmap bmGrayscale = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		Bitmap bmCheckMark = BitmapFactory.decodeResource(iv.getResources(), 
+				big ? R.drawable.checkmark : R.drawable.checkmark_small);
 		Canvas c = new Canvas(bmGrayscale);
 		
-		Paint paint = new Paint(); // for bitmap		
-		Paint cPaint = new Paint(); // for circle around bitmap
-		cPaint.setStyle( Paint.Style.STROKE );
-        cPaint.setAntiAlias(true);
-        cPaint.setAlpha(78);	       
-        cPaint.setColor(0xffc0c0c0);
-        
+		Paint paint = new Paint(); // for bitmap
 		ColorMatrix cm = new ColorMatrix();
 		cm.setSaturation(0);
 		
 		ColorMatrixColorFilter f = new ColorMatrixColorFilter(cm);
 		paint.setColorFilter(f);
 		
-		//c.drawBitmap(bm, 0, 0, paint);
+		Paint colorPaint = new Paint(); // for check mark
+		
+		Paint cPaint = new Paint(); // for circle around bitmap
+		cPaint.setStyle( Paint.Style.STROKE );
+        cPaint.setAntiAlias(true);
+        cPaint.setAlpha(78);	       
+        cPaint.setColor(0xffc0c0c0);        		
         
         Path clip = new Path();
         clip.addCircle(width/2, height/2, (float)(width/2 + 1.0), Path.Direction.CW);
         c.clipPath(clip);
         c.drawARGB(78, 233, 240, 240);
+
         c.drawBitmap(bm, 0, 0, paint);
-        c.drawCircle(width/2, height/2, width/2, cPaint);	
+        c.drawCircle(width/2, height/2, width/2, cPaint);
+        
+        if (big) {
+        	c.drawBitmap(bmCheckMark, 100, 65, colorPaint);
+        } else {
+        	c.drawBitmap(bmCheckMark, 35, 30, colorPaint);
+        }        	
 		
 		return bmGrayscale;
 	}
