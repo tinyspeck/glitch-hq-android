@@ -97,7 +97,12 @@ public class AchievementDetailFragment extends BaseFragment {
 	protected void setAchievementDetailView(View root)
 	{
 		ImageView icon = (ImageView) m_root.findViewById(R.id.achievement_detail_icon);
-		m_application.Download(m_currentAchievement.icon, icon, MyApplication.DOWNLOAD_TYPE_NORMAL);
+		//m_application.Download(m_currentAchievement.icon, icon, MyApplication.DOWNLOAD_TYPE_NORMAL);
+		if (m_currentAchievement.got) {
+			DrawableURL.ShowGrayscaleAchievementBadge(icon, m_currentAchievement.icon, true);
+		} else {
+			DrawableURL.Show(icon, m_currentAchievement.icon, false);
+		}		
 		
 		TextView tvName = (TextView) m_root.findViewById(R.id.achievement_detail_name);
 		tvName.setTypeface(m_application.m_vagFont);
