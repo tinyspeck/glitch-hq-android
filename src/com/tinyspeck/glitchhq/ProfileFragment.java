@@ -455,7 +455,7 @@ public class ProfileFragment extends BaseFragment{
     			JSONObject stats = response.optJSONObject("stats");
     			if (stats != null) {
     				m_nCurrants = stats.optInt("currants");
-    				m_nImagination = stats.optInt("xp");
+    				m_nImagination = stats.optInt("imagination");
     				m_nLevel = stats.optInt("level");    				
     			}
     			m_nAchievements = response.optInt("num_achievements");
