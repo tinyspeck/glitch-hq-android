@@ -220,7 +220,7 @@ public class SkillFragment extends BaseFragment{
        		}
        		onRequestComplete();
     	} else if (method == "skills.hasUnlearning") {
-    		m_hasUnlearning = response.optInt("has_unlearning") == 1 ? true : false;
+    		m_hasUnlearning = response.optBoolean("has_unlearning");
     		if (m_hasUnlearning) {
     			setupSettings();
     		}
