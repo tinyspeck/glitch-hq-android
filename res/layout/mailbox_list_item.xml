@@ -10,7 +10,6 @@
         android:layout_gravity="center"
         android:clickable="true"
         android:background="@drawable/list_item_bg_selector"
-        android:layout_marginRight="5sp"
         android:layout_width="fill_parent"
         android:padding="3sp">
         
@@ -45,6 +44,7 @@
 	                style="@style/TimeStyle"
 	                android:layout_gravity="center"
 	                android:layout_weight="0.0"
+	                android:layout_marginRight="5sp"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"/>
 	            
