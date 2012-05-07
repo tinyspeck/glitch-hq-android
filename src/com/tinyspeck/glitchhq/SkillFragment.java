@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 public class SkillFragment extends BaseFragment{
 
+	private SkillFragment m_this;
     private SkillListAdapter m_skillAdapter;
     private LinearListView  m_skillListView;    
     
@@ -38,6 +39,12 @@ public class SkillFragment extends BaseFragment{
   	private Vector<skillAvailable> m_learningList;
   	private Vector<skillAvailable> m_unlearningList;
 	
+  	public SkillFragment()
+  	{
+  		super();
+  		m_this = this;
+  	}
+  	
     public void onActivityCreated(Bundle savedInstanceState) {
     	
         super.onActivityCreated(savedInstanceState);
@@ -66,7 +73,7 @@ public class SkillFragment extends BaseFragment{
    	    TextView tv = (TextView)root.findViewById(R.id.available_skills);
    	    tv.setTypeface(m_application.m_vagFont);
    	 
-		m_skillAdapter = new SkillListAdapter(getActivity(), m_skillList);
+		m_skillAdapter = new SkillListAdapter(m_this, m_skillList);
 		m_skillListView.setAdapter( m_skillAdapter );
 
 		m_learningSkillName = (TextView)root.findViewById(R.id.tv_skillName);
@@ -81,7 +88,7 @@ public class SkillFragment extends BaseFragment{
 		{			
 			public void onClick(View arg0) {
 				skillAvailable skill = m_learningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);					
+				SkillDetailFragment fm = new SkillDetailFragment(m_this, skill);					
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 			
@@ -99,7 +106,7 @@ public class SkillFragment extends BaseFragment{
 			
 			public void onClick(View arg0) {
 				skillAvailable skill = m_unlearningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);
+				SkillDetailFragment fm = new SkillDetailFragment(m_this, skill);
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 		});

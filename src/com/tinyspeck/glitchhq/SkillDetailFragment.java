@@ -33,27 +33,31 @@ public class SkillDetailFragment extends BaseFragment{
   	private skillAvailable m_currentSkill;
   	private String m_skillID;
   	private View m_root;
+  	private BaseFragment m_bf;
+  	private Button m_btnBack, m_btnSidebar;
   	private Timer m_RemainingTimer;
   	private boolean m_fromUnlearn, m_pendingLearn = false, m_pendingUnlearn = false;
   	
-  	SkillDetailFragment(String skillID)
+  	SkillDetailFragment(BaseFragment bf, String skillID)
   	{
-  		this(skillID, false);
+  		this(bf, skillID, false);
   	}
   	
-  	SkillDetailFragment(skillAvailable skill)
+  	SkillDetailFragment(BaseFragment bf, skillAvailable skill)
   	{
-  		this(skill, false);
+  		this(bf, skill, false);
   	}
   	
-  	SkillDetailFragment( String skillID, boolean fromUnlearn)
+  	SkillDetailFragment(BaseFragment bf, String skillID, boolean fromUnlearn)
   	{
+  		m_bf = bf;
   		m_skillID = skillID;
   		m_fromUnlearn = fromUnlearn;
   	}
   	
-  	SkillDetailFragment(skillAvailable skill, boolean fromUnlearn)
+  	SkillDetailFragment(BaseFragment bf, skillAvailable skill, boolean fromUnlearn)
   	{
+  		m_bf = bf;
   		m_skillID = skill.id;
   		m_currentSkill = skill;
   		m_fromUnlearn = fromUnlearn;
@@ -69,6 +73,25 @@ public class SkillDetailFragment extends BaseFragment{
     	View curView =  ViewInit( inflater, R.layout.skill_detail_view, container );
     	m_root = curView;
     	m_root.setVisibility(View.INVISIBLE);
+    	
+    	m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
+    	if (m_bf instanceof ProfileFragment) {
+    		m_btnBack.setText("Profile");
+    	} else if (m_bf instanceof SkillFragment || m_bf instanceof UnlearnFragment) {
+    		m_btnBack.setText("Skills");
+    	} else {
+    		m_btnBack.setText("Back");
+    	}
+    	m_btnBack.setVisibility(View.VISIBLE);
+    	m_btnBack.setOnClickListener(new OnClickListener() {
+    		public void onClick(View v) {
+    			FragmentManager fm = getFragmentManager();
+    			fm.popBackStack();
+    		}
+    	});
+    	m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
+    	m_btnSidebar.setVisibility(View.GONE);
+    	
     	getSkillDetail( m_skillID );
 		return curView;
     }
@@ -487,7 +510,7 @@ public class SkillDetailFragment extends BaseFragment{
 				tv_skill.setOnClickListener(new OnClickListener(){
 					public void onClick(View v) {
 						String sKey = (String)v.getTag();
-						SkillDetailFragment f = new SkillDetailFragment( sKey );
+						SkillDetailFragment f = new SkillDetailFragment( m_bf, sKey );
 						((HomeScreen)getActivity()).setCurrentFragment( f, true );
 					}
 				});

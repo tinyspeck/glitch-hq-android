@@ -18,6 +18,7 @@ public class SkillListAdapter extends BaseAdapter {
 
 	private Vector<skillAvailable> m_skillList;
 	private HomeScreen m_act;
+	private BaseFragment m_bf;
 	private LayoutInflater m_inflater;
 	private MyApplication m_application;
 	
@@ -29,12 +30,13 @@ public class SkillListAdapter extends BaseAdapter {
 		View whole;
 	};
    	
-	public SkillListAdapter(Activity act, Vector<skillAvailable> skillList) 
+	public SkillListAdapter(BaseFragment bf, Vector<skillAvailable> skillList) 
     {
-		m_act = (HomeScreen)act;
+		m_bf = bf;
+		m_act = (HomeScreen)bf.getActivity();
 		m_skillList = skillList;
-		m_inflater = (LayoutInflater)act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		m_application = (MyApplication)act.getApplicationContext();
+		m_inflater = (LayoutInflater)m_act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		m_application = (MyApplication)m_act.getApplicationContext();
     }
  
     public int getCount()
@@ -100,7 +102,7 @@ public class SkillListAdapter extends BaseAdapter {
 				int nItem = (Integer)arg0.getTag();
 
 				skillAvailable skill = m_skillList.get(nItem);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);
+				SkillDetailFragment fm = new SkillDetailFragment(m_bf, skill);
 				m_act.setCurrentFragment(fm,true);
 				
 			}

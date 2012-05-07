@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 public class ProfileFragment extends BaseFragment{
 
+	private ProfileFragment m_this;
 	private TextView nameTextView;
     private LinearListView  m_listView, m_learningListView, m_unlearningListView;
     private String m_playerTsid, m_avatarUrl, m_playerName;
@@ -78,6 +79,7 @@ public class ProfileFragment extends BaseFragment{
 	
   	public ProfileFragment()
   	{
+  		m_this = this;
   		m_bf = null;
   		m_playerTsid = null;
   		m_bOtherProfile = false;
@@ -86,6 +88,7 @@ public class ProfileFragment extends BaseFragment{
   	
   	public ProfileFragment(BaseFragment bf, String playerID, boolean bOthers )
   	{
+  		m_this = this;
   		m_bf = bf;
   		m_bOtherProfile = bOthers;
   		m_playerTsid = playerID;
@@ -242,7 +245,7 @@ public class ProfileFragment extends BaseFragment{
 		{			
 			public void onClick(View arg0) {
 				skillAvailable skill = m_learningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);				
+				SkillDetailFragment fm = new SkillDetailFragment(m_this, skill);				
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 			
@@ -252,7 +255,7 @@ public class ProfileFragment extends BaseFragment{
 		{
 			public void onClick(View arg0) {
 				skillAvailable skill = m_unlearningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);
+				SkillDetailFragment fm = new SkillDetailFragment(m_this, skill);
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 		});
