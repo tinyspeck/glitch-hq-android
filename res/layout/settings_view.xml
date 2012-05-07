@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#d0d0d0">
+    android:background="#e9f0f0">
     
     <include layout="@layout/top_pane"/>
     
