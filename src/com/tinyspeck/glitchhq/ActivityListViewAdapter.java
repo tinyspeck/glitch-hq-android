@@ -134,6 +134,7 @@ public class ActivityListViewAdapter extends BaseAdapter
 						holder.to_who.setTextColor( 0xff000000 );
 				}
 				
+				holder.replyIcon.setImageResource(R.drawable.replyicon);
 				holder.replyIcon.setVisibility( View.VISIBLE );
 				holder.to_who.setVisibility( View.VISIBLE );
 				holder.to_who.setText( toname );
@@ -154,7 +155,7 @@ public class ActivityListViewAdapter extends BaseAdapter
 					else
 						toname += "'s snapshot";
 				}
-				
+				holder.replyIcon.setImageResource(R.drawable.replyicon);
 				holder.replyIcon.setVisibility(View.VISIBLE);
 				holder.to_who.setVisibility(View.VISIBLE);
 				holder.to_who.setText(toname);

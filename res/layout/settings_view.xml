@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="#d0d0d0">
+    android:background="#e9f0f0">
     
     <include layout="@layout/top_pane"/>
     
@@ -17,6 +17,16 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"/>
     
+    <ScrollView android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="none"
+        android:layout_gravity="center">
+        
+    <LinearLayout android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_gravity="top"
+        android:orientation="vertical">
+        
     <RelativeLayout android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/settings_item_background"
@@ -125,6 +135,7 @@
     <TextView android:id="@+id/settings_copyright"
         android:text="Copyright © 2012 Tiny Speck"        
         style="@style/CopyrightTextStyle"         
+        android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
@@ -132,8 +143,11 @@
     <TextView android:id="@+id/settings_version"
         android:text="HQ v1.3"
         style="@style/CopyrightTextStyle" 
+        android:textSize="12sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
+    </LinearLayout>
+    </ScrollView>
         
 </LinearLayout>

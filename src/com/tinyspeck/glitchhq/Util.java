@@ -303,7 +303,11 @@ public class Util
  	    if( remain < 0 )
  	    	remain = 0;
  	    
- 	    params.width = 20 + ( nTotalWidth - 20 ) * ( totalTime - remain ) / totalTime ;
+ 	    if (totalTime == 0) {
+ 	    	params.width = nTotalWidth;
+ 	    } else {
+ 	    	params.width = 20 + ( nTotalWidth - 20 ) * ( totalTime - remain ) / totalTime ;
+ 	    }
  	    
  	    v.setLayoutParams(params);
  	    if( v.getTag() == null )
