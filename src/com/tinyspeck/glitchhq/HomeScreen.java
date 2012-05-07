@@ -311,6 +311,8 @@ public class HomeScreen extends FragmentActivity {
 		
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
+		ft.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right,
+				android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 		int viewId = 0;
 		
 		if (f instanceof BaseFragment)

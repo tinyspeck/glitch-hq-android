@@ -290,18 +290,20 @@ public class BitmapUtil
 			return false;
 	  }
 	  
-	  public static Bitmap GetMirror( Bitmap bm )
-	  {
-	     float[] mirrorM = 
-	     {  	-1, 0, 0, 
-	    		 0, 1, 0,  
-	    		 0, 0, 1    
-	     };
+	public static Bitmap GetMirror( Bitmap bm )
+	{
+		if (bm == null) return null;
+		
+		float[] mirrorM = 
+		{  	-1, 0, 0, 
+			0, 1, 0,  
+			0, 0, 1    
+	    };
 
-	     Matrix m = new Matrix();
-	     m.setValues(mirrorM);
-	     return Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
-	  }
+	    Matrix m = new Matrix();
+	    m.setValues(mirrorM);
+	    return Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), m, false);
+	}
 	
 	public static Bitmap GetGrayscale(ImageView iv, Bitmap bm, boolean big)
 	{

@@ -6,6 +6,8 @@ import com.google.android.c2dm.C2DMessaging;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -98,7 +100,13 @@ public class SettingsFragment extends BaseFragment {
 		TextView copyright = (TextView) m_root.findViewById(R.id.settings_copyright);
 		copyright.setTypeface(m_application.m_vagLightFont);
 		TextView version = (TextView) m_root.findViewById(R.id.settings_version);
-		version.setTypeface(m_application.m_vagLightFont);
+		version.setTypeface(m_application.m_vagLightFont);		
+		try {
+			PackageInfo pInfo = m_application.getPackageManager().getPackageInfo(m_application.getPackageName(), 0);
+			version.setText("HQ v" + pInfo.versionName);
+		} catch (NameNotFoundException e) {
+			version.setText("HQ v1.3");
+		}		
 	}
 	
 	public static boolean getPushNotificationsOption(Context context) {		
