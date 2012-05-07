@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 public class UnlearnFragment extends BaseFragment {
 	
+	private UnlearnFragment m_this;
 	private UnlearnableListAdapter m_unlearnableAdapter;
 	private LinearListView  m_unlearnableListView;
 	
@@ -38,6 +39,13 @@ public class UnlearnFragment extends BaseFragment {
 	private Vector<skillAvailable> m_unlearningList;	
 	private Vector<skillAvailable> m_unlearnableList;
 	private boolean m_hasUnlearning;
+	
+	public UnlearnFragment()
+	{
+		super();
+		m_this = this;
+	}
+	
 	
     public void onActivityCreated(Bundle savedInstanceState) {
     	
@@ -67,7 +75,7 @@ public class UnlearnFragment extends BaseFragment {
    	    TextView tv = (TextView)root.findViewById(R.id.unlearnable_skills);
    	    tv.setTypeface(m_application.m_vagFont);
     	
-   	    m_unlearnableAdapter = new UnlearnableListAdapter(getActivity(), m_unlearnableList);
+   	    m_unlearnableAdapter = new UnlearnableListAdapter(m_this, m_unlearnableList);
 		m_unlearnableListView.setAdapter( m_unlearnableAdapter );
 
 		m_unlearningSkillName = (TextView)root.findViewById(R.id.tv_unlearnName);
@@ -83,7 +91,7 @@ public class UnlearnFragment extends BaseFragment {
 		{			
 			public void onClick(View arg0) {
 				skillAvailable skill = m_unlearningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill, true);					
+				SkillDetailFragment fm = new SkillDetailFragment(m_this, skill, true);					
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 			
@@ -101,7 +109,7 @@ public class UnlearnFragment extends BaseFragment {
 		{			
 			public void onClick(View arg0) {
 				skillAvailable skill = m_learningList.get(0);
-				SkillDetailFragment fm = new SkillDetailFragment(skill);					
+				SkillDetailFragment fm = new SkillDetailFragment(m_this, skill);					
 				((HomeScreen)getActivity()).setCurrentFragment(fm, true);
 			}
 			

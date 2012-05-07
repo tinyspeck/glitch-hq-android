@@ -18,6 +18,7 @@ import android.widget.TextView;
 public class UnlearnableListAdapter extends BaseAdapter {
 
 	private Vector<skillAvailable> m_unlearnableList;
+	private BaseFragment m_bf;
 	private HomeScreen m_act;
 	private LayoutInflater m_inflater;
 	private MyApplication m_application;
@@ -30,12 +31,13 @@ public class UnlearnableListAdapter extends BaseAdapter {
 		View whole;
 	};
 	
-	UnlearnableListAdapter(Activity act, Vector<skillAvailable> unlearnableList) 
+	UnlearnableListAdapter(BaseFragment bf, Vector<skillAvailable> unlearnableList) 
     {
-		m_act = (HomeScreen)act;
+		m_bf = bf;
+		m_act = (HomeScreen)bf.getActivity();
 		m_unlearnableList = unlearnableList;
-		m_inflater = (LayoutInflater)act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		m_application = (MyApplication)act.getApplicationContext();
+		m_inflater = (LayoutInflater)m_act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		m_application = (MyApplication)m_act.getApplicationContext();
     }
 	
 	public int getCount()
@@ -102,7 +104,7 @@ public class UnlearnableListAdapter extends BaseAdapter {
 				int nItem = (Integer)arg0.getTag();
 
 				skillAvailable skill = m_unlearnableList.get(nItem);
-				SkillDetailFragment fm = new SkillDetailFragment(skill, true);
+				SkillDetailFragment fm = new SkillDetailFragment(m_bf, skill, true);
 				m_act.setCurrentFragment(fm,true);
 			}
 	    });
