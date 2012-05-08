@@ -13,6 +13,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -155,7 +156,7 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 			String ns = Context.NOTIFICATION_SERVICE;
 			NotificationManager mNotificationMananger = (NotificationManager) context.getSystemService(ns);
 			int icon = R.drawable.notification_icon;
-			CharSequence ticketText = "Glitch Notification";
+			CharSequence tickerText = "Glitch Notification";
 			long when = System.currentTimeMillis();			
 			
 			CharSequence contentTitle = "Glitch";
@@ -166,9 +167,13 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 			notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
 			
 			PendingIntent contentIntent = PendingIntent.getActivity(context, 0, 
-					notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);		
+					notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			
-			Notification notification = new Notification(icon, ticketText, when);
+			Notification.Builder nBuilder = new Notification.Builder(context);
+			nBuilder.setSmallIcon(R.drawable.notification_icon);
+			nBuilder.setTicker(tickerText);
+			nBuilder.setWhen(when);
+			Notification notification = nBuilder.getNotification();
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);			
 			notification.defaults = Notification.DEFAULT_ALL;
 			notification.flags |= Notification.FLAG_AUTO_CANCEL;
