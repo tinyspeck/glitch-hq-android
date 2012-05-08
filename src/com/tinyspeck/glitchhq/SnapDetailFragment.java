@@ -193,7 +193,7 @@ public class SnapDetailFragment extends BaseFragment {
 					c.who = jsonComments.getJSONObject(i).optString("who_name");
 					urls = jsonComments.getJSONObject(i).optJSONObject("who_urls");
 					c.avatar = urls.optString("singles_100");
-					sec = (int)seconds - response.optInt("date_create");
+					sec = (int)seconds - jsonComments.getJSONObject(i).optInt("date_create");
 					c.when = Util.TimeToString(sec);
 					c.what = jsonComments.getJSONObject(i).optString("text");
 					m_currentSnap.comments.add(c);
