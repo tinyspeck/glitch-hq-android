@@ -153,18 +153,23 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 		if (keys.contains("collapse_key") && data.getString("collapse_key").equals("notifications") && 
 				keys.contains("message") && !data.getString("message").isEmpty()) {
 			String ns = Context.NOTIFICATION_SERVICE;
-			NotificationManager mNotificationMananger = (NotificationManager) getSystemService(ns);
+			NotificationManager mNotificationMananger = (NotificationManager) context.getSystemService(ns);
 			int icon = R.drawable.notification_icon;
 			CharSequence ticketText = "Glitch Notification";
-			long when = System.currentTimeMillis();
-			
-			Notification notification = new Notification(icon, ticketText, when);
+			long when = System.currentTimeMillis();			
 			
 			CharSequence contentTitle = "Glitch";
 			CharSequence contentText = data.getCharSequence("message");
-			Intent notificationIntent = new Intent(context, HomeScreen.class);
-			PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);			
-			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+			
+			final Intent notificationIntent = new Intent(context, LoginScreen.class);
+			notificationIntent.setAction(Intent.ACTION_MAIN);
+			notificationIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+			
+			PendingIntent contentIntent = PendingIntent.getActivity(context, 0, 
+					notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);		
+			
+			Notification notification = new Notification(icon, ticketText, when);
+			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);			
 			notification.defaults = Notification.DEFAULT_ALL;
 			notification.flags |= Notification.FLAG_AUTO_CANCEL;
 			mNotificationMananger.notify(1, notification);
