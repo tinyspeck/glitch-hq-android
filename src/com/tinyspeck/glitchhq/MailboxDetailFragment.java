@@ -35,7 +35,13 @@ public class MailboxDetailFragment extends BaseFragment {
 	private Button m_btnDelete;
 	private Button m_btnSidebar;
 	
-	MailboxDetailFragment(int msgId)
+	public MailboxDetailFragment()
+	{
+		super();
+		launchLoginIntent();
+	}
+	
+	public MailboxDetailFragment(int msgId)
 	{
 		m_msgId = msgId;
 	}

@@ -38,24 +38,30 @@ public class SkillDetailFragment extends BaseFragment{
   	private Timer m_RemainingTimer;
   	private boolean m_fromUnlearn, m_pendingLearn = false, m_pendingUnlearn = false;
   	
-  	SkillDetailFragment(BaseFragment bf, String skillID)
+  	public SkillDetailFragment()
+  	{
+  		super();
+  		launchLoginIntent();
+  	}
+  	
+  	public SkillDetailFragment(BaseFragment bf, String skillID)
   	{
   		this(bf, skillID, false);
   	}
   	
-  	SkillDetailFragment(BaseFragment bf, skillAvailable skill)
+  	public SkillDetailFragment(BaseFragment bf, skillAvailable skill)
   	{
   		this(bf, skill, false);
   	}
   	
-  	SkillDetailFragment(BaseFragment bf, String skillID, boolean fromUnlearn)
+  	public SkillDetailFragment(BaseFragment bf, String skillID, boolean fromUnlearn)
   	{
   		m_bf = bf;
   		m_skillID = skillID;
   		m_fromUnlearn = fromUnlearn;
   	}
   	
-  	SkillDetailFragment(BaseFragment bf, skillAvailable skill, boolean fromUnlearn)
+  	public SkillDetailFragment(BaseFragment bf, skillAvailable skill, boolean fromUnlearn)
   	{
   		m_bf = bf;
   		m_skillID = skill.id;

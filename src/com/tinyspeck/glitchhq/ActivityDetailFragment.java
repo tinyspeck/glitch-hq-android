@@ -37,6 +37,12 @@ public class ActivityDetailFragment extends BaseFragment{
   	private boolean m_bNotes = false;
   	private boolean m_bRefreshToBottom = false;
   	
+  	public ActivityDetailFragment()
+  	{
+  		super();
+  		launchLoginIntent();
+  	}
+  	
   	public ActivityDetailFragment(BaseFragment bf, String playerName, String playerId, String actId )
   	{
   		m_bf = bf;
