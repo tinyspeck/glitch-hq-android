@@ -13,6 +13,7 @@ import com.tinyspeck.android.GlitchRequest;
 import com.tinyspeck.android.GlitchRequestDelegate;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -598,5 +599,14 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	protected void launchLoginIntent()
+	{
+		// this is called from the empty constructor of fragments. this means it is coming back
+		// from sleep so we should just clear the stack and start fresh
+//		Intent intent = new Intent();
+//		intent.setClass(getActivity(), LoginScreen.class);
+//		startActivity(intent);
 	}
 }

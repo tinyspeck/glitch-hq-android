@@ -26,6 +26,12 @@ public class AchievementDetailFragment extends BaseFragment {
 	private Button m_btnBack;
 	private Button m_btnSidebar;
 	
+	public AchievementDetailFragment()
+	{
+		super();
+		launchLoginIntent();
+	}
+	
 	AchievementDetailFragment(String achievementId, String category)
 	{
 		m_achId = achievementId;		

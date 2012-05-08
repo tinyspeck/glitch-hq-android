@@ -20,12 +20,18 @@ public class WebViewFragment extends BaseFragment {
 	private Button m_btnBack;
 	private WebView m_webView;
 	
-	WebViewFragment(String url)
+	public WebViewFragment()
+	{
+		super();
+		launchLoginIntent();
+	}
+	
+	public WebViewFragment(String url)
 	{
 		this(url, "Back");
 	}
 	
-	WebViewFragment(String url, String backBtnText)
+	public WebViewFragment(String url, String backBtnText)
 	{
 		m_url = url;
 		m_backBtnText = backBtnText;

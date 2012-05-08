@@ -73,6 +73,12 @@ public class SnapDetailFragment extends BaseFragment {
 		String what;
 	}
 	
+	public SnapDetailFragment()
+	{
+		super();
+		launchLoginIntent();
+	}
+	
 	public SnapDetailFragment(BaseFragment bf, String ownerName, String ownerTsid, 
 			String photoId, String secret)
 	{
