@@ -355,4 +355,21 @@ public class Util
 				vText.setText( Util.TimeToString(remain, true) );
 		}
 	}
+	
+	public static double getDevicePhysicalSize(Activity act) 
+	{
+		double screenInches = 4.0;
+		
+		try {
+			DisplayMetrics dm = new DisplayMetrics();
+			act.getWindowManager().getDefaultDisplay().getMetrics(dm);
+			double x = Math.pow(dm.widthPixels/dm.xdpi,2);
+			double y = Math.pow(dm.heightPixels/dm.ydpi,2);
+			screenInches = Math.sqrt(x+y);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    
+	    return screenInches;
+	}
 };
