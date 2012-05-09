@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -69,10 +70,14 @@ public class HomeScreen extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		if (Util.getDevicePhysicalSize(this) < 6.0) {
+			setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		}
+		
 		m_application = (MyApplication) getApplicationContext();
 		m_application.homeScreen = this;
 		m_application.init(this);
-
+		
 		setTitle(getResources().getString(R.string.str_main_title));
 		initLayout();
 	}
