@@ -39,18 +39,6 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
  	 };
 	
 	private Vector<sidebarItem> m_sbList;
-
-	/*
-	public Sidebar(View root, Activity activity) {
-		m_sbList = getSidebarList();
-
-		m_activity = activity;
-		m_adapter = new SidebarListViewAdapter(this, m_sbList);
-		m_listView = (LinearListView) root.findViewById(R.id.SidebarListView);
-		m_listView.setAdapter(m_adapter);
-<<<<<<< HEAD
-=======
-	}*/
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,14 +55,6 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
 		
 		GlitchRequest request = ((MyApplication)((HomeScreen)m_activity).getApplication()).glitch.getRequest("mail.getUnreadCount");
 		request.execute(this);
-		
-		/*
-		// Inflate sidebar and add to sidebarView
-		LayoutInflater inflator = (LayoutInflater) this
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View sidebarView = (View) inflator.inflate(R.layout.sidebar_view, null);
-		m_sidebarView.addView(sidebarView);
-		Sidebar sidebar = new Sidebar(m_sidebarView, this);*/
 	}
 
 	public Activity getActivity() {

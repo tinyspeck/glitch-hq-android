@@ -162,52 +162,7 @@ public class HomeScreen extends FragmentActivity {
 		intent.setClass(HomeScreen.this, Sidebar.class);
 		startActivityForResult(intent, 0); 
 		
-		/*
-		// Get display width
-		Display display = getWindowManager().getDefaultDisplay();
-		int width = display.getWidth();
-
-		//int dx = (int) (width * m_sidebarDeltaX);
-
-		// Create the show animation
-		Animation animation = new TranslateAnimation(0, width, 0, 0);
-		animation.setDuration(m_sidebarAnimationDuration);
-
-		animation.setAnimationListener(new AnimationListener() {
-
-			public void onAnimationEnd(Animation animation) {
-				HomeScreen.this.m_showingSidebar = true;
-
-				// Get display width
-				//Display display = getWindowManager().getDefaultDisplay();
-				//int width = display.getWidth();
-
-
-				// Set the sidebar's layout parameters so it'll show up
-				// FrameLayout.LayoutParams params = new
-				// FrameLayout.LayoutParams(width, m_stack.getHeight(),
-				// Gravity.LEFT);
-				// m_sidebarView.setLayoutParams(params);
-
-				// m_sidebarView.getParent().bringChildToFront(m_sidebarView);
-			}
-
-			public void onAnimationRepeat(Animation animation) {
-			}
-
-			public void onAnimationStart(Animation animation) {
-			}
-		});
-
-		animation.setFillAfter(true);
-
-		// Run the animation
-		m_stack.startAnimation(animation);
-		*/
 	}
-
-	private float sidebarTouchOffset;
-	private Boolean sidebarPickedUp = false;
 
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
