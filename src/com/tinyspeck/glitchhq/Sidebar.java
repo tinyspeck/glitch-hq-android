@@ -48,8 +48,6 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
 		m_adapter = new SidebarListViewAdapter(this, m_sbList);
 		m_listView = (LinearListView) root.findViewById(R.id.SidebarListView);
 		m_listView.setAdapter(m_adapter);
-<<<<<<< HEAD
-=======
 	}*/
 	
 	@Override
