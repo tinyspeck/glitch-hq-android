@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#2f5f6d">
+    
+    <com.tinyspeck.glitchhq.KeyboardLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    
+    	<LinearLayout android:layout_height="wrap_content"
+        	android:layout_width="300dip"
+        	android:layout_centerInParent="true"
+        	android:layout_gravity="center"
+        	android:orientation="vertical">      
+            	    
+    	    <ImageView android:id="@+id/login_logo_white" 
+    	        android:src="@drawable/glitch_logo_white"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:scaleType="centerInside"/>
+    	    
+    	    <LinearLayout android:background="@drawable/activity_feed"    	        
+    	        android:cacheColorHint="@drawable/white"
+    	        android:orientation="vertical"
+    	        android:layout_height="wrap_content"
+    	        android:layout_width="fill_parent"
+    	        android:gravity="center">
+    	        
+	    	    <EditText android:id="@+id/email"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_width="fill_parent"
+	    	        android:layout_gravity="center"
+	    	        android:singleLine="true"
+	    	        android:hint="Email address"
+	    	        android:text=""
+	    	        android:background="#00000000"
+	    	        android:padding="10dip"/>
+	    	    
+	    	    <View android:layout_gravity="center" 
+	    	        android:layout_width="fill_parent" 
+	    	        android:layout_height="1dip"
+	    	        android:background="#e0e0e0"/>
+	    	    
+	    	    <EditText android:id="@+id/password"
+	    	        android:layout_height="wrap_content"
+	    	        android:layout_width="fill_parent"
+	    	        android:layout_gravity="center"
+	    	        android:inputType="textPassword"
+	    	        android:singleLine="true"
+	    	        android:hint="Password"
+	    	        android:text=""
+	    	        android:background="#00000000"
+	    	        android:padding="10dip"/>
+	    	    
+    	    </LinearLayout>
+    	    
+    	    <Button android:id="@+id/btnLogin"
+    	        android:text="Sign In"
+    	        android:layout_height="wrap_content"
+    	        android:layout_width="fill_parent"
+    	        android:layout_gravity="center"
+    	        android:background="@drawable/button_state"
+    	        android:textSize="24sp"
+    	        android:layout_marginTop="20dip"
+    	        android:paddingTop="5dip"
+    	        android:paddingBottom="5dip"
+    	        android:textColor="#055c73"/>
+
+    	    <TextView android:id="@+id/tv_forgot_password" 
+    	        android:text="Forgot your password?"
+    	        android:textSize="16sp"
+    	        android:textColor="#ffffff"
+    	        android:layout_height="wrap_content"
+    	        android:layout_width="fill_parent"
+    	        android:layout_marginTop="20dip"
+    	        android:layout_marginBottom="20dip"
+    	        android:layout_gravity="left"/>
+    	   	
+    	    <TextView android:id="@+id/tv_login_error" 
+    	        android:text="Uh oh! You forgot to provide your email address.  We can't log you in without it." 
+    	        android:visibility="gone"
+    	        android:background="@drawable/red_background_gradient"
+    	        android:textColor="#ffffff"
+    	        android:layout_width="fill_parent"
+    	        android:layout_height="wrap_content"
+    	        android:padding="5dip"
+    	        android:layout_gravity="center"/>
+    	    
+    	</LinearLayout>
+    	<TextView android:id="@+id/copyright" 
+    	    android:text=""
+    	    android:textSize="16sp"
+    	    android:textColor="#ffffff"
+    	    android:layout_height="wrap_content"
+    	    android:layout_width="fill_parent"    	    
+    	    android:layout_alignParentBottom="true"
+    	    android:layout_alignParentRight="true"
+    	    android:gravity="right" />
+    </com.tinyspeck.glitchhq.KeyboardLayout>
+    
+    <ProgressBar android:id="@+id/loginSpinner"
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:layout_gravity="center"
+    	android:visibility="invisible" />
+</FrameLayout>

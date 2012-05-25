@@ -171,16 +171,18 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	private void setupSidebarButton( View root )
 	{
 		final Button btnSidebar = (Button)root.findViewById(R.id.btnSidebar);
-		btnSidebar.setVisibility(View.VISIBLE);
 		
-		btnSidebar.setOnClickListener( new OnClickListener() {
-
-			public void onClick(View arg0) {
-				HomeScreen activity = (HomeScreen) getActivity();
-				activity.showSidebar();
-			}
-			
-		});
+		if (btnSidebar != null) {
+			btnSidebar.setVisibility(View.VISIBLE);		
+			btnSidebar.setOnClickListener( new OnClickListener() {
+	
+				public void onClick(View arg0) {
+					HomeScreen activity = (HomeScreen) getActivity();
+					activity.showSidebar();
+				}
+				
+			});
+		}
 	}
 	
 	
