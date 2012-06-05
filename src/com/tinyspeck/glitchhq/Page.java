@@ -8,4 +8,5 @@ public enum Page {
 	Mailbox,
 	Settings,
 	Achievements,
+	Quests,
 }

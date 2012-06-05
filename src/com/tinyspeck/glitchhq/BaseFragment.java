@@ -143,6 +143,49 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		String icon;
 	}
 	
+	public class glitchQuestRequirement {
+		String desc;
+		boolean isCount;
+		boolean completed;
+		int gotNum;
+		int needNum;
+		String icon;
+	}
+	
+	public class glitchQuestRewardRecipe {
+		String label;
+		String icon;
+	}
+	
+	public class glitchQuestRewardFavor {
+		String giant;
+		int points;		
+	}
+	
+	public class glitchQuestRewards {
+		int imagination;
+		int currants;
+		int energy;
+		int mood;
+		Vector<glitchQuestRewardFavor> favor;
+		Vector<glitchQuestRewardRecipe> recipes;
+	}
+	
+	public class glitchQuest {
+		String id;
+		String title;
+		String desc;
+		Vector<glitchQuestRequirement> reqs;
+		glitchQuestRewards rewards;
+		boolean complete;
+		boolean started;
+		long offeredTime;
+		boolean failed;
+		boolean finished;
+		boolean startable;
+		boolean accepted;
+	}
+	
 	class SortByName implements Comparator<glitchFriend>{   
 		public int compare(glitchFriend f1, glitchFriend f2) {
 			String name1 = f1.player_name.toLowerCase();

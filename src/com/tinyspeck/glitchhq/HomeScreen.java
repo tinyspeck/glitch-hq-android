@@ -55,16 +55,17 @@ public class HomeScreen extends FragmentActivity {
 	private SkillFragment m_skillFrm;
 	private UnlearnFragment m_unlearnFrm;
 	private ActivityFragment m_activityFrm;
+	private QuestsFragment m_questsFrm;
 	private FriendsFragment m_friendsFrm;
 	private MailboxFragment m_mailboxFrm;
 	private SettingsFragment m_settingsFrm;
-	private AchievementsFragment m_achievementsFrm;
+	private AchievementsFragment m_achievementsFrm;	
 	private View m_stack;
 
 	private BaseFragment m_curFrm;
 
 	private View m_profileView, m_activityView, m_skillsView, m_unlearnView,
-			m_friendsView, m_mailboxView, m_settingsView;
+			m_questsView, m_friendsView, m_mailboxView, m_settingsView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,9 @@ public class HomeScreen extends FragmentActivity {
 							break;
 						case Skills:
 							setCurrentFragment(m_skillFrm, false);
+							break;
+						case Quests:
+							setCurrentFragment(m_questsFrm, false);
 							break;
 						case Friends:
 							setCurrentFragment(m_friendsFrm, false);
@@ -285,8 +289,9 @@ public class HomeScreen extends FragmentActivity {
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
-			m_settingsView.setVisibility(View.GONE);
+			m_settingsView.setVisibility(View.GONE);			
 
 		} else if (m_curPage == Page.Activity) {
 			viewId = R.id.fragmentView_activity;
@@ -294,6 +299,7 @@ public class HomeScreen extends FragmentActivity {
 			m_activityView.setVisibility(View.VISIBLE);
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
 			m_settingsView.setVisibility(View.GONE);
@@ -305,6 +311,7 @@ public class HomeScreen extends FragmentActivity {
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
 			m_settingsView.setVisibility(View.GONE);
 			
@@ -315,7 +322,18 @@ public class HomeScreen extends FragmentActivity {
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);			
+			m_settingsView.setVisibility(View.GONE);
+		} else if (m_curPage == Page.Quests) { 
+			viewId = R.id.fragmentView_quests;
+			m_questsView.setVisibility(View.VISIBLE);					
+			m_friendsView.setVisibility(View.GONE);
+			m_profileView.setVisibility(View.GONE);
+			m_activityView.setVisibility(View.GONE);
+			m_skillsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
 			m_settingsView.setVisibility(View.GONE);
 		} else if (m_curPage == Page.Settings) {
 			viewId = R.id.fragmentView_settings;
@@ -324,6 +342,7 @@ public class HomeScreen extends FragmentActivity {
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
 		} else {
@@ -331,6 +350,7 @@ public class HomeScreen extends FragmentActivity {
 			m_activityView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_settingsView.setVisibility(View.GONE);
 
 			if (f instanceof SkillFragment) {
@@ -402,15 +422,17 @@ public class HomeScreen extends FragmentActivity {
 		m_skillFrm = new SkillFragment();
 		m_unlearnFrm = new UnlearnFragment();
 		m_activityFrm = new ActivityFragment();		
+		m_questsFrm = new QuestsFragment();
 		m_friendsFrm = new FriendsFragment();
 		m_mailboxFrm = new MailboxFragment();
-		m_settingsFrm = new SettingsFragment();
+		m_settingsFrm = new SettingsFragment();		
 
 		m_stack = findViewById(R.id.view_stack);
 
 		m_profileView = findViewById(R.id.fragmentView_profile);
 		m_activityView = findViewById(R.id.fragmentView_activity);
 		m_skillsView = findViewById(R.id.fragmentView_skills);
+		m_questsView = findViewById(R.id.fragmentView_quests);
 		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
 		m_friendsView = findViewById(R.id.fragmentView_friends);
 		m_mailboxView = findViewById(R.id.fragmentView_mailbox);

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" 
+    android:layout_gravity="center">
+    
+    <RelativeLayout android:id="@+id/quest_item"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:padding="3sp">
+        
+        <TextView android:id="@+id/quest_name"
+            style="@style/PlayNameStyle" 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"			
+			android:paddingTop="10sp"
+			android:paddingLeft="10sp"
+			android:paddingRight="10sp"
+			android:layout_alignParentTop="true"
+			android:layout_alignParentLeft="true"/>
+        
+        <TextView android:id="@+id/quest_desc"
+            style="@style/MoodTextStyle"
+            android:textSize="15sp"    
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"    
+            android:ellipsize="end"
+            android:padding="10sp"
+            android:gravity="left"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/quest_name" />
+        
+        <LinearLayout android:id="@+id/quest_requirements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@id/quest_desc"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            
+        </LinearLayout>
+        
+        <TextView android:id="@+id/quest_rewards" 
+            style="@style/MoodTextStyle"
+            android:textSize="13sp"
+            android:paddingRight="10sp"
+            android:layout_marginLeft="30sp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/quest_requirements"
+            android:gravity="right"
+            android:visibility="gone"/>
+        
+    </RelativeLayout>
+    
+    <View android:id="@+id/list_divider" 
+        android:layout_height="1sp"
+        android:layout_width="fill_parent"
+        android:layout_gravity="center"
+        android:background="#e0e0e0"/>
+
+</LinearLayout>

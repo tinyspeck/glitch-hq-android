@@ -7,8 +7,8 @@
     
     <include layout="@layout/top_pane" />
     
-	<TextView android:id="@+id/categories_title" 
-		android:text="Achievements"
+	<TextView android:id="@+id/quests_title" 
+		android:text="Quests"
 		style="@style/TitleTextStyle"
 		android:textColor="#ffffff"
 		android:background="#005471"
@@ -19,7 +19,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"/>
     
-    <ScrollView android:id="@+id/CategoriesScrollView"
+    <ScrollView android:id="@+id/QuestsScrollView"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:fadingEdge="none"
@@ -30,16 +30,16 @@
             android:layout_gravity="top"
             android:orientation="vertical">            
             
-            <TextView android:id="@+id/categories_list_message"
+            <TextView android:id="@+id/quests_list_message"
 	            android:layout_marginTop="10sp"	            
 	            style="@style/NormalTextStyle"
 	            android:layout_width="fill_parent"
 	            android:layout_height="fill_parent"
-	            android:text="Retrieving categories..."
+	            android:text="Retrieving quests..."
 	            android:gravity="center_horizontal"/>
             
             <com.tinyspeck.glitchhq.LinearListView
-				android:id="@+id/categories_list"
+				android:id="@+id/quests_list"
 	            android:visibility="gone"
 	            android:background="@drawable/activity_feed"
 	            android:orientation="vertical"
