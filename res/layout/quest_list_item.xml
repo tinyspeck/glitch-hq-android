@@ -47,6 +47,7 @@
         <TextView android:id="@+id/quest_rewards" 
             style="@style/MoodTextStyle"
             android:textSize="13sp"
+            android:paddingTop="5sp"
             android:paddingRight="10sp"
             android:layout_marginLeft="30sp"
             android:layout_width="fill_parent"
