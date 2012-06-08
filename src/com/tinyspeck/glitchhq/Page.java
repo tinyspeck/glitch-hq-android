@@ -7,6 +7,7 @@ public enum Page {
 	Friends,
 	Mailbox,
 	Settings,
+	Encyclopedia,
 	Achievements,
 	Quests,
 }

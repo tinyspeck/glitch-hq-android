@@ -154,6 +154,12 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
 			
 			add(new sidebarItem() {{
 				isHeader = false;
+				text = "Encyclopedia";
+				page = Page.Encyclopedia;
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = false;
 				text = "Settings";
 				page = Page.Settings;
 			}});

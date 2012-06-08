@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
         android:layout_gravity="center"
+        android:background="@drawable/list_item_bg_selector"
         android:clickable="true"
         android:padding="3sp">
         

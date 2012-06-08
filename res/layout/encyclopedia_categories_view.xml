@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/top_pane" />
+    
+    <TextView android:id="@+id/encyclopedia_categories_title" 
+        android:text="Encyclopedia"
+		style="@style/TitleTextStyle"
+		android:textColor="#ffffff"
+		android:background="#005471"
+		android:gravity="center"
+		android:layout_gravity="center"
+		android:paddingBottom="5sp"
+		android:paddingTop="5sp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+
+    <ScrollView android:id="@+id/EncyclopediaCategoriesScrollView"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:fadingEdge="none"
+        android:layout_gravity="center">
+        
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_gravity="top"
+            android:orientation="vertical">
+            
+            <com.tinyspeck.glitchhq.LinearListView 
+                android:id="@+id/encyclopedia_categories_list"
+                android:background="@drawable/activity_feed"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"/>
+            
+        </LinearLayout>
+        
+    </ScrollView>
+    
+</LinearLayout>
