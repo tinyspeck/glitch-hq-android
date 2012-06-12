@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 public class EncyclopediaCategoriesFragment extends BaseFragment {
 
@@ -35,6 +36,9 @@ public class EncyclopediaCategoriesFragment extends BaseFragment {
 		m_categoriesList.add("Achievements");
 		m_categoriesList.add("Locations");
 		m_categoriesList.add("Giants");
+		
+		TextView title = (TextView)root.findViewById(R.id.encyclopedia_categories_title);
+		title.setTypeface(m_application.m_vagFont);
 		
 		m_adapter = new EncyclopediaCategoriesListViewAdapter(this, m_categoriesList);
 		m_listView = (LinearListView) root.findViewById(R.id.encyclopedia_categories_list);

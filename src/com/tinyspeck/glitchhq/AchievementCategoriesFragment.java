@@ -48,6 +48,8 @@ public class AchievementCategoriesFragment extends BaseFragment {
 		if (bUpdateData) {
 			m_categoriesList = new Vector<glitchAchievementCategory>();
 		}
+		TextView title = (TextView)root.findViewById(R.id.categories_title);
+		title.setTypeface(m_application.m_vagFont);
 		m_adapter = new AchievementCategoriesListViewAdapter(this, m_categoriesList);
 		m_listView = (LinearListView) root.findViewById(R.id.categories_list);
 		m_listView.setAdapter(m_adapter);

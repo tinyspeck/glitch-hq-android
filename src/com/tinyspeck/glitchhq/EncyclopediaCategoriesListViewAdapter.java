@@ -84,8 +84,8 @@ public class EncyclopediaCategoriesListViewAdapter extends BaseAdapter {
 				{
 					public void onClick(View v) {
 						String category = m_categoriesList.get((Integer)v.getTag());
-						//EncyclopediaItemCategoriesFragment f = new EncyclopediaItemCategoriesFragment();
-						//((HomeScreen)m_act).setCurrentFragment(f, true);
+						EncyclopediaItemCategoriesFragment f = new EncyclopediaItemCategoriesFragment();
+						((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
 				});
 			} else if (category == "Skills") {

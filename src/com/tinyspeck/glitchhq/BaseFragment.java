@@ -35,7 +35,26 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
 	
-  	public class glitchActivity{
+	public class glitchItem {
+		String class_id;
+		String name;
+		String desc;
+		int baseCost;
+		int maxStack;
+		int growTime;
+		int durability;		
+		String icon;
+		String requiredSkill;
+		Vector<String> warnings;
+		Vector<String> tips;
+	}
+	
+	public class glitchItemCategory {
+		String id;
+		String name;
+	}
+	
+  	public class glitchActivity {
  		 String who;
  		 String when;
  		 String what;
