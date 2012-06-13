@@ -71,7 +71,7 @@ public class EncyclopediaItemsInCategoryFragment extends BaseFragment {
 			m_itemList = new Vector<glitchItem>();
 		}
 		
-		m_adapter = new EncyclopediaItemsInCategoryListViewAdapter(getActivity(), m_itemList, m_category);
+		m_adapter = new EncyclopediaItemsInCategoryListViewAdapter(getActivity(), m_itemList);
 		m_listView = (LinearListView) root.findViewById(R.id.encyclopedia_items_in_category_list);
 		m_listView.setAdapter(m_adapter);
 		
@@ -128,16 +128,16 @@ public class EncyclopediaItemsInCategoryFragment extends BaseFragment {
 					item.tips = new Vector<String>();
 					
 					item.class_id = jobj.optString("class_id");
-					item.name = jobj.optString("name_single");
+					item.name = jobj.optString("name");
 					item.desc = jobj.optString("info");
 					item.baseCost = jobj.optInt("base_cost");
 					item.maxStack = jobj.optInt("max_stack");
 					item.durability = jobj.optInt("tool_wear");
 					item.growTime = jobj.optInt("grow_time");
 					item.requiredSkill = jobj.optString("required_skill");
-					item.icon = jobj.optString("iconic_url");
+					item.icon = jobj.optString("icon");
 					
-					JSONArray jWarnings = jItems.optJSONArray("warnings");
+					JSONArray jWarnings = jobj.optJSONArray("warnings");
 					if (jWarnings != null) {
 						for (int i=0; i < jWarnings.length(); i++) {
 							String warning = jWarnings.optString(i);
@@ -145,7 +145,7 @@ public class EncyclopediaItemsInCategoryFragment extends BaseFragment {
 						}
 					}
 					
-					JSONArray jTips = jItems.optJSONArray("tips");
+					JSONArray jTips = jobj.optJSONArray("tips");
 					if (jTips != null) {
 						for (int i = 0; i < jTips.length(); i++) {
 							String tip = jTips.optString(i);

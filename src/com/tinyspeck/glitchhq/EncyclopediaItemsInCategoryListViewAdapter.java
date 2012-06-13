@@ -21,7 +21,6 @@ public class EncyclopediaItemsInCategoryListViewAdapter extends BaseAdapter {
 	private LayoutInflater m_inflater;
 	private Activity m_act;
 	private MyApplication m_application;
-	private glitchItemCategory m_category;
 	
 	public class ViewHolder
 	{
@@ -30,13 +29,12 @@ public class EncyclopediaItemsInCategoryListViewAdapter extends BaseAdapter {
 		View whole;
 	}
 	
-	public EncyclopediaItemsInCategoryListViewAdapter(Activity act, Vector<glitchItem> itemList, glitchItemCategory category)
+	public EncyclopediaItemsInCategoryListViewAdapter(Activity act, Vector<glitchItem> itemList)
 	{
 		m_itemList = itemList;
 		m_act = act;
 		m_inflater = (LayoutInflater) m_act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		m_application = (MyApplication) m_act.getApplicationContext();
-		m_category = category;
 	}
 	
 	public int getCount() {
@@ -84,8 +82,8 @@ public class EncyclopediaItemsInCategoryListViewAdapter extends BaseAdapter {
 			holder.whole.setOnClickListener(new OnClickListener() {
 				public void onClick(View v) {
 					glitchItem item = m_itemList.get((Integer)v.getTag());
-					//EncyclopediaItemDetailFragment f = new EncyclopediaItemDetailFragment(item, m_category);
-					//((HomeScreen)m_act).setCurrentFragment(f, true);
+					EncyclopediaItemDetailFragment f = new EncyclopediaItemDetailFragment(item);
+					((HomeScreen)m_act).setCurrentFragment(f, true);
 				}
 			});
 		}
