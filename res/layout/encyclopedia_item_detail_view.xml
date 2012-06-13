@@ -122,6 +122,10 @@
 	            	
 	            </LinearLayout>
 	            
+	            <View android:layout_height="20sp"
+	            	android:layout_width="fill_parent"
+	            	android:layout_gravity="center"/>
+	            
 	        </LinearLayout>
         </LinearLayout>
         
