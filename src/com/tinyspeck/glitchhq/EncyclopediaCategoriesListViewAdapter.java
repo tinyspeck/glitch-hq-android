@@ -83,7 +83,6 @@ public class EncyclopediaCategoriesListViewAdapter extends BaseAdapter {
 				holder.whole.setOnClickListener(new OnClickListener() 
 				{
 					public void onClick(View v) {
-						String category = m_categoriesList.get((Integer)v.getTag());
 						EncyclopediaItemCategoriesFragment f = new EncyclopediaItemCategoriesFragment();
 						((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
@@ -92,9 +91,8 @@ public class EncyclopediaCategoriesListViewAdapter extends BaseAdapter {
 				holder.icon.setImageBitmap(BitmapFactory.decodeResource(m_act.getResources(), R.drawable.enc_skills));
 				holder.whole.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						String category = m_categoriesList.get((Integer)v.getTag());
-						//EncyclopediaSkillsFragment f = new EncyclopediaSkillsFragment();
-						//((HomeScreen)m_act).setCurrentFragment(f, true);
+						EncyclopediaSkillCategoriesFragment f = new EncyclopediaSkillCategoriesFragment();
+						((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
 				});
 			} else if (category == "Achievements") {

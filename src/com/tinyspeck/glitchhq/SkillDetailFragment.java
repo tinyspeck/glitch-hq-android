@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,7 @@ public class SkillDetailFragment extends BaseFragment{
     	m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
     	if (m_bf instanceof ProfileFragment) {
     		m_btnBack.setText("Profile");
-    	} else if (m_bf instanceof SkillFragment || m_bf instanceof UnlearnFragment) {
+    	} else if (m_bf instanceof SkillFragment || m_bf instanceof UnlearnFragment || m_bf instanceof EncyclopediaSkillsInCategoryFragment) {
     		m_btnBack.setText("Skills");
     	} else {
     		m_btnBack.setText("Back");
@@ -348,10 +349,11 @@ public class SkillDetailFragment extends BaseFragment{
 		//DrawableURL.Show( icon, m_currentSkill.icon, false );
 		m_application.Download( m_currentSkill.icon, icon, MyApplication.DOWNLOAD_TYPE_NORMAL );
 
-		TextView tv = (TextView) m_root.findViewById(R.id.skill_detail_name);
-		tv.setText( m_currentSkill.item );
+		TextView nameTv = (TextView) m_root.findViewById(R.id.skill_detail_name);
+		nameTv.setTypeface(m_application.m_vagFont);
+		nameTv.setText( m_currentSkill.item );
 		
-		tv = (TextView) m_root.findViewById(R.id.caption_status); 
+		TextView tv = (TextView) m_root.findViewById(R.id.caption_status); 
 		tv.setTypeface(m_application.m_vagFont);
 
 		tv = (TextView) m_root.findViewById(R.id.caption_giant);
@@ -363,13 +365,18 @@ public class SkillDetailFragment extends BaseFragment{
 		tv = (TextView) m_root.findViewById(R.id.caption_reqs); 
 		tv.setTypeface(m_application.m_vagFont);
 		
-		tv = (TextView) m_root.findViewById(R.id.skill_detail_time);
-		if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
-			tv.setText( R.string.str_you_are_learning );
-		else if (m_currentSkill.unlearning && m_fromUnlearn)
-			tv.setText(R.string.str_you_are_unlearning);
-		else
-			tv.setText( Util.TimeToString(m_currentSkill.totalTime, false ) );	
+		TextView timeTv = (TextView) m_root.findViewById(R.id.skill_detail_time);
+		if (!(m_bf instanceof EncyclopediaSkillsInCategoryFragment)) {			
+			if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
+				timeTv.setText( R.string.str_you_are_learning );
+			else if (m_currentSkill.unlearning && m_fromUnlearn)
+				timeTv.setText(R.string.str_you_are_unlearning);
+			else
+				timeTv.setText( Util.TimeToString(m_currentSkill.totalTime, false ) );
+		} else {
+			nameTv.setTextSize(20);
+			timeTv.setVisibility(View.GONE);
+		}
 
 		tv = (TextView) m_root.findViewById(R.id.skill_detail_description);
 		tv.setText( m_currentSkill.description );	
@@ -409,7 +416,13 @@ public class SkillDetailFragment extends BaseFragment{
 		View v_learn = m_root.findViewById( R.id.learning_process_bar );
 		View v_unlearn = m_root.findViewById(R.id.unlearning_process_bar);
 		
-		if( m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got && !m_fromUnlearn) {
+		if (m_bf instanceof EncyclopediaSkillsInCategoryFragment) {
+			btnLearn.setVisibility(View.GONE);
+			btnUnlearn.setVisibility(View.GONE);
+			btnCancelUnlearn.setVisibility(View.GONE);
+			v_learn.setVisibility(View.GONE);
+			v_unlearn.setVisibility(View.GONE);
+		} else if( m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got && !m_fromUnlearn) {
 			btnLearn.setVisibility(View.GONE);
 			btnUnlearn.setVisibility(View.GONE);
 			btnCancelUnlearn.setVisibility(View.GONE);
