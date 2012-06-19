@@ -14,6 +14,7 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils.TruncateAt;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,17 @@ public class AchievementCategoriesFragment extends BaseFragment {
 	private LinearListView m_listView;
 	private View m_root;
 	private Vector<glitchAchievementCategory> m_categoriesList;
+	private boolean m_fromEncyclopedia;
+	
+	public AchievementCategoriesFragment()
+	{
+		m_fromEncyclopedia = false;
+	}
+	
+	public AchievementCategoriesFragment(boolean fromEncyclopedia)
+	{
+		m_fromEncyclopedia = fromEncyclopedia;
+	}
 	
 	public void onActivityCreated(Bundle savedInstanceState) 
 	{
@@ -44,6 +56,23 @@ public class AchievementCategoriesFragment extends BaseFragment {
 	private void init(View root)
 	{				
 		boolean bUpdateData = (m_categoriesList == null);		
+		
+		if (m_fromEncyclopedia) {
+			Button m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
+			m_btnBack.setText("Encyclopedia");
+			m_btnBack.setSingleLine();
+			m_btnBack.setEllipsize(TruncateAt.END);
+			m_btnBack.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					FragmentManager fm = getFragmentManager();
+					fm.popBackStack();
+				}
+			});
+			m_btnBack.setVisibility(View.VISIBLE);
+			
+			Button m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
+			m_btnSidebar.setVisibility(View.GONE);
+		}
 		
 		if (bUpdateData) {
 			m_categoriesList = new Vector<glitchAchievementCategory>();

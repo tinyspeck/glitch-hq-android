@@ -99,24 +99,26 @@ public class EncyclopediaCategoriesListViewAdapter extends BaseAdapter {
 				holder.icon.setImageBitmap(BitmapFactory.decodeResource(m_act.getResources(), R.drawable.enc_achievements));
 				holder.whole.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						String category = m_categoriesList.get((Integer)v.getTag());
-						//AchievementCategoriesFragment f = new AchievementCategoriesFragment();
-						//((HomeScreen)m_act).setCurrentFragment(f, true);
+						AchievementCategoriesFragment f = new AchievementCategoriesFragment(true);
+						((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
 				});
 			} else if (category == "Locations") {
 				holder.icon.setImageBitmap(BitmapFactory.decodeResource(m_act.getResources(), R.drawable.enc_locations));
 				holder.whole.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						String category = m_categoriesList.get((Integer)v.getTag());
 						//EncyclopediaLocationHubsFragment f = new EncyclopediaLocationHubsFragment();
 						//((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
 				});
 			} else if (category == "Giants") {
 				holder.icon.setImageBitmap(BitmapFactory.decodeResource(m_act.getResources(), R.drawable.enc_giants));
-				//EncyclopediaGiantsFragment f = new EncyclopediaGiantsFragment();
-				//((HomeScreen)m_act).setCurrentFragment(f, true);
+				holder.whole.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						//EncyclopediaGiantsFragment f = new EncyclopediaGiantsFragment();
+						//((HomeScreen)m_act).setCurrentFragment(f, true);
+					}
+				});
 			}
 		}
 		
