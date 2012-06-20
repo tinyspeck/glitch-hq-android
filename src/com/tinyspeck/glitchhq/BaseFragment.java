@@ -35,6 +35,24 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
 	
+	public class glitchGiantSkill {
+		String name;
+		int skill;
+	}
+	
+	public class glitchGiant {
+		String name;
+		String id;
+		String desc;
+		String gender;
+		String followers;
+		String giantOf;
+		String personality;
+		Vector<glitchGiantSkill> skills;
+		String image;
+		String icon;
+	}
+	
 	public class glitchItem {
 		String class_id;
 		String name;

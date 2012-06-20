@@ -70,9 +70,9 @@ public class SkillDetailFragment extends BaseFragment{
   		m_fromUnlearn = fromUnlearn;
   	}
 
-    public void onActivityCreated(Bundle savedInstanceState) {
-    	
-        super.onActivityCreated(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) 
+    {
+    	super.onActivityCreated(savedInstanceState);
     }
 
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) 

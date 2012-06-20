@@ -170,16 +170,19 @@ public class EncyclopediaItemsInCategoryFragment extends BaseFragment {
 		}
 	}
 	
+	@Override
 	protected boolean doesSupportRefresh()
 	{
 		return true;
 	}
 	
-	protected void OnRefresh()
+	@Override
+	protected void onRefresh()
 	{
 		getItemsInCategory();
 	}
 	
+	@Override
 	protected void scrollToTop()
 	{
 		ScrollView sv = (ScrollView) m_root.findViewById(R.id.EncyclopediaItemsInCategoryScrollView);

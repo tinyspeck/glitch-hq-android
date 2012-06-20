@@ -115,8 +115,8 @@ public class EncyclopediaCategoriesListViewAdapter extends BaseAdapter {
 				holder.icon.setImageBitmap(BitmapFactory.decodeResource(m_act.getResources(), R.drawable.enc_giants));
 				holder.whole.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						//EncyclopediaGiantsFragment f = new EncyclopediaGiantsFragment();
-						//((HomeScreen)m_act).setCurrentFragment(f, true);
+						EncyclopediaGiantsListFragment f = new EncyclopediaGiantsListFragment();
+						((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
 				});
 			}
