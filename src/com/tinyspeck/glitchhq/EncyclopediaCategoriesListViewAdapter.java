@@ -107,8 +107,8 @@ public class EncyclopediaCategoriesListViewAdapter extends BaseAdapter {
 				holder.icon.setImageBitmap(BitmapFactory.decodeResource(m_act.getResources(), R.drawable.enc_locations));
 				holder.whole.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-						//EncyclopediaLocationHubsFragment f = new EncyclopediaLocationHubsFragment();
-						//((HomeScreen)m_act).setCurrentFragment(f, true);
+						EncyclopediaLocationHubsFragment f = new EncyclopediaLocationHubsFragment();
+						((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
 				});
 			} else if (category == "Giants") {

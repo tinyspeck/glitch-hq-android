@@ -104,7 +104,7 @@ public class EncyclopediaGiantsListFragment extends BaseFragment {
 		if (method == "giants.list") {
 			JSONObject giants = response.optJSONObject("giants");
 			
-			if (giants.length() > 0) {
+			if (giants != null && giants.length() > 0) {
 				m_giantsList.clear();
 				Iterator<String> itr = giants.keys();
 				

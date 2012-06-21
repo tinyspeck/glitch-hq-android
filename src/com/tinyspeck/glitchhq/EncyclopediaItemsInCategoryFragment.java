@@ -166,7 +166,7 @@ public class EncyclopediaItemsInCategoryFragment extends BaseFragment {
 	
 	class SortByName implements Comparator<glitchItem> {
 		public int compare(glitchItem i1, glitchItem i2) {
-			return i1.name.compareTo(i2.name);
+			return i1.name.compareToIgnoreCase(i2.name);
 		}
 	}
 	
