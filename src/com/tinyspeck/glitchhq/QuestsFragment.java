@@ -42,6 +42,8 @@ public class QuestsFragment extends BaseFragment {
 		if (bUpdateData) {
 			m_questsList = new Vector<glitchQuest>();			
 		}
+		TextView title = (TextView) m_root.findViewById(R.id.quests_title);
+		title.setTypeface(m_application.m_vagFont);
 		m_questsAdapter = new QuestsListViewAdapter(this, m_questsList);
 		m_questsListView = (LinearListView) root.findViewById(R.id.quests_list);
 		m_questsListView.setAdapter(m_questsAdapter);

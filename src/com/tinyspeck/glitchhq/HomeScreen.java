@@ -89,12 +89,16 @@ public class HomeScreen extends FragmentActivity {
 	protected void onResume()
 	{
 		super.onResume();
-		
+				
 		if (m_newPage != null)
 		{
+			Log.i("VERBAL DEBUG", "onResume new page " + m_newPage.toString());
 			if (m_curPage == m_newPage) {
+				Log.i("VERBAL DEBUG", "onResume clearFragmentStack");
 				clearFragmentStack();
 			} else {
+				Log.i("VERBAL DEBUG", "onResume clearFragmentStack");
+				clearFragmentStack();
 				m_curPage = m_newPage;
 				
 				Handler handler = new Handler();
@@ -142,19 +146,39 @@ public class HomeScreen extends FragmentActivity {
 	}
 
 	public void setSelectedPage(Page page) {
-
 		m_newPage = page;
-
-		/*
-		 * Unlearning Code
-		 * 
-		 * if (m_curTab == TAB_SKILLS || m_curTab == TAB_UNLEARN)
-		 * clearFragmentStack(); else { if (skillOrUnlearn == TAB_SKILLS) {
-		 * setCurrentFragment(m_skillFrm, false); m_curTab = TAB_SKILLS;
-		 * skillOrUnlearn = TAB_SKILLS; } else if (skillOrUnlearn ==
-		 * TAB_UNLEARN) { setCurrentFragment(m_unlearnFrm, false); m_curTab =
-		 * TAB_UNLEARN; skillOrUnlearn = TAB_UNLEARN; } }
-		 */
+		Log.i("VERBAL DEBUG", m_newPage.toString());
+		switch (m_newPage) {
+		case Profile:
+			m_curFrm = m_profileFrm;
+			break;
+		case Activity:
+			m_curFrm = m_activityFrm;
+			break;
+		case Skills:
+			m_curFrm = m_skillFrm;
+			break;
+		case Quests:
+			m_curFrm = m_questsFrm;
+			break;
+		case Friends:
+			m_curFrm = m_friendsFrm;
+			break;
+		case Encyclopedia:
+			m_curFrm = m_encyclopediaFrm;
+			break;
+		case Achievements:
+			m_curFrm = m_achievementsFrm;
+			break;
+		case Mailbox:
+			m_curFrm = m_mailboxFrm;
+			break;
+		case Settings:
+			m_curFrm = m_settingsFrm;
+			break;
+		default:
+			break;
+		}
 	}
 	
 	/*
@@ -608,4 +632,30 @@ public class HomeScreen extends FragmentActivity {
 		super.onStop();
 		FlurryAgent.onEndSession(this);
 	}
+	
+	public boolean isBaseFragmentVisible(BaseFragment f) {
+		if (f instanceof ProfileFragment) {
+			return (m_profileView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof SkillFragment) {
+			return (m_skillsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof UnlearnFragment) {
+			return (m_unlearnView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof QuestsFragment) {
+			return (m_questsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof FriendsFragment) {
+			return (m_friendsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof EncyclopediaCategoriesFragment) {
+			return (m_encyclopediaView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof AchievementCategoriesFragment) {
+			return (m_achievementsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof MailboxFragment) {
+			return (m_mailboxView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof ActivityFragment) {
+			return (m_activityView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof SettingsFragment) {
+			return (m_settingsView.getVisibility() == View.VISIBLE);
+		}
+		return true;
+	}
+
 }

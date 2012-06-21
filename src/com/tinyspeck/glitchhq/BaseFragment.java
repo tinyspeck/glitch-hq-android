@@ -253,7 +253,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-	}
+	}	
 	
 	public View ViewInit( LayoutInflater inflater, int nLayout, ViewGroup container )
 	{
@@ -675,16 +675,33 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
-		menu.clear();
-
-		if (doesSupportRefresh())
-			menu.add(0, MENU_COMMAND_REFRESH, Menu.NONE + 0, R.string.str_menu_refresh);
-
-		if (doesSupportMore())
-			menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1, R.string.str_menu_more);
-
+		
+		if (!isMainFragment() || ((HomeScreen)getActivity()).isBaseFragmentVisible(this)) {
+			menu.clear();
+	
+			if (doesSupportRefresh()) {
+				menu.add(0, MENU_COMMAND_REFRESH, Menu.NONE + 0, R.string.str_menu_refresh);
+			}
+	
+			if (doesSupportMore()) {
+				menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1, R.string.str_menu_more);
+			}
+		}
 	}
 
+	protected boolean isMainFragment() {
+		return ((this instanceof ProfileFragment) || 
+				(this instanceof SkillFragment) ||
+				(this instanceof UnlearnFragment) ||
+				(this instanceof QuestsFragment) ||
+				(this instanceof FriendsFragment) ||
+				(this instanceof EncyclopediaCategoriesFragment) ||
+				(this instanceof AchievementCategoriesFragment) ||
+				(this instanceof MailboxFragment) ||
+				(this instanceof ActivityFragment) ||
+				(this instanceof SettingsFragment));
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
