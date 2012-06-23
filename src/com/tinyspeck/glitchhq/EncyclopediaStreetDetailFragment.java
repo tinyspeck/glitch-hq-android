@@ -61,7 +61,11 @@ public class EncyclopediaStreetDetailFragment extends BaseFragment {
 		m_root = curView;
 		m_root.setVisibility(View.INVISIBLE);
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		m_btnBack.setText(m_hub.name);
+		if (m_hub != null) {
+			m_btnBack.setText(m_hub.name);
+		} else {
+			m_btnBack.setText("Back");
+		}
 		m_btnBack.setEllipsize(TruncateAt.END);
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -211,6 +215,11 @@ public class EncyclopediaStreetDetailFragment extends BaseFragment {
 		} else if (method == "locations.streetInfo") {
 			
 			m_root.setVisibility(View.VISIBLE);
+			
+			m_hub = new glitchLocationHub();
+			JSONObject hub = response.optJSONObject("hub");
+			m_hub.hub_id = hub.optInt("id");
+			m_hub.name = hub.optString("name");
 			
 			m_street.activeProject = response.optBoolean("active_project");
 			JSONArray features = response.optJSONArray("features");

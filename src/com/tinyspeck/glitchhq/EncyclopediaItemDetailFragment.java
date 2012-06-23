@@ -32,19 +32,22 @@ public class EncyclopediaItemDetailFragment extends BaseFragment {
 	private View m_root;
 	private Button m_btnBack;
 	private Button m_btnSidebar;
+	private BaseFragment m_parentBf;
 	private EncyclopediaItemDetailFragment m_bf;
 	private boolean bHas;
 	
-	public EncyclopediaItemDetailFragment(String itemClass) 
+	public EncyclopediaItemDetailFragment(BaseFragment bf, String itemClass)
 	{
 		m_item = new glitchItem();
 		m_item.class_id = itemClass;
+		m_parentBf = bf;
 		bHas = false;
 	}
 	
-	public EncyclopediaItemDetailFragment(glitchItem item)
+	public EncyclopediaItemDetailFragment(BaseFragment bf, glitchItem item)
 	{
 		m_item = item;
+		m_parentBf = bf;
 		bHas = true;
 	}
 	
@@ -59,7 +62,11 @@ public class EncyclopediaItemDetailFragment extends BaseFragment {
 		View curView = ViewInit(inflater, R.layout.encyclopedia_item_detail_view, container);
 		m_root = curView;
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		m_btnBack.setText("Items");
+		if (m_parentBf instanceof EncyclopediaItemsInCategoryFragment) {
+			m_btnBack.setText("Items");
+		} else {
+			m_btnBack.setText("Back");
+		}
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				FragmentManager fm = getFragmentManager();
@@ -187,7 +194,7 @@ public class EncyclopediaItemDetailFragment extends BaseFragment {
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
 					if (url.startsWith("event:item|")) {
 						String itemClass = url.replace("event:item|", "");
-						EncyclopediaItemDetailFragment f = new EncyclopediaItemDetailFragment(itemClass);
+						EncyclopediaItemDetailFragment f = new EncyclopediaItemDetailFragment(m_parentBf, itemClass);
 						((HomeScreen)getActivity()).setCurrentFragment(f, true);
 					} else if (url.startsWith("event:skill|")) {
 						String skillID = url.replace("event:skill|", "");

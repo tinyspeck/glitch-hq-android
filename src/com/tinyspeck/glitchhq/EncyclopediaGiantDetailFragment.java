@@ -49,7 +49,11 @@ public class EncyclopediaGiantDetailFragment extends BaseFragment {
 		m_root = curView;
 		m_root.setVisibility(View.INVISIBLE);
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		m_btnBack.setText("Giants");
+		if (m_bf instanceof EncyclopediaGiantsListFragment) {
+			m_btnBack.setText("Giants");
+		} else {
+			m_btnBack.setText("Back");
+		}			
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				FragmentManager fm = getFragmentManager();

@@ -8,7 +8,6 @@ import com.tinyspeck.glitchhq.BaseFragment.glitchFriend;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

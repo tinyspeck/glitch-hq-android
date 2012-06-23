@@ -35,6 +35,14 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
 	
+	public class searchResult {
+		String type;
+		String name;
+		String icon;
+		String url;
+		String id;
+	}
+	
 	public class glitchLocationStreet {
 		String tsid;
 		String name;

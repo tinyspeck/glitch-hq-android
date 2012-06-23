@@ -71,7 +71,7 @@ public class EncyclopediaItemsInCategoryFragment extends BaseFragment {
 			m_itemList = new Vector<glitchItem>();
 		}
 		
-		m_adapter = new EncyclopediaItemsInCategoryListViewAdapter(getActivity(), m_itemList);
+		m_adapter = new EncyclopediaItemsInCategoryListViewAdapter(this, m_itemList);
 		m_listView = (LinearListView) root.findViewById(R.id.encyclopedia_items_in_category_list);
 		m_listView.setAdapter(m_adapter);
 		

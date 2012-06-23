@@ -30,6 +30,8 @@
             android:layout_gravity="top"
             android:orientation="vertical">
             
+            <include layout="@layout/encyclopedia_search" />
+            
             <com.tinyspeck.glitchhq.LinearListView 
                 android:id="@+id/encyclopedia_categories_list"
                 android:background="@drawable/activity_feed"

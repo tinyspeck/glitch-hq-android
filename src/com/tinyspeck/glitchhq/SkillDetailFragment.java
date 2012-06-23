@@ -366,7 +366,8 @@ public class SkillDetailFragment extends BaseFragment{
 		tv.setTypeface(m_application.m_vagFont);
 		
 		TextView timeTv = (TextView) m_root.findViewById(R.id.skill_detail_time);
-		if (!(m_bf instanceof EncyclopediaSkillsInCategoryFragment)) {			
+		if (!(m_bf instanceof EncyclopediaSkillsInCategoryFragment) &&
+				!(m_bf instanceof EncyclopediaCategoriesFragment)) {			
 			if (m_currentSkill.learning && !m_currentSkill.paused && !m_currentSkill.got)
 				timeTv.setText( R.string.str_you_are_learning );
 			else if (m_currentSkill.unlearning && m_fromUnlearn)
