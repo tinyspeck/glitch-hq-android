@@ -1,6 +1,8 @@
 package com.tinyspeck.glitchhq;
 
 import java.util.Iterator;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 import org.json.JSONArray;
@@ -19,6 +21,7 @@ public class QuestsFragment extends BaseFragment {
 	private QuestsListViewAdapter m_questsAdapter;
 	private LinearListView m_questsListView;
 	private View m_root;
+	private Timer m_refreshTimer;
 	
 	private Vector<glitchQuest> m_questsList;
 	
@@ -55,6 +58,19 @@ public class QuestsFragment extends BaseFragment {
 		}
 	}
 	
+	private void InitRefreshTimer()
+	{
+		if (m_refreshTimer != null)
+			m_refreshTimer.cancel();
+		
+		m_refreshTimer = new Timer();
+		m_refreshTimer.scheduleAtFixedRate(new TimerTask() {
+			public void run() {
+				getQuests();
+			}
+		}, 30000, 30000);
+	}
+	
 	public void getQuests() 
 	{
 		if (m_application != null) {
@@ -62,7 +78,11 @@ public class QuestsFragment extends BaseFragment {
 			request.execute(this);
 			
 			m_requestCount = 1;
-			((HomeScreen)getActivity()).showSpinner(true);
+			getActivity().runOnUiThread(new Runnable() {
+				public void run() {
+					((HomeScreen)getActivity()).showSpinner(true);
+				}				
+			});
 		}
 	}
 	
@@ -148,8 +168,19 @@ public class QuestsFragment extends BaseFragment {
 			if (m_questsList.size() == 0) {
 				((TextView)m_root.findViewById(R.id.quests_list_message)).setText("");
 			}
+			InitRefreshTimer();
 			showQuestsPage();
 		}
 		onRequestComplete();
+	}
+	
+	@Override
+	public void onStop()
+	{
+		if (m_refreshTimer != null) {
+			m_refreshTimer.cancel();
+			m_refreshTimer = null;
+		}
+		super.onStop();
 	}
 }

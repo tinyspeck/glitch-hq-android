@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:versionName="1.3.12" package="com.tinyspeck.glitchhq" android:versionCode="20"
-    android:installLocation="preferExternal">    
+    android:versionName="1.4.2" package="com.tinyspeck.glitchhq" android:versionCode="23"
+    android:installLocation="preferExternal" >    
 	<uses-sdk android:minSdkVersion="8" android:targetSdkVersion="11" />
 	<supports-screens  android:anyDensity="true" />
 	<supports-screens android:largeScreens="true" android:anyDensity="false"/>

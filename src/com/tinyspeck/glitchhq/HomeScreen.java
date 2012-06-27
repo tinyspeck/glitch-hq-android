@@ -92,13 +92,9 @@ public class HomeScreen extends FragmentActivity {
 				
 		if (m_newPage != null)
 		{
-			Log.i("VERBAL DEBUG", "onResume new page " + m_newPage.toString());
 			if (m_curPage == m_newPage) {
-				Log.i("VERBAL DEBUG", "onResume clearFragmentStack");
 				clearFragmentStack();
 			} else {
-				Log.i("VERBAL DEBUG", "onResume clearFragmentStack");
-				clearFragmentStack();
 				m_curPage = m_newPage;
 				
 				Handler handler = new Handler();
@@ -146,38 +142,39 @@ public class HomeScreen extends FragmentActivity {
 	}
 
 	public void setSelectedPage(Page page) {
-		m_newPage = page;
-		Log.i("VERBAL DEBUG", m_newPage.toString());
-		switch (m_newPage) {
-		case Profile:
-			m_curFrm = m_profileFrm;
-			break;
-		case Activity:
-			m_curFrm = m_activityFrm;
-			break;
-		case Skills:
-			m_curFrm = m_skillFrm;
-			break;
-		case Quests:
-			m_curFrm = m_questsFrm;
-			break;
-		case Friends:
-			m_curFrm = m_friendsFrm;
-			break;
-		case Encyclopedia:
-			m_curFrm = m_encyclopediaFrm;
-			break;
-		case Achievements:
-			m_curFrm = m_achievementsFrm;
-			break;
-		case Mailbox:
-			m_curFrm = m_mailboxFrm;
-			break;
-		case Settings:
-			m_curFrm = m_settingsFrm;
-			break;
-		default:
-			break;
+		if (page != null) {
+			m_newPage = page;
+			switch (m_newPage) {
+			case Profile:
+				m_curFrm = m_profileFrm;
+				break;
+			case Activity:
+				m_curFrm = m_activityFrm;
+				break;
+			case Skills:
+				m_curFrm = m_skillFrm;
+				break;
+			case Quests:
+				m_curFrm = m_questsFrm;
+				break;
+			case Friends:
+				m_curFrm = m_friendsFrm;
+				break;
+			case Encyclopedia:
+				m_curFrm = m_encyclopediaFrm;
+				break;
+			case Achievements:
+				m_curFrm = m_achievementsFrm;
+				break;
+			case Mailbox:
+				m_curFrm = m_mailboxFrm;
+				break;
+			case Settings:
+				m_curFrm = m_settingsFrm;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 	

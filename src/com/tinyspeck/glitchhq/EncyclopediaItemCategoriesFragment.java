@@ -109,7 +109,11 @@ public class EncyclopediaItemCategoriesFragment extends BaseFragment {
 					glitchItemCategory c = new glitchItemCategory();
 					c.id = jobj.optString("id");
 					c.name = jobj.optString("name");
-					m_categoriesList.add(c);
+					if (c.name.equalsIgnoreCase("Furniture")) {
+						continue;
+					} else {
+						m_categoriesList.add(c);
+					}
 				}
 				Collections.sort(m_categoriesList, new SortByName());
 			}

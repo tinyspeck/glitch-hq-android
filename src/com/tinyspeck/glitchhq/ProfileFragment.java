@@ -471,7 +471,7 @@ public class ProfileFragment extends BaseFragment{
 		   {
 		    	 getActivity().runOnUiThread(new Runnable(){
 		    		 public void run(){
-		        		  if( m_learningAdapter!= null && m_learningAdapter.getCount() > 0 )
+		        		  if( m_learningAdapter != null && m_learningAdapter.getCount() > 0 )
 		    				 m_learningAdapter.notifyDataSetChanged(); 
 		        		  if (m_unlearningAdapter != null && m_unlearningAdapter.getCount() > 0)
 		        			  m_unlearningAdapter.notifyDataSetChanged();
