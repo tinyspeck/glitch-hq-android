@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="#f0f0f0">
+    
+	<include layout="@layout/top_pane" />
+	
+	<ScrollView android:id="@+id/EncyclopediaGiantDetailScrollView" 
+	    android:layout_height="fill_parent" 
+	    android:layout_width="fill_parent"
+	    android:layout_gravity="top"
+	    android:fadingEdge="none">
+	    
+	    <LinearLayout android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="top"
+	        android:orientation="vertical">	        
+	            
+			    <RelativeLayout android:id="@+id/encyclopedia_giant_detail_top_section"
+			        android:layout_width="fill_parent"
+			        android:layout_height="260sp"
+			        android:layout_gravity="center">
+			       		       	    
+					<ImageView android:id="@+id/encyclopedia_giant_detail_icon" 
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:padding="20sp"/>
+			       	    
+					<TextView android:id="@+id/encyclopedia_giant_detail_name_sex"
+						android:textColor="#ffffff"
+						android:textSize="20sp"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:layout_below="@id/encyclopedia_giant_detail_icon"
+						android:paddingLeft="10sp"/>
+			       	    
+					<TextView android:id="@+id/encyclopedia_giant_detail_personality"		       	        
+						android:textColor="#ffffff" 
+						android:textSize="12sp"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content"
+						android:layout_alignParentLeft="true"
+						android:layout_below="@id/encyclopedia_giant_detail_name_sex"
+						android:paddingLeft="10sp"/>
+			       	
+			       	<ImageView android:id="@+id/encyclopedia_giant_detail_image"
+			       	    android:layout_width="wrap_content"
+			       	    android:layout_height="wrap_content"
+			       	    android:layout_alignParentRight="true"
+			       	    android:layout_centerVertical="true"
+			       	    android:layout_toRightOf="@id/encyclopedia_giant_detail_icon"			       	    
+			       	    android:scaleType="fitXY"
+			       	    android:paddingTop="20sp"
+			       	    android:paddingLeft="5sp"
+			       	    android:paddingRight="5sp" />			        
+			    </RelativeLayout>
+		    
+		    <View android:layout_height="1sp"
+				android:layout_width="fill_parent"
+				android:layout_gravity="center"
+				android:background="#d0d0d0" />
+		    
+		    <LinearLayout android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:orientation="vertical"
+		        android:background="#ffffff">
+		        
+		        <TextView android:id="@+id/encyclopedia_giant_detail_desc"
+		            android:textColor="#808080"
+		            android:textSize="14sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:padding="10sp"/>
+		        
+		        <TextView android:id="@+id/encyclopedia_giant_detail_adherents"
+		            android:textColor="#808080"
+		            android:textSize="14sp" 
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:paddingLeft="10sp"
+		            android:paddingRight="10sp"
+		            android:paddingBottom="10sp"/>
+		        
+		    </LinearLayout>
+		    
+		    <View android:layout_height="1sp"
+				android:layout_width="fill_parent"
+				android:layout_gravity="center"
+				android:background="#d0d0d0" />
+		    
+		    <LinearLayout android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:orientation="vertical">
+		        
+		        <TextView android:text="Primary skill affiliations:" 
+		            android:textSize="14sp"
+		            android:textColor="#505050"
+		            android:textStyle="bold"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:paddingTop="10sp"
+		            android:paddingLeft="10sp"
+		            android:paddingRight="10sp"/>
+		        
+		        <TextView android:id="@+id/encyclopedia_giant_detail_skills"
+		            android:textColor="#505050"
+		            android:textSize="14sp"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content" 
+		            android:paddingBottom="10sp"
+					android:paddingLeft="10sp"
+					android:paddingRight="10sp"/>
+		    </LinearLayout>
+	    </LinearLayout>
+	</ScrollView>
+</LinearLayout>

@@ -35,7 +35,70 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
     static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
 	
-  	public class glitchActivity{
+	public class searchResult {
+		String type;
+		String name;
+		String icon;
+		String url;
+		String id;
+	}
+	
+	public class glitchLocationStreet {
+		String tsid;
+		String name;
+		int visits;
+		int lastVisit;
+		boolean activeProject;
+		Vector<String> features;
+		String image;
+		int imageHeight;
+		int imageWidth;
+	}
+	
+	public class glitchLocationHub {
+		String name;
+		int hub_id;
+		Vector<glitchLocationStreet> streets;
+	}
+	
+	public class glitchGiantSkill {
+		String name;
+		int skill;
+	}
+	
+	public class glitchGiant {
+		String name;
+		String id;
+		String desc;
+		String gender;
+		String followers;
+		String giantOf;
+		String personality;
+		Vector<glitchGiantSkill> skills;
+		String image;
+		String icon;
+	}
+	
+	public class glitchItem {
+		String class_id;
+		String name;
+		String desc;
+		int baseCost;
+		int maxStack;
+		int growTime;
+		int durability;		
+		String icon;
+		String requiredSkill;
+		Vector<String> warnings;
+		Vector<String> tips;
+	}
+	
+	public class glitchItemCategory {
+		String id;
+		String name;
+	}
+	
+  	public class glitchActivity {
  		 String who;
  		 String when;
  		 String what;
@@ -143,6 +206,49 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		String icon;
 	}
 	
+	public class glitchQuestRequirement {
+		String desc;
+		boolean isCount;
+		boolean completed;
+		int gotNum;
+		int needNum;
+		String icon;
+	}
+	
+	public class glitchQuestRewardRecipe {
+		String label;
+		String icon;
+	}
+	
+	public class glitchQuestRewardFavor {
+		String giant;
+		int points;		
+	}
+	
+	public class glitchQuestRewards {
+		int imagination;
+		int currants;
+		int energy;
+		int mood;
+		Vector<glitchQuestRewardFavor> favor;
+		Vector<glitchQuestRewardRecipe> recipes;
+	}
+	
+	public class glitchQuest {
+		String id;
+		String title;
+		String desc;
+		Vector<glitchQuestRequirement> reqs;
+		glitchQuestRewards rewards;
+		boolean complete;
+		boolean started;
+		long offeredTime;
+		boolean failed;
+		boolean finished;
+		boolean startable;
+		boolean accepted;
+	}
+	
 	class SortByName implements Comparator<glitchFriend>{   
 		public int compare(glitchFriend f1, glitchFriend f2) {
 			String name1 = f1.player_name.toLowerCase();
@@ -155,7 +261,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
-	}
+	}	
 	
 	public View ViewInit( LayoutInflater inflater, int nLayout, ViewGroup container )
 	{
@@ -577,16 +683,33 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 	
 	@Override
 	public void onPrepareOptionsMenu(Menu menu) {
-		menu.clear();
-
-		if (doesSupportRefresh())
-			menu.add(0, MENU_COMMAND_REFRESH, Menu.NONE + 0, R.string.str_menu_refresh);
-
-		if (doesSupportMore())
-			menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1, R.string.str_menu_more);
-
+		
+		if (!isMainFragment() || ((HomeScreen)getActivity()).isBaseFragmentVisible(this)) {
+			menu.clear();
+	
+			if (doesSupportRefresh()) {
+				menu.add(0, MENU_COMMAND_REFRESH, Menu.NONE + 0, R.string.str_menu_refresh);
+			}
+	
+			if (doesSupportMore()) {
+				menu.add(1, MENU_COMMAND_MORE, Menu.NONE + 1, R.string.str_menu_more);
+			}
+		}
 	}
 
+	protected boolean isMainFragment() {
+		return ((this instanceof ProfileFragment) || 
+				(this instanceof SkillFragment) ||
+				(this instanceof UnlearnFragment) ||
+				(this instanceof QuestsFragment) ||
+				(this instanceof FriendsFragment) ||
+				(this instanceof EncyclopediaCategoriesFragment) ||
+				(this instanceof AchievementCategoriesFragment) ||
+				(this instanceof MailboxFragment) ||
+				(this instanceof ActivityFragment) ||
+				(this instanceof SettingsFragment));
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 

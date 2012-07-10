@@ -35,7 +35,7 @@
 	            style="@style/NormalTextStyle"
 	            android:layout_width="fill_parent"
 	            android:layout_height="fill_parent"
-	            android:text="Retrieving categories.."
+	            android:text="Retrieving categories..."
 	            android:gravity="center_horizontal"/>
             
             <com.tinyspeck.glitchhq.LinearListView

@@ -55,16 +55,19 @@ public class HomeScreen extends FragmentActivity {
 	private SkillFragment m_skillFrm;
 	private UnlearnFragment m_unlearnFrm;
 	private ActivityFragment m_activityFrm;
+	private QuestsFragment m_questsFrm;
 	private FriendsFragment m_friendsFrm;
 	private MailboxFragment m_mailboxFrm;
 	private SettingsFragment m_settingsFrm;
-	private AchievementsFragment m_achievementsFrm;
+	private AchievementCategoriesFragment m_achievementsFrm;
+	private EncyclopediaCategoriesFragment m_encyclopediaFrm;
 	private View m_stack;
 
 	private BaseFragment m_curFrm;
 
 	private View m_profileView, m_activityView, m_skillsView, m_unlearnView,
-			m_friendsView, m_mailboxView, m_settingsView;
+			m_questsView, m_friendsView, m_mailboxView, m_settingsView, m_achievementsView,
+			m_encyclopediaView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +89,7 @@ public class HomeScreen extends FragmentActivity {
 	protected void onResume()
 	{
 		super.onResume();
-		
+				
 		if (m_newPage != null)
 		{
 			if (m_curPage == m_newPage) {
@@ -107,8 +110,14 @@ public class HomeScreen extends FragmentActivity {
 						case Skills:
 							setCurrentFragment(m_skillFrm, false);
 							break;
+						case Quests:
+							setCurrentFragment(m_questsFrm, false);
+							break;
 						case Friends:
 							setCurrentFragment(m_friendsFrm, false);
+							break;
+						case Encyclopedia:
+							setCurrentFragment(m_encyclopediaFrm, false);
 							break;
 						case Achievements:
 							setCurrentFragment(m_achievementsFrm, false);
@@ -133,19 +142,40 @@ public class HomeScreen extends FragmentActivity {
 	}
 
 	public void setSelectedPage(Page page) {
-
-		m_newPage = page;
-
-		/*
-		 * Unlearning Code
-		 * 
-		 * if (m_curTab == TAB_SKILLS || m_curTab == TAB_UNLEARN)
-		 * clearFragmentStack(); else { if (skillOrUnlearn == TAB_SKILLS) {
-		 * setCurrentFragment(m_skillFrm, false); m_curTab = TAB_SKILLS;
-		 * skillOrUnlearn = TAB_SKILLS; } else if (skillOrUnlearn ==
-		 * TAB_UNLEARN) { setCurrentFragment(m_unlearnFrm, false); m_curTab =
-		 * TAB_UNLEARN; skillOrUnlearn = TAB_UNLEARN; } }
-		 */
+		if (page != null) {
+			m_newPage = page;
+			switch (m_newPage) {
+			case Profile:
+				m_curFrm = m_profileFrm;
+				break;
+			case Activity:
+				m_curFrm = m_activityFrm;
+				break;
+			case Skills:
+				m_curFrm = m_skillFrm;
+				break;
+			case Quests:
+				m_curFrm = m_questsFrm;
+				break;
+			case Friends:
+				m_curFrm = m_friendsFrm;
+				break;
+			case Encyclopedia:
+				m_curFrm = m_encyclopediaFrm;
+				break;
+			case Achievements:
+				m_curFrm = m_achievementsFrm;
+				break;
+			case Mailbox:
+				m_curFrm = m_mailboxFrm;
+				break;
+			case Settings:
+				m_curFrm = m_settingsFrm;
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	
 	/*
@@ -285,8 +315,11 @@ public class HomeScreen extends FragmentActivity {
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
-			m_settingsView.setVisibility(View.GONE);
+			m_settingsView.setVisibility(View.GONE);		
+			m_encyclopediaView.setVisibility(View.GONE);
 
 		} else if (m_curPage == Page.Activity) {
 			viewId = R.id.fragmentView_activity;
@@ -294,9 +327,12 @@ public class HomeScreen extends FragmentActivity {
 			m_activityView.setVisibility(View.VISIBLE);
 			m_skillsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
 			m_settingsView.setVisibility(View.GONE);
+			m_encyclopediaView.setVisibility(View.GONE);
 
 		} else if (m_curPage == Page.Friends) {
 			viewId = R.id.fragmentView_friends;
@@ -304,9 +340,12 @@ public class HomeScreen extends FragmentActivity {
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
 			m_settingsView.setVisibility(View.GONE);
+			m_encyclopediaView.setVisibility(View.GONE);
 			
 		} else if (m_curPage == Page.Mailbox) {
 			viewId = R.id.fragmentView_mailbox;
@@ -314,24 +353,74 @@ public class HomeScreen extends FragmentActivity {
 			m_friendsView.setVisibility(View.GONE);
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);
+			m_settingsView.setVisibility(View.GONE);
+			m_encyclopediaView.setVisibility(View.GONE);
+			
+		} else if (m_curPage == Page.Achievements) {
+			viewId = R.id.fragmentView_achievements;
+			m_achievementsView.setVisibility(View.VISIBLE);
+			m_mailboxView.setVisibility(View.GONE);
+			m_friendsView.setVisibility(View.GONE);
+			m_profileView.setVisibility(View.GONE);
+			m_activityView.setVisibility(View.GONE);
+			m_skillsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);			
 			m_settingsView.setVisibility(View.GONE);
+			m_encyclopediaView.setVisibility(View.GONE);
+			
+		} else if (m_curPage == Page.Quests) { 
+			viewId = R.id.fragmentView_quests;
+			m_questsView.setVisibility(View.VISIBLE);					
+			m_friendsView.setVisibility(View.GONE);
+			m_profileView.setVisibility(View.GONE);
+			m_activityView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
+			m_skillsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
+			m_settingsView.setVisibility(View.GONE);
+			m_encyclopediaView.setVisibility(View.GONE);
+			
+		} else if (m_curPage == Page.Encyclopedia) {
+			viewId = R.id.fragmentView_encyclopedia;
+			m_encyclopediaView.setVisibility(View.VISIBLE);
+			m_settingsView.setVisibility(View.GONE);			
+			m_friendsView.setVisibility(View.GONE);
+			m_profileView.setVisibility(View.GONE);
+			m_activityView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
+			m_skillsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
+			m_unlearnView.setVisibility(View.GONE);
+			m_mailboxView.setVisibility(View.GONE);
+			
 		} else if (m_curPage == Page.Settings) {
 			viewId = R.id.fragmentView_settings;
 			m_settingsView.setVisibility(View.VISIBLE);			
 			m_friendsView.setVisibility(View.GONE);
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 			m_skillsView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_unlearnView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
+			m_encyclopediaView.setVisibility(View.GONE);
+			
 		} else {
 			m_profileView.setVisibility(View.GONE);
 			m_activityView.setVisibility(View.GONE);
 			m_friendsView.setVisibility(View.GONE);
+			m_achievementsView.setVisibility(View.GONE);
 			m_mailboxView.setVisibility(View.GONE);
+			m_questsView.setVisibility(View.GONE);
 			m_settingsView.setVisibility(View.GONE);
+			m_encyclopediaView.setVisibility(View.GONE);
 
 			if (f instanceof SkillFragment) {
 				viewId = R.id.fragmentView_skills;
@@ -402,18 +491,24 @@ public class HomeScreen extends FragmentActivity {
 		m_skillFrm = new SkillFragment();
 		m_unlearnFrm = new UnlearnFragment();
 		m_activityFrm = new ActivityFragment();		
+		m_questsFrm = new QuestsFragment();
 		m_friendsFrm = new FriendsFragment();
+		m_achievementsFrm = new AchievementCategoriesFragment();
 		m_mailboxFrm = new MailboxFragment();
 		m_settingsFrm = new SettingsFragment();
+		m_encyclopediaFrm = new EncyclopediaCategoriesFragment();
 
 		m_stack = findViewById(R.id.view_stack);
 
 		m_profileView = findViewById(R.id.fragmentView_profile);
 		m_activityView = findViewById(R.id.fragmentView_activity);
 		m_skillsView = findViewById(R.id.fragmentView_skills);
+		m_questsView = findViewById(R.id.fragmentView_quests);
 		m_unlearnView = findViewById(R.id.fragmentView_unlearn);
 		m_friendsView = findViewById(R.id.fragmentView_friends);
+		m_achievementsView = findViewById(R.id.fragmentView_achievements);
 		m_mailboxView = findViewById(R.id.fragmentView_mailbox);
+		m_encyclopediaView = findViewById(R.id.fragmentView_encyclopedia);
 		m_settingsView = findViewById(R.id.fragmentView_settings);
 
 		setCurrentFragment(m_profileFrm, false);
@@ -430,8 +525,7 @@ public class HomeScreen extends FragmentActivity {
 		m_spinner.setVisibility(View.INVISIBLE);
 		Util.Alert(this, R.string.error_connection_message,
 				R.string.error_connection_title);
-		FlurryAgent
-				.logEvent("App Delegate - Tried to show connection error alert");
+		FlurryAgent.logEvent("App Delegate - Tried to show connection error alert");
 	}
 
 	// // GlitchSession interface methods ////
@@ -535,4 +629,30 @@ public class HomeScreen extends FragmentActivity {
 		super.onStop();
 		FlurryAgent.onEndSession(this);
 	}
+	
+	public boolean isBaseFragmentVisible(BaseFragment f) {
+		if (f instanceof ProfileFragment) {
+			return (m_profileView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof SkillFragment) {
+			return (m_skillsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof UnlearnFragment) {
+			return (m_unlearnView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof QuestsFragment) {
+			return (m_questsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof FriendsFragment) {
+			return (m_friendsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof EncyclopediaCategoriesFragment) {
+			return (m_encyclopediaView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof AchievementCategoriesFragment) {
+			return (m_achievementsView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof MailboxFragment) {
+			return (m_mailboxView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof ActivityFragment) {
+			return (m_activityView.getVisibility() == View.VISIBLE);
+		} else if (f instanceof SettingsFragment) {
+			return (m_settingsView.getVisibility() == View.VISIBLE);
+		}
+		return true;
+	}
+
 }

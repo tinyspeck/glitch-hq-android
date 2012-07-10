@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="#f0f0f0" >
+    
+    <include layout="@layout/top_pane" />
+
+    <ScrollView android:id="@+id/EncyclopediaStreetDetailScrollView" 
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_gravity="top"
+        android:fadingEdge="none">
+        
+        <LinearLayout android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            <LinearLayout android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#ffffff">
+                
+	            <TextView android:id="@+id/street_detail_title"
+	                android:textSize="22sp"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:gravity="left"
+	                android:paddingLeft="10sp"
+	                android:paddingRight="10sp"
+	                android:paddingTop="10sp"/>
+	            
+	            <ImageView android:id="@+id/street_detail_image"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:gravity="center"
+	                android:padding="10sp"
+	                android:scaleType="centerInside"
+	                android:adjustViewBounds="true" />
+	            
+	            <Button android:id="@+id/street_detail_set_as_destination_btn"
+	                android:text="Set as destination"
+	                android:gravity="center"
+	                android:background="@drawable/button_state" 
+	                android:textSize="20sp"
+	                android:textColor="#055c73"
+	                android:layout_width="fill_parent"
+	                android:layout_height="wrap_content"
+	                android:padding="5sp"
+	                android:layout_marginLeft="10sp"
+	                android:layout_marginRight="10sp" 
+	                android:layout_marginBottom="10sp" />
+            
+            </LinearLayout>
+            
+            <View android:id="@+id/area_border" 
+				android:layout_height="1sp" 
+				android:layout_gravity="center" 
+				android:background="#d0d0d0"
+				android:layout_width="fill_parent" />
+            
+            <TextView android:text="Visits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#505050"
+                android:textStyle="bold"
+                android:paddingTop="10sp"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp" />
+            
+            <TextView android:id="@+id/street_detail_visits" 
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="#505050"
+                android:paddingLeft="10sp"
+                android:paddingRight="10sp"
+                android:paddingBottom="10sp"/>
+            
+            <LinearLayout android:id="@+id/street_detail_features"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20sp"
+                android:orientation="vertical"
+                android:visibility="gone">
+	            
+                <TextView android:text="Features"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#505050"
+                    android:paddingLeft="10sp"
+                    android:paddingRight="10sp"/>
+                	
+            </LinearLayout>
+            
+            <Button android:id="@+id/street_detail_teleport_btn"
+                android:text="Teleport"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"                
+                android:gravity="center"
+                android:background="@drawable/button_state"
+                android:textColor="#055c73"
+                android:textSize="20sp"
+                android:padding="5sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginBottom="20sp"
+                android:visibility="gone"/>
+            
+        </LinearLayout>
+        
+    </ScrollView>
+    
+</LinearLayout>

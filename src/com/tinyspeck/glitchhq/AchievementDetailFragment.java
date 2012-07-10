@@ -32,7 +32,14 @@ public class AchievementDetailFragment extends BaseFragment {
 		launchLoginIntent();
 	}
 	
-	AchievementDetailFragment(String achievementId, String category)
+	public AchievementDetailFragment(String achievementId)
+	{
+		// this constructor is for clicking from the Encyclopedia
+		m_achId = achievementId;
+		m_category = "Items";
+	}
+	
+	public AchievementDetailFragment(String achievementId, String category)
 	{
 		m_achId = achievementId;		
 		m_category = category;
@@ -103,7 +110,6 @@ public class AchievementDetailFragment extends BaseFragment {
 	protected void setAchievementDetailView(View root)
 	{
 		ImageView icon = (ImageView) m_root.findViewById(R.id.achievement_detail_icon);
-		//m_application.Download(m_currentAchievement.icon, icon, MyApplication.DOWNLOAD_TYPE_NORMAL);
 		if (m_currentAchievement.got) {
 			DrawableURL.ShowGrayscaleAchievementBadge(icon, m_currentAchievement.icon, true);
 		} else {
