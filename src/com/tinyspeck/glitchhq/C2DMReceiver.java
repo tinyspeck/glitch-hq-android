@@ -169,11 +169,7 @@ public class C2DMReceiver extends C2DMBaseReceiver implements GlitchRequestDeleg
 			PendingIntent contentIntent = PendingIntent.getActivity(context, 0, 
 					notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 			
-			Notification.Builder nBuilder = new Notification.Builder(context);
-			nBuilder.setSmallIcon(R.drawable.notification_icon);
-			nBuilder.setTicker(tickerText);
-			nBuilder.setWhen(when);
-			Notification notification = nBuilder.getNotification();
+			Notification notification = new Notification(icon, tickerText, when);
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);			
 			notification.defaults = Notification.DEFAULT_ALL;
 			notification.flags |= Notification.FLAG_AUTO_CANCEL;

@@ -37,8 +37,7 @@ public class SidebarListViewAdapter extends BaseAdapter {
 		m_sbList = actList;
 		m_act = (HomeScreen) sidebar.getActivity();
 		m_sb = sidebar;
-		m_inflater = (LayoutInflater) m_act
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		m_inflater = (LayoutInflater) m_act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		m_application = (MyApplication) m_act.getApplicationContext();
 	}
 
@@ -82,11 +81,9 @@ public class SidebarListViewAdapter extends BaseAdapter {
 			
 			holder = new ViewHolder();
 
-			holder.text = (TextView) convertView
-					.findViewById(R.id.sidebar_item_text);
+			holder.text = (TextView) convertView.findViewById(R.id.sidebar_item_text);
 			holder.text.setTypeface(m_application.m_vagFont);
-			holder.divider = (View) convertView
-					.findViewById(R.id.list_diveider);								
+			holder.divider = (View) convertView.findViewById(R.id.list_diveider);								
 			
 			if (!sbItem.isHeader) {
 				holder.badge = (TextView) convertView.findViewById(R.id.sidebar_item_badge);

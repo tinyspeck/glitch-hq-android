@@ -135,9 +135,27 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
 				page = Page.Skills;
 			}});
 			
+			add(new sidebarItem() {{
+				isHeader = false;
+				text = "Achievements";
+				page = Page.Achievements;
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = false;
+				text = "Quests";
+				page = Page.Quests;
+			}});
+			
 			// Settings section
 			add(new sidebarItem() {{
 				isHeader = true;
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = false;
+				text = "Encyclopedia";
+				page = Page.Encyclopedia;
 			}});
 			
 			add(new sidebarItem() {{

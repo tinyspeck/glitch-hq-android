@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/top_pane"/>
+    
+    <TextView android:id="@+id/encyclopedia_giants_list_title"
+        android:text="Giants"
+		style="@style/TitleTextStyle"
+		android:textColor="#ffffff"
+		android:background="#005471"
+		android:gravity="center"
+		android:layout_gravity="center"
+		android:paddingBottom="5sp"
+		android:paddingTop="5sp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+    
+    <ScrollView android:id="@+id/EncyclopediaGiantsListScrollView"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:fadingEdge="none"
+        android:layout_gravity="center">
+        
+        <LinearLayout android:layout_height="wrap_content"
+            android:layout_width="fill_parent" 
+            android:layout_gravity="top"
+            android:orientation="vertical">
+            
+            <TextView android:id="@+id/encyclopedia_giants_list_list_message"
+                android:layout_marginTop="10sp"
+                style="@style/NormalTextStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="Retrieving giants..."
+                android:gravity="center_horizontal" />
+            
+            <com.tinyspeck.glitchhq.LinearListView 
+                android:id="@+id/encyclopedia_giants_list_list"
+                android:visibility="gone"
+	            android:background="@drawable/activity_feed"
+	            android:orientation="vertical"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_vertical" />
+            
+        </LinearLayout>
+        
+    </ScrollView>
+    
+</LinearLayout>

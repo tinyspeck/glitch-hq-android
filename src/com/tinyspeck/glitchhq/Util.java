@@ -75,6 +75,18 @@ public class Util
 
     return Alert( context, szMsg, szTitle, bYesNo, lsner );
   }
+
+  static public Dialog Alert(Activity context, String msg, String title, boolean bYesNo, String pos, String neg, DialogInterface.OnClickListener lsner)
+  {
+	  AlertDialog.Builder blder = new AlertDialog.Builder(context);
+	  blder.setTitle(title);
+	  blder.setMessage(msg);
+	  blder.setPositiveButton(pos, lsner);
+	  if (bYesNo)
+		  blder.setNegativeButton(neg, lsner);
+	  
+	  return blder.show();
+  }
   
   static public Dialog Alert(Activity context, int msgID, int titleID, boolean bYesNo, int posID, int negID, DialogInterface.OnClickListener lsner)
   {
