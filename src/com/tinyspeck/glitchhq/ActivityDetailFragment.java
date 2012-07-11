@@ -40,7 +40,6 @@ public class ActivityDetailFragment extends BaseFragment{
   	public ActivityDetailFragment()
   	{
   		super();
-  		launchLoginIntent();
   	}
   	
   	public ActivityDetailFragment(BaseFragment bf, String playerName, String playerId, String actId )

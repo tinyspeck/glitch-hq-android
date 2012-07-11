@@ -47,36 +47,9 @@ public class SnapDetailFragment extends BaseFragment {
 	private Button m_btnBack;
 	private Button m_btnSidebar;
 	
-	public class glitchSnap
-	{
-		int id;
-		String who;
-		String playerID;
-		String avatar;
-		String when;
-		String what;
-		int views;
-		String locationName;
-		String locationHub;
-		String locationTsid;
-		String image;
-		String shortURL;
-		Vector<glitchSnapComment> comments;
-	}
-	
-	public class glitchSnapComment
-	{
-		String who;
-		String playerID;
-		String avatar;
-		String when;
-		String what;
-	}
-	
 	public SnapDetailFragment()
 	{
 		super();
-		launchLoginIntent();
 	}
 	
 	public SnapDetailFragment(BaseFragment bf, String ownerName, String ownerTsid, 

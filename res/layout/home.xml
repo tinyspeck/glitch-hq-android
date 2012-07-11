@@ -64,6 +64,11 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
                 
+                <FrameLayout 
+                    android:id="@+id/fragmentView_recentSnaps"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+                
                 <FrameLayout
                     android:id="@+id/fragmentView_encyclopedia"
                     android:layout_width="fill_parent"

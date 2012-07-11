@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 import com.tinyspeck.android.GlitchRequestDelegate;
+import com.tinyspeck.android.GlitchSessionDelegate;
 
 
 import android.content.Intent;
@@ -27,13 +28,42 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-public class BaseFragment extends Fragment implements GlitchRequestDelegate
+public class BaseFragment extends Fragment implements GlitchRequestDelegate, GlitchSessionDelegate
 {
 	public int m_requestCount = 0;
+	private GlitchRequest requestToRetry;
+	private boolean needToRetryRequest = false;
 	public boolean m_bAppendMode;
     protected MyApplication m_application;
     static final private int MENU_COMMAND_REFRESH = Menu.FIRST + 0;
 	static final private int MENU_COMMAND_MORE = Menu.FIRST + 1;
+	
+	public class glitchSnap
+	{
+		int id;
+		String who;
+		String playerID;
+		String avatar;
+		String when;
+		String what;
+		int views;
+		String locationName;
+		String locationHub;
+		String locationTsid;
+		String image;
+		String shortURL;
+		String secret;
+		Vector<glitchSnapComment> comments;
+	}
+	
+	public class glitchSnapComment
+	{
+		String who;
+		String playerID;
+		String avatar;
+		String when;
+		String what;
+	}
 	
 	public class searchResult {
 		String type;
@@ -640,8 +670,19 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
         	JSONObject response = request.response;
         	if( response != null )
         	{
-        		Log.i("response", " method: " + request.method + " response: " + request.response );
-        		onRequestBack( request.method, response );
+        		if (request.response.optInt("ok") == 0 && request.response.optString("error").equals("not_authenticated")) {        			
+        			String user = m_application.PreferenceGetString("username", "");
+        			String password = m_application.PreferenceGetString("password", "");
+        			if (!needToRetryRequest && !user.equalsIgnoreCase("") && !password.equalsIgnoreCase("")) {
+        				Log.i("response", "method: " + request.method + " is not authenticated, try again.");
+        				requestToRetry = request;
+        				needToRetryRequest = true;
+        				m_application.glitch.login(user, password, this);
+        			}        			
+        		} else {
+        			Log.i("response", " method: " + request.method + " response: " + request.response );
+        			onRequestBack( request.method, response );
+        		}
         	}
         }
 	}
@@ -726,12 +767,31 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate
 		return super.onOptionsItemSelected(item);
 	}
 	
-	protected void launchLoginIntent()
+	public void glitchLoginSuccess()
 	{
-		// this is called from the empty constructor of fragments. this means it is coming back
-		// from sleep so we should just clear the stack and start fresh
-//		Intent intent = new Intent();
-//		intent.setClass(getActivity(), LoginScreen.class);
-//		startActivity(intent);
+		// resume the last call we tried to make
+		requestToRetry.execute(this);
+		needToRetryRequest = false;
+	}
+	
+	public void glitchLoginFail()
+	{
+		// either they have changed the password or one of the username/password fields are blank
+		// kick them back to the login screen
+		requestToRetry = null;
+		needToRetryRequest = false;
+		Intent intent = new Intent();
+		intent.setClass(getActivity(), LoginScreen.class);
+		startActivity(intent);
+	}
+	
+	public void glitchConnectionError()
+	{
+		glitchLoginFail();
+	}
+	
+	public void glitchLoggedOut()
+	{
+		
 	}
 }

@@ -19,7 +19,6 @@
         android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
         <activity android:name=".HomeScreen" android:label="@string/app_name" 
             android:alwaysRetainTaskState="true" />
-        <activity android:name=".ActivityScreen" />
         <activity android:name=".LoginScreen"
 	              android:windowSoftInputMode="stateUnspecified|adjustResize" 
 	              android:alwaysRetainTaskState="true">
@@ -28,7 +27,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 			</activity>
-        <activity android:name="com.tinyspeck.glitchhq.SkillsScreen" />
         <activity android:name=".Sidebar" />
         
         <!-- In order to use the c2dm library, an application must declare a class with the name C2DMReceiver, in its

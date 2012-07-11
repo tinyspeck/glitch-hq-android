@@ -38,7 +38,6 @@ public class MailboxDetailFragment extends BaseFragment {
 	public MailboxDetailFragment()
 	{
 		super();
-		launchLoginIntent();
 	}
 	
 	public MailboxDetailFragment(int msgId)

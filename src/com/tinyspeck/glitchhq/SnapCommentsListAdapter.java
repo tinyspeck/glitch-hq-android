@@ -2,7 +2,7 @@ package com.tinyspeck.glitchhq;
 
 import java.util.Vector;
 
-import com.tinyspeck.glitchhq.SnapDetailFragment.glitchSnapComment;
+import com.tinyspeck.glitchhq.BaseFragment.glitchSnapComment;
 
 import android.app.Activity;
 import android.content.Context;

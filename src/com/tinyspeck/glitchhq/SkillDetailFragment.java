@@ -42,7 +42,6 @@ public class SkillDetailFragment extends BaseFragment{
   	public SkillDetailFragment()
   	{
   		super();
-  		launchLoginIntent();
   	}
   	
   	public SkillDetailFragment(BaseFragment bf, String skillID)

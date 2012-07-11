@@ -10,4 +10,5 @@ public enum Page {
 	Encyclopedia,
 	Achievements,
 	Quests,
+	RecentSnaps
 }

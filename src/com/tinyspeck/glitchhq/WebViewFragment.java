@@ -23,7 +23,6 @@ public class WebViewFragment extends BaseFragment {
 	public WebViewFragment()
 	{
 		super();
-		launchLoginIntent();
 	}
 	
 	public WebViewFragment(String url)
