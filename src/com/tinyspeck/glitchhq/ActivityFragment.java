@@ -70,10 +70,10 @@ public class ActivityFragment extends BaseFragment{
         m_listView = (LinearListView)root.findViewById( R.id.ActivityListView );
 		m_listView.setAdapter( m_adapter );
 		
-		if( bUpdateData )
-			getActivity(false);
-		else
-		{
+		if( bUpdateData ) {
+			GlitchRequest request = m_application.glitch.getRequest("players.info");
+			request.execute(this);			
+		} else {
 			showHeader();
 			updateActivityFeeds();
 		}
@@ -128,11 +128,8 @@ public class ActivityFragment extends BaseFragment{
 	}
 	
 	private void getActivity( boolean bMore )
-	{
-		String selfPlayerID = ((HomeScreen)getActivity()).getPlayerID();
-		
-        Map<String,String> params = new  HashMap<String,String>();
-        params.put("player_tsid", selfPlayerID );
+	{		
+		Map<String,String> params = new  HashMap<String,String>();
 
         showHeader();
         
@@ -191,7 +188,14 @@ public class ActivityFragment extends BaseFragment{
 	@Override
 	public void onRequestBack( String method, JSONObject response )
 	{
-		if( method == "activity.feed" )
+		if (method == "players.info") {
+			String m_playerTsid = response.optString("player_tsid");
+    		((HomeScreen)getActivity()).setPlayerID( m_playerTsid );
+    		String m_playerName = response.optString("player_name");
+    		((HomeScreen)getActivity()).setPlayerName(m_playerName);    		
+    		( (HomeScreen)getActivity() ).setPlayerName( m_playerName );	        		
+    		getActivity(false);
+		} else if( method == "activity.feed" )
 		{
    	    	if( !m_bAppendMode )
    	    		m_actList.clear();

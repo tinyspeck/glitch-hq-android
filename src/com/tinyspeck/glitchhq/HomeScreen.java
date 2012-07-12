@@ -46,8 +46,8 @@ public class HomeScreen extends FragmentActivity {
 	private String m_selfPlayerID;
 	private String m_selfPlayerName;
 	private View m_spinner;
-	private int m_curTab = TAB_PROFILE;
-	private Page m_curPage = Page.Profile;
+	private int m_curTab = TAB_ACTIVITY;
+	private Page m_curPage = Page.Activity;
 	private Page m_newPage;
 	private int skillOrUnlearn = TAB_SKILLS;
 
@@ -542,8 +542,8 @@ public class HomeScreen extends FragmentActivity {
 		m_recentSnapsView = findViewById(R.id.fragmentView_recentSnaps);
 		m_encyclopediaView = findViewById(R.id.fragmentView_encyclopedia);
 		m_settingsView = findViewById(R.id.fragmentView_settings);		
-
-		setCurrentFragment(m_profileFrm, false);
+		
+		setCurrentFragment(m_activityFrm, false);
 	}
 	
 	public void onBackPressed() {

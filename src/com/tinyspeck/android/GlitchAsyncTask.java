@@ -60,9 +60,10 @@ public class GlitchAsyncTask extends AsyncTask<String, Void, Object> {
     }
 
     protected void onPostExecute(Object result) {
+    	
         if (delegate != null && result != null && result.getClass() == JSONObject.class)
         {
-        	request.response = (JSONObject)result;
+        	request.response = (JSONObject)result;        	
         	delegate.requestFinished(request);
         }
         else

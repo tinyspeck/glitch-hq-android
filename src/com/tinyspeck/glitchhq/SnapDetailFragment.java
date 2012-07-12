@@ -152,6 +152,7 @@ public class SnapDetailFragment extends BaseFragment {
 		m_currentSnap.shortURL = response.optString("short_url");
 		JSONObject imageURL = response.optJSONObject("images");
 		m_currentSnap.image = imageURL.optString("standard");
+		m_currentSnap.image_orig = imageURL.optString("orig");
 		JSONArray jsonComments = response.optJSONArray("comments");
 		
 		if (jsonComments != null) {
@@ -204,6 +205,12 @@ public class SnapDetailFragment extends BaseFragment {
 		
 		ImageView snapPhoto = (ImageView) root.findViewById(R.id.snap_detail_photo);
 		m_application.Download(m_currentSnap.image, snapPhoto, MyApplication.DOWNLOAD_TYPE_NORMAL);
+		snapPhoto.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				WebViewFragment f = new WebViewFragment(m_currentSnap.image_orig, "Snap", true);
+				((HomeScreen)m_act).setCurrentFragment(f, true);
+			}			
+		});
 		
 		TextView snapDetail = (TextView) root.findViewById(R.id.snap_detail_text);
 		

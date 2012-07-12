@@ -53,6 +53,7 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate, Gli
 		String image;
 		String shortURL;
 		String secret;
+		String image_orig;
 		Vector<glitchSnapComment> comments;
 	}
 	
