@@ -17,7 +17,6 @@ public class SnapCommentsListAdapter extends BaseAdapter {
 	private Vector<glitchSnapComment> m_commentsList;
 	private LayoutInflater m_inflater;
 	private Activity m_act;
-	private BaseFragment m_bf;
 	private MyApplication m_application;
 	
 	public class ViewHolder {
@@ -27,11 +26,10 @@ public class SnapCommentsListAdapter extends BaseAdapter {
 		View whole;
 	}
 	
-	public SnapCommentsListAdapter(BaseFragment bf, Vector<glitchSnapComment> comments)
+	public SnapCommentsListAdapter(Activity act, Vector<glitchSnapComment> comments)
 	{
 		m_commentsList = comments;
-		m_act = bf.getActivity();
-		m_bf = bf;
+		m_act = act;
 		m_inflater = (LayoutInflater)m_act.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		m_application = (MyApplication)m_act.getApplicationContext();
 	}

@@ -12,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebView.HitTestResult;
 import android.widget.Button;
 
 public class WebViewFragment extends BaseFragment {
@@ -83,7 +84,8 @@ public class WebViewFragment extends BaseFragment {
 		} else {
 			webSettings.setJavaScriptEnabled(true);
 			m_webView.loadUrl(m_url);
-		}		
+		}
+		getActivity().registerForContextMenu(m_webView);
 		
 		return curView;
 	}

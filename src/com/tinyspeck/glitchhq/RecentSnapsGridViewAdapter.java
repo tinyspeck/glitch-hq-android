@@ -76,7 +76,7 @@ public class RecentSnapsGridViewAdapter extends BaseAdapter {
 				holder.whole.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 						glitchSnap photo = m_snapsList.get((Integer)v.getTag());
-						SnapDetailFragment f = new SnapDetailFragment(m_bf, photo.who, photo.playerID, String.valueOf(photo.id), photo.secret);
+						SnapDetailFragment f = new SnapDetailFragment(photo.who, photo.playerID, String.valueOf(photo.id), photo.secret, "Snaps");
 						((HomeScreen)m_act).setCurrentFragment(f, true);
 					}
 				});

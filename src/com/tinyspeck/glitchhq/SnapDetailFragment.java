@@ -12,6 +12,8 @@ import com.tinyspeck.android.GlitchRequest;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.support.v4.app.FragmentManager;
@@ -20,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
@@ -35,8 +38,6 @@ public class SnapDetailFragment extends BaseFragment {
 
 	private glitchSnap m_currentSnap;
 	private String m_secret, m_photoId, m_ownerName, m_ownerTsid;
-	private BaseFragment m_bf;
-	private Activity m_act;
 	private View m_root;
 	private boolean m_bRefreshToBottom;
 	private SnapDetailFragment m_this;
@@ -46,42 +47,64 @@ public class SnapDetailFragment extends BaseFragment {
 	
 	private Button m_btnBack;
 	private Button m_btnSidebar;
+	private Button m_btnShare;
+	private String m_backBtnName;
 	
 	public SnapDetailFragment()
 	{
 		super();
 	}
 	
-	public SnapDetailFragment(BaseFragment bf, String ownerName, String ownerTsid, 
-			String photoId, String secret)
+	public SnapDetailFragment(String ownerName, String ownerTsid, String photoId, String secret, String backBtnName)
 	{
-		m_bf = bf;
-		m_act = bf.getActivity();
 		m_ownerTsid = ownerTsid;
 		m_ownerName = ownerName;
 		m_secret = secret;
 		m_photoId = photoId;
+		m_backBtnName = backBtnName;
 		m_this = this;
 	}
 	
+	@Override
 	public void onActivityCreated(Bundle savedInstanceState) 
 	{
 		super.onActivityCreated(savedInstanceState);
+		if (savedInstanceState != null) {
+			restoreFromInstanceState(savedInstanceState);
+		}
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState)
+	{		
+		savedInstanceState.putString("ownerName", m_ownerName);
+		savedInstanceState.putString("ownerTsid", m_ownerTsid);
+		savedInstanceState.putString("secret", m_secret);
+		savedInstanceState.putString("photoId", m_photoId);
+		savedInstanceState.putString("backBtnName", m_backBtnName);
+	}
+	
+	private void restoreFromInstanceState(Bundle savedInstanceState)
+	{
+		m_ownerName = savedInstanceState.getString("ownerName");
+		m_ownerTsid = savedInstanceState.getString("ownerTsid");
+		m_secret = savedInstanceState.getString("secret");
+		m_photoId = savedInstanceState.getString("photoId");
+		m_backBtnName = savedInstanceState.getString("backBtnName");
+		m_this = this;
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
+		if (savedInstanceState != null) {
+			restoreFromInstanceState(savedInstanceState);
+		}
+		
 		View curView = ViewInit(inflater, R.layout.snap_detail_view, container);
 		m_root = curView;
 		
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		if (m_bf instanceof ActivityFragment) {
-			m_btnBack.setText("Feed");
-		} else if (m_bf instanceof ProfileFragment) {
-			m_btnBack.setText(((ProfileFragment)m_bf).getPlayerName());
-		} else {
-			m_btnBack.setText("Back");
-		}
+		m_btnBack.setText(m_backBtnName);
 		m_btnBack.setVisibility(View.VISIBLE);
 		m_btnBack.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
@@ -91,6 +114,19 @@ public class SnapDetailFragment extends BaseFragment {
 		});
 		m_btnSidebar = (Button) m_root.findViewById(R.id.btnSidebar);
 		m_btnSidebar.setVisibility(View.GONE);
+		
+		m_btnShare = (Button) m_root.findViewById(R.id.btnShare);
+		m_btnShare.setVisibility(View.VISIBLE);
+		m_btnShare.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				Intent shareIntent = new Intent(Intent.ACTION_SEND);
+				shareIntent.setType("text/plain");
+				shareIntent.putExtra(Intent.EXTRA_SUBJECT, "Glitch Snap");
+				String shareMessage = "Check out this snap on Glitch by " + m_ownerName + "! " + m_currentSnap.shortURL;
+				shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+				startActivity(Intent.createChooser(shareIntent, "Share Glitch Snap"));
+			}
+		});
 		
 		m_commentsListView = (LinearListView)m_root.findViewById(R.id.snap_comments_listview);
 		
@@ -110,8 +146,8 @@ public class SnapDetailFragment extends BaseFragment {
 		
 		m_requestCount = 1;
 		
-		if (m_act != null) 
-			((HomeScreen)m_act).showSpinner(true);
+		if (getActivity() != null) 
+			((HomeScreen)getActivity()).showSpinner(true);
 	}
 	
 	@Override
@@ -176,7 +212,7 @@ public class SnapDetailFragment extends BaseFragment {
 				}				
 			}
 			
-			m_commentsAdapter = new SnapCommentsListAdapter(m_bf, m_currentSnap.comments);
+			m_commentsAdapter = new SnapCommentsListAdapter(getActivity(), m_currentSnap.comments);
 			m_commentsListView.setAdapter(m_commentsAdapter);
 		}
 		
@@ -208,8 +244,8 @@ public class SnapDetailFragment extends BaseFragment {
 		snapPhoto.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				WebViewFragment f = new WebViewFragment(m_currentSnap.image_orig, "Snap", true);
-				((HomeScreen)m_act).setCurrentFragment(f, true);
-			}			
+				((HomeScreen)getActivity()).setCurrentFragment(f, true);
+			}
 		});
 		
 		TextView snapDetail = (TextView) root.findViewById(R.id.snap_detail_text);
@@ -270,7 +306,7 @@ public class SnapDetailFragment extends BaseFragment {
 		request.execute(this);
 		
 		m_requestCount = 1;
-		if (m_act != null)
+		if (getActivity() != null)
 			((HomeScreen)getActivity()).showSpinner(true);
 	}
 	
