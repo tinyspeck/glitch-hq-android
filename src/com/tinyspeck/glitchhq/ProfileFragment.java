@@ -40,6 +40,7 @@ public class ProfileFragment extends BaseFragment{
     private LinearListView  m_listView, m_learningListView, m_unlearningListView;
     private String m_playerTsid, m_avatarUrl, m_playerName;
     private ImageView m_avatar;
+    private ImageView m_onlineIcon;
     private BaseFragment m_bf;
     private Button m_btnBack;
     private Button m_btnSidebar;
@@ -51,6 +52,7 @@ public class ProfileFragment extends BaseFragment{
 	private int m_nAchievements;
 	private int m_nSkills;
     private int m_nUpgrades;
+    private boolean m_isOnline;
 	
     private ActivityListViewAdapter m_adapter;
     private LearningListViewAdapter m_learningAdapter;
@@ -187,6 +189,7 @@ public class ProfileFragment extends BaseFragment{
         m_listView = (LinearListView)root.findViewById( R.id.homeListView );
 		m_learningListView = (LinearListView)root.findViewById( R.id.learning_list );
 		m_unlearningListView = (LinearListView)root.findViewById(R.id.unlearning_list);
+		m_onlineIcon = (ImageView)m_vProfile.findViewById(R.id.player_online_status);
 
 		m_avatar = (ImageView)m_vProfile.findViewById( R.id.avatar );
 		
@@ -273,8 +276,9 @@ public class ProfileFragment extends BaseFragment{
 	}
 
 	public void getProfileInfo( boolean bMore )
-	{
-		String selfPlayerID = ((HomeScreen)getActivity()).getPlayerID();
+	{		
+		String selfPlayerID = ((HomeScreen)getActivity()).getPlayerID();		
+		
         Map<String,String> params = new  HashMap<String,String>();
         params.put("player_tsid", m_playerTsid ); 
         if( m_playerTsid != selfPlayerID )
@@ -367,6 +371,13 @@ public class ProfileFragment extends BaseFragment{
 		m_vProfile.findViewById(R.id.profile_currants).setVisibility( m_bOtherProfile ? View.GONE : View.VISIBLE);
 	    m_vProfile.findViewById(R.id.profile_imagination).setVisibility(m_bOtherProfile ? View.GONE : View.VISIBLE);
 
+	    if (m_isOnline) {
+	    	m_onlineIcon.setImageResource(R.drawable.online_icon);
+	    } else {
+	    	m_onlineIcon.setImageResource(R.drawable.offline_icon);
+	    }
+	    m_onlineIcon.setVisibility(View.VISIBLE);
+	    
 		if( !m_bOtherProfile )
 		{
 			String sCurrants = NumberFormat.getNumberInstance(Locale.US).format(m_nCurrants);	        
@@ -453,6 +464,7 @@ public class ProfileFragment extends BaseFragment{
     			m_nAchievements = response.optInt("num_achievements");
     			m_nSkills = response.optInt("num_skills");
     			m_nUpgrades = response.optInt("num_upgrades");
+    			m_isOnline = response.optBoolean("is_online");
         		updateProfileInfo();
 //        		addPreShowListener(m_listView);
     		}
