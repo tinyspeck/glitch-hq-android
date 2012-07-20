@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical" >
+    
+    <include layout="@layout/top_pane" />
+    
+    <TextView android:id="@+id/recent_snaps_title" 
+        android:text="Recent Snaps"
+        style="@style/TitleTextStyle"
+        android:textColor="#ffffff"
+		android:background="#005471"
+		android:gravity="center"
+		android:layout_gravity="center"
+		android:paddingBottom="5sp"
+		android:paddingTop="5sp"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content" />
+
+	<GridView android:id="@+id/recent_snaps_grid"
+		android:visibility="gone"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:gravity="center"
+		android:numColumns="3"
+		android:verticalSpacing="5dp"
+		android:horizontalSpacing="5dp"
+		android:stretchMode="columnWidth"/>        
+    
+</LinearLayout>

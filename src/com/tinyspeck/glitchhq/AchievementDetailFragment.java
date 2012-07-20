@@ -29,7 +29,6 @@ public class AchievementDetailFragment extends BaseFragment {
 	public AchievementDetailFragment()
 	{
 		super();
-		launchLoginIntent();
 	}
 	
 	public AchievementDetailFragment(String achievementId)

@@ -8,7 +8,7 @@
     <include layout="@layout/top_pane"/>
     
     <TextView android:id="@+id/encyclopedia_location_hubs_title"
-        android:text="Hubs"
+        android:text="Locations"
 		style="@style/TitleTextStyle"
 		android:textColor="#ffffff"
 		android:background="#005471"

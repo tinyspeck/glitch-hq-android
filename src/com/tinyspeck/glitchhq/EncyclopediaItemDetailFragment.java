@@ -49,7 +49,7 @@ public class EncyclopediaItemDetailFragment extends BaseFragment {
 		m_item = item;
 		m_parentBf = bf;
 		bHas = true;
-	}
+	}	
 	
 	public void onActivityCreated(Bundle savedInstanceState)
 	{
@@ -238,6 +238,10 @@ public class EncyclopediaItemDetailFragment extends BaseFragment {
 			wearLayout.setPadding(10, 2, 10, 2);
 			wearLayout.setVisibility(View.VISIBLE);
 		}
+	}
+	
+	public glitchItem getItem() {
+		return m_item;
 	}
 	
 	protected boolean doesSupportRefresh()

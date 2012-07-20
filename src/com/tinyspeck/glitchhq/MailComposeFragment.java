@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import com.flurry.android.FlurryAgent;
 import com.tinyspeck.android.GlitchRequest;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.Gravity;
@@ -75,7 +76,27 @@ public class MailComposeFragment extends BaseFragment {
 		m_btnSendMail.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				FlurryAgent.logEvent("MailCompose - 'Send' button pressed");
-				sendMail();
+				if (m_composer.getText().toString().length() == 0) {					
+					Util.Alert(getActivity(), "Your message is empty, do you want to send anyway?", 
+							"Send empty message?", true, "Send", "Cancel", new DialogInterface.OnClickListener() {								
+								public void onClick(DialogInterface dialog, int which) {
+									if (which == DialogInterface.BUTTON_POSITIVE) {
+										sendMail();
+									} else {
+										dialog.dismiss();
+									}
+								}
+							});
+				} else if (m_composer.getText().toString().length() > 300) {
+					Util.Alert(getActivity(), "Your message is longer than the 300 character limit.",
+							"Message too long", false, "OK", "Cancel", new DialogInterface.OnClickListener() {								
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.dismiss();								
+								}
+							});
+				} else {
+					sendMail();
+				}
 			}
 		});
 		
@@ -118,7 +139,8 @@ public class MailComposeFragment extends BaseFragment {
 	{
 		if (method == "mail.sendMessage") {
 			if (response.optInt("ok") != 1) {
-				Util.shortToast(getActivity(), "Failed");
+				String errorMsg = "Failed: " + response.optString("error");
+				Util.shortToast(getActivity(), errorMsg);
 			} else {
 				Util.shortToast(getActivity(), "Sent");
 			}
