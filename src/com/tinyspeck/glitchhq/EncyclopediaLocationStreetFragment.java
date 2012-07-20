@@ -55,7 +55,7 @@ public class EncyclopediaLocationStreetFragment extends BaseFragment {
 		boolean bUpdateData = (m_streetsList == null);
 		
 		m_btnBack = (Button) m_root.findViewById(R.id.btnBack);
-		m_btnBack.setText(m_hub.name);
+		m_btnBack.setText("Locations");
 		m_btnBack.setSingleLine();
 		m_btnBack.setEllipsize(TruncateAt.END);
 		m_btnBack.setOnClickListener(new OnClickListener() {
