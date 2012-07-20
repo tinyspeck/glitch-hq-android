@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.text.Html;
+import android.text.TextUtils.TruncateAt;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,10 @@ public class SkillDetailFragment extends BaseFragment{
     		m_btnBack.setText("Profile");
     	} else if (m_bf instanceof SkillFragment || m_bf instanceof UnlearnFragment || m_bf instanceof EncyclopediaSkillsInCategoryFragment) {
     		m_btnBack.setText("Skills");
+    	} else if (m_bf instanceof EncyclopediaItemDetailFragment) {
+    		m_btnBack.setText(((EncyclopediaItemDetailFragment) m_bf).getItem().name);
+    		m_btnBack.setSingleLine();
+    		m_btnBack.setEllipsize(TruncateAt.END);
     	} else {
     		m_btnBack.setText("Back");
     	}
