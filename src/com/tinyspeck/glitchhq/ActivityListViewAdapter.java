@@ -216,6 +216,14 @@ public class ActivityListViewAdapter extends BaseAdapter
 	    {
 			public void onClick(View arg0) {
 				glitchActivity currentActivity = m_actList.get( (Integer)arg0.getTag() );
+				String backBtnName;
+				if (m_bf instanceof ActivityFragment) {
+					backBtnName = "Feed";
+				} else if (m_bf instanceof ProfileFragment) {
+					backBtnName = ((ProfileFragment)m_bf).getPlayerName();
+				} else {
+					backBtnName = "Back";
+				}
 				if(  currentActivity.type.equalsIgnoreCase( "request_friend_add" ) )
 				{
 					ProfileFragment f = new ProfileFragment(m_bf, currentActivity.playerID, true );
@@ -223,17 +231,17 @@ public class ActivityListViewAdapter extends BaseAdapter
 				} 
 				else if (currentActivity.type.equalsIgnoreCase("photo")) 
 				{
-					SnapDetailFragment f = new SnapDetailFragment(m_bf,
+					SnapDetailFragment f = new SnapDetailFragment(
 							currentActivity.who, currentActivity.playerID,
-							currentActivity.photo_id, currentActivity.secret);
+							currentActivity.photo_id, currentActivity.secret, backBtnName);
 					((HomeScreen)m_act).setCurrentFragment(f, true);
 				}
 				else if (currentActivity.type.equalsIgnoreCase("photo-comment") ||
 						currentActivity.type.equalsIgnoreCase("photo-comment-received")) 
 				{
-					SnapDetailFragment f = new SnapDetailFragment(m_bf, 
+					SnapDetailFragment f = new SnapDetailFragment(
 							currentActivity.in_reply_to.who, currentActivity.in_reply_to.playerID, 
-							currentActivity.photo_id, currentActivity.secret);
+							currentActivity.photo_id, currentActivity.secret, backBtnName);
 					((HomeScreen)m_act).setCurrentFragment(f, true);
 				}
 				else{

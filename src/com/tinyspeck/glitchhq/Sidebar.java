@@ -102,7 +102,7 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
 			
 			add(new sidebarItem() {{
 				isHeader = false;
-				text = "Activity";
+				text = "Activity Feed";
 				page = Page.Activity;
 			}});
 			
@@ -125,13 +125,13 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
 			
 			add(new sidebarItem() {{
 				isHeader = false;
-				text = "Your profile";
+				text = "Your Profile";
 				page = Page.Profile;
 			}});
 			
 			add(new sidebarItem() {{
 				isHeader = false;
-				text = "Skills";
+				text = "Skill Picker";
 				page = Page.Skills;
 			}});
 			
@@ -143,13 +143,19 @@ public class Sidebar extends Activity implements GlitchRequestDelegate {
 			
 			add(new sidebarItem() {{
 				isHeader = false;
-				text = "Quests";
+				text = "Quest Log";
 				page = Page.Quests;
 			}});
 			
 			// Settings section
 			add(new sidebarItem() {{
 				isHeader = true;
+			}});
+			
+			add(new sidebarItem() {{
+				isHeader = false;
+				text = "Recent Snaps";
+				page = Page.RecentSnaps;
 			}});
 			
 			add(new sidebarItem() {{

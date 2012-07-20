@@ -72,6 +72,15 @@
 		android:background="@drawable/reply_button_state"
 		android:layout_centerVertical="true"
 		android:layout_width="54sp" android:layout_height="33sp" />
+  	
+  	<Button android:id="@+id/btnShare" android:text=""
+  	    android:layout_alignParentRight="true"
+  	    android:visibility="gone"
+  	    android:layout_marginRight="6sp"
+  	    android:background="@drawable/share_button_state"
+  	    android:layout_centerVertical="true"
+  	    android:layout_width="54sp"
+  	    android:layout_height="33sp"/>
 
   	<Button android:id="@+id/btnSettings" android:text="" 
 		android:layout_alignParentRight="true"
