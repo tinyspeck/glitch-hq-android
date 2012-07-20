@@ -139,7 +139,8 @@ public class MailComposeFragment extends BaseFragment {
 	{
 		if (method == "mail.sendMessage") {
 			if (response.optInt("ok") != 1) {
-				Util.shortToast(getActivity(), "Failed");
+				String errorMsg = "Failed: " + response.optString("error");
+				Util.shortToast(getActivity(), errorMsg);
 			} else {
 				Util.shortToast(getActivity(), "Sent");
 			}
