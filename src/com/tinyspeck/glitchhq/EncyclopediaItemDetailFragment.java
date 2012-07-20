@@ -205,11 +205,14 @@ public class EncyclopediaItemDetailFragment extends BaseFragment {
 						AchievementDetailFragment f = new AchievementDetailFragment(achievementId);
 						((HomeScreen)getActivity()).setCurrentFragment(f, true);
 					} else if (url.startsWith("event:location|")) {
-						String streetTsid = url.replace("event:location|", "");
-						glitchLocationStreet street = new glitchLocationStreet();
-						street.tsid = streetTsid;
-						EncyclopediaStreetDetailFragment f = new EncyclopediaStreetDetailFragment(null, street);
-						((HomeScreen)getActivity()).setCurrentFragment(f, true);
+						String[] parts = url.replace("event:location|", "").split("#");
+						if (parts.length == 2) {
+							String streetTsid = parts[1];
+							glitchLocationStreet street = new glitchLocationStreet();
+							street.tsid = streetTsid;
+							EncyclopediaStreetDetailFragment f = new EncyclopediaStreetDetailFragment(null, street);
+							((HomeScreen)getActivity()).setCurrentFragment(f, true);
+						}						
 					}
 					return true;
 				}
