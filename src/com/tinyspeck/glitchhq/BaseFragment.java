@@ -644,18 +644,20 @@ public class BaseFragment extends Fragment implements GlitchRequestDelegate, Gli
 				
 				String tsid = it.next();
 				JSONObject obj = jItems.optJSONObject(tsid);
-				glitchFriend friend = new glitchFriend();
-				
-				friend.id = tsid;
-				friend.player_name = obj.optString("player_name");
-				friend.user_name = obj.optString("user_name");
-				friend.is_reverse = obj.optBoolean("is_reverse");
-				JSONObject avatar = obj.optJSONObject("avatar");
-				if (avatar != null) {
-					friend.avatar = avatar.optString("100");
+				if (obj != null) {
+					glitchFriend friend = new glitchFriend();
+					
+					friend.id = tsid;
+					friend.player_name = obj.optString("player_name");
+					friend.user_name = obj.optString("user_name");
+					friend.is_reverse = obj.optBoolean("is_reverse");
+					JSONObject avatar = obj.optJSONObject("avatar");
+					if (avatar != null) {
+						friend.avatar = avatar.optString("100");
+					}
+					
+					friendsList.add(friend);
 				}
-				
-				friendsList.add(friend);
 			}
 			Collections.sort( friendsList, new SortByName() );
 		}

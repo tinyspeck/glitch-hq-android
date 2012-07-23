@@ -149,7 +149,9 @@ public class ActivityFragment extends BaseFragment{
         request0.execute(this);
         
         m_requestCount = 1;
-    	((HomeScreen)getActivity()).showSpinner(true);
+        if (getActivity() != null) {
+        	((HomeScreen)getActivity()).showSpinner(true);
+        }
 	}
 
 	private void updateActivityFeeds()
