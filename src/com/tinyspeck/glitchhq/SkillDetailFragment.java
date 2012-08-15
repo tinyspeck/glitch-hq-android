@@ -521,6 +521,16 @@ public class SkillDetailFragment extends BaseFragment{
 				tv_skill.setText(  "Level " + skills.get(i).level );
 				tv_skill.setTag( skills.get(i).id  );
 				tv_skill.setTextColor(0xff808080);
+			}else if (skills.get(i).type != null && skills.get(i).type.equalsIgnoreCase("quest") )
+			{
+				tv_skill.setText(  skills.get(i).item );
+				tv_skill.setTag( skills.get(i).id );
+				tv_skill.setTextColor(0xff808080);
+			}else if (skills.get(i).type != null && skills.get(i).type.equalsIgnoreCase("upgrade") )
+			{
+				tv_skill.setText( skills.get(i).item );
+				tv_skill.setTag( skills.get(i).id );
+				tv_skill.setTextColor(0xff808080);
 			}else if( bRequirement && ( skills.get(i).type == null || !skills.get(i).type.equalsIgnoreCase("skill") ) )
 			{
 				tv_skill.setText(  skills.get(i).item );
